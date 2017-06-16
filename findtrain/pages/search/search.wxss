@@ -1,0 +1,51 @@
+
+
+.labtitle {
+  width: 100%;
+  align-items: center;
+  text-align: center;
+  color: #a0a0a0;
+  font-size: 26rpx;
+  padding-top: 20rpx;
+  padding-bottom: 20rpx;
+  line-height: 40rpx;
+  height: 40rpx;
+}
+
+.hotview {
+  box-sizing: border-box;
+  font-size: 30rpx;
+  width: 750rpx;
+  padding: 20rpx 40rpx;
+  background-color: #fff;
+ /* height: 360rpx;*/
+  align-items: center;
+  text-align: center;
+  border-bottom: 1px #f0f0f0 solid;
+  display: table;
+}
+
+.labtip {
+  border: 1rpx solid #2e2e30;
+  border-radius: 8px;
+  float: left;
+  padding: 15rpx 27rpx;
+  box-sizing: border-box;
+  margin: 15rpx 25rpx;
+  color: #2e2e30;
+  font-size: 30rpx;
+}
+.imageView{
+  box-sizing: border-box;
+  font-size: 28rpx;
+  width: 750rpx;
+  padding-top:20rpx;
+  
+  height: 100%;
+  align-items: center;
+  text-align: center;
+}
+.imageView image{
+  width:750rpx;
+  height: 100%
+}

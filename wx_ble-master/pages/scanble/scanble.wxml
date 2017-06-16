@@ -1,0 +1,5 @@
+
+<view class="container">
+<view><button class="button">{{button_text}}</button></view>
+<view></view>
+</view>

@@ -1,0 +1,25 @@
+<loading hidden="{{hidden}}">
+    加载中...
+</loading>
+
+<scroll-view scroll-y="true" scroll-x="false" style="overflow-x: hidden;">
+    <view class="item-avatar-md" wx:for="{{list}}" wx:for-index="index" wx:for-item="item" data-index="{{index}}" data-name="{{item.name}}" data-id="{{item.id}}" bindtap="goPage">
+        <view class="marks" wx:if="{{item.count}}">
+            <text>{{item.count}}</text>
+        </view>
+        <image src="{{item.img}}"></image>
+        <view class="item-text">
+            <view class="text_box">
+              <view class="flex">
+                <text class="name">{{item.name}}</text>
+              </view>
+              <view class="flex">
+                <text class="message">{{item.message}}</text>
+              </view>
+            </view>
+        </view>
+        <view class="item-time padding_half">
+            <text class="message">{{item.time}}</text>
+        </view>
+    </view>
+</scroll-view>

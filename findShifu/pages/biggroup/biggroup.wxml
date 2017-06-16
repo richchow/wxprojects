@@ -1,0 +1,52 @@
+<view class="page">
+  <view class="backWhite padding_top_20 page__bd page__bd_spacing bg_panel_user ">
+    <view class="weui-media-box_appmsg">
+      <view class="bg_panel_img">
+        <image class="bg_panel_userimg" src="{{icon20}}"></image>
+      </view>
+      <view class="weui-media-box__bd weui-media-box__bd_in-appmsg bg_panel_usercontent">
+        <view>周先生</view>
+        <view class="color_time">5分钟前</view>
+      </view>
+    </view>
+    <view class="page__bd_spacing2 size28">17年就业指导,山东发生的发生的发生阿斯顿发生的发生发达师傅的
+      <view class="bg_panel_imglist">
+        <image class="bg_panel_imglist_img" src="{{icon60}}" mode="aspectFit" />
+        <image class="bg_panel_imglist_img" src="{{icon60}}" mode="aspectFit" />
+        <image class="bg_panel_imglist_img" src="{{icon60}}" mode="aspectFit" />
+      </view>
+    </view>
+    <view class="page__bd_spacing2 qa_img">
+      <image bindtap="bindToQA" src="/images/qa.svg" />
+    </view>
+    <view class="page__bd_spacing2 qa_content">
+      <view class="qa_content_q">赵生:水淀粉</view>
+      <view class="qa_content_reply">周先生回复赵生:水淀粉</view>
+      <view class="qa_content_q">赵生:水淀粉</view>
+    </view>
+  </view>
+  <view class="backWhite padding_top_20 page__bd page__bd_spacing bg_panel_user">
+    <view class="weui-media-box_appmsg">
+      <view class="bg_panel_img">
+        <image class="bg_panel_userimg" src="{{icon20}}"></image>
+      </view>
+      <view class="weui-media-box__bd weui-media-box__bd_in-appmsg bg_panel_usercontent">
+        <view>周先生</view>
+        <view class="color_time">5分钟前</view>
+      </view>
+    </view>
+    <view class="page__bd_spacing2 size28">17年就业指导
+      <view class="bg_panel_filelist">
+        <image class="bg_panel_filelist_file" src="/images/ppt.svg" mode="aspectFit" /> 17年就业指导纲要.pdf
+      </view>
+    </view>
+    <view class="page__bd_spacing2 qa_img">
+      <image  src="/images/qa.svg" />
+    </view>
+    <view class="page__bd_spacing2 qa_content">
+      <view class="qa_content_q">赵生:水淀粉</view>
+      <view class="qa_content_reply">周先生回复赵生:水淀粉</view>
+      <view class="qa_content_q">赵生:水淀粉</view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,52 @@
+<view class="page">
+  <view class="sf_card">
+    <view class="sf_card_item">
+      <view class="floatleft">{{sfItem.mastername}}</view>
+      <view class="floatright">
+        <image class="sf_card_userimg" src="{{sfItem.picurl}}"></image>
+      </view>
+    </view>
+    <view class="sf_card_item_col">
+      <view>
+        <image class="sf_card_lab" src="/images/phone.svg"></image>{{sfItem.mobile}}</view>
+      <view>
+        <image class="sf_card_lab" src="/images/weixin.svg"></image>{{sfItem.wxid}}</view>
+      <view>
+        <image class="sf_card_lab" src="/images/qq.svg"></image>{{sfItem.mail}}</view>
+      <view>
+        <image class="sf_card_lab" src="/images/area.svg"></image>{{sfItem.address}}</view>
+    </view>
+    <view class="sf_card_item_more">
+      <view bindtap="bindOpenMore" data-tab="1" wx:if="{{isMoreOpen}}">收起
+        <image class="sf_card_lab" src="/images/up.svg"></image>
+      </view>
+      <view bindtap="bindOpenMore" data-tab="0" wx:else>师傅详情
+        <image class="sf_card_lab" src="/images/down.svg"></image>
+      </view>
+    </view>
+  </view>
+  <view class="backWhite">
+    <view class="weui-flex">
+      <view class="weui-flex__item sf_item_lab">
+          <image class="sf_item_img" src="/images/hot.svg"></image>人气：{{sfItem.iReadCount}}
+      </view>
+      <view class="weui-flex__item sf_item_lab">
+          <image class="sf_item_img" src="/images/order.svg"></image>服务：{{sfItem.iServiceCount}}次
+      </view>
+      <view class="weui-flex__item sf_item_lab_right">
+          <image class="sf_item_img" src="/images/feedback.svg"></image>评价：{{sfItem.iRete}}%
+      </view>
+    </view>
+  </view>
+  <view class="backWhite margin_top_20 page__bd page__bd_spacing"  wx:if="{{isMoreOpen}}">
+    <view class="weui-article">
+            <view class="weui-article__h1">师傅详情</view>
+            <view class="weui-article__section">
+                {{sfItem.profiles}}
+            </view>
+        </view>
+  </view>
+<view class="backWhite margin_top_20 padding_top_20 page__bd page__bd_spacing">
+  <button class="weui-btn" bindtap="bindToBigGroup" type="primary">咨询师傅</button>
+  </view>
+</view>

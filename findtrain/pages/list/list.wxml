@@ -1,0 +1,14 @@
+<view class="loading" wx:if="{{showLoading}}">
+  <image class="loadinggif" src="/images/loading.gif" />
+</view>
+<view class="container" wx:if="{{showLoading===false}}">
+  <view class="searchContent">
+    <view class="indexDetail" hover="true" wx:key="dataid" wx:for="{{docItems}}" wx:for-item="item" bindtap="showDetail" data-id="{{item.dataid}}" hover-class="navigator-hover">
+      <image class="indexImg" mode="scaleToFill" src='https://wx.jycloud.cc/webpic/pic/{{item.dataid}}/logo.jpg' />
+      <label class="indexName">{{item.title}}</label>
+      <label class="indexContent">{{item.describe}}</label>
+    </view>
+  </view>
+  <view class='noitem' wx:if="{{dataStatus}}">该地区还没有培训机构，我们已记录，我们会尽快完善</view>
+
+</view>

@@ -1,0 +1,29 @@
+
+<!--index.wxml-->
+<view class="container">
+  <view class="indexTop">
+    <view class="indexSearch">
+      <view class="viewInput">
+        <input class="indexInput"  bindfocus="btnToSearch" bindinput="bindChange" placeholder="请填写资料名称/关键字" placeholder-class="phInput" />
+        <view bindtap="btnToSearch" class="btnSearch">搜 索</view>
+      </view>
+    </view>
+  </view>
+  <view class="hotview">
+    <label class="labtitle">- 热门搜索 -</label>
+    <view wx:key="catalogid" wx:for="{{hotItems}}">
+      <label bindtap="btnClick" data-item="{{item.catalogid}}" class="labtip">{{item.catainfo}}</label>
+    </view>
+  </view>
+  <view class="searchContent">
+    <label class="labtitle">- 值得一看 -</label>
+    <navigator class="indexDetail" wx:key="dataid" wx:for="{{docItems}}" wx:for-item="item" url="../detail/detail?id={{item.dataid}}" hover-class="navigator-hover">
+      <image class="indexImg" mode="scaleToFill" src="{{item.picurs === '' ? 'https://wx.jycloud.cc/datapic/zzl/s/110.png' : item.picurs}}" />
+      <label class="indexName">{{item.title}}</label>
+      <label class="indexContent">{{item.describe}}</label>
+    </navigator>
+  </view>
+  <navigator class="bottomBtn" wx:if="{{isPayed}}" url="../payed/payed">
+    已购商品
+  </navigator>
+</view>

@@ -1,0 +1,69 @@
+.sf_card {
+  margin: 20rpx;
+  border: 10rpx #fff solid;
+  background-color: #fafafa;
+  height: 200px;
+}
+
+.sf_card_item {
+  display: table;
+  flex-direction: row;
+  width:100%;
+}
+.sf_card_item_col {
+  display: table;
+  flex-direction:column;
+  padding-left: 20px;
+}
+.sf_card_item view {
+  display: table;
+  padding: 20rpx;
+  line-height: 20px;
+  width:40%;
+}
+
+.sf_card .sf_card_userimg {
+  width: 60px;
+  height: 60px;
+  float: right;
+}
+
+.sf_card_lab {
+  width: 36rpx;
+  height: 36rpx;
+  float: light;
+  line-height: 60rpx;
+  padding-right: 40rpx;
+}
+.sf_card_item_more{
+  float:right;
+  font-size: 20rpx;
+  line-height: 20rpx;
+  height: 20rpx;
+  text-align: right;
+}
+.sf_card_item_more image{
+  float:right;
+  width:20rpx;
+  height:20rpx;
+  vertical-align: middle;
+}
+.sf_item_lab{
+  font-size: 24rpx;
+  border-right: 4rpx #f8f8f8 solid;
+  text-align: center;
+  vertical-align: middle;
+  padding: 10rpx;
+  margin: 10rpx;
+}
+.sf_item_lab_right{
+  font-size: 26rpx;
+  text-align: center;
+  vertical-align: middle;
+  padding: 16rpx;
+  margin: 10rpx;
+}
+.sf_item_img{
+  width: 30rpx;
+  height: 30rpx;
+}

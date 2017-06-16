@@ -1,0 +1,24 @@
+  <view class="loading" wx:if="{{showLoading}}">
+    <image class="loadinggif" src="/images/loading.gif" />
+  </view>
+<view class="container">
+<view class="indexTopSmall">
+    <view class="indexSearchSmall">
+      <view class="viewInput">
+        <input class="indexInput" bindfocus="btnToSearch"  placeholder="请填写资料名称/关键字" placeholder-class="phInput" />
+        <view bindtap="btnToSearch" class="btnSearch">搜 索</view>
+      </view>
+    </view>
+  </view>
+  <view class="searchContent">
+    <navigator class="indexDetail" wx:key="dataid" wx:for="{{docItems}}" wx:for-item="item" url="../detail/detail?id={{item.dataid}}" hover-class="navigator-hover">
+      <image class="indexImg" mode="scaleToFill" src="{{item.picurs === '' ? 'https://wx.jycloud.cc/datapic/zzl/s/110.png' : item.picurs}}" />
+      <label class="indexName">{{item.title}}</label>
+      <label class="indexContent">{{item.describe}}</label>
+    </navigator>
+  </view>
+  <view class='noitem' wx:if="{{dataStatus}}">您需要的资料我们已记录，我们会尽快完善</view>
+  <navigator class="bottomBtn" wx:if="{{isPayed}}" url="../payed/payed">
+    已购商品
+  </navigator>
+</view>

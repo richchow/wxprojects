@@ -1,0 +1,15 @@
+{
+  "pages":[
+    "pages/index/index"
+  ],
+  "networkTimeout": {
+    "request": 10000,
+    "connectSocket": 10000
+  },
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#14b3c7",
+    "navigationBarTitleText": "BIM找答案",
+    "navigationBarTextStyle": "#fff"
+  }
+}

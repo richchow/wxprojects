@@ -1,0 +1,55 @@
+<view class="loading" wx:if="{{showLoading}}">
+  <image class="loadinggif" src="/images/loading.gif" />
+</view>
+<view class="container" wx:if="{{showLoading===false}}">
+  <view class="hotview">
+      <view class="section">
+        <view wx:if="{{mineardent !=null}}" class="userlab2">
+          <view class="rownumber">{{mineardent.Position == -1?'榜外':mineardent.Position}}</view>
+          <view>
+            <image class="userinfo-avatar3" src="{{mineardent.PicAddress == null ? '/images/110.png':mineardent.PicAddress}}"></image>
+          </view>
+          <view class="trend-number2">{{mineardent.NickName}}</view>
+          <view class="sharenumber">{{mineardent.SharpCount}}</view>
+        </view>
+        <view  wx:if="{{mineardent ==null}}" class="userlab2">
+          <view class="rownumber">榜外</view>
+          <view>
+            <image class="userinfo-avatar3" src="{{userInfo.avatarUrl}}"></image>
+          </view>
+          <view class="trend-number2">{{userInfo.nickName}}</view>
+          <view class="sharenumber">0</view>
+        </view>
+      </view>
+  </view>
+  <view class="hotview searchContent">
+    <label  wx:if="{{ardentlist.length > 0}}" class="labtitle">- 本期分享贡献榜 -</label>
+    <image wx:if="{{ardentlist.length > 0}}" class="trend-crown2" src="/images/ardent-crown.svg"></image>
+    <view  wx:for="{{ardentlist}}"  wx:for-item="item" class="userlab">
+      <view class="rownumber">{{item.Position}}</view>
+      <view>
+        <image class="userinfo-avatar3" src="{{item.PicAddress == null ? '/images/110.png':item.PicAddress}}"></image>
+      </view>
+      <view class="trend-number2">{{item.NickName == null ? '匿名用户' :item.NickName}}</view>
+      <view wx:if="{{item.Position !=1}}" class="sharenumber">{{item.SharpCount}}</view>
+      <view wx:if="{{item.Position ==1}}" class="sharenumber fontcolor">{{item.SharpCount}}</view>
+    </view> 
+
+    <view class="section paddingTop30 lineheight">
+      <view class="userinfo-nickname">1.本期贡献榜从<label class="txtEndDate">{{CurCommonweal.begindate}}</label>开始，截止到
+        <label class="txtEndDate">{{CurCommonweal.enddate}}</label>
+      </view>
+      <view class="userinfo-nickname">2.第一名将获赠{{CurCommonweal.gifttitle}}，活动结束后第一名获得者请联系"从零跟我学BIM"微信公众号领取</view>
+      <view class="userinfo-nickname">3.活动最终解释权归"从零跟我学BIM"微信公众号所有</view>
+    </view>
+  </view>
+  <view class="searchContent">
+    <label class="labtitle">- 本期奖品 -</label>
+    <view class="indexDetail">
+      <image class="indexImg" mode="widthFix" src="{{CurCommonweal.giftpicurl}}" />
+      <label class="indexName">{{CurCommonweal.gifttitle}}</label>
+      <label class="indexContent">{{CurCommonweal.giftcontent}}</label>
+    </view>
+  </view>
+  <contact-button class="bottomBtn" type="default-light" size="20" session-from="weapp"> </contact-button>
+</view>

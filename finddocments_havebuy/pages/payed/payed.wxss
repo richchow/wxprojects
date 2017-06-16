@@ -1,0 +1,74 @@
+.content {
+  border-bottom: 1px #f0f0f0 solid;
+  background-color: #fff;
+  margin-bottom: 20rpx;
+  width: 100%;
+  padding: 20rpx 40rpx;
+  box-sizing: border-box;
+  align-items: center;
+  text-align: center;
+}
+.payedtip {
+  box-sizing: border-box;
+  font-size: 32rpx;
+  width: 100%;
+  border-bottom: 1px #f0f0f0 solid;
+  height: 50rpx;
+  text-align: center;
+}
+.payedview {
+  box-sizing: border-box;
+  font-size: 32rpx;
+  width: 100%;
+  padding: 20rpx;
+  border-bottom: 1px #f0f0f0 solid;
+  margin-bottom: 20rpx;
+  background-color: #fff;
+  height: 150rpx;
+  line-height: 50rpx;
+}
+
+.payedview view{
+  font-size:26rpx;
+  height: 40rpx;
+   width:750rpx;
+  float:left;
+}
+.payedview view label{
+  float:left;
+  text-align: right;
+   width:100rpx;
+}
+.payedview .title{
+  font-size:32rpx;
+  height: 40rpx;
+  width:550rpx;
+  float:left;
+}
+.payedview .date{
+  font-size:24rpx;
+  height: 40rpx;
+  width:150rpx;
+  color:#ccc;
+  float:right;
+  text-align: right;
+}
+.docurl{
+font-size: 26rpx;
+  color:#e69138;
+  display: flex;
+  width:600rpx;
+  padding-left:10rpx;
+}
+
+.payedtitle {
+  width: 100%;
+  align-items: center;
+  text-align: center;
+  color: #ccc;
+  font-size: 26rpx;
+  padding-top: 20rpx;
+  padding-bottom: 20rpx;
+  line-height: 40rpx;
+  height: 40rpx;
+}

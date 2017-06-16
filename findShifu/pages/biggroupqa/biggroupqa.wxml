@@ -1,0 +1,15 @@
+<page>
+  <view>
+    <view>取消</view>
+    <view>发送</view>
+  </view>
+  <view>
+    <input placeholder="分享自己的观点..." focus="true" />
+  </view>
+  <view>
+    <image src="/images/photo.svg" />
+    <image  src="/images/file.svg" />
+  </view>
+  <view>
+  <label><image  src="/images/add.svg" /></label></view>
+</page>

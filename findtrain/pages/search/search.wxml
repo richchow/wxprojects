@@ -1,0 +1,18 @@
+<view class="loading" wx:if="{{showLoading}}">
+  <image class="loadinggif" src="/images/loading.gif" />
+</view>
+<!--index.wxml-->
+<view class="container" wx:if="{{showLoading===false}}">
+  <view class="hotview">
+    <label class="labtitle">- 所在地区 -</label>
+    <view class="searchView">
+      <label wx:key="catalogid" wx:for="{{regionItems}}" bindtap="btnClick" data-item="{{item.catalogid}}" class="labtip">{{item.catainfo}}</label>
+    </view>
+  </view>
+  <view class="imageView">
+    <image class="" src="/images/timg.gif" mode="widthFix"></image>
+  </view>
+  <view class="imageView">
+
+  </view>
+</view>

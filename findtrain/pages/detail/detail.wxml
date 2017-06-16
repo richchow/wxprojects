@@ -1,0 +1,40 @@
+<view class="loading" wx:if="{{showLoading}}">
+  <image class="loadinggif" src="/images/loading.gif" />
+</view>
+<view class="container" wx:if="{{showLoading===false}}">
+  <swiper indicator-dots="true" circular="ture">
+    <block wx:for="{{imgUrls}}">
+      <swiper-item>
+        <image src="{{item}}" class="slide-image" />
+      </swiper-item>
+    </block>
+  </swiper>
+  <view bindtap="showPhone" class="bottomleftBtn">
+    电话咨询
+  </view>
+  <view bindtap="showModal" class="bottomrightBtn">
+    分享
+  </view>
+  <view class="shareimgbox" wx:if="{{showShareModalStatus}}">
+    <image src="/images/share.png" class="shareImg"></image>
+  </view>
+  <view class="sharebox" wx:if="{{showModalStatus}}"></view>
+  <view animation="{{animationData}}" class="sharecontent" wx:if="{{showModalStatus}}">
+    <view class="userinfo">
+      <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+      <text class="info-name">独乐乐不如众乐乐</text>
+    </view>
+    <view class="info-content" wx:if="{{datainfo != null}}">
+      <label class='info-title'>{{datainfo.title}}</label>
+      <label class="info-text">{{datainfo.describe}}</label>
+    </view>
+    <view class="info-content"  wx:if="{{datainfo == null}}">
+      <label class='info-title'>BIM找机构</label>
+      <label class="info-text">全国范围的培训机构，我来帮你甄别。</label>
+    </view>
+    <view class="info-bottom" wx:if="{{showModalStatus}}">
+      <label class="info-bottom-lab">点右上角分享给朋友，一起来参加培训吧</label>
+      <icon bindtap="hideModal" class="info-icon" type="clear" size="40" color="#2e2e30" />
+    </view>
+  </view>
+</view>

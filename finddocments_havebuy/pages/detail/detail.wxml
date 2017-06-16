@@ -1,0 +1,41 @@
+  <view class="loading" wx:if="{{showLoading}}">
+    <image class="loadinggif" src="/images/loading.gif" />
+  </view>
+<view class="container" wx:if="{{showLoading===false}}">
+<image class='bannerimg' model='aspectFit' src="{{datainfo.picurd == '' || datainfo.picurd == null ? 'https://wx.jycloud.cc/datapic/zzl/d/480.png' : datainfo.picurd}}" />
+  <view class="amountview">
+    <label class="pTitle">{{datainfo.title}}</label>
+    <label class="amount">¥ {{datainfo.amount}}</label>
+    <label class="payedMan">{{datainfo.BuyedCount}}人已付款</label>
+  </view>
+  <view class="content">
+    <label class="describetitle">- 资料详情 -</label>
+    <label class="describecontent">{{datainfo.describe}}</label>
+  </view>
+  <view bindtap="pay"  wx:if="{{isPayed === false}}" class="{{isPaying?bottomleftPayingBtn:bottomleftBtn}}">
+    立即购买
+  </view>
+  <view bindtap="bindToPayed" wx:if="{{isPayed===true}}" class="bottomleftBtn">
+    已购买
+  </view>
+  <view bindtap="showModal" data-item="{{datainfo.amount}}" class="bottomrightBtn">
+    分享
+  </view>
+  <view  class="shareimgbox" wx:if="{{showShareModalStatus}}">
+  <image src="/images/share.png" class="shareImg"></image></view>
+  <view  class="sharebox" wx:if="{{showModalStatus}}"></view>
+  <view animation="{{animationData}}" class="sharecontent" wx:if="{{showModalStatus}}">
+    <view class="userinfo">
+      <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+      <text class="info-name">独乐乐不如众乐乐</text>
+    </view>
+    <view class="info-content">
+      <label class='info-title'>{{datainfo.title}}</label>
+      <label class="info-text">{{datainfo.describe}}</label>
+    </view>
+    <view class="info-bottom" wx:if="{{showModalStatus}}">
+      <label class="info-bottom-lab">点右上角分享给朋友，来一起来找资料吧</label>
+      <icon bindtap="hideModal" class="info-icon" type="clear" size="40" color="#00adc2" />
+    </view>
+  </view>
+</view>

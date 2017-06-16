@@ -1,0 +1,22 @@
+{
+  "pages":[
+    "pages/index/index",
+    "pages/logs/logs",
+    "pages/list/list",
+    "pages/search/search",
+    "pages/enrolldetail/enrolldetail",
+    "pages/enroll/enroll",
+    "pages/detail/detail"
+  ],
+  "networkTimeout":{
+   "request": 10000,
+   "connectSocket": 10000
+},
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#000",
+    "navigationBarTitleText": "BIM找机构",
+    "navigationBarTextStyle":"#fff"
+  },
+  "debug": true
+}

@@ -1,0 +1,97 @@
+<view class="loading" wx:if="{{showLoading}}">
+  <image class="loadinggif" src="/images/loading.gif" />
+</view>
+<view class="container" wx:if="{{showLoading===false}}">
+  <image class='bannerimg' model='aspectFit' src="/images/480.png" />
+  <view class="amountview">
+    <label class="pTitle">{{datainfo.title}}</label>
+    <block class="floatright" wx:if="{{datainfo.IconFlag != null && datainfo.IconFlag != ''}}">
+      <image wx:for="{{datainfo.IconFlag}}" bindtap="bindToTuli" wx:for-item="tab" class="svgImg" src="/images/iconflag-{{tab}}.svg" />
+      </block>
+    <label class="payedMan">{{datainfo.BuyedCount}}人已阅读</label>
+  </view>
+  <view class="content">
+    <label class="describetitle">- 资料详情 -</label>
+    <label class="describecontent">{{datainfo.describe}}</label>
+  </view>
+  <view bindtap="bindToPayed" class="bottomleftBtn">
+    查看链接
+  </view>
+  <view bindtap="showModal" data-item="{{datainfo.amount}}" class="bottomrightBtn">
+    分享
+  </view>
+  <view class="shareimgbox" wx:if="{{showShareModalStatus}}">
+    <image src="/images/share.png" class="shareImg"></image>
+  </view>
+  <view class="sharebox" wx:if="{{showModalStatus ||showModalUrlStatus || showModalInputStatus}}"></view>
+  <view animation="{{animationData}}" class="sharecontent" wx:if="{{showModalStatus}}">
+    <view class="userinfo">
+      <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+      <text class="info-name">独乐乐不如众乐乐</text>
+    </view>
+    <view class="info-content">
+      <label class='info-title'>{{datainfo.title}}</label>
+      <label class="info-text">{{datainfo.describe}}</label>
+    </view>
+    <view class="info-bottom" wx:if="{{showModalStatus}}">
+      <label class="info-bottom-lab">点右上角分享给朋友，来一起来找资料吧</label>
+      <icon bindtap="hideModal" class="info-icon" type="clear" size="40" color="#00adc2" />
+    </view>
+  </view>
+  <view class="shareurlcontent" wx:if="{{showModalUrlStatus}}">
+    <view>
+      <label>地址:</label>
+      <text class="docurl" selectable="true">{{datainfo.url}}</text>
+    </view>
+    <view>
+      <label>提取码:</label>
+      <text class="docurl" selectable="true">{{datainfo.signature}}</text>
+    </view>
+    <label class="payedtitle">长按橙色文字可复制地址和提取码</label>
+    <view class="info-bottom" wx:if="{{showModalUrlStatus}}">
+      <icon bindtap="hideUrlModal" class="info-icon" type="clear" size="30" color="#00adc2" />
+    </view>
+  </view>
+  <view animation="{{animationData}}" class="inputcontent" wx:if="{{showModalInputStatus}}">
+    <label class="payedtitle">填写问卷获得链接</label>
+    <view class="info-content">
+      <form bindsubmit="formSubmit" >
+        <view class="section">
+          <view class="section__title">姓名:</view>
+          <input name="name" class="{{nameVail}}" placeholder="姓名"  placeholder-class="phInput" />
+        </view>
+        <view class="section">
+          <view class="section__title">年龄:</view>
+          <input name="age" class="{{ageVail}}" maxlength="2" type="number" placeholder="年龄"  placeholder-class="phInput" />
+        </view>
+        <view class="section">
+          <view class="section__title">公司:</view>
+          <input name="company" class="{{companyVail}}" placeholder="公司名称"  placeholder-class="phInput" />
+        </view>
+        <view class="section">
+          <view class="section__title">职位:</view>
+          <input name="position" class="{{positionVail}}" placeholder="职位"  placeholder-class="phInput" />
+        </view>
+        <view class="section">
+          <view class="section__title">手机号:</view>
+          <input name="mobile" class="{{mobileVail}}" type="number" placeholder="手机号"  placeholder-class="phInput" />
+        </view>
+        <view class="section">
+          <view class="section__title">邮箱:</view>
+          <input name="email" class="{{emailVail}}" placeholder="邮箱"  placeholder-class="phInput" />
+        </view>
+        <view class="section">
+          <view class="section__title">所在地区:</view>
+          <input name="area" class="{{areaVail}}" placeholder="所在地区"  placeholder-class="phInput" />
+        </view>
+        <view class="btn-area">
+          <button size="mini" loading="{{loading}}" formType="submit">提交</button>
+        <!--  <button size="mini" type="warn" loading="{{loading}}" formType="reset">重置</button>-->
+        </view>
+      </form>
+    </view>
+    <view class="input-info-bottom" wx:if="{{showModalInputStatus}}">
+      <icon bindtap="hideInputModal" class="input-info-icon" type="clear" size="20" color="#00adc2" />
+    </view>
+  </view>
+</view>

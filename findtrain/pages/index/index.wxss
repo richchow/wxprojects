@@ -1,0 +1,249 @@
+/**index.wxss**/
+
+.topSelect {
+  box-sizing: border-box;
+  font-size: 28rpx;
+  width: 750rpx;
+  padding: 20rpx 40rpx;
+  border-bottom: 1px #f0f0f0 solid;
+  height: 150rpx;
+  align-items: center;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  background-color: #fff;
+}
+
+.leftSelect {
+  width: 390rpx;
+  height: 150rpx;
+  border-right: #ccc 2rpx solid;
+  padding-top: 5rpx;
+  text-align: center;
+}
+
+.rightSelect {
+  width: 340rpx;
+  height: 150rpx;
+  padding-top: 5rpx;
+  padding-left:60rpx;
+  text-align: center;
+}
+.lSview{
+  float:left;
+}
+.rSview{
+color:#a0a0a0;
+padding-left: 95rpx;
+padding-top:50rpx;
+align-items: center;
+text-align: left;
+}
+.selectImg {
+  width: 60rpx;
+  height: 60rpx;
+  padding-top:30rpx;
+}
+
+.labtitle {
+  width: 750rpx;
+  align-items: center;
+  text-align: center;
+  color: #a0a0a0;
+  font-size: 26rpx;
+  padding-top: 20rpx;
+  padding-bottom: 40rpx;
+  line-height: 60rpx;
+  height: 40rpx;
+}
+
+.searchContent {
+  border-top: 1px #f0f0f0 solid;
+  background-color: #fff;
+  margin-top: 20rpx;
+  width: 750rpx;
+  padding: 20rpx 10rpx;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+ height:500rpx;
+}
+.searchContent2 {
+  border-top: 1px #f0f0f0 solid;
+  background-color: #fff;
+  margin-top: 20rpx;
+  width: 750rpx;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.indexDetail {
+  width: 700rpx;
+  display: box;
+  padding-bottom: 20rpx;
+}
+
+.indexImg {
+  float: left;
+  width: 110rpx;
+  height: 110rpx;
+}
+
+.indexName {
+  font-size: 30rpx;
+  margin-left: 20rpx;
+  text-align: left;
+}
+
+.indexContent {
+  font-size: 26rpx;
+  padding-left: 20rpx;
+  display: flex;
+  color: #a0a0a0;
+  margin-top: 16rpx;
+  line-height: 30rpx;
+  text-align: left;
+}
+
+.bottomleftBtn {
+  position: fixed;
+  background-color: #2e2e30;
+  height: 80rpx;
+  line-height: 80rpx;
+  align-items: center;
+  text-align: center;
+  font-size: 30rpx;
+  color: #fff;
+  bottom: 10px;
+  overflow: hidden;
+  z-index: 500;
+  width: 35%;
+  border-top-right-radius: 18px;
+  border-bottom-right-radius: 18px;
+}
+
+.sharebox {
+  width: 100%;
+  overflow: hidden;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+  background: #ccc;
+  padding-top: 20rpx;
+  height: 100%;
+  opacity: 0.7;
+  filter: alpha(opacity=70);
+}
+
+.sharecontent {
+  width: 80%;
+  overflow: hidden;
+  position: fixed;
+  z-index: 2000;
+  background: #fffffe;
+  padding-top: 20rpx;
+  height: 80%;
+  text-align: center;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  border-radius: 5px;
+}
+
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.userinfo-avatar {
+  width: 128rpx;
+  height: 128rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+}
+
+.info-name {
+  margin-top: 10px;
+  font-size: 12px;
+}
+
+.info-content {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.info-title {
+  font-size: 18px;
+  width: 100%;
+  text-align: center;
+}
+
+.info-text {
+  font-size: 14px;
+  color: #a0a0a0;
+  text-align: left;
+  line-height: 60rpx;
+  padding: 10px;
+}
+
+.info-bottom {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  line-height: 40px;
+  z-index: 2100;
+  bottom: 0;
+}
+
+.info-bottom-lab {
+  width: 100%;
+  font-size: 10px;
+}
+
+.info-icon {
+  display: block;
+  bottom: -50px;
+}
+
+.bottomBtn {
+  position: fixed;
+  background-color: #000;
+  line-height: 95rpx;
+  align-items: center;
+  text-align: center;
+  font-size: 30rpx;
+  color: #fff;
+  bottom: 0px;
+  overflow: hidden;
+  z-index: 500;
+  width: 80rpx;
+  height: 80rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+  right:0;
+}
+.shareimgbox {
+  width: 300rpx;
+  height: 200rpx;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 4000;
+  padding-right: 20rpx;
+}
+
+.shareImg {
+  width: 200rpx;
+  height: 150rpx;
+  z-index: 4000;
+  float: right;
+}

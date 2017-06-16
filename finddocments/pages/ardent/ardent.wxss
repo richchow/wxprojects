@@ -1,0 +1,219 @@
+.hotview {
+  box-sizing: border-box;
+  font-size: 28rpx;
+  width: 100%;
+  border-bottom: 1px #f0f0f0 solid;
+  background-color: #fff;
+  /* height: 360rpx;*/
+  align-items: center;
+  text-align: center;
+}
+
+.section {
+  display: table;
+}
+
+.labtitle {
+  width: 100%;
+  align-items: center;
+  text-align: center;
+  color: #707070;
+  font-size: 26rpx;
+  padding-bottom: 20rpx;
+  line-height: 40rpx;
+  height: 40rpx;
+}
+
+.searchContent {
+  border-top: 1px #f0f0f0 solid;
+  background-color: #fff;
+  margin-top: 20rpx;
+  width: 100%;
+  padding-top: 10rpx;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* padding-bottom: 60rpx;*/
+}
+
+.indexDetail {
+  width: 96%;
+  display: box;
+  padding-bottom: 160rpx;
+}
+
+.indexImg {
+  float: left;
+  width: 160rpx;
+  margin-top: 60rpx;
+}
+
+.indexName {
+  font-size: 30rpx;
+  margin-left: 20rpx;
+  text-align: left;
+}
+
+.indexContent {
+  font-size: 26rpx;
+  padding-left: 20rpx;
+  display: flex;
+  color: #707070;
+  margin-top: 16rpx;
+  line-height: 40rpx;
+  text-align: left;
+}
+
+.bottomBtn {
+  position: fixed;
+  background-color: #14b3c7;
+  line-height: 95rpx;
+  align-items: center;
+  text-align: center;
+  font-size: 30rpx;
+  color: #fff;
+  bottom: 0px;
+  overflow: hidden;
+  z-index: 500;
+  width: 80rpx;
+  height: 80rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+  right: 0;
+}
+
+.align-center {
+  text-align: center;
+  vertical-align: middle;
+  padding-left: 300rpx;
+}
+
+/* test*/
+
+.userinfo-avatar2 {
+  width: 220rpx;
+  height: 220rpx;
+  margin: 40rpx;
+  border-radius: 50%;
+}
+
+.userinfo-avatar3 {
+  width: 80rpx;
+  height: 80rpx;
+  margin: 10rpx;
+  border-radius: 50%;
+}
+
+.userinfo-nickname2 {
+  float: left;
+  margin: 20rpx;
+  line-height: 64rpx;
+  vertical-align: middle;
+}
+
+.ardent-crown2 {
+  position: absolute;
+  width: 380rpx;
+  height: 300rpx;
+  left: 185rpx;
+  top: 220rpx;
+}
+
+.trend-crown2 {
+  position: absolute;
+  width: 70rpx;
+  height: 70rpx;
+  top: 158rpx;
+  left: 115rpx;
+}
+
+.trend-number2 {
+  vertical-align: middle;
+  text-align: left;
+  line-height: 40rpx;
+  width: 360rpx;
+  margin-left: 10rpx;
+}
+
+.paddingTop20 {
+  padding-top: 20px;
+}
+
+.userlab {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+  border-bottom: 2rpx #ccc solid;
+}
+.userlab2 {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+
+
+.name {
+  position: absolute;
+  width: 180rpx;
+  height: 80rpx;
+  margin: 20rpx;
+  top: 330rpx;
+  left: 268rpx;
+  font-size: 26rpx;
+  color: #ea986c;
+}
+
+.paddingTop200 {
+  padding-top: 50rpx;
+}
+
+.paddingTop30 {
+  padding: 20rpx;
+}
+
+.textGreen {
+  padding-top: 50rpx;
+  padding-bottom: 50rpx;
+  color: #14b3c7;
+  text-decoration: underline;
+  font-size: 32rpx;
+  font-weight: 200;
+}
+
+.txtEndDate {
+  color: red;
+}
+
+.lineheight {
+  line-height: 40rpx;
+  text-align: left;
+}
+
+.rownumber{
+  font-size: 32rpx;
+  width:100rpx;
+  text-align: center;
+}
+.sharenumber{
+  font-size: 38rpx;
+  color: #14b3c7;
+  font-weight: 800;
+  text-align: right;
+  float: right;
+  width:150rpx;
+}
+.userinfo-nickname{padding-bottom: 10rpx;
+font-size: 24rpx;}
+
+.fontcolor{
+  color: #eeb173;
+}

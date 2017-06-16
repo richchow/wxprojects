@@ -1,0 +1,50 @@
+<!--index.wxml-->
+<view class="loading" wx:if="{{showLoading}}">
+  <image class="loadinggif" src="/images/loading.gif" />
+</view>
+<view class="container"  wx:if="{{showLoading===false}}">
+  <view class="indexTop">
+    <view class="totalDoc">
+      <image  bindtap="btnToArdent" class="crownImg" src="/images/crown.png" ></image>
+     <text  class="crownText">贡献榜</text>
+    </view>
+    <view class="indexSearch">
+      <view class="viewInput">
+        <input class="indexInput" bindfocus="btnToSearch" bindinput="bindChange" placeholder="请填写资料名称/关键字" placeholder-class="phInput" />
+        <view bindtap="btnToSearch" class="btnSearch">搜 索</view>
+      </view>
+    </view>
+    <view class="totalDoc2">已有资料2800G+，新增800+</view>
+  </view>
+  <view class="hotview">
+    <label class="labtitle">- 热门搜索 -</label>
+    <label class="labmore"  bindtap="btnToSearch">more</label>
+    <view class="section">
+      <view wx:key="catalogid" wx:for="{{hotItems}}">
+        <label bindtap="btnClick" data-item="{{item.catalogid}}" class="labtip">{{item.catainfo}}</label>
+      </view>
+    </view>
+  </view>
+  <view class="hotview margin20">
+    <label class="labtitle">- 精选集 -</label>
+     <label class="labmore"  bindtap="btnToSearch">more</label>
+    <view class="section">
+      <view wx:key="catalogid" wx:for="{{hotStarItems}}">
+        <label bindtap="btnClick" data-item="{{item.catalogid}}" class="labstartip">{{item.catainfo}}</label>
+      </view>
+    </view>
+  </view>
+  <view class="searchContent">
+    <label class="labtitle">- 值得一看 -<label class="labmore"  bindtap="bindToTuli"><image class="svgImg" src="/images/iconflag-2.svg" />徽章说明</label></label>
+     
+    <navigator class="indexDetail" wx:key="dataid" wx:for="{{docItems}}" wx:for-item="item" url="../detail/detail?id={{item.dataid}}" hover-class="navigator-hover">
+      <image class="indexImg" mode="scaleToFill" src="/images/110.png" />
+      <label class="indexName">{{item.title}}</label>
+      <block wx:if="{{item.IconFlag != null && item.IconFlag != ''}}">
+      <image wx:for="{{item.IconFlag}}" wx:for-item="tab" class="svgImg" src="/images/iconflag-{{tab}}.svg" />
+      </block>
+      <label class="indexContent">{{item.describe}}</label>
+    </navigator>
+  </view>
+  <contact-button class="bottomBtn" type="default-light" size="20" session-from="weapp"> </contact-button>
+</view>

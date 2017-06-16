@@ -1,0 +1,20 @@
+{
+  "pages":[
+    "pages/index/index",
+    "pages/logs/logs",
+    "pages/list/list",
+    "pages/search/search",
+    "pages/detail/detail",
+    "pages/payed/payed"
+  ],
+  "networkTimeout":{
+   "request": 10000,
+   "connectSocket": 10000
+},
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#14b3c7",
+    "navigationBarTitleText": "BIM找资料",
+    "navigationBarTextStyle":"#fff"
+  }
+}

@@ -1,0 +1,124 @@
+.indexTopSmall {
+  background-color: #14b3c7;
+  background-size: 100%;
+  width: 100%;
+  height: 100rpx;
+}
+.indexSearchSmall {
+  padding-top: 30rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 20rpx;
+}
+
+.viewInput {
+  border: 1px solid #14b3c7;
+  border-radius: 5px;
+  background-color: #fff;
+  width: 90%;
+  height: 60rpx;
+}
+
+.indexInput {
+  width: 570rpx;
+  float: left;
+  position: box;
+  border-radius: 5px;
+  font-size: 26rpx;
+  padding-left: 10rpx;
+  padding-top:10rpx;
+}
+
+.phInput {
+  color: #ccc;
+}
+
+.btnSearch {
+  font-size: 26rpx;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+  align-items: center;
+  background-color: #f6b26b;
+  float: right;
+  width: 90rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  text-align: center;
+  color: #fff;
+}
+.labtitle {
+  width: 100%;
+  align-items: center;
+  text-align: center;
+  color: #ccc;
+  font-size: 26rpx;
+  padding-top: 20rpx;
+  padding-bottom: 20rpx;
+  line-height: 40rpx;
+  height: 40rpx;
+}
+
+.searchContent {
+  background-color: #fff;
+  margin-top: 20rpx;
+  width: 100%;
+  padding: 20rpx 40rpx;
+  box-sizing: border-box;
+ display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.indexDetail {
+  width: 90%;
+  height: 160rpx;
+  display: box;
+}
+
+.indexImg {
+  float: left;
+  width: 110rpx;
+  height: 110rpx;
+}
+
+.indexName {
+  font-size: 30rpx;
+  margin-left: 20rpx;
+  text-align: left;
+}
+
+.indexContent {
+  font-size: 26rpx;
+  padding-left: 20rpx;
+  display: flex;
+  color: #ccc;
+  margin-top: 16rpx;
+  line-height: 30rpx;
+  text-align: left;
+}
+
+.bottomBtn {
+  position: fixed;
+  background-color: #14b3c7;
+  height: 80rpx;
+  line-height: 80rpx;
+  align-items: center;
+  text-align: center;
+  font-size: 30rpx;
+  color: #fff;
+  bottom: 0px;
+  overflow: hidden;
+  z-index: 500;
+  width: 100%;
+}
+
+.noitem{
+  width: 100%;
+  align-items: center;
+  text-align: center;
+  font-size: 26rpx;
+  line-height: 40rpx;
+  height: 100%x;
+}

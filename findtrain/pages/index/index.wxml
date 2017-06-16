@@ -1,0 +1,40 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="topSelect">
+    <navigator class="leftSelect" url='/pages/search/search' hover-class="navigator-hover">
+      <view class="lSview">
+        <image class="selectImg" mode="scaleToFill" src="/images/jigou.png" />
+        <view>找培训</view>
+      </view>
+      <view class="rSview">
+        <view>靠谱机构任你选</view>
+        <view>让你少缴学费</view>
+      </view>
+    </navigator>
+    <navigator class="rightSelect" url='/pages/enroll/enroll' hover-class="navigator-hover">
+      <view class="lSview">
+        <image class="selectImg" mode="scaleToFill" src="/images/baoming.png" />
+        <view>代报名</view>
+      </view>
+      <view class="rSview">
+        <view>BIM考试线上</view>
+        <view>报名入口</view>
+      </view>
+    </navigator>
+  </view>
+  <view class="searchContent2" bindtap="showPhone">
+    <image src="/images/join.png" style="width:750rpx;" mode="widthFix"></image>
+  </view>
+  <view  class="searchContent">
+    <label class="labtitle">- 推荐机构 -</label>
+    <view class="loading" wx:if="{{showLoading}}">
+      <image class="loadinggif" src="/images/loading.gif" />
+    </view>
+    <view class="indexDetail" wx:if="{{showLoading === false}}" wx:key="dataid" hover="true" wx:for="{{docItems}}" wx:for-item="item" bindtap="showDetail" data-id="{{item.dataid}}" hover-class="navigator-hover">
+      <image class="indexImg" mode="scaleToFill" src="https://wx.jycloud.cc/webpic/pic/{{item.dataid}}/logo.jpg" />
+      <label class="indexName">{{item.title}}</label>
+      <label class="indexContent">{{item.describe}}</label>
+    </view>
+  </view>
+  <contact-button class="bottomBtn" type="default-light" size="20" session-from="weapp"> </contact-button>
+</view>

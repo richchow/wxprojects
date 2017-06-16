@@ -1,0 +1,23 @@
+<view class="container" wx:if="{{showLoading===false}}">
+  <view class="content">
+    <label class="payedtitle">- 已购买资料 -</label>
+  </view>
+  <view class="payedtip" wx:if="{{payedinfo != null}}">
+    <label class="payedtitle">长按橙色文字可复制地址和提取码</label>
+  </view>
+  <view class="payedview" wx:key="payid" wx:for="{{payedinfo}}">
+    <view class="title">{{item.dataInfo}}</view>
+    <view class="date">{{item.paydate}}</view>
+    <view>
+      <label>地址:</label>
+      <text class="docurl"  selectable="true">{{item.url}}</text>
+    </view>
+    <view>
+      <label>提取码:</label>
+      <text class="docurl"  selectable="true">{{item.signature}}</text>
+    </view>
+  </view>
+</view>
+<view class="loading" wx:if="{{showLoading}}">
+  <image class="loadinggif" src="/images/loading.gif" />
+</view>

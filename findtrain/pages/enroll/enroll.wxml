@@ -1,0 +1,44 @@
+<view class="container">
+  <view class="topSelect" bindtap="gotoEnrollDetail">
+    <view class="uview">
+        <image class="selectImg" mode="scaleToFill" src="/images/txh.png" />2017全国BIM技能等级考试（第10期）</view>
+      <view class="mview">
+        <image model="widthFix" src="/images/bim.png" ></image>
+      </view>
+      <view class="dview"><view>我要报名</view></view>
+  </view>
+
+  <view class="searchContent">
+    <label class="labtitle">- 报名列表 -</label>
+    <view class="loading" wx:if="{{showLoading}}">
+  <image class="loadinggif" src="/images/loading.gif" />
+</view>
+    <view class="indexDetail" bindtap="pay" data-buyed="{{item.Buyed}}" data-id="{{item.qid}}" wx:key="qid" wx:for="{{enrollInfo}}" wx:for-item="item"  hover-class="navigator-hover">
+      <label class="indexName">2017全国BIM技能等级考试（第10期）</label>
+      <label class="indexLeft">报名人:{{item.name}}</label>
+      <label class="indexRight">{{item.Buyed === 0 ? '已付款':'待付款'}}</label>
+    </view>
+  </view>
+  <view bindtap="showModal" class="bottomleftBtn">
+    分享
+  </view>
+   <view class="shareimgbox" wx:if="{{showShareModalStatus}}">
+    <image src="/images/share.png" class="shareImg"></image>
+  </view>
+  <contact-button class="bottomBtn" type="default-light" size="20" session-from="weapp"> </contact-button>
+  <view class="sharebox" wx:if="{{showModalStatus}}"></view>
+  <view animation="{{animationData}}" class="sharecontent" wx:if="{{showModalStatus}}">
+    <view class="userinfo">
+      <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+      <text class="info-name">独乐乐不如众乐乐</text>
+    </view>
+    <view class="info-content">
+      <label class='info-title'>BIM找机构</label>
+      <label class="info-text">全国范围的培训机构，我来帮你甄别。</label>
+    </view>
+    <view class="info-bottom" wx:if="{{showModalStatus}}">
+      <label class="info-bottom-lab">点右上角分享给朋友，来一起来参加培训吧</label>
+      <icon bindtap="hideModal" class="info-icon" type="clear" size="40" color="#2e2e30" />
+    </view>
+  </view>
+</view>

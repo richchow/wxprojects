@@ -1,0 +1,51 @@
+<scroll-view scroll-y="true" scroll-top="100000000000000000" style="height:93%;background:#ebebeb" animation="{{animation}}">
+    <view wx:for="{{message}}" wx:for-item="i">
+        <view class="padding clearfix" wx:if="{{i.me}}">
+            <image class="right-Avatar" src="{{userInfo.avatarUrl}}"></image>
+            <view class="right-Triangle"></view>
+            <view class="right-message padding_half">
+                <text wx:if="{{i.text}}">{{i.text}}</text>
+                <image wx:if="{{i.imgList}}" style="max-width:150px;max-height:120px" src="{{i.imgList}}"></image>
+                <map wx:if="{{i.map}}" style="width: 220px; height: 160px;"
+                    latitude="{{latitude}}"
+                    longitude="{{longitude}}"
+                    scale="16"
+                    markers="{{markers}}"
+                    covers="{{covers}}"
+                    >
+                </map>
+            </view>
+        </view>
+        <view class="padding clearfix" wx:if="{{!i.me}}">
+            <image class="left-Avatar" src="{{i.img}}"></image>
+            <view class="left-Triangle"></view>
+            <view class="left-message padding_half">
+                <text>{{i.text}}</text>
+            </view>
+        </view>
+    </view>
+    <view class="weui-icon_success"></view>
+</scroll-view>
+
+<view class="wa-row" style="background:#f5f5f7;overflow-x: hidden;height:7%;"> 
+    <view class="wa-col-10 text-center icon ion-ios-mic" bindtap="getvoice"><image src="/image/voice.png" class="voice"></image></view>
+    <view class="wa-col-70 padding_half">
+        <input type="text" value="{{inputValue}}" bindinput="bindKeyInput" style="border: 1rpx solid #ccc;background:#fcfcfc;border-radius:4px;padding-left:10px;height:30px;line-height:30px;font-family:microsoft yahei;font-size:14px;" />
+    </view>
+    <!--<view class="wa-col-10 text-center icon ion-happy-outline"><image src="/image/expression.png" class="expression"></image></view>-->
+    <view class="text-center" bindtap="send"><button type="primary" class="send">发送</button></view>
+    <!--<view class="wa-col-10 text-center icon ion-ios-plus-outline text-center" bindtap="elseBtn"><image src="/image/add.png" class="add"></image></view>-->
+</view>
+
+<!-- <view id="elsePanel" animation="{{animation}}">
+    <view class="wa-row">
+        <view class="wa-col-33" bindtap="chooseImg"><view class="text-center" style="line-height:50px">图片</view></view>
+        <view class="wa-col-33" bindtap="getlocat"><view class="text-center" style="line-height:50px">位置</view></view>
+        <view class="wa-col-33" bindtap="stopvoice"><view class="text-center" style="line-height:50px">test</view></view>
+    </view>
+    <view class="wa-row">
+        <view class="wa-col-33"><view class="text-center" style="line-height:50px">test</view></view>
+        <view class="wa-col-33"><view class="text-center" style="line-height:50px">test</view></view>
+        <view class="wa-col-33"><view class="text-center" style="line-height:50px">test</view></view>
+    </view>
+</view> -->

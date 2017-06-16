@@ -1,0 +1,97 @@
+<view class="container">
+  <view class="topConetnt">
+    <image mode="widthFix" src="/images/baomingtitle.png"></image>
+  </view>
+  <form bindsubmit="formSubmit">
+    <view class="formConetnt">
+      <view class="section">
+        <view class="section__title  {{photoVail}}">电子照片</view>
+        <view class="photo" wx:if="{{photoStatus}}">
+          <image name="piculr" bindtap="showPhoto" wx:if="{{photoStatus}}" mode="widthFix" class="photo" src="{{photo}}"></image>
+        </view>
+        <view bindtap="updatePhoto" class="updatePhoto">+</view>
+      </view>
+      <view class="msg">电子照片，照片的大小20-60K，尺寸为：250x350像素，必须是白底免冠清晰大头照，正规照相馆拍摄，JPG格式（照片不合格会影响发证时间，请予以重视）</view>
+    </view>
+    <view class="formConetnt">
+      <view class="section">
+        <view class="section__title">姓名</view>
+        <input type="text" class="{{nameVail}}" name="name" value="{{name}}" />
+      </view>
+      <view class="section">
+        <view class="section__title">出生年月</view>
+        <picker mode="date" name="birthday" value="{{birthday}}" fields="day" bindchange="bindDateChange">
+          <view class="picker">
+            {{birthday}}
+          </view>
+        </picker>
+      </view>
+      <view class="section">
+        <view class="section__title">性别</view>
+        <picker name="sex" bindchange="bindGenderChange" value="{{genderindex}}" range="{{genderarray}}">
+          <view class="picker">
+            {{genderarray[genderindex]}}
+          </view>
+        </picker>
+      </view>
+      <view class="section">
+        <view class="section__title">籍贯</view>
+        <input type="text" class="{{nativeplaceVail}}" name="nativeplace" />
+      </view>
+      <view class="section section_gap">
+        <view class="section__title">民族</view>
+        <input type="text" class="{{nationsVail}}" name="nations" />
+      </view>
+      <view class="section">
+        <view class="section__title {{levelVail}}">报考级别(类别)</view>
+        <checkbox-group name="level">
+          <label wx:for="{{levelarray}}">
+            <checkbox color="#2e2e30" value="{{item.value}}" checked="{{item.checked}}" />{{item.name}}</label>
+        </checkbox-group>
+      </view>
+      <view class="section">
+        <view class="section__title">身份证号码</view>
+        <input type="idcard" class="{{identitycardVail}}" name="identitycard" />
+      </view>
+      <view class="section">
+        <view class="section__title {{educatedVail}}">文化程度</view>
+        <radio-group name="educated">
+          <label wx:for="{{educatedarray}}">
+            <radio color="#2e2e30" value="{{item.value}}" checked="{{item.checked}}" />{{item.name}}</label>
+        </radio-group>
+      </view>
+      <view class="section">
+        <view class="section__title">工作单位</view>
+        <input type="text" class="{{unitVail}}" name="unit" />
+      </view>
+      <view class="section">
+        <view class="section__title">联系地址</view>
+        <input type="text" class="{{addressVail}}" name="address" />
+      </view>
+      <view class="section">
+        <view class="section__title">电话</view>
+        <input type="number" class="{{mobileVail}}" name="mobile" />
+      </view>
+      <view class="section">
+        <view class="section__title">QQ号码</view>
+        <input type="number" class="{{qqidVail}}" name="qqid" />
+      </view>
+      <view class="section">
+        <view class="section__title {{placeVail}}">考试地点选择</view>
+        <radio-group name="place">
+          <label wx:for="{{placearray}}">
+            <radio color="#2e2e30" value="{{item.value}}" checked="{{item.checked}}" />{{item.name}}</label>
+        </radio-group>
+      </view>
+
+      <view class="msg">
+        <view>报名费说明：</view>
+        <view>考试报名费每个级别350元/人</view>
+        <view>报名付款完成之后，请加柏慕联创BIM考试服务QQ群（群号：521921841，作为考试时间安排等细节的通知群，非常重要！！！）</view>
+      </view>
+      <view class="btn-area">
+        <button loading="{{loading}}" formType="submit">提交报名并付款</button>
+      </view>
+    </view>
+  </form>
+</view>

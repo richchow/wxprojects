@@ -1,0 +1,168 @@
+.topConetnt{
+  font-size: 28rpx;
+  width: 750rpx;
+  border-bottom: 1px #f0f0f0 solid;
+  align-items: center;
+  text-align: center;
+  background-color: #fff;
+}
+.topConetnt image{
+  width:750rpx;
+  height:auto;
+}
+.formConetnt{
+  border-top: 1px #f0f0f0 solid;
+  background-color: #fff;
+  margin-top: 20rpx;
+  width: 100%;
+  padding: 20rpx 40rpx;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.section {
+  width: 750rpx;
+  height: 120rpx;
+  padding: 10rpx 0;
+  font-size: 30rpx;
+  line-height: 50rpx;
+  display: table;
+}
+
+.section__title {
+  width: 200rpx;
+  height: 100rpx;
+  float: left;
+  text-align: right;
+  align-items: center;
+  padding-right: 10rpx;
+}
+
+.section__title_error {
+  width: 200rpx;
+  height: 100rpx;
+  float: left;
+  text-align: right;
+  align-items: center;
+  padding-right: 10rpx;
+  color: #f00;
+}
+
+
+.section picker {
+  float: left;
+  border: 1px solid #2e2e30;
+  border-radius: 5px;
+  font-size: 26rpx;
+  padding-left: 10rpx;
+  height: 50rpx;
+  width: 430rpx;
+  text-align: left;
+}
+
+.section checkbox-group {
+  float: left;
+  border-radius: 5px;
+  font-size: 26rpx;
+  padding-left: 10rpx;
+  height: 50rpx;
+  width: 430rpx;
+  text-align: left;
+}
+.section checkbox-group label{
+    padding-right: 20rpx;
+  display:inline-block;
+}
+
+.section radio-group {
+  float: left;
+  font-size: 24rpx;
+  padding-left: 10rpx;
+  /*height: 200rpx;*/
+  width: 430rpx;
+  text-align: left;
+}
+
+.section radio-group label {
+  padding-right: 20rpx;
+  display:inline-block;
+}
+
+.section radio-group label radio {
+  size: 24rpx;
+}
+
+.section input {
+  float: left;
+  border: 1px solid #2e2e30;
+  border-radius: 5px;
+  font-size: 26rpx;
+  padding-left: 10rpx;
+  height: 50rpx;
+  width: 430rpx;
+  text-align: left;
+}
+
+.section .input-error {
+  float: left;
+  border: 1px solid #f00;
+  border-radius: 5px;
+  font-size: 26rpx;
+  padding-left: 10rpx;
+  height: 50rpx;
+  width: 430rpx;
+  text-align: left;
+}
+
+.phInput {
+  color: #a0a0a0;
+}
+
+.btn-area {
+  width: 750rpx;
+  display: flex;
+  flex-flow: row;
+  padding-bottom: 60rpx;
+}
+
+.btn-area button {
+  width: 360rpx;
+  background-color: #ec7682;
+  color: #fff;
+}
+
+.updatePhoto{
+    width: 40rpx;
+    height:40rpx;
+    border: 1px solid #2e2e30;
+    border-radius: 5px;
+    color: #2e2e30;
+    display: table;
+    text-align: center;
+    float: left;
+    margin-left: 20rpx;
+}
+
+.updatePhoto-error{
+    width: 40rpx;
+    height:40rpx;
+    border: 1px solid #2e2e30;
+    border-radius: 5px;
+    color: #2e2e30;
+    display: table;
+    text-align: center;
+    float: left;
+    margin-left: 20rpx;
+}
+
+.photo{
+    width: 100rpx;
+    display: table;
+    float:left;
+}
+.msg{
+    color:#a0a0a0;
+    font-size: 24rpx;
+    line-height:40rpx;
+}

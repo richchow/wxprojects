@@ -1,0 +1,24 @@
+
+<!--index.wxml-->
+<view class="container">
+  <view class="indexTopSmall">
+    <view class="indexSearchSmall">
+      <view class="viewInput">
+      <form bindsubmit="btnSearch" >
+        <input class="indexInput" bindinput="bindChange" placeholder="请填写资料名称/关键字" placeholder-class="phInput" bindconfirm="btnSearch" />
+        <view bindtap="btnSearch" class="btnSearch">搜 索</view>
+        </form>
+      </view>
+    </view>
+  </view>
+  <view class="loading" wx:if="{{showLoading}}"><image class="loadinggif" src="/images/loading.gif" /></view>
+  <view class="hotview">
+    <label class="labtitle">- 精品专题 -</label>
+    <view wx:key="catalogid" wx:for="{{hotItems}}">
+      <label bindtap="btnClick" data-item="{{item.catalogid}}" class="labtip">{{item.catainfo}}</label>
+    </view>
+  </view>
+  <navigator class="bottomBtn" wx:if="{{isPayed}}" url="../payed/payed">
+    已购商品
+  </navigator>
+</view>
