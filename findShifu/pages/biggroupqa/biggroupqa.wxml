@@ -1,15 +1,41 @@
 <page>
-  <view>
-    <view>取消</view>
-    <view>发送</view>
+  <view class="top_button">
+    <view class="top_button_left">取消</view>
+    <view class="top_button_right">发送</view>
   </view>
-  <view>
-    <input placeholder="分享自己的观点..." focus="true" />
+  <view class="input_view">
+    <textarea class="input_content" placeholder="分享自己的观点..." focus="true" />
   </view>
-  <view>
+  <view class="photo_button">
     <image src="/images/photo.svg" />
-    <image  src="/images/file.svg" />
+    
   </view>
-  <view>
-  <label><image  src="/images/add.svg" /></label></view>
+  <view class="content_img_list">
+    <view class="content_img_tu">
+      <image class="content_img_tu_img" mode="aspectFit" src="{{icon60}}" />
+      <view class="del_view"><image class="del_img" mode="aspectFit" src="/images/del.svg" /></view>
+    </view>
+    <view class="content_img_tu">
+      <image class="content_img_tu_img" mode="aspectFit" src="{{icon60}}" />
+      <view class="del_view"><image class="del_img" mode="aspectFit" src="/images/del.svg" /></view>
+    </view>
+    <view class="content_img_tu">
+      <image class="content_img_tu_img" mode="aspectFit" src="{{icon60}}" />
+      <view class="del_view"><image class="del_img" mode="aspectFit" src="/images/del.svg" /></view>
+    </view>
+    <view class="content_img_tu">
+      <image class="content_img_tu_img" mode="aspectFit" src="{{icon60}}" />
+      <view class="del_view"><image class="del_img" mode="aspectFit" src="/images/del.svg" /></view>
+    </view>
+    <view class="content_img_tu">
+      <image class="content_img_tu_img" mode="aspectFit" src="{{icon60}}" />
+      <view class="del_view"><image class="del_img" mode="aspectFit" src="/images/del.svg" /></view>
+    </view>
+    <view class="content_img">
+      <image mode="aspectFit" src="/images/add.svg" />
+    </view>
+  </view>
+  <view class="talk-view">
+  <button type="primary"><image src="/images/mic.svg" />发送语音</button>
+  </view>
 </page>

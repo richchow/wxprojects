@@ -6,6 +6,7 @@
     "pages/shifu/shifu",
     "pages/biggroup/biggroup",
     "pages/biggroupqa/biggroupqa",
+    "pages/biggroupcomment/biggroupcomment",
     "pages/index/index"
   ],
   "window": {
