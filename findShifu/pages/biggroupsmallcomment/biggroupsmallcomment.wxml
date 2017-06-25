@@ -1,0 +1,76 @@
+<view class="page">
+  <view class="backWhite margin_bottom_20 padding_top_20  bg_panel_user ">
+    <view class="weui-media-box_appmsg paddingleft20">
+      <view class="bg_panel_img">
+        <image class="bg_panel_userimg" src="{{icon20}}"></image>
+      </view>
+      <view class="weui-media-box__bd weui-media-box__bd_in-appmsg bg_panel_usercontent ">
+        <view>周先生</view>
+        <view class="color_time">5分钟前</view>
+      </view>
+    </view>
+    <view class="page__bd_spacing2 size28">17年就业指导,山东发生的发生的发生阿斯顿发生的发生发达师傅的
+    </view>
+  </view>
+  <view class="backWhite page__bd_spacing2 margin_top_20 margin_bottom_20">
+    <view class="bottom_qa_button2">
+      评论 3</view>
+  </view>
+  <view class="backWhite padding_top_20 page__bd page__bd_spacing bg_panel_user">
+    <view class="weui-media-box_appmsg">
+      <view class="bg_panel_img">
+        <image class="bg_panel_userimg" src="{{icon20}}"></image>
+      </view>
+      <view class="weui-media-box__bd weui-media-box__bd_in-appmsg bg_panel_usercontent">
+        <view>王起航</view>
+        <view class="color_time">5分钟前</view>
+      </view>
+      <view class="weui-media-box__bd weui-media-box__bd_in-appmsg bg_panel_usercontent small_comment">
+        <view>
+          <image bindtap="bindToComment" class="bottom_qa_button_img" src="/images/like.svg" />
+        </view>
+      </view>
+    </view>
+    <view class="page__bd_spacing2 size28">不错</view>
+  </view>
+  <view class="backWhite padding_top_20 page__bd page__bd_spacing bg_panel_user">
+    <view class="weui-media-box_appmsg">
+      <view class="bg_panel_img">
+        <image class="bg_panel_userimg" src="{{icon20}}"></image>
+      </view>
+      <view class="weui-media-box__bd weui-media-box__bd_in-appmsg bg_panel_usercontent">
+        <view>王起航</view>
+        <view class="color_time">5分钟前</view>
+      </view>
+      <view class="weui-media-box__bd weui-media-box__bd_in-appmsg bg_panel_usercontent small_comment">
+        <view>
+          <image bindtap="bindToComment" class="bottom_qa_button_img" src="/images/like.svg" />
+        </view>
+      </view>
+    </view>
+    <view class="page__bd_spacing2 size28">不错</view>
+  </view>
+  <view class="backWhite padding_top_20 page__bd page__bd_spacing bg_panel_user">
+    <view class="weui-media-box_appmsg">
+      <view class="bg_panel_img">
+        <image class="bg_panel_userimg" src="{{icon20}}"></image>
+      </view>
+      <view class="weui-media-box__bd weui-media-box__bd_in-appmsg bg_panel_usercontent">
+        <view>王起航</view>
+        <view class="color_time">5分钟前</view>
+      </view>
+      <view class="weui-media-box__bd weui-media-box__bd_in-appmsg bg_panel_usercontent small_comment">
+        <view>
+          <image bindtap="bindToComment" class="bottom_qa_button_img" src="/images/like.svg" />
+        </view>
+      </view>
+    </view>
+    <view class="page__bd_spacing2 size28">不错</view>
+  </view>
+</view>
+<view class="backWhite page__bd_spacing2 bottom_qa bottom_button">
+  <form bindsubmit="btnSearch">
+        <input class="indexInput" placeholder="回复评论" confirm-type="send" bindinput="bindChange" value="{{inputValue}}" bindconfirm="btnSearch" />
+        <view bindtap="btnSearch" class="btnSearch">发 送</view>
+      </form>
+</view>

@@ -45,3 +45,30 @@
   background-color: #e6e6e6;
   margin-left: 100rpx;
 }
+.indexInput {
+  width: 84%;
+  float: left;
+  position: box;
+  border-radius: 5px;
+  font-size: 26rpx;
+  margin-left: 10rpx;
+  margin-top:10rpx;
+  border: 2rpx #e6e6e6 solid;
+}
+.btnSearch {
+  font-size: 26rpx;
+  border-radius: 5px;
+  align-items: center;
+  background-color: #f6b26b;
+  float: right;
+  width: 90rpx;
+  height: 56rpx;
+  line-height: 60rpx;
+  text-align: center;
+  color: #fff;
+   margin-left: 10rpx;
+  margin-top:10rpx;
+}
+.bottom_button form{
+  width: 98%;
+}

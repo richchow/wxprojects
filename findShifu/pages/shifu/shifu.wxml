@@ -28,29 +28,25 @@
   <view class="backWhite">
     <view class="weui-flex">
       <view class="weui-flex__item sf_item_lab">
-          <image class="sf_item_img" src="/images/hot.svg"></image>人气：{{sfItem.iReadCount}}
+        <image class="sf_item_img" src="/images/hot.svg"></image>人气：{{sfItem.iReadCount}}
       </view>
       <view class="weui-flex__item sf_item_lab">
-          <image class="sf_item_img" src="/images/order.svg"></image>服务：{{sfItem.iServiceCount}}次
+        <image class="sf_item_img" src="/images/order.svg"></image>服务：{{sfItem.iServiceCount}}次
       </view>
       <view class="weui-flex__item sf_item_lab_right">
-          <image class="sf_item_img" src="/images/feedback.svg"></image>评价：{{sfItem.iRete}}%
+        <image class="sf_item_img" src="/images/feedback.svg"></image>评价：{{sfItem.iRete}}%
       </view>
     </view>
   </view>
-  <view class="backWhite margin_top_20 page__bd page__bd_spacing"  wx:if="{{isMoreOpen}}">
+  <view class="backWhite margin_top_20 page__bd page__bd_spacing" wx:if="{{isMoreOpen}}">
     <view class="weui-article">
-            <view class="weui-article__h1">师傅详情</view>
-            <view class="weui-article__section">
-                {{sfItem.profiles}}
-            </view>
-        </view>
+      <view class="weui-article__h1">师傅详情</view>
+      <view class="weui-article__section">
+        {{sfItem.profiles}}
+      </view>
+    </view>
   </view>
-<view class="backWhite margin_top_20 padding_top_20 page__bd page__bd_spacing">
-  <button class="weui-btn" bindtap="bindToBigGroup" type="primary">咨询师傅</button>
-  </view>
-</view>
-<view class="backWhite margin_top_20 padding_top_20  bg_panel_user ">
+  <view class="backWhite margin_top_20 padding_top_20  bg_panel_user ">
     <view class="weui-media-box_appmsg paddingleft20">
       <view class="bg_panel_img">
         <image class="bg_panel_userimg" src="{{icon20}}"></image>
@@ -77,8 +73,15 @@
       </view>
     </view>
     <view class="page__bd_spacing2 bottom_qa">
-      <view class="bottom_qa_button"><image class="bottom_qa_button_img" src="/images/share.svg" />转发</view>
-      <view class="bottom_qa_button"><image class="bottom_qa_button_img" src="/images/comment.svg" />评论</view>
-      <view class="bottom_qa_button"><image class="bottom_qa_button_img" src="/images/like.svg" />赞</view>
+      <view class="bottom_qa_button">
+        <image class="bottom_qa_button_img" src="/images/share.svg" />转发</view>
+      <view class="bottom_qa_button">
+        <image class="bottom_qa_button_img" src="/images/comment.svg" />评论</view>
+      <view class="bottom_qa_button">
+        <image class="bottom_qa_button_img" src="/images/like.svg" />赞</view>
     </view>
+  </view>
+</view>
+<view bindtap="bindToBigGroup" class="bottom_button">
+    ¥5咨询师傅
   </view>

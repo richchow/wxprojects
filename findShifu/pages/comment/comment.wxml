@@ -1,0 +1,9 @@
+<page>
+  <view class="top_button">
+    <view class="top_button_left">取消</view>
+    <view class="top_button_right">发送</view>
+  </view>
+  <view class="input_view">
+    <textarea class="input_content" placeholder="分享自己的观点..." focus="true" />
+  </view>
+</page>

@@ -7,6 +7,10 @@
     "pages/biggroup/biggroup",
     "pages/biggroupqa/biggroupqa",
     "pages/biggroupcomment/biggroupcomment",
+    "pages/biggroupsmallcomment/biggroupsmallcomment",
+    "pages/comment/comment",
+    "pages/chat/chat",
+    "pages/relate/relate",
     "pages/index/index"
   ],
   "window": {

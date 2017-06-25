@@ -1,7 +1,7 @@
 <view class="page">
   <view class="page__bd">
     <view class="weui-cells weui-cells_after-title">
-      <navigator url="http://www.baidu.com" class="weui-cell weui-cell_access" hover-class="weui-cell_active" wx:for="{{groupitems}}" wx:for-item="item">
+      <navigator url="/pages/chat/chat" class="weui-cell weui-cell_access" hover-class="weui-cell_active" wx:for="{{groupitems}}" wx:for-item="item">
         <view class="weui-cell__hd">
           <image src="{{item.img}}"></image>
         </view>

@@ -1,7 +1,12 @@
-var base64 = require("../../images/base64");
+var base64 = require("../..//images/base64");
 Page({
   data: {
   
+  },
+  bindToComment:function(){
+    wx.navigateTo({
+      url: '/pages/biggroupcomment/biggroupcomment',
+    })
   },
   bindToQA:function(){
     wx.navigateTo({
