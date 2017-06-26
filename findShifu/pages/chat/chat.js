@@ -1,6 +1,7 @@
 var app = getApp()
 Page({
   data: {
+    ischatpayed:false,
     text: '',
     title: '',
     userInfo: {},
@@ -8,6 +9,9 @@ Page({
     inputValue: '',
     messageID: 2,
     intoView: ''
+  },
+  bindPayChat: function(){
+    this.setData({ ischatpayed:true})
   },
   onReady: function () {
     console.log('onReady')

@@ -1,0 +1,24 @@
+.button_bottom_add{
+  border-radius: 50%;
+  float: right;
+  width:90rpx;
+  height:90rpx;
+  display: flex;
+   position: fixed;
+  background-color: #14b3c7;
+  line-height: 80rpx;
+  align-items: center;
+  text-align: center;
+  font-size: 30rpx;
+  color: #fff;
+  bottom: 10px;
+  overflow: hidden;
+  z-index: 500;
+  right: 10px;
+}
+
+.button_bottom_add image{
+  width:64rpx;
+  height:64rpx;
+  padding-left: 14rpx;
+}

@@ -11,6 +11,7 @@
     "pages/comment/comment",
     "pages/chat/chat",
     "pages/relate/relate",
+    "pages/createchat/createchat",
     "pages/index/index"
   ],
   "window": {

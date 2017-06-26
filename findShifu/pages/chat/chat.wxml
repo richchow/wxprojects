@@ -1,4 +1,4 @@
-<scroll-view scroll-y="true" style="height:1104rpx;background:#ebebeb;" scroll-into-view="{{intoView}}">
+<scroll-view wx:if="{{ischatpayed}}" scroll-y="true" style="height:1104rpx;background:#ebebeb;" scroll-into-view="{{intoView}}">
   <view wx:for="{{message}}" id="{{i.id}}" wx:for-item="i">
     <view class="padding clearfix" wx:if="{{i.me}}">
       <image class="right-Avatar" src="{{userInfo.avatarUrl}}"></image>
@@ -18,13 +18,17 @@
   </view>
   <view class="weui-icon_success"></view>
 </scroll-view>
-<view class="indexBottomSmall">
+<view wx:if="{{ischatpayed}}" class="indexBottomSmall">
   <view class="indexSearchSmall">
+    <image src="/images/talk2.svg" />
     <view class="viewInput">
       <form bindsubmit="btnSearch">
         <input class="indexInput" confirm-type="send" bindinput="bindChange" value="{{inputValue}}" bindconfirm="btnSearch" />
-        <view bindtap="btnSearch" class="btnSearch">发 送</view>
       </form>
     </view>
+    <image src="/images/add2.svg" />
   </view>
+</view>
+<view class="nopayed" wx:if="{{ischatpayed == false}}">
+  <view class="nopayed_button" bindtap="bindPayChat">¥200进入周师傅的家</view>
 </view>

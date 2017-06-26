@@ -6,6 +6,11 @@ Page({
       { img: base64.icon20, title: '王师傅的家', new: '20' },
       { img: base64.icon20, title: '赵师傅的家', new: '20' },]
   },
+  bindToCreateChat:function(){
+    wx.navigateTo({
+      url: '/pages/createchat/createchat',
+    })
+  },
   onLoad: function (options) {
     this.setData({
       icon: base64.icon20

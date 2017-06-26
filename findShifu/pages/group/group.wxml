@@ -11,3 +11,6 @@
     </view>
   </view>
 </view>
+<view bindtap="bindToCreateChat" class="button_bottom_add">
+  <image src="/images/add-w.svg" />
+</view>
