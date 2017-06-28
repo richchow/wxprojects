@@ -66,6 +66,12 @@
   margin-right: 20rpx;
   margin-bottom: 20rpx;
 }
+.content_img_tu2 {
+  border-radius: 8rpx;
+  float: left;
+  margin-right: 20rpx;
+  margin-bottom: 20rpx;
+}
 
 .content_img_tu .content_img_tu_img {
   width: 200rpx;
@@ -73,10 +79,26 @@
   display: flex;
   z-index:-1;
 }
+.content_img_tu2 .content_img_tu_img2 {
+  width: 300rpx;
+  z-index:-1;
+}
 
 .del_view {
   position:relative;
   top:-60rpx;
+  width:100%;
+  height: 60rpx;
+  background-color: #000;
+  filter: alpha(Opacity=70);
+  -moz-opacity: 0.5;
+  opacity: 0.5;
+  overflow: hidden;
+  z-index:999;
+}
+.del_view2 {
+  position:relative;
+  top:-20rpx;
   width:100%;
   height: 60rpx;
   background-color: #000;
@@ -93,6 +115,20 @@
   padding-top: 10rpx;
   padding-left:80rpx;
 }
+.del_img3{
+  width:40rpx;
+  height:40rpx;
+  margin: auto 0;
+  padding-top: 10rpx;
+  padding-left:120rpx;
+}
+.del_img2{
+  width:40rpx;
+  height:40rpx;
+  margin: auto 0;
+  padding-right:10rpx;
+  float: right;
+}
 .talk-view{
   display: table;
   width: 100%;
@@ -101,4 +137,8 @@
   width: 38rpx;
   height:38rpx;
   padding-left: 40rpx;
+}
+.newlist{
+  margin-left: 20rpx;
+  margin-bottom: 20rpx;
 }

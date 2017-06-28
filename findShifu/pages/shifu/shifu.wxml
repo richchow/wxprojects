@@ -72,14 +72,6 @@
         <image class="bg_panel_imglist_img" src="{{icon60}}" mode="aspectFit" />
       </view>
     </view>
-    <view class="page__bd_spacing2 bottom_qa">
-      <view class="bottom_qa_button">
-        <image class="bottom_qa_button_img" src="/images/share.svg" />转发</view>
-      <view class="bottom_qa_button">
-        <image class="bottom_qa_button_img" src="/images/comment.svg" />评论</view>
-      <view class="bottom_qa_button">
-        <image class="bottom_qa_button_img" src="/images/like.svg" />赞</view>
-    </view>
   </view>
 </view>
 <view bindtap="bindToBigGroup" class="bottom_button">

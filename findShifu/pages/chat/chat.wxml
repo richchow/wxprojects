@@ -5,14 +5,17 @@
       <view class="right-Triangle"></view>
       <view class="right-message padding_half">
         <text wx:if="{{i.text}}">{{i.text}}</text>
-        <image wx:if="{{i.imgList}}" style="max-width:150px;max-height:120px" src="{{i.imgList}}"></image>
+        <image  bindtap="showPhoto" data-src="{{i.imgList}}" wx:if="{{i.imgList}}" style="max-width:150px;max-height:120px" src="{{i.imgList}}"></image>
+        <view data-talk="{{i.talk}}" bindtap="playVoice" wx:if="{{i.talk}}"><image src="/images/talk.svg" style="width:40rpx;height:40rpx;"/></view>
       </view>
     </view>
     <view class="padding clearfix" id="{{i.id}}" wx:if="{{!i.me}}">
       <image class="left-Avatar" src="{{i.img}}"></image>
       <view class="left-Triangle"></view>
       <view class="left-message padding_half">
-        <text>{{i.text}}</text>
+        <text wx:if="{{i.text}}">{{i.text}}</text>
+        <image  bindtap="showPhoto" data-src="{{i.imgList}}" wx:if="{{i.imgList}}" style="max-width:150px;max-height:120px" src="{{i.imgList}}"></image>
+        <view data-talk="{{i.talk}}" bindtap="playVoice" wx:if="{{i.talk}}"><image src="/images/talk.svg" style="width:40rpx;height:40rpx;"/></view>
       </view>
     </view>
   </view>
@@ -20,13 +23,15 @@
 </scroll-view>
 <view wx:if="{{ischatpayed}}" class="indexBottomSmall">
   <view class="indexSearchSmall">
-    <image src="/images/talk2.svg" />
-    <view class="viewInput">
+    <image  wx:if="{{istalk==false}}" bindtap="bindToTalkButton" src="/images/talk2.svg" />
+    <image  wx:if="{{istalk}}" bindtap="bindToKWButton" src="/images/keyword.svg" />
+    <view class="viewInput" wx:if="{{istalk==false}}">
       <form bindsubmit="btnSearch">
         <input class="indexInput" confirm-type="send" bindinput="bindChange" value="{{inputValue}}" bindconfirm="btnSearch" />
       </form>
     </view>
-    <image src="/images/add2.svg" />
+    <view class="input_talk" wx:if="{{istalk}}" bindtouchstart="bindTalk" bindtouchcancel="bindOverTalk" bindtouchmove="bindCanelTalk" bindtouchend="bindOverTalk">按住说话</view>
+    <image src="/images/add2.svg" bindtap="updatePhoto" />
   </view>
 </view>
 <view class="nopayed" wx:if="{{ischatpayed == false}}">

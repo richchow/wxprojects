@@ -50,9 +50,9 @@
     </view>
     <view class="page__bd_spacing2 size28">17年就业指导</view>
     <view class="qa_content" bindtap="bindToSmallcomment">
-      <view class="qa_content_q">王起航：不错</view>
-      <view class="qa_content_q">王起航：不错</view>
-      <view class="qa_content_q">共3条回复></view>
+      <view class="qa_content_q"><label>王起航</label>：不错</view>
+      <view class="qa_content_q"><label>王起航</label>：不错</view>
+      <view class="qa_content_q"><label>周师傅</label>回复<label>王起航：不错</label></view>
     </view>
   </view>
 </view>

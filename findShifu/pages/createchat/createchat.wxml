@@ -7,19 +7,19 @@
     <view class="input_name">房间名称：
     </view>
     <view class="input_conent">
-      <input focus="true" placeholder="房间名称" />
+      <input class="{{nameVail}}" focus="true" name="name" value="{{name}}"  placeholder="房间名称" />
     </view>
   </view>
   <view class="section">
     <view class="input_name">收费金额：
     </view>
     <view class="input_conent">
-      <input type="number" class="input_conent_num" value="0" />元
+      <input type="number" name="num" value="{{num}}"  class="{{nameVail}}" value="0" />元
     </view>
     <view class="input_remark">(0元为免费房间)</view>
   </view>
   <view>
-    <button  formType="submit" type="primary">提交</button>
+    <button  loading="{{loading}}" disabled="{{loading}}"  formType="submit" type="primary">提交</button>
   </view>
   </form>
 </page>

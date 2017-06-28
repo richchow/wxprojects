@@ -13,11 +13,14 @@
   width: 400rpx;
   display: flex;
 }
-.input_conent input{
+.input_conent .inputClass{
   border-bottom: 1rpx #7a7a7a solid;
 }
 
 .input_remark{
   color: #7a7a7a;
   font-size: 24rpx;
+}
+.input-error{
+  border-bottom: 1rpx #f00 solid;
 }
