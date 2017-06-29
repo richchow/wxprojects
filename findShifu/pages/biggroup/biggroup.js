@@ -5,7 +5,7 @@ Page({
     session: '',
     userinfo: {},
     iscommend: false,
-    isShifu:false,
+    isShifu:true,
     commentval:'',
   },
   playVoice: function (e) {

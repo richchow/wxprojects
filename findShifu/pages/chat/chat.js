@@ -1,4 +1,5 @@
 var app = getApp()
+var inttime
 Page({
   data: {
     ischatpayed: false,
@@ -38,8 +39,11 @@ Page({
       mask: true,
       image: '/images/talk.svg'
     })
+    var time = 1
+    inttime = setInterval(function(){time++}, 1000)
     wx.startRecord({
       success: function (res) {
+        clearInterval(inttime)
         let temp = res.tempFilePath
         wx.saveFile({
           tempFilePath: temp,
@@ -51,7 +55,8 @@ Page({
               id: 'message' + msgID,
               img: that.data.userInfo.avatarUrl,
               me: true,
-              talk: res.savedFilePath
+              talk: res.savedFilePath,
+              time:time
             }
             currentdata.push(data)
             app.setDataList(that.data.chatid, data)
@@ -66,6 +71,7 @@ Page({
             })
           },
           fail: function () {
+            clearInterval(inttime)
             app.showModal('数据获取错误，请稍后重试')
           }
         })
@@ -73,11 +79,23 @@ Page({
       },
       fail: function (res) {
         //录音失败
+        clearInterval(inttime)
       }
     })
   },
-  bindCanelTalk:function(){},
+  bindCanelTalk:function(){
+    clearInterval(inttime)
+    wx.showToast({
+      title: '取消录音',
+      mask: true,
+      image: '/images/talk.svg'
+    })
+    setTimeout(function () {
+      wx.hideToast()
+    }, 1000)
+  },
   bindOverTalk: function () {
+    clearInterval(inttime)
     wx.stopRecord()
     wx.hideToast()
   },

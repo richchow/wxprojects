@@ -1,0 +1,11 @@
+<view class="page pk_page">
+  <view class="pk_title">输入打开口令</view>
+  <view class="pk_content">
+    <label class="pk_input" bindtap="bindInput"  >{{v1}}</label>
+    <label class="pk_input" bindtap="bindInput"  >{{v2}}</label>
+    <label class="pk_input" bindtap="bindInput"  >{{v3}}</label>
+    <label class="pk_input" bindtap="bindInput"  >{{v4}}</label>
+  </view>
+  <view>
+     <input class="pk_input2" focus="{{isInput}}" bindinput="bindKeyInput" type="number" maxlength='4'  /></view>
+</view>

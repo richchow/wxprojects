@@ -1,7 +1,12 @@
 <view class="page">
   <view class="backWhite margin_bottom_20 padding_top_20  padding_bottom_20">
-    <view wx:if="{{isShifu == false}}"  bindtap="bindComment" data-val="私信师傅" class="top_button">私信</view>
-    <view  bindtap="bindToQA" wx:if="{{isShifu}}" class="top_button">发表</view>
+    <view>
+      <view wx:if="{{isShifu == false}}" bindtap="bindComment" data-val="私信师傅" class="top_button">私信</view>
+    </view>
+    <view class="sf_top">
+      <view bindtap="bindToQA" wx:if="{{isShifu}}" class="sf_top_button">发表</view>
+      <view bindtap="bindToQA" wx:if="{{isShifu}}" class="sf_top_button">生成图片分享</view>
+    </view>
   </view>
   <view class="backWhite margin_bottom_20 margin_top_20 padding_top_20  bg_panel_user ">
     <view class="weui-media-box_appmsg paddingleft20">
@@ -37,7 +42,7 @@
       </view>
     </view>
     <view class="qa_content">
-      <view bindtap="bindComment" data-id='0'  data-val="回复王起航" class="qa_content_q">
+      <view bindtap="bindComment" data-id='0' data-val="回复王起航" class="qa_content_q">
         <label>王起航</label>：不错
         <label class="delcommend">删除</label>
       </view>

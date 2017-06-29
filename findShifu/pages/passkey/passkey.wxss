@@ -1,0 +1,25 @@
+.pk_page{
+  display: flex;
+  flex-direction: column;
+  margin-top: 200px;
+  align-items: center;
+  width: 100%;
+}
+.pk_content{
+  margin-top: 30rpx;
+  width: 168px;
+}
+.pk_input{
+  border: #e6e6e6 1px solid;
+  display: table;
+  text-align: center;
+  width: 40px;
+  height:40px;
+  float: left;
+  font-size: 20px;
+}
+.pk_input2{
+  z-index: -99999;
+  height: 0rpx;
+  display: none;
+}
