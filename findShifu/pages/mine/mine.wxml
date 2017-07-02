@@ -8,12 +8,8 @@
         <view class="weui-cell__bd">钱包</view>
         <view class="weui-cell__ft weui-cell__ft_in-access cell_ft_new">30</view>
       </navigator>
-      <navigator url="/pages/relate/relate" class="weui-cell weui-cell_access" hover-class="weui-cell_active" >
+      <navigator url="/pages/privately/privately" class="weui-cell weui-cell_access" hover-class="weui-cell_active" >
         <view class="weui-cell__bd">私信</view>
-        <view class="weui-cell__ft weui-cell__ft_in-access cell_ft_new">30</view>
-      </navigator>
-      <navigator url="/pages/relate/relate" class="weui-cell weui-cell_access" hover-class="weui-cell_active" >
-        <view class="weui-cell__bd">评论</view>
         <view class="weui-cell__ft weui-cell__ft_in-access cell_ft_new">30</view>
       </navigator>
     </view>

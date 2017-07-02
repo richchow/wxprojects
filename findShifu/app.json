@@ -12,6 +12,7 @@
     "pages/createchat/createchat",
     "pages/passkey/passkey",
     "pages/privately/privately",
+    "pages/privatelyqa/privatelyqa",
     "pages/index/index"
   ],
   "window": {
