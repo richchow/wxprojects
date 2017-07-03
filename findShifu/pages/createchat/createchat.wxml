@@ -1,25 +1,36 @@
 <page>
-<form bindsubmit="formSubmit">
-  <view class="section">
-    <view class="title">新建房间</view>
-  </view>
-  <view class="section">
-    <view class="input_name">房间名称：
+  <form bindsubmit="formSubmit">
+    <view class="section">
+      <view class="title">新建房间</view>
     </view>
-    <view class="input_conent">
-      <input class="{{nameVail}}" focus="true" name="name" value="{{name}}"  placeholder="房间名称" />
+    <view class="section">
+      <view class="input_name">房间名称：
+      </view>
+      <view class="input_conent">
+        <input class="{{nameVail}}" focus="true" name="name" value="{{name}}" placeholder="房间名称" />
+      </view>
     </view>
-  </view>
-  <view class="section">
-    <view class="input_name">收费金额：
+    <view class="section">
+      <view class="input_name">收费金额：
+      </view>
+      <view class="input_conent">
+        <input type="number" name="num" value="{{num}}" class="{{nameVail}}" value="0" />元
+      </view>
+      <view class="input_remark">(0元为免费房间)</view>
     </view>
-    <view class="input_conent">
-      <input type="number" name="num" value="{{num}}"  class="{{nameVail}}" value="0" />元
+    <view class="section">
+      <view class="input_name">结束时间：
+      </view>
+      <view class="input_conent">
+        <picker mode="date" value="{{date}}" start="2015-09-01" end="2017-09-01" bindchange="bindDateChange">
+          <view class="picker">
+            {{date}}
+          </view>
+        </picker>
+      </view>
     </view>
-    <view class="input_remark">(0元为免费房间)</view>
-  </view>
-  <view>
-    <button  loading="{{loading}}" disabled="{{loading}}"  formType="submit" type="primary">提交</button>
-  </view>
+    <view>
+      <button loading="{{loading}}" disabled="{{loading}}" formType="submit" type="primary">提交</button>
+    </view>
   </form>
 </page>

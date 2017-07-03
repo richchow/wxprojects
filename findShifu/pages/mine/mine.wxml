@@ -4,9 +4,9 @@
   </view>
   <view class="page__bd">
     <view class="weui-cells weui-cells_after-title">
-      <navigator url="/pages/relate/relate" class="weui-cell weui-cell_access" hover-class="weui-cell_active" >
+      <navigator url="/pages/wallet/wallet" class="weui-cell weui-cell_access" hover-class="weui-cell_active" >
         <view class="weui-cell__bd">钱包</view>
-        <view class="weui-cell__ft weui-cell__ft_in-access cell_ft_new">30</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access cell_ft_new"></view>
       </navigator>
       <navigator url="/pages/privately/privately" class="weui-cell weui-cell_access" hover-class="weui-cell_active" >
         <view class="weui-cell__bd">私信</view>

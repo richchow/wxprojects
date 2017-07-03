@@ -1,10 +1,12 @@
 var app = getApp()
 var dataService = require('../../providers/dataService.js')
+var util = require('../../utils/util.js')
 Page({
   data: {
     loading:false,
     nameVail:'inputClass',
     numVail:'inputClass',
+    date: '',
   },
    formSubmit: function (e) {
     console.log('form发生了submit事件，携带数据为：', e.detail.value)
@@ -40,8 +42,16 @@ Page({
       })
     } else { }
   },
+   bindDateChange: function (e) {
+     this.setData({
+       date: e.detail.value
+     })
+   },
   onLoad: function (options) {
-  
+    var today = util.getNextMonth(new Date().toLocaleDateString().split('/').join('-'))
+    this.setData({
+      date: today
+    })
   },
 
 })
