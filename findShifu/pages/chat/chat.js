@@ -13,7 +13,8 @@ Page({
     inputValue: '',
     messageID: 2,
     intoView: '',
-    talkStatus:false
+    talkStatus:false,
+    endday:'2017-08-03',
   },
   bindToTalkButton: function () {
     this.setData({ istalk: true })
@@ -37,7 +38,8 @@ Page({
     wx.showToast({
       title: '录音中',
       mask: true,
-      image: '/images/talk.svg'
+      image: '/images/talk.svg',
+      duration: 60000
     })
     var time = 1
     inttime = setInterval(function(){time++}, 1000)
@@ -45,6 +47,7 @@ Page({
       success: function (res) {
         clearInterval(inttime)
         let temp = res.tempFilePath
+        if(that.data.talkStatus){
         wx.saveFile({
           tempFilePath: temp,
           success: function (res) { 
@@ -75,7 +78,7 @@ Page({
             app.showModal('数据获取错误，请稍后重试')
           }
         })
-        
+        }
       },
       fail: function (res) {
         //录音失败
@@ -85,6 +88,7 @@ Page({
   },
   bindCanelTalk:function(){
     clearInterval(inttime)
+    this.setData({ talkStatus: false })
     wx.showToast({
       title: '取消录音',
       mask: true,

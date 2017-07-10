@@ -1,15 +1,19 @@
 var app = getApp()
+var inttime
 Page({
   data: {
     hastalked: false,
     loading: false,
     tempimg: [],
     temptalk: '',
-    tempvideo:'',
-    videonum:0,
+    tempvideo: '',
+    videonum: 0,
     imgnum: 0,
     userinfo: {},
     session: '',
+    talkmsg: '点击开始录音',
+    talkStatus: false,
+    talktime:1,
   },
   formSubmit: function (e) {
     console.log('form发生了submit事件，携带数据为：', e.detail.value)
@@ -34,7 +38,7 @@ Page({
       })
     } else { }
   },
-  updateVideo:function(){
+  updateVideo: function () {
     var that = this
     wx.chooseVideo({
       sourceType: ['album', 'camera'],
@@ -43,12 +47,12 @@ Page({
       success: function (res) {
         that.setData({
           tempvideo: res.tempFilePath,
-          videonum:1
+          videonum: 1
         })
       }
     })
   },
-  delVideo:function(){
+  delVideo: function () {
     this.setData({
       tempvideo: '',
       videonum: 0
@@ -56,6 +60,17 @@ Page({
   },
   bindTalk: function () {
     var that = this
+    that.setData({
+      talkStatus: true
+    })
+    var time = 1
+    inttime = setInterval(function () { 
+      that.setData({
+        talkmsg: '录音中 '+time+'"',
+        talktime:time,
+      })
+      time++ 
+      }, 1000)
     wx.startRecord({
       success: function (res) {
         let temp = res.tempFilePath
@@ -71,6 +86,13 @@ Page({
     })
   },
   bindOverTalk: function () {
+    var that = this
+    that.setData({
+      talkStatus: false,
+      hastalked: true,
+      talkmsg: '时长： ' + that.data.talktime + '"'
+    })
+    clearInterval(inttime)
     wx.stopRecord()
   },
   playVoice: function (e) {
@@ -84,6 +106,7 @@ Page({
     this.setData({
       temptalk: '',
       hastalked: false,
+      talkmsg: '点击开始录音',
     })
   },
   showPhoto: function (e) {

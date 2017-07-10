@@ -335,3 +335,8 @@ height: 1106rpx;
   margin: 60rpx;
 
 }
+.top_msg{
+  text-align: center;
+  height:60rpx;
+  line-height: 60rpx;
+}

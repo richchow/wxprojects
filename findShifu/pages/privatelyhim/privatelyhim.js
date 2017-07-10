@@ -4,11 +4,7 @@ Page({
   data: {
     hastalked: false,
     loading: false,
-    tempimg: [],
     temptalk: '',
-    tempvideo: '',
-    videonum: 0,
-    imgnum: 0,
     userinfo: {},
     session: '',
     talkmsg: '点击开始录音',
@@ -37,26 +33,6 @@ Page({
         loading: false
       })
     } else { }
-  },
-  updateVideo: function () {
-    var that = this
-    wx.chooseVideo({
-      sourceType: ['album', 'camera'],
-      maxDuration: 60,
-      camera: 'back',
-      success: function (res) {
-        that.setData({
-          tempvideo: res.tempFilePath,
-          videonum: 1
-        })
-      }
-    })
-  },
-  delVideo: function () {
-    this.setData({
-      tempvideo: '',
-      videonum: 0
-    })
   },
   bindTalk: function () {
     var that = this
@@ -107,48 +83,6 @@ Page({
       temptalk: '',
       hastalked: false,
       talkmsg: '点击开始录音',
-    })
-  },
-  showPhoto: function (e) {
-    var that = this
-    let temp = []
-    for (let i = 0; i < that.data.tempimg.length; i++) {
-      temp.push(that.data.tempimg[i].url)
-    }
-    wx.previewImage({
-      current: e.currentTarget.dataset.src,
-      urls: temp
-    })
-  },
-  delPhoto: function (e) {
-    let num = Number(e.currentTarget.dataset.num)
-    let timg = this.data.tempimg
-    timg.splice(num, 1)
-    this.setData({
-      tempimg: timg,
-      imgnum: this.data.imgnum--,
-    })
-  },
-  updatePhoto: function (e) {
-    var that = this
-    wx.chooseImage({
-      success: function (res) {
-        let num = that.data.imgnum;
-        for (let i = 0; i < res.tempFilePaths.length; i++) {
-          num++;
-          if (num <= 9) {
-            let currentdata = that.data.tempimg;
-            let data = {
-              url: res.tempFilePaths[i]
-            }
-            currentdata.push(data)
-            that.setData({
-              tempimg: currentdata,
-              imgnum: num
-            })
-          }
-        }
-      }
     })
   },
   onLoad: function (options) {

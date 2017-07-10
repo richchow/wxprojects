@@ -13,6 +13,7 @@
     "pages/passkey/passkey",
     "pages/privately/privately",
     "pages/privatelyqa/privatelyqa",
+    "pages/privatelyhim/privatelyhim",
     "pages/wallet/wallet",
     "pages/index/index"
   ],

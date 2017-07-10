@@ -7,6 +7,7 @@ Page({
     nameVail:'inputClass',
     numVail:'inputClass',
     date: '',
+    today:'',
   },
    formSubmit: function (e) {
     console.log('form发生了submit事件，携带数据为：', e.detail.value)
@@ -50,7 +51,8 @@ Page({
   onLoad: function (options) {
     var today = util.getNextMonth(new Date().toLocaleDateString().split('/').join('-'))
     this.setData({
-      date: today
+      date: today,
+      today: new Date().toLocaleDateString().split('/').join('-')
     })
   },
 

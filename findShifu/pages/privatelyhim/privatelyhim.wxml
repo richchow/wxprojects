@@ -1,0 +1,34 @@
+<page>
+  <form bindsubmit="formSubmit">
+    <view class="top_button margin_bottom_20">
+      <view class="top_button_left">取消</view>
+      <view class="top_button_right">
+        <button size="mini" loading="{{loading}}" disabled="{{loading}}" type="primary" formType="submit">发送</button>
+      </view>
+    </view>
+    <view class="backWhite margin_bottom_20">
+      <textarea name="content" class="input_content" placeholder="私信师傅..." focus="true" />
+    </view>
+    <view class="backWhite margin_bottom_20">
+      <view class="photo_button">
+        录音
+      </view>
+      <view class="talk_centent">
+        <view>{{talkmsg}}</view>
+        <view wx:if="{{hastalked == false}}">
+          <button wx:if="{{talkStatus == false}}" size="mini" type="default" bindtap="bindTalk">
+            开始录音</button>
+            <button wx:if="{{talkStatus}}" size="mini" type="warn" bindtap="bindOverTalk">
+            停止录音</button>
+        </view>
+         <view wx:if="{{hastalked}}">
+          <button  size="mini" type="default" bindtap="playVoice" data-talk="{{temptalk}}">
+            播放</button>
+            <button size="mini" type="warn" bindtap="delVoice">
+            删除</button>
+        </view>
+      </view>
+      <view class="view_remark">录音结束前请勿进行其它操作，录音时长60秒内</view>
+    </view>
+  </form>
+</page>

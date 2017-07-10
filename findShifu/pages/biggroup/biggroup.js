@@ -5,7 +5,7 @@ Page({
     session: '',
     userinfo: {},
     iscommend: false,
-    isShifu:true,
+    isShifu:false,
     commentval:'',
   },
   playVoice: function (e) {
@@ -47,9 +47,9 @@ Page({
 
   },
   bindComment: function (e) {
-    this.setData({ 
-      iscommend: true,
-      commentval:e.currentTarget.dataset.val })
+    wx.navigateTo({
+      url: '/pages/privatelyhim/privatelyhim',
+    })
   },
   onLoad: function (options) {
     this.setData({

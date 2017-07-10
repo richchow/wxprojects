@@ -1,52 +1,69 @@
 <page>
   <form bindsubmit="formSubmit">
-    <view class="top_button">
+    <view class="top_button margin_bottom_20">
       <view class="top_button_left">取消</view>
       <view class="top_button_right">
         <button size="mini" loading="{{loading}}" disabled="{{loading}}" type="primary" formType="submit">发送</button>
       </view>
     </view>
-    <view class="input_view">
+    <view class="backWhite margin_bottom_20">
       <textarea name="content" class="input_content" placeholder="分享自己的观点..." focus="true" />
     </view>
-    <view class="photo_button">
-      <image src="/images/photo.svg" />
-    </view>
-    <view class="content_img_list">
-      <view class="content_img_tu" wx:for="{{tempimg}}">
-        <image bindtap="showPhoto" data-src="{{item.url}}" class="content_img_tu_img" mode="aspectFit" src="{{item.url}}" />
-        <view data-num="{{index}}" bindtap="delPhoto" class="del_view">
-          <image class="del_img" mode="aspectFit" src="/images/del.svg" />
-        </view>
+    <view class="backWhite margin_bottom_20">
+      <view class="photo_button">
+        上传图片
       </view>
-      <view class="content_img" wx:if="{{imgnum < 9}}" bindtap="updatePhoto">
-        <image mode="aspectFit" src="/images/add.svg" />
+      <view class="content_img_list">
+        <view class="content_img_tu" wx:for="{{tempimg}}">
+          <image bindtap="showPhoto" data-src="{{item.url}}" class="content_img_tu_img" mode="aspectFit" src="{{item.url}}" />
+          <view data-num="{{index}}" bindtap="delPhoto" class="del_view">
+            <image class="del_img" mode="aspectFit" src="/images/del.svg" />
+          </view>
+        </view>
+        <view class="content_img" wx:if="{{imgnum < 9}}" bindtap="updatePhoto">
+          <image mode="aspectFit" src="/images/add.svg" />
+        </view>
+        <view class="line"></view>
+      </view>
+    </view>
+    <view class="backWhite margin_bottom_20">
+      <view class="photo_button">
+        上传视频
+      </view>
+      <view class="content_img_list">
+        <view class="content_img_tu2" wx:if="{{tempvideo != ''}}">
+          <video data-src="{{tempvideo}}" class="content_img_tu_img2" mode="aspectFit" src="{{tempvideo}}" />
+          <view data-num="{{index}}" bindtap="delVideo" class="del_view2">
+            <image class="del_img3" mode="aspectFit" src="/images/del.svg" />
+          </view>
+        </view>
+        <view class="content_img" wx:if="{{videonum < 1}}" bindtap="updateVideo">
+          <image mode="aspectFit" src="/images/add.svg" />
+        </view>
       </view>
       <view class="line"></view>
+      <view class="view_remark">拍摄时长1分钟内，上传视频不大于20M</view>
     </view>
-    <view class="photo_button">
-      <image src="/images/video.svg" />
-    </view>
-    <view class="content_img_list">
-      <view class="content_img_tu2"  wx:if="{{tempvideo != ''}}">
-        <video data-src="{{tempvideo}}" class="content_img_tu_img2" mode="aspectFit" src="{{tempvideo}}" />
-        <view data-num="{{index}}" bindtap="delVideo" class="del_view2">
-          <image class="del_img3" mode="aspectFit" src="/images/del.svg" />
+    <view class="backWhite margin_bottom_20">
+      <view class="photo_button">
+        录音
+      </view>
+      <view class="talk_centent">
+        <view>{{talkmsg}}</view>
+        <view wx:if="{{hastalked == false}}">
+          <button wx:if="{{talkStatus == false}}" size="mini" type="default" bindtap="bindTalk">
+            开始录音</button>
+            <button wx:if="{{talkStatus}}" size="mini" type="warn" bindtap="bindOverTalk">
+            停止录音</button>
+        </view>
+         <view wx:if="{{hastalked}}">
+          <button  size="mini" type="default" bindtap="playVoice" data-talk="{{temptalk}}">
+            播放</button>
+            <button size="mini" type="warn" bindtap="delVoice">
+            删除</button>
         </view>
       </view>
-      <view class="content_img" wx:if="{{videonum < 1}}" bindtap="updateVideo">
-        <image mode="aspectFit" src="/images/add.svg" />
-      </view>
-    </view>
-    <view class="line"></view>
-    <view class="talk-view">
-      <view class="bg_panel_filelist newlist" wx:if="{{temptalk !=''}}">
-        <image bindtap="playVoice" data-talk="{{temptalk}}" class="bg_panel_filelist_file" src="/images/talk.svg" mode="aspectFit" />
-        <label bindtap="playVoice" data-talk="{{temptalk}}">0`20``</label>
-        <image bindtap="delVoice" class="del_img2" mode="aspectFit" src="/images/del.svg" />
-      </view>
-      <button disabled="{{hastalked}}" type="primary" bindtouchstart="bindTalk" bindtouchcancel="bindOverTalk" bindtouchend="bindOverTalk">
-        <image src="/images/mic.svg" />发送语音</button>
+      <view class="view_remark">录音结束前请勿进行其它操作，录音时长60秒内</view>
     </view>
   </form>
 </page>

@@ -22,11 +22,15 @@
 
 .input_content {
   height: 300rpx;
-  margin-top: 20rpx;
+  padding: 20rpx;
+  width:100%;
+  font-size: 26rpx;
 }
 
 .photo_button {
   margin-left: 20rpx;
+  font-size:26rpx;
+  margin-bottom: 10rpx;
 }
 
 .photo_button image {
@@ -141,4 +145,17 @@
 .newlist{
   margin-left: 20rpx;
   margin-bottom: 20rpx;
+}
+.talk_centent{
+  margin: 20rpx;
+}
+.talk_centent view{
+  width: 100%;
+  text-align: center;
+   margin: 20rpx;
+}
+.view_remark{
+  margin-left: 20rpx;
+  font-size: 26rpx;
+  color: #707070;
 }

@@ -22,7 +22,7 @@
       <view class="input_name">结束时间：
       </view>
       <view class="input_conent">
-        <picker mode="date" value="{{date}}" start="2015-09-01" end="2017-09-01" bindchange="bindDateChange">
+        <picker mode="date" value="{{date}}" start="{{today}}" bindchange="bindDateChange">
           <view class="picker">
             {{date}}
           </view>

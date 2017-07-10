@@ -1,4 +1,5 @@
-<scroll-view wx:if="{{ischatpayed}}" scroll-y="true" style="height:1104rpx;background:#ebebeb;" scroll-into-view="{{intoView}}">
+<view class="top_msg"  wx:if="{{ischatpayed}}">房间关闭时间：{{endday}}</view>
+<scroll-view wx:if="{{ischatpayed}}" scroll-y="true" style="height:1044rpx;background:#ebebeb;" scroll-into-view="{{intoView}}">
   <view wx:for="{{message}}" id="{{i.id}}" wx:for-item="i">
     <view class="padding clearfix" wx:if="{{i.me}}">
       <image class="right-Avatar" src="{{userInfo.avatarUrl}}"></image>

@@ -1,0 +1,59 @@
+.top_button {
+  padding: 10rpx 20rpx;
+  background-color: #fff;
+  height: 60rpx;
+}
+
+.top_button_left {
+  width: 50%;
+  float: left;
+}
+
+.top_button_right {
+  width: 50%;
+  float: right;
+  text-align: right;
+  color: #14b3c7;
+}
+
+.input_view {
+  margin-left: 20rpx;
+}
+
+.input_content {
+  height: 300rpx;
+  padding: 20rpx;
+  width:100%;
+  font-size: 26rpx;
+}
+.photo_button {
+  margin-left: 20rpx;
+  font-size:26rpx;
+  margin-bottom: 10rpx;
+}
+.talk-view{
+  display: table;
+  width: 100%;
+}
+.talk-view image{
+  width: 38rpx;
+  height:38rpx;
+  padding-left: 40rpx;
+}
+.newlist{
+  margin-left: 20rpx;
+  margin-bottom: 20rpx;
+}
+.talk_centent{
+  margin: 20rpx;
+}
+.talk_centent view{
+  width: 100%;
+  text-align: center;
+   margin: 20rpx;
+}
+.view_remark{
+  margin-left: 20rpx;
+  font-size: 26rpx;
+  color: #707070;
+}
