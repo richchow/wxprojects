@@ -1,4 +1,5 @@
 var app = getApp()
+var dataService = require('../../providers/dataService')
 var inttime
 Page({
   data: {
@@ -7,13 +8,17 @@ Page({
     tempimg: [],
     temptalk: '',
     tempvideo: '',
+    succesimg: '',
+    succestalk: '',
+    succesvideo: '',
     videonum: 0,
     imgnum: 0,
     userinfo: {},
     session: '',
     talkmsg: '点击开始录音',
     talkStatus: false,
-    talktime:1,
+    talktime: 1,
+    masterid: '',
   },
   formSubmit: function (e) {
     console.log('form发生了submit事件，携带数据为：', e.detail.value)
@@ -22,21 +27,47 @@ Page({
     })
     var err = true
     var that = this
-    if (e.detail.value.content === '') {
+    if (e.detail.value.content != ''
+      || this.data.succesimg != ''
+      || this.data.succestalk != ''
+      || this.data.succesvideo != '') {
       err = false
     }
-    if (this.data.tempimg.length == 0) {
-      err = false
-    }
-    if (this.data.temptalk === '') {
-      err = false
-    }
+
     if (err) {
       app.showModal("填写信息有误，请检查所填信息项！")
       that.setData({
         loading: false
       })
-    } else { }
+    } else {
+      let files = that.data.succesimg + that.data.succestalk + that.data.succesvideo
+      files = files.length > 0 ? files.substring(0, files.lastIndexOf('|')):files
+      
+      dataService.MasterPushContent(that.data.session, that.data.masterid, files, e.detail.value.content, function (items) {
+        if (items.RetCode == 0) {
+          app.getBigRoomList(that.data.masterid, function (item) {
+            item.sfItems[0].ltRoomInfos.unshift(items.data[0])
+            app.setBigRoomList(that.data.masterid, item)
+          })
+          wx.navigateBack({
+            delta: 1
+          })
+        } else if (items.RetCode == 99) {
+          app.tokenError()
+        }
+        else {
+          app.showModal("数据错误，请稍后重试");
+        }
+        that.setData({
+          loading: false
+        })
+      })
+    }
+  },
+  bindbtnBack: function (e) {
+    wx.navigateBack({
+      delta: 1
+    })
   },
   updateVideo: function () {
     var that = this
@@ -45,17 +76,26 @@ Page({
       maxDuration: 60,
       camera: 'back',
       success: function (res) {
-        that.setData({
-          tempvideo: res.tempFilePath,
-          videonum: 1
+        dataService.uploadFiles(that.data.session, that.data.masterid, 2, that.data.succesvideo, new Array(res.tempFilePath), 0, 1, function (item) {
+          that.setData({
+            succesvideo: item,
+            tempvideo: res.tempFilePath,
+            videonum: 1,
+          })
         })
       }
     })
   },
-  delVideo: function () {
-    this.setData({
-      tempvideo: '',
-      videonum: 0
+  delVideo: function (e) {
+    var that = this
+    dataService.MasterDelFiles(that.data.session, that.data.masterid, e.currentTarget.dataset.url, function (item) {
+      if (item.RetCode == 0) {
+        that.setData({
+          succesvideo: '',
+          tempvideo: '',
+          videonum: 0
+        })
+      }
     })
   },
   bindTalk: function () {
@@ -64,21 +104,23 @@ Page({
       talkStatus: true
     })
     var time = 1
-    inttime = setInterval(function () { 
+    inttime = setInterval(function () {
       that.setData({
-        talkmsg: '录音中 '+time+'"',
-        talktime:time,
+        talkmsg: '录音中 ' + time + '"',
+        talktime: time,
       })
-      time++ 
-      }, 1000)
+      time++
+    }, 1000)
     wx.startRecord({
       success: function (res) {
         let temp = res.tempFilePath
-        that.setData({
-          temptalk: temp,
-          hastalked: true,
+        dataService.uploadFiles(that.data.session, that.data.masterid,3, that.data.succestalk, new Array(res.tempFilePath), 0, 1, function (item) {
+          that.setData({
+            succestalk: item,
+            temptalk: temp,
+            hastalked: true,
+          })
         })
-
       },
       fail: function (res) {
         //录音失败
@@ -102,11 +144,17 @@ Page({
       }
     })
   },
-  delVoice: function () {
-    this.setData({
-      temptalk: '',
-      hastalked: false,
-      talkmsg: '点击开始录音',
+  delVoice: function (e) {
+    var that = this
+    dataService.MasterDelFiles(that.data.session, that.data.masterid, e.currentTarget.dataset.url, function (item) {
+      if (item.RetCode == 0) {
+        that.setData({
+          succestalk: '',
+          temptalk: '',
+          hastalked: false,
+          talkmsg: '点击开始录音',
+        })
+      }
     })
   },
   showPhoto: function (e) {
@@ -121,19 +169,43 @@ Page({
     })
   },
   delPhoto: function (e) {
+    var that = this
+    let nownum = this.data.imgnum
     let num = Number(e.currentTarget.dataset.num)
     let timg = this.data.tempimg
     timg.splice(num, 1)
-    this.setData({
-      tempimg: timg,
-      imgnum: this.data.imgnum--,
+
+    let url = e.currentTarget.dataset.url
+    url = (url.substring(url.lastIndexOf("/") + 1))
+    let simg = that.data.succesimg
+    dataService.MasterDelFiles(that.data.session, that.data.masterid, url, function (item) {
+      if (item.RetCode == 0) {
+        simg = simg.replace(url + '=1|','')
+        that.setData({
+          succesimg: simg,
+          tempimg: timg,
+          imgnum: --nownum,
+        })
+      }
     })
   },
   updatePhoto: function (e) {
     var that = this
+    var num = that.data.imgnum;
+    var cnum = 9-num
     wx.chooseImage({
+      count: cnum,
       success: function (res) {
-        let num = that.data.imgnum;
+
+        //new
+        dataService.uploadFiles(that.data.session, that.data.masterid,1, that.data.succesimg, res.tempFilePaths, 0, res.tempFilePaths.length, function (item) {
+          that.setData({
+            succesimg: item,
+          })
+        })
+
+        //old
+        
         for (let i = 0; i < res.tempFilePaths.length; i++) {
           num++;
           if (num <= 9) {
@@ -152,7 +224,16 @@ Page({
     })
   },
   onLoad: function (options) {
-
+    var that = this
+    that.setData({
+      masterid: options.masterid
+    })
+    //获得session
+    app.getSession(function (session) {
+      that.setData({
+        session: session
+      })
+    })
   },
   onReady: function () {
 

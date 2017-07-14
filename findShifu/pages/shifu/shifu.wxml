@@ -46,34 +46,39 @@
       </view>
     </view>
   </view>
-  <view class="backWhite margin_top_20 padding_top_20  bg_panel_user ">
-    <view class="weui-media-box_appmsg paddingleft20">
-      <view class="bg_panel_img">
-        <image class="bg_panel_userimg" src="{{icon20}}"></image>
+  <block wx:if="{{sfItem.lmroominfo.length > 0}}">
+    <view class="backWhite margin_top_20 padding_top_20  bg_panel_user ">
+      <view class="weui-media-box_appmsg paddingleft20">
+        <view class="bg_panel_img">
+          <image class="bg_panel_userimg" src="{{sfItem.picurl}}"></image>
+        </view>
+        <view class="weui-media-box__bd weui-media-box__bd_in-appmsg bg_panel_usercontent ">
+          <view>{{sfItem.mastername}}</view>
+          <view class="color_time">{{sfItem.lmroominfo[0].cdate}}</view>
+        </view>
       </view>
-      <view class="weui-media-box__bd weui-media-box__bd_in-appmsg bg_panel_usercontent ">
-        <view>周先生</view>
-        <view class="color_time">5分钟前</view>
+      <view class="page__bd_spacing2 size28">{{sfItem.lmroominfo[0].mrcontent}}
+        <view class="bg_panel_filelist">
+          <image class="bg_panel_filelist_file" src="/images/talk.svg" mode="aspectFit" /> 0`20``
+        </view>
+        <view class="bg_panel_imglist">
+          <image class="bg_panel_imglist_img" src="{{icon60}}" mode="aspectFit" />
+          <image class="bg_panel_imglist_img" src="{{icon60}}" mode="aspectFit" />
+          <image class="bg_panel_imglist_img" src="{{icon60}}" mode="aspectFit" />
+          <image class="bg_panel_imglist_img" src="{{icon60}}" mode="aspectFit" />
+          <image class="bg_panel_imglist_img" src="{{icon60}}" mode="aspectFit" />
+          <image class="bg_panel_imglist_img" src="{{icon60}}" mode="aspectFit" />
+          <image class="bg_panel_imglist_img" src="{{icon60}}" mode="aspectFit" />
+          <image class="bg_panel_imglist_img" src="{{icon60}}" mode="aspectFit" />
+          <image class="bg_panel_imglist_img" src="{{icon60}}" mode="aspectFit" />
+        </view>
       </view>
     </view>
-    <view class="page__bd_spacing2 size28">17年就业指导,山东发生的发生的发生阿斯顿发生的发生发达师傅的
-      <view class="bg_panel_filelist">
-        <image class="bg_panel_filelist_file" src="/images/talk.svg" mode="aspectFit" /> 0`20``
-      </view>
-      <view class="bg_panel_imglist">
-        <image class="bg_panel_imglist_img" src="{{icon60}}" mode="aspectFit" />
-        <image class="bg_panel_imglist_img" src="{{icon60}}" mode="aspectFit" />
-        <image class="bg_panel_imglist_img" src="{{icon60}}" mode="aspectFit" />
-        <image class="bg_panel_imglist_img" src="{{icon60}}" mode="aspectFit" />
-        <image class="bg_panel_imglist_img" src="{{icon60}}" mode="aspectFit" />
-        <image class="bg_panel_imglist_img" src="{{icon60}}" mode="aspectFit" />
-        <image class="bg_panel_imglist_img" src="{{icon60}}" mode="aspectFit" />
-        <image class="bg_panel_imglist_img" src="{{icon60}}" mode="aspectFit" />
-        <image class="bg_panel_imglist_img" src="{{icon60}}" mode="aspectFit" />
-      </view>
-    </view>
-  </view>
+  </block>
 </view>
-<view bindtap="bindToBigGroup" class="bottom_button">
-    ¥5咨询师傅
-  </view>
+<view wx:if="{{sfItem.iBuyed !=0}}" bindtap="bindToBigGroup" class="bottom_button">
+  ¥5咨询师傅
+</view>
+<view wx:if="{{sfItem.iBuyed ==0}}" data-masterid="{{sfItem.masterid}}" bindtap="bindToBigGroup" class="bottom_button">
+  咨询师傅
+</view>

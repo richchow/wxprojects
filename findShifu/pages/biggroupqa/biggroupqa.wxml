@@ -1,7 +1,7 @@
 <page>
   <form bindsubmit="formSubmit">
     <view class="top_button margin_bottom_20">
-      <view class="top_button_left">取消</view>
+      <view class="top_button_left" bindtap="bindbtnBack">取消</view>
       <view class="top_button_right">
         <button size="mini" loading="{{loading}}" disabled="{{loading}}" type="primary" formType="submit">发送</button>
       </view>
@@ -16,7 +16,7 @@
       <view class="content_img_list">
         <view class="content_img_tu" wx:for="{{tempimg}}">
           <image bindtap="showPhoto" data-src="{{item.url}}" class="content_img_tu_img" mode="aspectFit" src="{{item.url}}" />
-          <view data-num="{{index}}" bindtap="delPhoto" class="del_view">
+          <view data-num="{{index}}" data-url="{{item.url}}" bindtap="delPhoto" class="del_view">
             <image class="del_img" mode="aspectFit" src="/images/del.svg" />
           </view>
         </view>
@@ -59,7 +59,7 @@
          <view wx:if="{{hastalked}}">
           <button  size="mini" type="default" bindtap="playVoice" data-talk="{{temptalk}}">
             播放</button>
-            <button size="mini" type="warn" bindtap="delVoice">
+            <button size="mini" data-url="{{succestalk}}" type="warn" bindtap="delVoice">
             删除</button>
         </view>
       </view>

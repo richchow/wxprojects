@@ -1,12 +1,9 @@
 var app = getApp()
 var dataService = require('../../providers/dataService')
-var base64 = require("../../images/base64");
 Page({
   data: {
     isMoreOpen:false,
     sfItem:{},
-    icon20: base64.icon20,
-    icon60: base64.icon60
   },
   bindOpenMore:function(e){
     if (e.currentTarget.dataset.tab === '1'){
@@ -17,7 +14,7 @@ Page({
   },
   bindToBigGroup:function(e){
     wx.navigateTo({
-      url: '/pages/biggroup/biggroup',
+      url: '/pages/biggroup/biggroup?masterid=' + e.currentTarget.dataset.masterid,
     })
   },
   onLoad: function (options) {
@@ -55,8 +52,6 @@ Page({
             showLoading: false
           })
         })
-      
-      
     })
   },
 

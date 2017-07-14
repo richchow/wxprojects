@@ -9,30 +9,6 @@ Page({
   },
   onShow: function () {
     var that = this
-    if (!that.data.isonLoad) {
-      this.setData({
-        showLoading: true
-      })
-      dataService.getMasterListAll(that.data.session, '', '', function (items) {
-        if (items.RetCode == 0) {
-          that.setData({
-            sfItems: items.data
-          })
-        } else if (items.RetCode == 99) {
-          app.tokenError()
-        }
-        else {
-          app.showModal("数据错误，请稍后重试");
-        }
-
-        that.setData({
-          showLoading: false
-        })
-      })
-    }
-  },
-  onLoad: function () {
-    var that = this
     this.setData({
       showLoading: true
     })
@@ -55,7 +31,8 @@ Page({
         dataService.getMasterListAll(that.data.session, '', '', function (items) {
           if (items.RetCode == 0) {
             that.setData({
-              sfItems: items.data
+              sfItems: items.data,
+              isonLoad: false
             })
           } else if (items.RetCode == 99) {
             app.tokenError()
@@ -64,13 +41,13 @@ Page({
             app.showModal("数据错误，请稍后重试");
           }
         })
-        that.setData({
-          isonLoad: false
-        })
       }
       that.setData({
         showLoading: false
       })
     })
+  },
+  onLoad: function () {
+    
   }
 })
