@@ -1,19 +1,49 @@
-var base64 = require("../../images/base64");
+var app = getApp()
+var subRoomService = require('../../providers/subRoomService.js')
 Page({
   data: {
-    groupitems: [{ img: base64.icon20,title:'张师傅的家',new:'20'},
-      { img: base64.icon20, title: '李师傅的家', new: '20' },
-      { img: base64.icon20, title: '王师傅的家', new: '20' },
-      { img: base64.icon20, title: '赵师傅的家', new: '20' },]
+    groupitems: []
   },
   bindToCreateChat:function(){
     wx.navigateTo({
       url: '/pages/createchat/createchat',
     })
   },
-  onLoad: function (options) {
+  onShow:function(){
+    var that = this
     this.setData({
-      icon: base64.icon20
-    });
+      showLoading: true
+    })
+    //获得session
+    app.getSession(function (session) {
+      that.setData({
+        session: session
+      })
+
+      app.getUserInfo(function (userInfo) {
+        //更新数据
+        that.setData({
+          userInfo: userInfo
+        })
+      })
+      subRoomService.SRoomListAll(that.data.session, function (items) {
+        if (items.RetCode == 0) {
+          that.setData({
+            groupitems: items.data,
+          })
+        } else if (items.RetCode == 99) {
+          app.tokenError()
+        }
+        else {
+          app.showModal("数据错误，请稍后重试");
+        }
+        that.setData({
+          showLoading: false
+        })
+      })
+    })
+  },
+  onLoad: function (options) {
+    
   }
 })

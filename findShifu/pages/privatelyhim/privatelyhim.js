@@ -1,15 +1,24 @@
 var app = getApp()
+var dataService = require('../../providers/dataService')
 var inttime
 Page({
   data: {
     hastalked: false,
     loading: false,
+    tempimg: [],
     temptalk: '',
+    tempvideo: '',
+    succesimg: '',
+    succestalk: '',
+    succesvideo: '',
+    videonum: 0,
+    imgnum: 0,
     userinfo: {},
     session: '',
     talkmsg: '点击开始录音',
     talkStatus: false,
     talktime: 1,
+    masterid: '',
   },
   formSubmit: function (e) {
     console.log('form发生了submit事件，携带数据为：', e.detail.value)
@@ -18,13 +27,7 @@ Page({
     })
     var err = true
     var that = this
-    if (e.detail.value.content === '') {
-      err = false
-    }
-    if (this.data.tempimg.length == 0) {
-      err = false
-    }
-    if (this.data.temptalk === '') {
+    if (e.detail.value.content != '' || that.data.succestalk != '') {
       err = false
     }
     if (err) {
@@ -32,7 +35,26 @@ Page({
       that.setData({
         loading: false
       })
-    } else { }
+    } else {
+      let files = that.data.succesimg + that.data.succestalk + that.data.succesvideo
+      files = files.length > 0 ? files.substring(0, files.lastIndexOf('|')) : files
+
+      dataService.PushMessage(that.data.session, that.data.masterid, files, e.detail.value.content, function (items) {
+        if (items.RetCode == 0) {
+          wx.navigateBack({
+            delta: 1
+          })
+        } else if (items.RetCode == 99) {
+          app.tokenError()
+        }
+        else {
+          app.showModal("数据错误，请稍后重试");
+        }
+        that.setData({
+          loading: false
+        })
+      })
+    }
   },
   bindTalk: function () {
     var that = this
@@ -50,14 +72,22 @@ Page({
     wx.startRecord({
       success: function (res) {
         let temp = res.tempFilePath
-        that.setData({
-          temptalk: temp,
-          hastalked: true,
+        dataService.MessagePushFiles(that.data.session, 3, that.data.succestalk, new Array(res.tempFilePath), 0, 1, function (item) {
+          if (item.RetCode == 0) {
+            that.setData({
+              succestalk: item.data,
+              temptalk: temp,
+              hastalked: true,
+            })
+          }
+          else {
+            app.showModal("数据错误，请稍后重试");
+          }
         })
-
       },
       fail: function (res) {
         //录音失败
+        app.showModal("数据错误，请稍后重试");
       }
     })
   },
@@ -78,15 +108,30 @@ Page({
       }
     })
   },
-  delVoice: function () {
-    this.setData({
-      temptalk: '',
-      hastalked: false,
-      talkmsg: '点击开始录音',
+  delVoice: function (e) {
+    var that = this
+    dataService.MessageDelFiles(that.data.session, e.currentTarget.dataset.url, function (item) {
+      if (item.RetCode == 0) {
+        that.setData({
+          succestalk: '',
+          temptalk: '',
+          hastalked: false,
+          talkmsg: '点击开始录音',
+        })
+      }
     })
   },
   onLoad: function (options) {
-
+    var that = this
+    that.setData({
+      masterid: options.masterid
+    })
+    //获得session
+    app.getSession(function (session) {
+      that.setData({
+        session: session
+      })
+    })
   },
   onReady: function () {
 

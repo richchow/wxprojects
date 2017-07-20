@@ -90,3 +90,6 @@
   height: 80rpx;
   right: 0;
 }
+.sf_bottom_h{
+height:50rpx;
+}

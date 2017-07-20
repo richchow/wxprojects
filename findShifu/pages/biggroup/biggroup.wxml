@@ -19,19 +19,19 @@
       </view>
     </view>
     <view class="page__bd_spacing2 size28">{{item.mrcontent}}
-      <view wx:if="{{item.ltFilesAudio}}" wx:for="{{item.ltFilesAudio}}" wx:for-item="lf" class="bg_panel_filelist">
-        <image bindtap="playVoice" data-talk="{{appurl+lf.fileurl}}" class="bg_panel_filelist_file" src="/images/talk.svg" mode="aspectFit" />
+      <view wx:if="{{item.ltFilesAudio}}" wx:for="{{item.ltFilesAudio}}" wx:for-item="lf" bindtap="playVoice" data-talk="{{appurl+lf.fileurl}}" class="bg_panel_filelist">
+        <image  class="bg_panel_filelist_file" src="/images/talk.svg" mode="aspectFit" />
       </view>
       <view wx:if="{{item.ltFilesImg}}" class="bg_panel_imglist">
         <image  wx:for="{{item.ltFilesImg}}"  wx:for-item="lf" bindtap="showPhoto" data-src="{{appurl+lf.fileurl}}" data-id="{{item.ltFilesImg}}" class="bg_panel_imglist_img" src="{{appurl+lf.fileurl}}" mode="aspectFit" />
       </view>
       <view wx:if="{{item.ltFilesVideo}}" class="bg_panel_imglist">
-        <video  wx:for="{{item.ltFilesVideo}}"  wx:for-item="lf" data-src="{{appurl+lf.fileurl}}" src="{{appurl+lf.fileurl}}" />
+        <video  wx:for="{{item.ltFilesVideo}}"  wx:for-item="lf" data-src="{{appurl+lf.fileurl}}" src="{{appurl+lf.fileurl}}"/>
       </view>
     </view>
     <view class="page__bd_spacing2 bottom_qa">
       <view class="color_time">{{item.cdate}}
-        <label class="deldata"  wx:if="{{isShifu}}">删除</label>
+        <label class="deldata" bindtap="bindDelContent" data-mrcid="{{item.mrcid}}" data-index="{{index}}"  wx:if="{{isShifu}}">删除</label>
       </view>
       <view>
         <image class="bottom_qa_button_img" data-commentid='0' data-contentid='{{item.mrcid}}' data-val="评论" bindtap="bindComment" data-rusername="" data-ruserid="" src="/images/comment.svg" />

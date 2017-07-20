@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/group/group",
     "pages/find/find",
+    "pages/group/group",
     "pages/mine/mine",
     "pages/shifu/shifu",
     "pages/biggroup/biggroup",

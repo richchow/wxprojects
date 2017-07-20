@@ -15,15 +15,15 @@ Page({
     contentid: 0,
     appurl: '',
     rusername: '',
-    ruserid:'',
-    cardurl:'',
+    ruserid: '',
+    cardurl: '',
   },
   bindToQCode: function (e) {
     var that = this
     dataService.getMasterCard(that.data.session, function (item) {
       if (item.RetCode == 0) {
-        const downloadTask =wx.downloadFile({
-          url: that.data.cardurl+item.data[0],
+        wx.downloadFile({
+          url: that.data.cardurl + item.data[0],
           success: function (res) {
             wx.previewImage({
               current: res.tempFilePath,
@@ -31,18 +31,25 @@ Page({
             })
           }
         })
-        downloadTask.onProgressUpdate((res) => {
-          console.log('下载进度', res.progress)
-          console.log('已经下载的数据长度', res.totalBytesWritten)
-          console.log('预期需要下载的数据总长度', res.totalBytesExpectedToWrite)
-        })
       }
     })
   },
   playVoice: function (e) {
-    wx.playVoice({
-      filePath: e.currentTarget.dataset.talk,
-      complete: function () {
+
+    wx.downloadFile({
+      url: e.currentTarget.dataset.talk, //仅为示例，并非真实的资源
+      success: function (res) {
+        wx.playVoice({
+          filePath: res.tempFilePath,
+          success: function (res) {
+            console.log('res', 'success')
+          },
+          fail: function () {
+            console.log('res', 'fail')
+          },
+          complete: function () {
+          }
+        })
       }
     })
   },
@@ -101,10 +108,10 @@ Page({
             app.setBigRoomList(that.data.masterid, item)
           })
           that.setData({
-              iscommend: false,
-              inputValue: '',
-              sfItem: sf,
-            })
+            iscommend: false,
+            inputValue: '',
+            sfItem: sf,
+          })
         } else if (items.RetCode == 99) {
           app.tokenError()
         }
@@ -137,17 +144,48 @@ Page({
     })
   },
   bindPrivate: function (e) {
+    var that = this
     wx.navigateTo({
-      url: '/pages/privatelyhim/privatelyhim',
+      url: '/pages/privatelyhim/privatelyhim?masterid='+that.data.masterid,
     })
+  },
+  bindDelContent: function (e) {
+    var that = this
+    wx.showModal({
+      title: '提示',
+      content: '确认删除这条信息？',
+      success: function (res) {
+        if (res.confirm) {
+          let index = Number(e.currentTarget.dataset.index)
+          dataService.MasterDelContent(that.data.session, that.data.masterid, e.currentTarget.dataset.mrcid, function (items) {
+            if (items.RetCode == 0) {
+              let sfItem = that.data.sfItem
+              sfItem.ltRoomInfos.splice(index, 1)
+              app.getBigRoomList(that.data.masterid, function (item) {
+                item.sfItems = sfItem
+                app.setBigRoomList(that.data.masterid, item)
+              })
+              that.setData({
+                sfItem: sfItem,
+              })
+            } else if (items.RetCode == 99) {
+              app.tokenError()
+            }
+            else {
+              app.showModal("数据错误，请稍后重试");
+            }
+          })
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
+
   },
   onShow: function () {
     var that = this
     this.setData({
       showLoading: true
-    })
-    wx.showShareMenu({
-      withShareTicket: true
     })
     //获得session
     app.getSession(function (session) {
@@ -186,6 +224,6 @@ Page({
       appurl: app.getRequestUrl() + 'UploadedData/' + options.masterid + '/',
       cardurl: app.getRequestUrl() + 'UploadedData/',
     })
-    
+
   },
 })

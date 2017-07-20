@@ -4,6 +4,11 @@ Page({
   data: {
     isMoreOpen:false,
     sfItem:{},
+    appurl:'',
+    cardurl:'',
+    session:'',
+    userInfo:{},
+    showLoading:false,
   },
   bindOpenMore:function(e){
     if (e.currentTarget.dataset.tab === '1'){
@@ -20,7 +25,9 @@ Page({
   onLoad: function (options) {
     var that = this
     this.setData({
-      showLoading: true
+      showLoading: true,
+      appurl: app.getRequestUrl() + 'UploadedData/' + options.id + '/',
+      cardurl: app.getRequestUrl() + 'UploadedData/',
     })
     wx.showShareMenu({
       withShareTicket: true

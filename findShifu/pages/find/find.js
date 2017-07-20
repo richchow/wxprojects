@@ -47,7 +47,15 @@ Page({
       })
     })
   },
-  onLoad: function () {
-    
+  onLoad: function (options) {
+    let scene = options.scene
+    if(scene != null){
+      let val = scene.split('_')
+      if(val.length == 2){
+        wx.redirectTo({
+          url: '/pages/passkey/passkey?id='+val[1],
+        })
+      }
+    }
   }
 })

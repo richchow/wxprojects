@@ -1,12 +1,9 @@
 <view class="page">
   <view class="page__bd">
     <view class="weui-cells weui-cells_after-title">
-      <navigator url="{{item.url}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active" wx:for="{{groupitems}}" wx:for-item="item">
-        <view class="weui-cell__hd">
-          <image src="{{item.img}}"></image>
-        </view>
-        <view class="weui-cell__bd">{{item.title}}</view>
-        <view class="weui-cell__ft weui-cell__ft_in-access cell_ft_new">{{item.time}}</view>
+      <navigator url="/pages/privatelyqa/privatelyqa?mid={{item.mid}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active" wx:for="{{groupitems}}" wx:for-item="item">
+        <view class="weui-cell__bd">{{item.sNickName}}私信了我</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access cell_ft_new">{{item.cdate}}</view>
       </navigator>
     </view>
   </view>

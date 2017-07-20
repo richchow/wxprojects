@@ -1,8 +1,10 @@
 var app = getApp()
+var subRoomService = require('../../providers/subRoomService.js')
 var inttime
 Page({
   data: {
     ischatpayed: false,
+    iFinished: true,
     istalk: false,
     chatid: '',
     session: '',
@@ -13,8 +15,10 @@ Page({
     inputValue: '',
     messageID: 2,
     intoView: '',
-    talkStatus:false,
-    endday:'2017-08-03',
+    talkStatus: false,
+    endday: '2017-08-03',
+    appurl: app.getRequestUrl() + 'SUploadedData/',
+    isLock: false,
   },
   bindToTalkButton: function () {
     this.setData({ istalk: true })
@@ -34,7 +38,7 @@ Page({
   },
   bindTalk: function () {
     var that = this
-    that.setData({ talkStatus:true})
+    that.setData({ talkStatus: true })
     wx.showToast({
       title: '录音中',
       mask: true,
@@ -42,42 +46,32 @@ Page({
       duration: 60000
     })
     var time = 1
-    inttime = setInterval(function(){time++}, 1000)
+    inttime = setInterval(function () { time++ }, 1000)
     wx.startRecord({
       success: function (res) {
         clearInterval(inttime)
         let temp = res.tempFilePath
-        if(that.data.talkStatus){
-        wx.saveFile({
-          tempFilePath: temp,
-          success: function (res) { 
-            let msgID = that.data.messageID + 1;
-            let currentdata = that.data.message;
+        if (that.data.talkStatus) {
+          wx.saveFile({
+            tempFilePath: temp,
+            success: function (res) {
+              that.setCurrData(res.savedFilePath, 3, this.data.userInfo.avatarUrl, true, time, function (item) {
+                subRoomService.SRPushContent(that.data.session, '', 3, saveFilePath, function (items) {
+                  if (items.RetCode == 0) {
+                    that.setSData(item)
+                  }
+                  else {
+                    that.syncError(item)
+                  }
+                })
+              })
 
-            let data = {
-              id: 'message' + msgID,
-              img: that.data.userInfo.avatarUrl,
-              me: true,
-              talk: res.savedFilePath,
-              time:time
+            },
+            fail: function () {
+              clearInterval(inttime)
+              app.showModal('数据获取错误，请稍后重试')
             }
-            currentdata.push(data)
-            app.setDataList(that.data.chatid, data)
-            that.setData({
-              inputValue: "",
-              message: currentdata,
-              messageID: msgID
-            })
-
-            that.setData({
-              intoView: 'message' + that.data.messageID
-            })
-          },
-          fail: function () {
-            clearInterval(inttime)
-            app.showModal('数据获取错误，请稍后重试')
-          }
-        })
+          })
         }
       },
       fail: function (res) {
@@ -86,7 +80,7 @@ Page({
       }
     })
   },
-  bindCanelTalk:function(){
+  bindCanelTalk: function () {
     clearInterval(inttime)
     this.setData({ talkStatus: false })
     wx.showToast({
@@ -121,22 +115,10 @@ Page({
           wx.saveFile({
             tempFilePath: temp,
             success: function (res) {
-              let data = {
-                id: 'message' + msgID,
-                img: that.data.userInfo.avatarUrl,
-                me: true,
-                imgList: res.savedFilePath
-              }
-              currentdata.push(data)
-              app.setDataList(that.data.chatid, data)
-              that.setData({
-                inputValue: "",
-                message: currentdata,
-                messageID: msgID
-              })
-
-              that.setData({
-                intoView: 'message' + that.data.messageID
+              subRoomService.SRPushContent(that.data.session, '', 1, saveFilePath, function (items) {
+                if (items.RetCode == 0) {
+                  that.setCurrData(res.savedFilePath, 1, this.data.userInfo.avatarUrl, true, 0)
+                }
               })
             },
             fail: function () {
@@ -149,7 +131,13 @@ Page({
       }
     })
   },
-  onReady: function () {
+  onHide:function(){
+    app.setDataList(that.data.chatid, that.data.message)
+  },
+  onUnload:function(){
+    app.setDataList(that.data.chatid,that.data.message)
+  },
+  onReady: function() {
     console.log('onReady')
     this.setData({
       intoView: 'message' + this.data.messageID
@@ -161,10 +149,10 @@ Page({
     var id = options.id
     if (id != undefined) {
       that.setData({ chatid: id })
-  /*    app.getSession(function (session) {
+      app.getSession(function (session) {
         that.setData({
           session: session
-        })*/
+        })
         app.getUserInfo(function (userInfo) {
           that.setData({
             userInfo: userInfo
@@ -177,8 +165,97 @@ Page({
             messageID: item.length,
             intoView: 'message' + (item.length - 1)
           })
+
+          subRoomService.SRoomInfo(that.data.session, that.data.chatid, function (items) {
+            if (items.RetCode == -12) {
+              wx.redirectTo({
+                url: '/pages/group/group',
+              })
+            } else if (items.RetCode == 0) {
+              if (items.data[0].iFinished != 0) {
+                that.setData({
+                  iFinished: false
+                })
+              }
+              if (items.data[0].iOwner == 0 || items.data[0].isBuyed == 0) {
+                that.setData({
+                  ischatpayed: true
+                })
+                if (item.length > 0) {
+                  subRoomService.SRContent(that.data.session, that.data.chatid, function (sitems) {
+                    if (sitems.RetCode == 0) {
+                      if (sitems.data != null && sitems.data.length > 0) {
+                        for (let i = 0; i < sitems.data.length; i++) {
+                          switch (sitems.data[i].ctype) {
+                            case 4:
+                              that.setCurrData(sitems.data[i].content, sitems.data[i].ctype, sitems.data[i].avatarUrl, false, 0)
+                              break;
+                            case 1:
+                              wx.saveFile({
+                                tempFilePath: sitems.data[i].image,
+                                success: function (res) {
+                                  that.setCurrData(res.savedFilePath, sitems.data[i].ctype, sitems.data[i].avatarUrl, false, 0)
+                                }
+                              })
+                              break;
+                            case 3:
+                              wx.saveFile({
+                                tempFilePath: sitems.data[i].audio,
+                                success: function (res) {
+                                  that.setCurrData(res.savedFilePath, sitems.data[i].ctype, sitems.data[i].avatarUrl, false, 0)
+                                }
+                              })
+                              break;
+                          }
+                        }
+                      }
+                    }
+                  })
+                }
+                else {
+                  subRoomService.GetSRBuffContent(that.data.session, thatd.data.chatid, function (sitems) {
+                    if (sitems.RetCode == 0) {
+                      if (sitems.data != null && sitems.data.length > 0) {
+                        for (let i = 0; i < sitems.data.length; i++) {
+                          switch (sitems.data[i].ctype) {
+                            case 4:
+                              that.setCurrData(sitems.data[i].content, sitems.data[i].ctype, sitems.data[i].avatarUrl, false, 0)
+                              break;
+                            case 1:
+                              wx.saveFile({
+                                tempFilePath: sitems.data[i].image,
+                                success: function (res) {
+                                  that.setCurrData(res.savedFilePath, sitems.data[i].ctype, sitems.data[i].avatarUrl, false, 0)
+                                }
+                              })
+                              break;
+                            case 3:
+                              wx.saveFile({
+                                tempFilePath: sitems.data[i].audio,
+                                success: function (res) {
+                                  that.setCurrData(res.savedFilePath, sitems.data[i].ctype, sitems.data[i].avatarUrl, false, 0)
+                                }
+                              })
+                              break;
+                          }
+                        }
+                      }
+                    }
+                  })
+                }
+              }
+              else {
+                that.setData({
+                  price: items.data[0].price
+                })
+              }
+            }
+          })
+
         })
-     /* })*/
+
+
+      })
     }
   },
   onShareAppMessage: function () {
@@ -200,25 +277,56 @@ Page({
   },
   btnSearch: function () {
     if (this.data.inputValue != null && this.data.inputValue.trim() !== '') {
-      let msgID = this.data.messageID + 1;
-      let currentdata = this.data.message;
-
-      let data = {
-        id: 'message' + msgID,
-        img: this.data.userInfo.avatarUrl,
-        me: true,
-        text: this.data.inputValue,
-      }
-      currentdata.push(data)
-      app.setDataList(this.data.chatid, data)
-      this.setData({
-        inputValue: "",
-        message: currentdata,
-        messageID: msgID
+      subRoomService.SRPushContent(that.data.session, '', 1, saveFilePath, function (items) {
+        if (items.RetCode == 0) {
+          this.setCurrData(this.data.inputValue, 4, this.data.userInfo.avatarUrl, true)
+        }
       })
     }
+  },
+  setCurrData: function (content, ctype, avatarUrl, isMe, time, cb) {
+    var that = this;
+    let msgID = this.data.messageID + 1;
+    let currentdata = this.data.message;
+    let data = {}
+    switch (ctype) {
+      case 4:
+        data = {
+          id: 'message' + msgID,
+          img: avatarUrl,
+          me: isMe,
+          text: content,
+          sync: true,
+        }
+        break;
+      case 1:
+        data = {
+          id: 'message' + msgID,
+          img: avatarUrl,
+          me: isMe,
+          imgList: content,
+          sync: true,
+        }
+        break;
+      case 3:
+        data = {
+          id: 'message' + msgID,
+          img: avatarUrl,
+          me: isMe,
+          talk: res.savedFilePath,
+          time: time,
+          sync: true,
+        }
+
+        break;
+    }
+
+    currentdata.push(data)
     this.setData({
+      message: currentdata,
+      messageID: msgID,
       intoView: 'message' + this.data.messageID
     })
-  }
+    typeof cb == "function" && cb(data)
+  },
 })

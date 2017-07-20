@@ -1,12 +1,12 @@
 <view class="page">
   <view class="page__bd">
     <view class="weui-cells weui-cells_after-title">
-      <navigator url="/pages/chat/chat?id=1" class="weui-cell weui-cell_access" hover-class="weui-cell_active" wx:for="{{groupitems}}" wx:for-item="item">
-        <view class="weui-cell__hd">
-          <image src="{{item.img}}"></image>
-        </view>
+      <navigator url="/pages/chat/chat?id={{item.sid}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active" wx:for="{{groupitems}}" wx:for-item="item">
+
         <view class="weui-cell__bd">{{item.title}}</view>
-        <view class="weui-cell__ft weui-cell__ft_in-access cell_ft_new">{{item.new}}</view>
+        <view wx:if="{{item.iFinished == 0}}" class="weui-cell__ft weui-cell__ft_in-access cell_ft_new">已完成</view>
+        <view wx:elif="{{item.iBuyed != 0 }}" class="weui-cell__ft weui-cell__ft_in-access cell_ft_new">未购买</view>
+        <view wx:else class="weui-cell__ft weui-cell__ft_in-access cell_ft_new">{{item.iUnreadCount}}</view>
       </navigator>
     </view>
   </view>

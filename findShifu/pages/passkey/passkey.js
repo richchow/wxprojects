@@ -1,4 +1,5 @@
-// pages/passkey/passkey.js
+var app = getApp()
+var dataService = require('../../providers/dataService')
 Page({
   data: {
     id: '',
@@ -13,11 +14,21 @@ Page({
   },
   bindKeyInput: function (e) {
     var val = e.detail.value
-    if (val.length == 4) {
 
-      wx.navigateTo({
-        url: '/pages/biggroup/biggroup?id='+this.data.id,
+    var that = this
+    if (val.length == 4) {
+      dataService.EnterRoomCheck(that.data.session, that.data.id, e.detail.value, function (items) {
+        if (items.RetCode == 0) {
+          wx.redirectTo({
+            url: '/pages/biggroup/biggroup?masterid=' + items.data[0],
+          })
+        } else if (items.RetCode == 99) {
+          app.tokenError()
+        } else {
+          app.showModal(items.ErrorMsg)
+        }
       })
+
     }
     this.setData({
       v1: val.charAt(0),
@@ -26,9 +37,20 @@ Page({
       v4: val.charAt(3),
     })
   },
+  onShow:function(){
+    
+  },
+
   onLoad: function (options) {
     this.setData({
-      id:options.id
+      id: options.id
+    })
+    var that = this
+    //获得session
+    app.getSession(function (session) {
+      that.setData({
+        session: session
+      })
     })
   },
 })

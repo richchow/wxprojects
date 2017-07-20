@@ -22,7 +22,7 @@
   </view>
   <view class="weui-icon_success"></view>
 </scroll-view>
-<view wx:if="{{ischatpayed}}" class="indexBottomSmall">
+<view wx:if="{{ischatpayed && iFinished}}" class="indexBottomSmall">
   <view class="indexSearchSmall">
     <image  wx:if="{{istalk==false}}" bindtap="bindToTalkButton" src="/images/talk2.svg" />
     <image  wx:if="{{istalk}}" bindtap="bindToKWButton" src="/images/keyword.svg" />
