@@ -2,14 +2,117 @@ var app = getApp()
 var subRoomService = require('../../providers/subRoomService.js')
 Page({
   data: {
-    groupitems: []
+    groupitems: [],
+    qrbtnstatus: false,
+    loading: false,
+    showModalStatus: false,
+    inputTitle: '',
+    animationData: {},
+    numVail: 'inputClass',
   },
-  bindToCreateChat:function(){
+  formSubmit: function (e) {
+    console.log('form发生了submit事件，携带数据为：', e.detail.value)
+    this.setData({
+      loading: true
+    })
+    var err = false
+    var that = this
+    if (e.detail.value.num === '' || Number(e.detail.value.num) < 1) {
+      err = true
+      this.setData({
+        numVail: "input-error"
+      })
+    } else {
+      this.setData({
+        numVail: "inputClass"
+      })
+    }
+    if (err) {
+      app.showModal("填写信息有误，请检查所填信息项！")
+      that.setData({
+        loading: false
+      })
+    } else {
+      subRoomService.makeorder(that.data.session, Number(e.detail.value.num), e.detail.value.name, that.data.chatid, function (items) {
+        if (items.RetCode == 0) {
+          dataService.getMasterCard(that.data.session, function (item) {
+            if (item.RetCode == 0) {
+              wx.downloadFile({
+                url: that.data.cardurl + item.data[0],
+                success: function (res) {
+                  wx.previewImage({
+                    current: res.tempFilePath,
+                    urls: [res.tempFilePath]
+                  })
+                }
+              })
+            }
+          })
+          that.hideModal()
+        }
+      })
+    }
+  },
+  showModal: function () {
+    // 显示遮罩层
+    var animation = wx.createAnimation({
+      duration: 200,
+      timingFunction: "linear",
+      delay: 0
+    })
+    this.animation = animation
+    animation.translateY(300).step()
+    this.setData({
+      animationData: animation.export(),
+      showModalStatus: true,
+    })
+    setTimeout(function () {
+      animation.translateY(0).step()
+      this.setData({
+        animationData: animation.export()
+      })
+    }.bind(this), 200)
+  },
+  hideModal: function () {
+    // 隐藏遮罩层
+    var animation = wx.createAnimation({
+      duration: 200,
+      timingFunction: "linear",
+      delay: 0
+    })
+    this.animation = animation
+    animation.translateY(300).step()
+    this.setData({
+      animationData: animation.export(),
+    })
+    setTimeout(function () {
+      animation.translateY(0).step()
+      this.setData({
+        animationData: animation.export(),
+        showModalStatus: false,
+        qrbtnstatus: false,
+        loading: false,
+      })
+    }.bind(this), 200)
+  },
+  bindToChat:function(){
+    wx.navigateTo({
+      url: '/pages/chat/chat?id={{item.sid}}',
+    })
+  },
+  bindToCreateChat: function () {
     wx.navigateTo({
       url: '/pages/createchat/createchat',
     })
   },
-  onShow:function(){
+  btnQRCode: function (e) {
+    this.setData({
+      qrbtnstatus: true,
+      showModalStatus: true,
+      inputTitle: e.currentTarget.dataset.title,
+    })
+  },
+  onShow: function () {
     var that = this
     this.setData({
       showLoading: true
@@ -44,6 +147,6 @@ Page({
     })
   },
   onLoad: function (options) {
-    
+
   }
 })

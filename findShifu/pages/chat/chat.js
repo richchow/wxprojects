@@ -11,7 +11,7 @@ Page({
     text: '',
     title: '',
     userInfo: {},
-    message: [{ id: '', text: 'huihuihiuhuihiuhiu', me: true, img: '/images/robot1.png' }, { id: '', text: 'sdfsafdadf', me: false, img: '/images/robot1.png' }],
+    message: [],//[{ id: '', text: 'huihuihiuhuihiuhiu', me: true, img: '/images/robot1.png' }, { id: '', text: 'sdfsafdadf', me: false, img: '/images/robot1.png' }],
     inputValue: '',
     messageID: 2,
     intoView: '',
@@ -19,6 +19,8 @@ Page({
     endday: '2017-08-03',
     appurl: app.getRequestUrl() + 'SUploadedData/',
     isLock: false,
+    defpic: '/pages/images/robot1.png',
+    price: 200,
   },
   bindToTalkButton: function () {
     this.setData({ istalk: true })
@@ -55,12 +57,9 @@ Page({
           wx.saveFile({
             tempFilePath: temp,
             success: function (res) {
-              that.setCurrData(res.savedFilePath, 3, this.data.userInfo.avatarUrl, true, time, function (item) {
-                subRoomService.SRPushContent(that.data.session, '', 3, saveFilePath, function (items) {
-                  if (items.RetCode == 0) {
-                    that.setSData(item)
-                  }
-                  else {
+              that.setCurrData(res.savedFilePath, 3, that.data.userInfo.avatarUrl, true, time, function (item) {
+                subRoomService.SRPushContent(that.data.session, that.data.chatid, '', 3, res.savedFilePath, function (items) {
+                  if (items.RetCode != 0) {
                     that.syncError(item)
                   }
                 })
@@ -115,10 +114,12 @@ Page({
           wx.saveFile({
             tempFilePath: temp,
             success: function (res) {
-              subRoomService.SRPushContent(that.data.session, '', 1, saveFilePath, function (items) {
-                if (items.RetCode == 0) {
-                  that.setCurrData(res.savedFilePath, 1, this.data.userInfo.avatarUrl, true, 0)
-                }
+              that.setCurrData(res.savedFilePath, 1, that.data.userInfo.avatarUrl, true, 0, function (item) {
+                subRoomService.SRPushContent(that.data.session, that.data.chatid, '', 1, res.savedFilePath, function (items) {
+                  if (items.RetCode != 0) {
+                    that.syncError(item)
+                  }
+                })
               })
             },
             fail: function () {
@@ -131,13 +132,13 @@ Page({
       }
     })
   },
-  onHide:function(){
-    app.setDataList(that.data.chatid, that.data.message)
+  onHide: function () {
+    app.setDataList(this.data.chatid, this.data.message)
   },
-  onUnload:function(){
-    app.setDataList(that.data.chatid,that.data.message)
+  onUnload: function () {
+    app.setDataList(this.data.chatid, this.data.message)
   },
-  onReady: function() {
+  onReady: function () {
     console.log('onReady')
     this.setData({
       intoView: 'message' + this.data.messageID
@@ -167,86 +168,62 @@ Page({
           })
 
           subRoomService.SRoomInfo(that.data.session, that.data.chatid, function (items) {
-            if (items.RetCode == -12) {
-              wx.redirectTo({
-                url: '/pages/group/group',
+            if (items.RetCode == -14 || items.RetCode == -15) {
+              wx.showModal({
+                title: '提示',
+                content: 'items.ErrorMsg',
+                showCancel: false,
+                success: function (res) {
+                  if (res.confirm) {
+                    wx.redirectTo({
+                      url: '/pages/group/group',
+                    })
+                  } else if (res.cancel) {
+                    console.log('用户点击取消')
+                  }
+                }
               })
-            } else if (items.RetCode == 0) {
+
+            } else if (items.RetCode == -12) { 
+              that.setData({
+                price: items.data[0].payamount
+              })
+            }
+            else if (items.RetCode == 0) {
               if (items.data[0].iFinished != 0) {
                 that.setData({
                   iFinished: false
                 })
               }
-              if (items.data[0].iOwner == 0 || items.data[0].isBuyed == 0) {
+              if (items.data[0].iOwner == 0 || items.data[0].iBuyed == 0) {
                 that.setData({
                   ischatpayed: true
                 })
                 if (item.length > 0) {
                   subRoomService.SRContent(that.data.session, that.data.chatid, function (sitems) {
                     if (sitems.RetCode == 0) {
-                      if (sitems.data != null && sitems.data.length > 0) {
-                        for (let i = 0; i < sitems.data.length; i++) {
-                          switch (sitems.data[i].ctype) {
-                            case 4:
-                              that.setCurrData(sitems.data[i].content, sitems.data[i].ctype, sitems.data[i].avatarUrl, false, 0)
-                              break;
-                            case 1:
-                              wx.saveFile({
-                                tempFilePath: sitems.data[i].image,
-                                success: function (res) {
-                                  that.setCurrData(res.savedFilePath, sitems.data[i].ctype, sitems.data[i].avatarUrl, false, 0)
-                                }
-                              })
-                              break;
-                            case 3:
-                              wx.saveFile({
-                                tempFilePath: sitems.data[i].audio,
-                                success: function (res) {
-                                  that.setCurrData(res.savedFilePath, sitems.data[i].ctype, sitems.data[i].avatarUrl, false, 0)
-                                }
-                              })
-                              break;
-                          }
-                        }
-                      }
+                      that.setSyncData(sitems)
                     }
                   })
                 }
                 else {
-                  subRoomService.GetSRBuffContent(that.data.session, thatd.data.chatid, function (sitems) {
+                  subRoomService.GetSRBuffContent(that.data.session, that.data.chatid, function (sitems) {
                     if (sitems.RetCode == 0) {
-                      if (sitems.data != null && sitems.data.length > 0) {
-                        for (let i = 0; i < sitems.data.length; i++) {
-                          switch (sitems.data[i].ctype) {
-                            case 4:
-                              that.setCurrData(sitems.data[i].content, sitems.data[i].ctype, sitems.data[i].avatarUrl, false, 0)
-                              break;
-                            case 1:
-                              wx.saveFile({
-                                tempFilePath: sitems.data[i].image,
-                                success: function (res) {
-                                  that.setCurrData(res.savedFilePath, sitems.data[i].ctype, sitems.data[i].avatarUrl, false, 0)
-                                }
-                              })
-                              break;
-                            case 3:
-                              wx.saveFile({
-                                tempFilePath: sitems.data[i].audio,
-                                success: function (res) {
-                                  that.setCurrData(res.savedFilePath, sitems.data[i].ctype, sitems.data[i].avatarUrl, false, 0)
-                                }
-                              })
-                              break;
-                          }
-                        }
-                      }
+                      that.setSyncData(sitems)
                     }
                   })
                 }
+                setTimeout(function(){
+                  subRoomService.SRContent(that.data.session, that.data.chatid, function (sitems) {
+                    if (sitems.RetCode == 0) {
+                      that.setSyncData(sitems)
+                    }
+                  })
+                }, 60000)
               }
               else {
                 that.setData({
-                  price: items.data[0].price
+                  price: items.data[0].payamount
                 })
               }
             }
@@ -276,10 +253,76 @@ Page({
     })
   },
   btnSearch: function () {
+    var that = this
     if (this.data.inputValue != null && this.data.inputValue.trim() !== '') {
-      subRoomService.SRPushContent(that.data.session, '', 1, saveFilePath, function (items) {
-        if (items.RetCode == 0) {
-          this.setCurrData(this.data.inputValue, 4, this.data.userInfo.avatarUrl, true)
+      this.setCurrData(this.data.inputValue, 4, this.data.userInfo.avatarUrl, true, 0, function (item) {
+        subRoomService.SRPushContent(that.data.session, that.data.chatid, that.data.inputValue, 4, '', function (items) {
+          console.log('items.RetCode:', items.RetCode)
+          if (items.RetCode != 0) {
+            that.syncError(item)
+          }
+        })
+      })
+      that.setData({
+        inputValue: '',
+      })
+    }
+  },
+  setSyncData: function (sitems) {
+    var that = this
+    let srcidArray = ''
+    if (sitems.data != null && sitems.data.length > 0) {
+
+      app.getSRCRead(that.data.chatid, function (data) {
+        srcidArray = data
+      })
+      for (let i = 0; i < sitems.data.length; i++) {
+        switch (sitems.data[i].ctype) {
+          case 4:
+            that.setCurrData(sitems.data[i].mrcontent, sitems.data[i].ctype, sitems.data[i].uPicUrl == null ? that.data.defpic : sitems.data[i].uPicUrl, sitems.data[i].iOwner === 0, 0)
+            break;
+          case 1:
+            wx.downloadFile({
+              url: that.data.appurl + that.data.chatid + '/' + sitems.data[i].fileurl,
+              success: function (res) {
+                wx.saveFile({
+                  tempFilePath: res.tempFilePath,
+                  success: function (res) {
+                    that.setCurrData(res.savedFilePath, sitems.data[i].ctype, sitems.data[i].uPicUrl == null ? that.data.defpic : sitems.data[i].uPicUrl, sitems.data[i].iOwner === 0, 0)
+                  },
+                  fail: function () {
+                    console.log('saveFile fail')
+                  },
+                })
+              }
+            })
+            break;
+          case 3:
+            wx.downloadFile({
+              url: that.data.appurl + that.data.chatid + '/' + sitems.data[i].fileurl,
+              success: function (res) {
+                wx.saveFile({
+                  tempFilePath: res.tempFilePath,
+                  success: function (res) {
+                    that.setCurrData(res.savedFilePath, sitems.data[i].ctype, sitems.data[i].uPicUrl == null ? that.data.defpic : sitems.data[i].uPicUrl, sitems.data[i].iOwner === 0, 0)
+                  }
+                })
+              }
+            })
+            break;
+        }
+        if (sitems.data[i].iHavRead != 0) {
+          srcidArray += sitems.data[i].srcid + '|'
+        }
+      }
+    }
+    if (srcidArray.length > 0) {
+      if (srcidArray.lastIndexOf('|') === srcidArray.length) {
+        srcidArray = srcidArray.substring(0, srcidArray.lastIndexOf('|') - 1)
+      }
+      subRoomService.SRContentRead(that.data.session, srcidArray, function (item) {
+        if (item.RetCode === 0) {
+          app.setSRCRead(that.data.chatid, '')
         }
       })
     }
@@ -313,7 +356,7 @@ Page({
           id: 'message' + msgID,
           img: avatarUrl,
           me: isMe,
-          talk: res.savedFilePath,
+          talk: content,
           time: time,
           sync: true,
         }
@@ -328,5 +371,16 @@ Page({
       intoView: 'message' + this.data.messageID
     })
     typeof cb == "function" && cb(data)
+  },
+  syncError: function (item) {
+    console.log('sync')
+    let data = this.data.message
+    let sync = item
+    sync.sync = false
+    for (let x in data) {
+      if (data[x] === item) {
+        data[x] = sync
+      }
+    }
   },
 })

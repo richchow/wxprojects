@@ -27,15 +27,17 @@ Page({
         nameVail: "inputClass"
       })
     }
-    if (e.detail.value.num === '' || Number(e.detail.value.num) < 1) {
-      err = true
-      this.setData({
-        numVail: "input-error"
-      })
-    } else {
-      this.setData({
-        numVail: "inputClass"
-      })
+    if (that.data.userid != '') {
+      if (e.detail.value.num === '' || Number(e.detail.value.num) < 1) {
+        err = true
+        this.setData({
+          numVail: "input-error"
+        })
+      } else {
+        this.setData({
+          numVail: "inputClass"
+        })
+      }
     }
     if (err) {
       app.showModal("填写信息有误，请检查所填信息项！")
@@ -43,7 +45,7 @@ Page({
         loading: false
       })
     } else {
-      subRoomService.CreatSubRoom(that.data.session, e.detail.value.name, Number(e.detail.value.num), that.data.today, that.data.date, that.data.userid, function (items) {
+      subRoomService.makeorder(that.data.session, e.detail.value.name, Number(e.detail.value.num), that.data.today, that.data.date, that.data.userid, function (items) {
         if (items.RetCode == 0) {
           that.setData({
             loading: false

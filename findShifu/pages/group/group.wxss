@@ -22,3 +22,66 @@
   height:64rpx;
   padding-left: 14rpx;
 }
+
+.sharebox {
+  width: 100%;
+  overflow: hidden;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+  background: #ccc;
+  padding-top: 20rpx;
+  height: 100%;
+  opacity: 0.7;
+  filter: alpha(opacity=70);
+}
+
+.inputcontent {
+  width: 80%;
+  overflow: hidden;
+  position: fixed;
+  z-index: 2000;
+  background: #fffffe;
+  padding-top: 20rpx;
+  height: 50%;
+  text-align: center;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  border-radius: 12px;
+}
+.section {
+  width: 100%;
+  display: flex;
+  padding: 20rpx;
+  margin-bottom: 20rpx;
+  background-color: #fff;
+}
+.input_conent{
+  width: 400rpx;
+  display: flex;
+}
+.input_conent .inputClass{
+  border-bottom: 1rpx #7a7a7a solid;
+}
+
+.input_remark{
+  color: #7a7a7a;
+  font-size: 24rpx;
+}
+.input-error{
+  border-bottom: 1rpx #f00 solid;
+}
+.input-info-bottom {
+  position: absolute;
+  width: 100%;
+  z-index: 2100;
+  top: 0;
+  right: 0;
+}
+.input-info-icon {
+  float: right;
+}

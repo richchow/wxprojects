@@ -10,7 +10,7 @@
         <input class="{{nameVail}}" focus="true" name="name" value="{{name}}" placeholder="房间名称" />
       </view>
     </view>
-    <view class="section">
+    <view wx:if="{{userid != ''}}" class="section">
       <view class="input_name">收费金额：
       </view>
       <view class="input_conent">

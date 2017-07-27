@@ -26,7 +26,7 @@
   "tabBar": {
     "backgroundColor": "#fff",
     "selectedColor": "#14b3c7",
-    "borderStyle":"white",
+    "borderStyle": "white",
     "list": [
       {
         "pagePath": "pages/group/group",
@@ -49,8 +49,9 @@
     ]
   },
   "networkTimeout": {
-    "request": 10000,
-    "downloadFile": 60000
+    "request": 60000,
+    "downloadFile": 60000,
+    "uploadFile": 60000
   },
   "debug": true
 }

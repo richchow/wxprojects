@@ -1,16 +1,49 @@
 <view class="page">
   <view class="page__bd">
     <view class="weui-cells weui-cells_after-title">
-      <navigator url="/pages/chat/chat?id={{item.sid}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active" wx:for="{{groupitems}}" wx:for-item="item">
-
-        <view class="weui-cell__bd">{{item.title}}</view>
-        <view wx:if="{{item.iFinished == 0}}" class="weui-cell__ft weui-cell__ft_in-access cell_ft_new">已完成</view>
-        <view wx:elif="{{item.iBuyed != 0 }}" class="weui-cell__ft weui-cell__ft_in-access cell_ft_new">未购买</view>
-        <view wx:else class="weui-cell__ft weui-cell__ft_in-access cell_ft_new">{{item.iUnreadCount}}</view>
-      </navigator>
+      <view wx:for="{{groupitems}}" wx:for-item="item" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
+        <view bindtap="bindToChat" class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+          <view class="weui-media-box__title">{{item.title}}</view>
+          <view wx:if="{{item.iFinished == 0}}" class="weui-media-box__desc">已完成</view>
+          <view wx:elif="{{item.iBuyed != 0 }}" class="weui-media-box__desc">未购买</view>
+          <view wx:else class="weui-media-box__desc">{{item.iUnreadCount}}</view>
+        </view>
+        <view wx:if="{{item.iFinished == 0}}" class="weui-cell__ft weui-cell__ft_in-access cell_ft_new"></view>
+        <view wx:else class="weui-media-box__desc">
+          <button size="mini" loading="{{qrbtnstatus}}" data-title="{{item.title}}" bindtap="btnQRCode">推广二维码</button>
+        </view>
+      </view>
     </view>
   </view>
 </view>
 <view bindtap="bindToCreateChat" class="button_bottom_add">
   <image src="/images/add-w.svg" />
+</view>
+<view class="sharebox" wx:if="{{showModalStatus}}"></view>
+<view animation="{{animationData}}" class="inputcontent" wx:if="{{showModalStatus}}">
+  <label class="payedtitle">生成推广二维码</label>
+  <view class="info-content">
+    <form bindsubmit="formSubmit">
+      <view class="section">
+        <view class="input_name">房间名称：
+        </view>
+        <view class="input_conent">
+          <input class="inputClass" focus="true" name="name" value="{{inputTitle}}" disabled="true" />
+        </view>
+      </view>
+      <view class="section">
+        <view class="input_name">收费金额：
+        </view>
+        <view class="input_conent">
+          <input type="number" name="num" value="{{num}}" class="{{numVail}}" value="1" />元
+        </view>
+      </view>
+      <view class="btn-area">
+        <button size="mini" loading="{{loading}}" formType="submit">提交</button>
+      </view>
+    </form>
+  </view>
+  <view class="input-info-bottom" wx:if="{{showModalStatus}}">
+    <icon bindtap="hideModal" class="input-info-icon" type="clear" size="20" color="#00adc2" />
+  </view>
 </view>
