@@ -41,12 +41,20 @@ Page({
       })
     } else {
       let files = that.data.succesimg + that.data.succestalk + that.data.succesvideo
-      files = files.length > 0 ? files.substring(0, files.lastIndexOf('|')):files
-      
+      files = files.length > 0 ? files.substring(0, files.lastIndexOf('|')) : files
+
       dataService.MasterPushContent(that.data.session, that.data.masterid, files, e.detail.value.content, function (items) {
         if (items.RetCode == 0) {
           app.getBigRoomList(that.data.masterid, function (item) {
-            item.sfItems[0].ltRoomInfos.unshift(items.data[0])
+            if (item.sfItems instanceof Array) {
+              item.sfItems[0].ltRoomInfos.unshift(items.data[0])
+            } else {
+              let sf = item.sfItems
+              item.sfItems = new Array()
+              item.sfItems.unshift(sf)
+              item.sfItems[0].ltRoomInfos = new Array()
+              item.sfItems[0].ltRoomInfos.unshift(items.data[0])
+            }
             app.setBigRoomList(that.data.masterid, item)
           })
           wx.navigateBack({
@@ -114,7 +122,7 @@ Page({
     wx.startRecord({
       success: function (res) {
         let temp = res.tempFilePath
-        dataService.uploadFiles(that.data.session, that.data.masterid,3, that.data.succestalk, new Array(res.tempFilePath), 0, 1, function (item) {
+        dataService.uploadFiles(that.data.session, that.data.masterid, Number('3'+time), that.data.succestalk, new Array(res.tempFilePath), 0, 1, function (item) {
           that.setData({
             succestalk: item,
             temptalk: temp,
@@ -180,7 +188,7 @@ Page({
     let simg = that.data.succesimg
     dataService.MasterDelFiles(that.data.session, that.data.masterid, url, function (item) {
       if (item.RetCode == 0) {
-        simg = simg.replace(url + '=1|','')
+        simg = simg.replace(url + '=1|', '')
         that.setData({
           succesimg: simg,
           tempimg: timg,
@@ -192,20 +200,20 @@ Page({
   updatePhoto: function (e) {
     var that = this
     var num = that.data.imgnum;
-    var cnum = 9-num
+    var cnum = 9 - num
     wx.chooseImage({
       count: cnum,
       success: function (res) {
 
         //new
-        dataService.uploadFiles(that.data.session, that.data.masterid,1, that.data.succesimg, res.tempFilePaths, 0, res.tempFilePaths.length, function (item) {
+        dataService.uploadFiles(that.data.session, that.data.masterid, 1, that.data.succesimg, res.tempFilePaths, 0, res.tempFilePaths.length, function (item) {
           that.setData({
             succesimg: item,
           })
         })
 
         //old
-        
+
         for (let i = 0; i < res.tempFilePaths.length; i++) {
           num++;
           if (num <= 9) {

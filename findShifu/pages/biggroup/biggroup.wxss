@@ -91,3 +91,17 @@
   float: right;
   margin-right: 10rpx;
 }
+
+.bg_panel_filelist{
+  align-content: center;
+  text-align: center;
+  height: 60rpx;
+}
+.bg_panel_filelist_file{
+  width: 60rpx;
+  height:60rpx;
+}
+.labtime{
+  text-align: left;
+  float: left;
+}

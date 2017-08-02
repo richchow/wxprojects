@@ -58,7 +58,7 @@ Page({
             tempFilePath: temp,
             success: function (res) {
               that.setCurrData(res.savedFilePath, 3, that.data.userInfo.avatarUrl, true, time, function (item) {
-                subRoomService.SRPushContent(that.data.session, that.data.chatid, '', 3, res.savedFilePath, function (items) {
+                subRoomService.SRPushContent(that.data.session, that.data.chatid, '', Number('3'+time), res.savedFilePath, function (items) {
                   if (items.RetCode != 0) {
                     that.syncError(item)
                   }
@@ -277,7 +277,8 @@ Page({
         srcidArray = data
       })
       for (let i = 0; i < sitems.data.length; i++) {
-        switch (sitems.data[i].ctype) {
+        let ctype = sitems.data[i].ctype.substr(0,1)
+        switch (ctype) {
           case 4:
             that.setCurrData(sitems.data[i].mrcontent, sitems.data[i].ctype, sitems.data[i].uPicUrl == null ? that.data.defpic : sitems.data[i].uPicUrl, sitems.data[i].iOwner === 0, 0)
             break;
@@ -298,13 +299,14 @@ Page({
             })
             break;
           case 3:
+            let second = sitems.data[i].ctype.substr(1)
             wx.downloadFile({
               url: that.data.appurl + that.data.chatid + '/' + sitems.data[i].fileurl,
               success: function (res) {
                 wx.saveFile({
                   tempFilePath: res.tempFilePath,
                   success: function (res) {
-                    that.setCurrData(res.savedFilePath, sitems.data[i].ctype, sitems.data[i].uPicUrl == null ? that.data.defpic : sitems.data[i].uPicUrl, sitems.data[i].iOwner === 0, 0)
+                    that.setCurrData(res.savedFilePath, ctype, sitems.data[i].uPicUrl == null ? that.data.defpic : sitems.data[i].uPicUrl, sitems.data[i].iOwner === 0, second)
                   }
                 })
               }

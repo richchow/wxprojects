@@ -15,7 +15,8 @@
     "pages/privatelyqa/privatelyqa",
     "pages/privatelyhim/privatelyhim",
     "pages/wallet/wallet",
-    "pages/index/index"
+    "pages/index/index",
+    "pages/base/base"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -32,13 +33,13 @@
         "pagePath": "pages/group/group",
         "iconPath": "images/group-2.png",
         "selectedIconPath": "images/group.png",
-        "text": "师傅"
+        "text": "学习"
       },
       {
         "pagePath": "pages/find/find",
         "iconPath": "images/find-2.png",
         "selectedIconPath": "images/find.png",
-        "text": "发现"
+        "text": "师傅"
       },
       {
         "pagePath": "pages/mine/mine",

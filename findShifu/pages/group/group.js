@@ -1,4 +1,5 @@
 var app = getApp()
+var dataService = require('../../providers/dataService')
 var subRoomService = require('../../providers/subRoomService.js')
 Page({
   data: {
@@ -9,6 +10,7 @@ Page({
     inputTitle: '',
     animationData: {},
     numVail: 'inputClass',
+    chatid:0,
   },
   formSubmit: function (e) {
     console.log('form发生了submit事件，携带数据为：', e.detail.value)
@@ -110,6 +112,7 @@ Page({
       qrbtnstatus: true,
       showModalStatus: true,
       inputTitle: e.currentTarget.dataset.title,
+      chatid: e.currentTarget.dataset.chatid,
     })
   },
   onShow: function () {
@@ -121,13 +124,6 @@ Page({
     app.getSession(function (session) {
       that.setData({
         session: session
-      })
-
-      app.getUserInfo(function (userInfo) {
-        //更新数据
-        that.setData({
-          userInfo: userInfo
-        })
       })
       subRoomService.SRoomListAll(that.data.session, function (items) {
         if (items.RetCode == 0) {
@@ -148,5 +144,15 @@ Page({
   },
   onLoad: function (options) {
 
-  }
+  },
+  onReady: function () {
+    var that = this
+    app.getUserInfo(function (userInfo) {
+      //更新数据
+      that.setData({
+        userInfo: userInfo
+      })
+      dataService.PushUserPic(that.data.session, that.data.userInfo.nickName, that.data.userInfo.avatarUrl)
+    })
+  },
 })

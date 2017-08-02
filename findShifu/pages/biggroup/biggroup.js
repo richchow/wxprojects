@@ -17,6 +17,7 @@ Page({
     rusername: '',
     ruserid: '',
     cardurl: '',
+    isPlayVoice: false,
   },
   bindToQCode: function (e) {
     var that = this
@@ -35,23 +36,56 @@ Page({
     })
   },
   playVoice: function (e) {
-
-    wx.downloadFile({
+    var that = this
+    that.setData({ isPlayVoice: true })
+    console.log('downloadFile:', e.currentTarget.dataset.talk)
+    const downloadTask = wx.downloadFile({
       url: e.currentTarget.dataset.talk, //仅为示例，并非真实的资源
       success: function (res) {
-        wx.playVoice({
-          filePath: res.tempFilePath,
-          success: function (res) {
-            console.log('res', 'success')
-          },
-          fail: function () {
-            console.log('res', 'fail')
-          },
-          complete: function () {
-          }
-        })
+        console.log('downloadFile', 'success')
+        if (res.statusCode == 200) {
+          console.log('downloadFile ok:', res.tempFilePath)
+          wx.saveFile({
+            tempFilePath: res.tempFilePath,
+            success: function (res) {
+              var savedFilePath = res.savedFilePath
+              console.log('savedFilePath:', savedFilePath)
+              wx.playVoice({
+                filePath: savedFilePath,
+                success: function (res) {
+                  console.log('res success:', savedFilePath)
+                  let time = Number(e.currentTarget.dataset.time) * 1000
+                  setTimeout(function () {
+                    wx.stopVoice()
+                    that.setData({ isPlayVoice: false })
+                  }, time)
+                },
+                fail: function () {
+                  console.log('res', 'fail')
+                },
+                complete: function () {
+                  console.log('res', 'complete')
+                }
+              })
+            }
+          })
+
+        }
+        else {
+          app.showModal("语音文件下载错误，请稍后重试");
+        }
       }
     })
+    downloadTask.onProgressUpdate((res) => {
+      console.log('下载进度', res.progress)
+      console.log('已经下载的数据长度', res.totalBytesWritten)
+      console.log('预期需要下载的数据总长度', res.totalBytesExpectedToWrite)
+    })
+
+  },
+  stopVoice: function (e) {
+    wx.stopVoice()
+    this.setData({ isPlayVoice: false })
   },
   showPhoto: function (e) {
     var that = this
@@ -146,7 +180,7 @@ Page({
   bindPrivate: function (e) {
     var that = this
     wx.navigateTo({
-      url: '/pages/privatelyhim/privatelyhim?masterid='+that.data.masterid,
+      url: '/pages/privatelyhim/privatelyhim?masterid=' + that.data.masterid,
     })
   },
   bindDelContent: function (e) {
@@ -202,10 +236,18 @@ Page({
       dataService.PushUserPic(that.data.session, that.data.userInfo.nickName, that.data.userInfo.avatarUrl)
       dataService.getMasterRoom(that.data.session, that.data.masterid, function (items) {
         if (items.RetCode == 0) {
-          that.setData({
-            sfItem: items.data[0],
-            isShifu: items.data[0].iOwner == 0,
-          })
+          if (items.data instanceof Array) {
+            that.setData({
+              sfItem: items.data[0],
+              isShifu: items.data[0].iOwner == 0,
+            })
+          } else {
+            that.setData({
+              sfItem: items.data,
+              isShifu: items.data.iOwner == 0,
+            })
+          }
+
         } else if (items.RetCode == 99) {
           app.tokenError()
         }

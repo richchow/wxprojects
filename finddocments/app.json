@@ -8,8 +8,8 @@
     "pages/ardent/ardent"
   ],
   "networkTimeout":{
-   "request": 10000,
-   "connectSocket": 10000
+   "request": 60000,
+   "connectSocket": 60000
 },
   "window":{
     "backgroundTextStyle":"light",

@@ -10,7 +10,7 @@
         </view>
         <view wx:if="{{item.iFinished == 0}}" class="weui-cell__ft weui-cell__ft_in-access cell_ft_new"></view>
         <view wx:else class="weui-media-box__desc">
-          <button size="mini" loading="{{qrbtnstatus}}" data-title="{{item.title}}" bindtap="btnQRCode">推广二维码</button>
+          <button size="mini" loading="{{qrbtnstatus}}" data-chatid="{{item.sid}}" data-title="{{item.title}}" bindtap="btnQRCode">推广二维码</button>
         </view>
       </view>
     </view>

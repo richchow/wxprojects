@@ -1,5 +1,6 @@
 var app = getApp()
 var dataService = require('../../providers/dataService')
+var payService = require('../../providers/payService')
 Page({
   data: {
     showLoading: false,
@@ -21,12 +22,6 @@ Page({
         session: session
       })
 
-      app.getUserInfo(function (userInfo) {
-        //更新数据
-        that.setData({
-          userInfo: userInfo
-        })
-      })
       if (that.data.isonLoad) {
         dataService.getMasterListAll(that.data.session, '', '', function (items) {
           if (items.RetCode == 0) {
@@ -49,13 +44,28 @@ Page({
   },
   onLoad: function (options) {
     let scene = options.scene
-    if(scene != null){
+    if (scene != null) {
       let val = scene.split('_')
-      if(val.length == 2){
+      if (val.length == 2) {
         wx.redirectTo({
-          url: '/pages/passkey/passkey?id='+val[1],
+          url: '/pages/passkey/passkey?id=' + val[1],
         })
       }
     }
-  }
+    
+  },
+  onReady: function () {
+    var that = this
+    app.getUserInfo(function (userInfo) {
+      //更新数据
+      that.setData({
+        userInfo: userInfo
+      })
+      dataService.PushUserPic(that.data.session, that.data.userInfo.nickName, that.data.userInfo.avatarUrl, function (items) {
+        if (items.RetCode == 99) {
+          app.tokenError()
+        }
+      })
+    })
+  },
 })

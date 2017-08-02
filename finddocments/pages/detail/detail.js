@@ -27,18 +27,18 @@ Page({
     isQuestioned: false,
     isStarCat: false
   },
-  bindToTuli:function(e){
+  bindToTuli:function(e_detail_1){
     wx.previewImage({
       urls: [app.getRequestUrl()+'/datapic/zzl/tuli.png'] // 需要预览的图片http链接列表
     })
   },
-  formSubmit: function (e) {
+  formSubmit: function (e_detail_2) {
     this.setData({
       loading: true
     })
     var err = false
     var that = this
-    if (e.detail.value.name === '') {
+    if (e_detail_2.detail.value.name === '') {
       err = true
       this.setData({
         nameVail: "input-error"
@@ -48,7 +48,7 @@ Page({
         nameVail: ""
       })
     }
-    if (e.detail.value.age === '') {
+    if (e_detail_2.detail.value.age === '') {
       err = true
       this.setData({
         ageVail: "input-error"
@@ -58,7 +58,7 @@ Page({
         ageVail: ""
       })
     }
-    if (e.detail.value.company === '') {
+    if (e_detail_2.detail.value.company === '') {
       err = true
       this.setData({
         companyVail: "input-error"
@@ -68,7 +68,7 @@ Page({
         companyVail: ""
       })
     }
-    if (e.detail.value.position === '') {
+    if (e_detail_2.detail.value.position === '') {
       err = true
       this.setData({
         positionVail: "input-error"
@@ -78,7 +78,7 @@ Page({
         positionVail: ""
       })
     }
-    if (e.detail.value.mobile === '' || !(/^1[34578]\d{9}$/.test(e.detail.value.mobile))) {
+    if (e_detail_2.detail.value.mobile === '' || !(/^1[34578]\d{9}$/.test(e_detail_2.detail.value.mobile))) {
       err = true
       this.setData({
         mobileVail: "input-error"
@@ -89,7 +89,7 @@ Page({
       })
     }
 
-    if (e.detail.value.email === '' || !(/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(e.detail.value.email))) {
+    if (e_detail_2.detail.value.email === '' || !(/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(e_detail_2.detail.value.email))) {
       err = true
       this.setData({
         emailVail: "input-error"
@@ -99,7 +99,7 @@ Page({
         emailVail: ""
       })
     }
-    if (e.detail.value.area === '') {
+    if (e_detail_2.detail.value.area === '') {
       err = true
       this.setData({
         areaVail: "input-error"
@@ -113,13 +113,13 @@ Page({
       wx.request({
         url: app.getRequestUrl() + 'questionnaire',
         data: {
-          name: e.detail.value.name,
-          age: e.detail.value.age,
-          company: e.detail.value.company,
-          position: e.detail.value.position,
-          mobile: e.detail.value.mobile,
-          email: e.detail.value.email,
-          area: e.detail.value.area,
+          name: e_detail_2.detail.value.name,
+          age: e_detail_2.detail.value.age,
+          company: e_detail_2.detail.value.company,
+          position: e_detail_2.detail.value.position,
+          mobile: e_detail_2.detail.value.mobile,
+          email: e_detail_2.detail.value.email,
+          area: e_detail_2.detail.value.area,
           tokenId: that.data.session,
           dataid: that.data.datainfo.dataid
         },
@@ -157,7 +157,7 @@ Page({
     }
 
   },
-  bindToPayed: function (e) {
+  bindToPayed: function (e_detail_3) {
     if (this.data.isStarCat) {
       if (this.data.isQuestioned) {
         this.setData({
@@ -274,10 +274,6 @@ Page({
       showLoading: true
     })
 
-    wx.showShareMenu({
-      withShareTicket: true
-    })
-
     //获得session
     app.getSession(function (session) {
       that.setData({
@@ -328,5 +324,10 @@ Page({
     })
 
 
+  },
+  onReady: function () {
+    wx.showShareMenu({
+      withShareTicket: true
+    })
   }
 })

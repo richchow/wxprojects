@@ -19,8 +19,12 @@
       </view>
     </view>
     <view class="page__bd_spacing2 size28">{{item.mrcontent}}
-      <view wx:if="{{item.ltFilesAudio}}" wx:for="{{item.ltFilesAudio}}" wx:for-item="lf" bindtap="playVoice" data-talk="{{appurl+lf.fileurl}}" class="bg_panel_filelist">
-        <image  class="bg_panel_filelist_file" src="/images/talk.svg" mode="aspectFit" />
+      <view wx:if="{{item.ltFilesAudio}}" wx:for="{{item.ltFilesAudio}}" wx:for-item="lf"  class="bg_panel_filelist">
+        <image  class="bg_panel_filelist_file" src="/images/talk.svg" mode="aspectFit" /><label class="labtime">{{lf.second}}"</label>
+        <button loading="{{isPlayVoice}}"  size="mini" wx:if="{{isPlayVoice == false}}" type="default" bindtap="playVoice" data-talk="{{appurl+lf.fileurl}}" data-time="{{lf.second}}">
+            播放</button>
+            <button wx:else  size="mini" type="default" bindtap="stopVoice" >
+            停止</button>
       </view>
       <view wx:if="{{item.ltFilesImg}}" class="bg_panel_imglist">
         <image  wx:for="{{item.ltFilesImg}}"  wx:for-item="lf" bindtap="showPhoto" data-src="{{appurl+lf.fileurl}}" data-id="{{item.ltFilesImg}}" class="bg_panel_imglist_img" src="{{appurl+lf.fileurl}}" mode="aspectFit" />

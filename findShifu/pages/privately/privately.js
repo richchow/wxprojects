@@ -20,8 +20,9 @@ Page({
         that.setData({
           userInfo: userInfo
         })
+        dataService.PushUserPic(that.data.session, that.data.userInfo.nickName, that.data.userInfo.avatarUrl)
       })
-      dataService.PushUserPic(that.data.session, that.data.userInfo.nickName, that.data.userInfo.avatarUrl)
+      
       dataService.MessageList(that.data.session, function (items) {
         if (items.RetCode == 0) {
           that.setData({

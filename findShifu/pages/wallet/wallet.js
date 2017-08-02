@@ -29,7 +29,7 @@ Page({
       dataService.WalletInfo(that.data.session, function (items) {
         if (items.RetCode == 0) {
           that.setData({
-            walletinfo: items.data
+            walletinfo: items.data[0]
           })
         } else if (items.RetCode == 99) {
           app.tokenError()
