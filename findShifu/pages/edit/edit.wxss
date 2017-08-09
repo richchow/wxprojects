@@ -17,6 +17,9 @@
   padding-left: 20px;
   position: absolute;
 }
+.sf_card_item_col_view{
+  clear:  both;
+}
 
 .sf_card_item view {
   display: table;
@@ -31,10 +34,17 @@
   float: right;
 }
 
+.sf_card_userimg_error{
+  width: 60px;
+  height: 60px;
+  float: right;
+  border: 1rpx #f00 solid;
+}
+
 .sf_card_lab {
   width: 36rpx;
   height: 36rpx;
-  float: light;
+  float: left;
   line-height: 60rpx;
   padding-right: 40rpx;
 }
@@ -93,74 +103,27 @@
   height: 80rpx;
   right: 0;
 }
-
-.sf_bottom_h {
-  height: 50rpx;
+.section {
+  width: 100%;
+  display: flex;
+  padding: 20rpx;
+  margin-bottom: 20rpx;
+  background-color: #fff;
 }
 
-.bg_panel_filelist {
-  align-content: center;
-  text-align: center;
-  height: 40rpx;
-  background-color: #e6e6e6;
-  border: 1px #e6e6e6 solid;
-  border-radius: 5px;
-}
-
-.labtime {
-  text-align: left;
+.inputClass{
+  border-bottom: 1rpx #7a7a7a solid;
+  width: 200rpx;
   float: left;
 }
 
-.mastername {
-  font-size: 60rpx;
-  margin-top: 30rpx;
-  margin-left: 20rpx;
+.input-error{
+  border-bottom: 1rpx #f00 solid;
 }
 
-.sf_card_more {
-  font-size: 24rpx;
-}
-
-.bottom_button_left {
-  position: fixed;
-  background-color: #14b3c7;
-  height: 80rpx;
-  line-height: 80rpx;
-  align-items: center;
-  text-align: center;
-  font-size: 30rpx;
-  color: #fff;
-  bottom: 10px;
-  overflow: hidden;
-  z-index: 500;
-  width: 35%;
-  border-top-right-radius: 18px;
-  border-bottom-right-radius: 18px;
-}
-
-.bottom_button_right {
-  right: 0;
-  position: fixed;
-  background-color: #14b3c7;
-  height: 80rpx;
-  line-height: 80rpx;
-  align-items: center;
-  text-align: center;
-  font-size: 30rpx;
-  color: #fff;
-  bottom: 10px;
-  overflow: hidden;
-  z-index: 500;
-  width: 35%;
-  border-top-left-radius: 18px;
-  border-bottom-left-radius: 18px;
-}
- .white {
-  align-content: center;
-  text-align: center;
-  height: 40rpx;
-  background-color: #fff;
-  border: 1px #e6e6e6 solid;
-  border-radius: 5px;
+.input_content {
+  height: 300rpx;
+  padding: 20rpx;
+  width:100%;
+  font-size: 26rpx;
 }

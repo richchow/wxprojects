@@ -18,74 +18,86 @@ Page({
     ruserid: '',
     cardurl: '',
     isPlayVoice: false,
+    voicelist: [],
+    isCreate: true,
   },
   bindToQCode: function (e) {
     var that = this
-    dataService.getMasterCard(that.data.session, function (item) {
-      if (item.RetCode == 0) {
-        wx.downloadFile({
-          url: that.data.cardurl + item.data[0],
-          success: function (res) {
-            wx.previewImage({
-              current: res.tempFilePath,
-              urls: [res.tempFilePath]
-            })
-          }
-        })
-      }
-    })
-  },
-  playVoice: function (e) {
-    var that = this
-    that.setData({ isPlayVoice: true })
-    console.log('downloadFile:', e.currentTarget.dataset.talk)
-    const downloadTask = wx.downloadFile({
-      url: e.currentTarget.dataset.talk, //仅为示例，并非真实的资源
-      success: function (res) {
-        console.log('downloadFile', 'success')
-        if (res.statusCode == 200) {
-          console.log('downloadFile ok:', res.tempFilePath)
-          wx.saveFile({
-            tempFilePath: res.tempFilePath,
+    if (that.data.isCreate) {
+      that.setData({ isCreate: false })
+      dataService.getMasterCard(that.data.session, function (item) {
+        if (item.RetCode == 0) {
+          wx.downloadFile({
+            url: that.data.cardurl + item.data[0],
             success: function (res) {
-              var savedFilePath = res.savedFilePath
-              console.log('savedFilePath:', savedFilePath)
-              wx.playVoice({
-                filePath: savedFilePath,
-                success: function (res) {
-                  console.log('res success:', savedFilePath)
-                  let time = Number(e.currentTarget.dataset.time) * 1000
-                  setTimeout(function () {
-                    wx.stopVoice()
-                    that.setData({ isPlayVoice: false })
-                  }, time)
-                },
-                fail: function () {
-                  console.log('res', 'fail')
-                },
-                complete: function () {
-                  console.log('res', 'complete')
-                }
+              wx.previewImage({
+                current: res.tempFilePath,
+                urls: [res.tempFilePath]
               })
             }
           })
-
+          that.setData({ isCreate: true })
         }
-        else {
-          app.showModal("语音文件下载错误，请稍后重试");
-        }
-      }
-    })
-    downloadTask.onProgressUpdate((res) => {
-      console.log('下载进度', res.progress)
-      console.log('已经下载的数据长度', res.totalBytesWritten)
-      console.log('预期需要下载的数据总长度', res.totalBytesExpectedToWrite)
-    })
-
+      })
+    }
   },
-  stopVoice: function (e) {
-    wx.stopVoice()
-    this.setData({ isPlayVoice: false })
+  playVoice: function (e) {
+    var that = this
+    let vA = that.data.voicelist
+    if (vA[e.currentTarget.dataset.idx]) {
+      wx.stopVoice()
+      vA[e.currentTarget.dataset.idx] = false
+      that.setData({ voicelist: vA })
+    } else {
+      vA[e.currentTarget.dataset.idx] = true
+      that.setData({ voicelist: vA })
+      console.log('downloadFile:', e.currentTarget.dataset.talk)
+      const downloadTask = wx.downloadFile({
+        url: e.currentTarget.dataset.talk, //仅为示例，并非真实的资源
+        success: function (res) {
+          console.log('downloadFile', 'success')
+          if (res.statusCode == 200) {
+            console.log('downloadFile ok:', res.tempFilePath)
+            wx.saveFile({
+              tempFilePath: res.tempFilePath,
+              success: function (res) {
+                var savedFilePath = res.savedFilePath
+                console.log('savedFilePath:', savedFilePath)
+                wx.playVoice({
+                  filePath: savedFilePath,
+                  success: function (res) {
+                    console.log('res success:', savedFilePath)
+                    let time = Number(e.currentTarget.dataset.time) * 1000
+                    setTimeout(function () {
+                      wx.stopVoice()
+                      vA[e.currentTarget.dataset.idx] = false
+                      that.setData({ voicelist: vA })
+                    }, time)
+                  },
+                  fail: function () {
+                    console.log('res', 'fail')
+                  },
+                  complete: function () {
+                    console.log('res', 'complete')
+                  }
+                })
+              }
+            })
+
+          }
+          else {
+            app.showModal("语音文件下载错误，请稍后重试");
+          }
+        }
+      })
+      downloadTask.onProgressUpdate((res) => {
+        console.log('下载进度', res.progress)
+        console.log('已经下载的数据长度', res.totalBytesWritten)
+        console.log('预期需要下载的数据总长度', res.totalBytesExpectedToWrite)
+      })
+    }
+
+
   },
   showPhoto: function (e) {
     var that = this
@@ -247,6 +259,20 @@ Page({
               isShifu: items.data.iOwner == 0,
             })
           }
+          let vArray = new Array()
+          if (that.data.sfItem != null && that.data.sfItem.ltRoomInfos.length > 0) {
+            for (let si in that.data.sfItem.ltRoomInfos) {
+              if (that.data.sfItem.ltRoomInfos[si].ltFilesAudio != null && that.data.sfItem.ltRoomInfos[si].ltFilesAudio.length > 0) {
+                vArray.push(false)
+              } else {
+                vArray.push(true)
+              }
+            }
+            that.setData({
+              voicelist: vArray,
+            })
+          }
+
 
         } else if (items.RetCode == 99) {
           app.tokenError()

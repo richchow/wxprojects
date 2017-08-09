@@ -186,8 +186,9 @@ page {
 .padding_bottom_20 {
   padding-bottom: 20rpx;
 }
-.margin_bottom_20 {
-  margin-bottom: 20rpx;
+
+.margin_bottom_60 {
+  margin-bottom: 100rpx;
 }
 
 .size28 {
@@ -211,4 +212,23 @@ page {
   height:32px;
   margin: 0 auto;
   line-height: 64px;
+}
+
+.unreadnum_view{
+  width: 300rpx;
+  opacity:0.5;
+  border: 1px solid #8a8a8a;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+  text-align: center;
+  right: 0;
+  display: table;
+  position: absolute;
+  margin-top: 20rpx;
+  background-color: #8a8a8a;
+  font-size: 24rpx;
+  color: white;
+  height: 60rpx;
+  line-height: 60rpx;
+  z-index: 9999999999;
 }

@@ -1,11 +1,13 @@
 .bottom_qa {
   display: flex;
   flex-direction: row;
+  margin-top: 20rpx;
 }
+
 .bottom_qa view {
   display: table;
-  width:50%;
-  font-size:26rpx;
+  width: 50%;
+  font-size: 26rpx;
 }
 
 .bottom_qa_button_img {
@@ -15,16 +17,22 @@
   margin-right: 30rpx;
 }
 
-.qa_content{
+.qa_content {
   font-size: 24rpx;
   background-color: #e6e6e6;
   margin: 30rpx 30rpx 30rpx 100rpx;
-  padding:20rpx;
+  padding: 20rpx;
   line-height: 40rpx;
+  margin-bottom: 100rpx;
 }
-.qa_content_q label{
+.qa_content_no{
+  margin-bottom: 100rpx;
+}
+
+.qa_content_q label {
   color: #13227a;
 }
+
 .bottom_button {
   position: fixed;
   line-height: 80rpx;
@@ -36,9 +44,11 @@
   width: 100%;
   right: 0;
 }
-.bottom_button form{
+
+.bottom_button form {
   width: 100%;
 }
+
 .indexInput {
   width: 640rpx;
   text-align: left;
@@ -51,13 +61,14 @@
   padding-left: 10rpx;
 }
 
-.close_img{
-  width:60rpx;
-  height:60rpx;
+.close_img {
+  width: 60rpx;
+  height: 60rpx;
   float: right;
   margin: 10rpx;
 }
-.top_button{
+
+.top_button {
   border: 1rpx #14b3c7 solid;
   border-radius: 8rpx;
   padding: 10rpx 20rpx;
@@ -66,7 +77,8 @@
   text-align: center;
   color: #14b3c7;
 }
-.sf_top_button{
+
+.sf_top_button {
   border: 1rpx #14b3c7 solid;
   border-radius: 8rpx;
   padding: 10rpx 20rpx;
@@ -74,34 +86,74 @@
   align-content: center;
   text-align: center;
   color: #14b3c7;
-  width:38%;
+  width: 38%;
   display: table;
   float: left;
 }
-.sf_top{
+
+.sf_top {
   display: table;
   width: 100%;
 }
-.deldata{
+
+.deldata {
   color: #13227a;
   margin-top: 100rpx;
 }
-.delcommend{
+
+.delcommend {
   color: #13227a;
   float: right;
   margin-right: 10rpx;
 }
 
-.bg_panel_filelist{
+.bg_panel_filelist {
   align-content: center;
   text-align: center;
-  height: 60rpx;
+  height: 40rpx;
+  background-color: #e6e6e6;
+  border: 1px #e6e6e6 solid;
+  border-radius: 5px;
 }
-.bg_panel_filelist_file{
-  width: 60rpx;
-  height:60rpx;
+
+ .white {
+  align-content: center;
+  text-align: center;
+  height: 40rpx;
+  background-color: #fff;
+  border: 1px #e6e6e6 solid;
+  border-radius: 5px;
 }
-.labtime{
+
+.bg_panel_filelist_file {
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.labtime {
   text-align: left;
   float: left;
+}
+.button_bottom_add{
+  border-radius: 50%;
+  float: right;
+  width:90rpx;
+  height:90rpx;
+  display: flex;
+   position: fixed;
+  background-color: #14b3c7;
+  line-height: 80rpx;
+  align-items: center;
+  text-align: center;
+  font-size: 30rpx;
+  color: #fff;
+  bottom: 10px;
+  overflow: hidden;
+  z-index: 500;
+  right: 10px;
+}
+.button_bottom_add image{
+  width:32rpx;
+  height:32rpx;
+  padding-left: 28rpx;
 }

@@ -85,3 +85,8 @@
 .input-info-icon {
   float: right;
 }
+.gi_msg{
+  align-items: center;
+  text-align: center;
+  font-size: 24rpx;
+}

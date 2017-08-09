@@ -1,0 +1,40 @@
+  <form bindsubmit="formSubmit">
+<view class="page">
+  <view class="sf_card">
+    <view class="sf_card_item">
+      <view class="floatleft mastername"><input class="{{nameVail}}" focus="true" name="name" value="{{name}}" placeholder="姓名" /></view>
+      <view class="floatright">
+        <image bindtap="btnUploadImg" class="{{picurlVail}}" src="{{picurl != null &&picurl != '' ? picurl : '/images/touxiang.svg'}}"></image>
+      </view>
+    </view>
+    <view class="sf_card_item_col">
+      <view class="sf_card_item_col_view">
+        <image class="sf_card_lab" src="/images/phone.svg"></image>
+        <input class="{{phoneVail}}" focus="true" name="phone" value="{{phone}}" placeholder="电话" />
+      </view>
+      <view class="sf_card_item_col_view">
+        <image class="sf_card_lab" src="/images/weixin.svg"></image>
+        <input class="{{wxVail}}" focus="true" name="wx" value="{{wx}}" placeholder="微信" />
+        
+      </view>
+      <view class="sf_card_item_col_view">
+        <image class="sf_card_lab" src="/images/qq.svg"></image>
+        <input class="{{qqVail}}" focus="true" name="qq" value="{{qq}}" placeholder="QQ" />
+      </view>
+     <view class="sf_card_item_col_view">
+        <image class="sf_card_lab" src="/images/area.svg"></image>
+        <input class="{{areaVail}}" focus="true" name="area" value="{{area}}" placeholder="服务区域" />
+      </view>
+    </view>
+  </view>
+  <view class="backWhite margin_top_20 page__bd page__bd_spacing">
+    <view class="weui-article">
+      <view class="weui-article__h1">师傅详情</view>
+      <view class="weui-article__section">
+        <textarea name="content" class="input_content" placeholder="师傅详情..." />
+      </view>
+    </view>
+  </view>
+</view>
+<button loading="{{loading}}" disabled="{{loading}}" formType="submit" type="primary">提交</button>
+</form>

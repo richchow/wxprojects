@@ -16,7 +16,8 @@
     "pages/privatelyhim/privatelyhim",
     "pages/wallet/wallet",
     "pages/index/index",
-    "pages/base/base"
+    "pages/route/route",
+    "pages/edit/edit"
   ],
   "window": {
     "backgroundTextStyle": "light",

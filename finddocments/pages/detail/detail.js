@@ -27,9 +27,9 @@ Page({
     isQuestioned: false,
     isStarCat: false
   },
-  bindToTuli:function(e_detail_1){
+  bindToTuli: function (e_detail_1) {
     wx.previewImage({
-      urls: [app.getRequestUrl()+'/datapic/zzl/tuli.png'] // 需要预览的图片http链接列表
+      urls: [app.getRequestUrl() + '/datapic/zzl/tuli.png'] // 需要预览的图片http链接列表
     })
   },
   formSubmit: function (e_detail_2) {
@@ -292,12 +292,12 @@ Page({
           if (items.data != null) {
             that.setData({
               datainfo: items.data[0],
-              isQuestioned:true
+              isQuestioned: true
             })
           }
-          if(items.RetCode == -8){
+          if (items.RetCode == -8) {
             that.setData({
-              isQuestioned:false
+              isQuestioned: false
             })
           }
         } else if (items.RetCode == 99) {
@@ -326,8 +326,17 @@ Page({
 
   },
   onReady: function () {
-    wx.showShareMenu({
-      withShareTicket: true
-    })
+    if (wx.showShareMenu) {
+      wx.showShareMenu({
+        withShareTicket: true
+      })
+    } else {
+      // 如果希望用户在最新版本的客户端上体验您的小程序，可以这样子提示
+      wx.showModal({
+        title: '提示',
+        content: '当前微信版本过低，无法使用该功能，请升级到最新微信版本后重试。'
+      })
+    }
+
   }
 })

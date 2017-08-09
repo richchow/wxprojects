@@ -44,7 +44,7 @@
       <view class="line"></view>
       <view class="view_remark">拍摄时长1分钟内，上传视频不大于20M</view>
     </view>
-    <view class="backWhite margin_bottom_20">
+    <view class="backWhite margin_bottom_60">
       <view class="photo_button">
         录音
       </view>

@@ -16,7 +16,8 @@
     </view>
   </view>
 </view>
-<view bindtap="bindToCreateChat" class="button_bottom_add">
+  <view class="gi_msg" wx:if="{{groupitems == null || groupitems.length <=0}}">你还没有可以学习的房间，赶紧联系师傅进行学习吧</view>
+<view wx:if="{{isShifu}}" bindtap="bindToCreateChat" class="button_bottom_add">
   <image src="/images/add-w.svg" />
 </view>
 <view class="sharebox" wx:if="{{showModalStatus}}"></view>

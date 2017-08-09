@@ -1,4 +1,4 @@
-// pages/base/base.js
+// pages/route/route.js
 Page({
 
   /**
@@ -12,7 +12,15 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    let scene = decodeURIComponent(options.scene)
+    if (scene != null) {
+      let val = scene.split('_')
+      if (val.length == 2) {
+        wx.redirectTo({
+          url: '/pages/passkey/passkey?id=' + val[1],
+        })
+      }
+    }
   },
 
   /**

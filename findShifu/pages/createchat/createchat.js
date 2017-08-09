@@ -45,7 +45,8 @@ Page({
         loading: false
       })
     } else {
-      subRoomService.makeorder(that.data.session, e.detail.value.name, Number(e.detail.value.num), that.data.today, that.data.date, that.data.userid, function (items) {
+  //    subRoomService.makeorder(that.data.session, Number(e.detail.value.num), e.detail.value.name, that.data.userid, that.data.today,that.data.date, function (items) {
+      subRoomService.makeorder(that.data.session, Number(e.detail.value.num), e.detail.value.name, that.data.userid, function (items){
         if (items.RetCode == 0) {
           that.setData({
             loading: false

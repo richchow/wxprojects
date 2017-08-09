@@ -1,4 +1,5 @@
-
+<import src="/template/unread/unread.wxml" />
+<template is="unreadPannel" data="{{...__urpanel__}}"/>
 <view class="loading" wx:if="{{showLoading}}">
   <image class="loadinggif" src="/images/loading.gif" />
 </view>
@@ -10,7 +11,7 @@
       </view>
       <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
         <view class="weui-media-box__title">{{item.mastername}}</view>
-        <view class="weui-media-box__desc padding20">
+        <view class="weui-media-box__desc">
           <block wx:for="{{item.serviceArry}}" wx:key="*this" wx:for-item="lab">
             <label class="labtip">{{lab}}</label>
           </block>
@@ -19,5 +20,4 @@
       </view>
     </navigator>
   </view>
-  
 </view>

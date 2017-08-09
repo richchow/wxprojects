@@ -113,6 +113,7 @@ Page({
       showModalStatus: true,
       inputTitle: e.currentTarget.dataset.title,
       chatid: e.currentTarget.dataset.chatid,
+      isShifu:false,
     })
   },
   onShow: function () {
@@ -124,6 +125,18 @@ Page({
     app.getSession(function (session) {
       that.setData({
         session: session
+      })
+      subRoomService.MasterCheck(that.data.session,function(items){
+        if (items.RetCode == 0) {
+          that.setData({
+            isShifu: items.data == 0 ? true:false,
+          })
+        } else if (items.RetCode == 99) {
+          app.tokenError()
+        }
+        else {
+          app.showModal("数据错误，请稍后重试");
+        }
       })
       subRoomService.SRoomListAll(that.data.session, function (items) {
         if (items.RetCode == 0) {

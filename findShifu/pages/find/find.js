@@ -13,9 +13,7 @@ Page({
     this.setData({
       showLoading: true
     })
-    wx.showShareMenu({
-      withShareTicket: true
-    })
+
     //获得session
     app.getSession(function (session) {
       that.setData({
@@ -43,7 +41,7 @@ Page({
     })
   },
   onLoad: function (options) {
-    let scene = options.scene
+    let scene = decodeURIComponent(options.scene)
     if (scene != null) {
       let val = scene.split('_')
       if (val.length == 2) {
@@ -52,9 +50,13 @@ Page({
         })
       }
     }
-    
+
   },
   onReady: function () {
+    new app.UnreadPannel()
+    this.unreadPannel.show({
+    })
+    this.showUnread
     var that = this
     app.getUserInfo(function (userInfo) {
       //更新数据
@@ -68,4 +70,5 @@ Page({
       })
     })
   },
+ 
 })

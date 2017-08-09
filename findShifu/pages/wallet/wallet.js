@@ -11,9 +11,6 @@ Page({
     this.setData({
       showLoading: true,
     })
-    wx.showShareMenu({
-      withShareTicket: true
-    })
     //获得session
     app.getSession(function (session) {
       that.setData({
