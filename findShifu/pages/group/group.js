@@ -97,9 +97,9 @@ Page({
       })
     }.bind(this), 200)
   },
-  bindToChat:function(){
+  bindToChat:function(e){
     wx.navigateTo({
-      url: '/pages/chat/chat?id={{item.sid}}',
+      url: '/pages/chat/chat?id=' + e.currentTarget.dataset.id,
     })
   },
   bindToCreateChat: function () {

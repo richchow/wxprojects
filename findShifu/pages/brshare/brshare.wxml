@@ -1,0 +1,6 @@
+<view class="share_view">
+  <view class="share_img">
+    <image src="{{picurl}}" mode="widthFix"></image>
+  </view>
+  <view class="share_remark">扫描此图片二维码进入房间不收取拜师费</view>
+</view>

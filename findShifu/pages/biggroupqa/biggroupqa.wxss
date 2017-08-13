@@ -159,3 +159,6 @@
   font-size: 26rpx;
   color: #707070;
 }
+.btn_qa{
+  margin: 10rpx;
+}

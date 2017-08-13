@@ -3,7 +3,7 @@ var dataService = require('../../providers/dataService')
 var inttime
 Page({
   data: {
-    isHuifu:false,
+    isHuifu: false,
     hastalked: false,
     loading: false,
     tempimg: [],
@@ -19,16 +19,16 @@ Page({
     talkmsg: '点击开始录音',
     talkStatus: false,
     talktime: 1,
-    mid:0,
-    sfItem:{},
-    isShifu:false,
+    mid: 0,
+    sfItem: {},
+    isShifu: false,
   },
-  bindToQA:function(e){
+  bindToQA: function (e) {
     this.setData({
-      isHuifu:true,
+      isHuifu: true,
     })
   },
-  bindCanelQA:function(e){
+  bindCanelQA: function (e) {
     this.setData({
       isHuifu: false,
     })
@@ -40,8 +40,8 @@ Page({
     })
     var err = true
     var that = this
-    if (e.detail.value.content != '' 
-    || that.data.succestalk != ''
+    if (e.detail.value.content != ''
+      || that.data.succestalk != ''
       || that.data.succesimg != '') {
       err = false
     }
@@ -87,7 +87,7 @@ Page({
     wx.startRecord({
       success: function (res) {
         let temp = res.tempFilePath
-        dataService.MessagePushFiles(that.data.session, Number('3'+time), that.data.succestalk, new Array(res.tempFilePath), 0, 1, function (item) {
+        dataService.MessagePushFiles(that.data.session, Number('3' + time), that.data.succestalk, new Array(res.tempFilePath), 0, 1, function (item) {
           if (item.RetCode == 0) {
             that.setData({
               succestalk: item.data,
@@ -207,10 +207,10 @@ Page({
       }
     })
   },
-  bindToCreateChat:function(){
+  bindToCreateChat: function () {
     var that = this
     wx.navigateTo({
-      url: '/pages/createchat/createchat?userid='+that.data.sfItem.sender,
+      url: '/pages/createchat/createchat?userid=' + that.data.sfItem.sender,
     })
   },
   onLoad: function (options) {
@@ -241,7 +241,9 @@ Page({
             isShifu: items.data[0].iOwner == 0,
             appurl: app.getRequestUrl() + 'MUploadedData/' + items.data[0].sender + '/',
           })
-          dataService.ReadMessage(that.data.session, that.data.mid)
+          if (that.data.sfItem.iHaveRead != 0) {
+            dataService.ReadMessage(that.data.session, that.data.mid)
+          }
         } else if (items.RetCode == 99) {
           app.tokenError()
         }

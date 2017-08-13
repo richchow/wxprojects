@@ -46,14 +46,25 @@ let _compEvent = {
       })
     }.bind(this), 200)
   },
+  __urpanel__Tolist: function () {
+    wx.navigateTo({
+      url: '/pages/unreadlist/unreadlist',
+    })
+  },
   //end 未读信息
 }
 
 let unreadPannel = {
   show: function (data) {
-    this.__page.setData({ '__urpanel__.showUnread': true })
     if (data) {
       Object.assign(this._configs, data)
+    }
+    if(this._configs.unreadnum> 0){
+
+      this.__page.setData({ 
+        '__urpanel__.showUnread': true,
+        '__urpanel__.unreadnum': this._configs.unreadnum,
+       })
     }
   }
 }
@@ -61,9 +72,7 @@ let unreadPannel = {
 function UnreadPannel() {
   // 定义组件的一些回调
   this._configs = {
-  //  sendCode: null,
-  //  closeCode: null,
-  //  login: null
+    unreadnum: 0,
   }
   // 拿到当前页面对象
   let pages = getCurrentPages()

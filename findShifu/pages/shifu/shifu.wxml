@@ -9,23 +9,23 @@
     <view class="sf_card_item_col">
       <view>
         <image class="sf_card_lab" src="/images/phone.svg"></image>
-        <label wx:if="{{sfItem.iBuyed !=0 && sfItem.iOwen != 0}}">购买咨询师傅可见</label>
-        <label wx:if="{{sfItem.iBuyed ==0 || sfItem.iOwen == 0}}">{{sfItem.mobile}}</label>
+        <label wx:if="{{sfItem.iBuyed !=0 && sfItem.iOwner != 0}}">购买咨询师傅可见</label>
+        <label wx:if="{{sfItem.iBuyed ==0 || sfItem.iOwner == 0}}">{{sfItem.mobile}}</label>
       </view>
       <view>
         <image class="sf_card_lab" src="/images/weixin.svg"></image>
-        <label wx:if="{{sfItem.iBuyed !=0 && sfItem.iOwen != 0}}">购买咨询师傅可见</label>
-        <label wx:if="{{sfItem.iBuyed ==0 || sfItem.iOwen == 0}}">{{sfItem.wxid}}</label>
+        <label wx:if="{{sfItem.iBuyed !=0 && sfItem.iOwner != 0}}">购买咨询师傅可见</label>
+        <label wx:if="{{sfItem.iBuyed ==0 || sfItem.iOwner == 0}}">{{sfItem.wxid}}</label>
       </view>
       <view>
         <image class="sf_card_lab" src="/images/qq.svg"></image>
-        <label wx:if="{{sfItem.iBuyed !=0 && sfItem.iOwen != 0}}">购买咨询师傅可见</label>
-        <label wx:if="{{sfItem.iBuyed ==0 || sfItem.iOwen == 0}}">{{sfItem.mail}}</label>
+        <label wx:if="{{sfItem.iBuyed !=0 && sfItem.iOwner != 0}}">购买咨询师傅可见</label>
+        <label wx:if="{{sfItem.iBuyed ==0 || sfItem.iOwner == 0}}">{{sfItem.mail}}</label>
       </view>
       <view>
         <image class="sf_card_lab" src="/images/area.svg"></image>
-        <label wx:if="{{sfItem.iBuyed !=0 && sfItem.iOwen != 0}}">购买咨询师傅可见</label>
-        <label wx:if="{{sfItem.iBuyed ==0 || sfItem.iOwen == 0}}">{{sfItem.address}}</label>
+        <label wx:if="{{sfItem.iBuyed !=0 && sfItem.iOwner != 0}}">购买咨询师傅可见</label>
+        <label wx:if="{{sfItem.iBuyed ==0 || sfItem.iOwner == 0}}">{{sfItem.address}}</label>
       </view>
     </view>
     <view class="sf_card_item_more">
@@ -74,7 +74,7 @@
         <image  class="bg_panel_filelist_file" src="/images/talk.svg" mode="aspectFit" /><label class="labtime">{{lf.second}}"</label>
       </view>
         <view wx:if="{{sfItem.lmroominfo[0].ltFilesImg}}" class="bg_panel_imglist">
-          <image wx:for="{{sfItem.lmroominfo[0].ltFilesImg}}" wx:for-item="lf" class="bg_panel_imglist_img" src="{{appurl+lf.fileurl}}" mode="aspectFit" />
+          <image wx:for="{{sfItem.lmroominfo[0].ltFilesImg}}" wx:for-item="lf" class="bg_panel_imglist_img" bindtap="showPhoto"  data-id="{{sfItem.lmroominfo[0].ltFilesImg}}" src="{{appurl+lf.fileurl}}" mode="aspectFit" />
         </view>
         <view wx:if="{{sfItem.lmroominfo[0].ltFilesVideo.length > 0}}" class="bg_panel_imglist">
           <view style="margin-bottom:60rpx;" bindtap="bindShowvideo" wx:if="{{showVideo == false}}">查看视频<image class="sf_card_lab" src="/images/down.svg"></image></view>
@@ -88,13 +88,13 @@
     <view class="sf_bottom_h"></view>
   </block>
 </view>
-<view wx:if="{{sfItem.iBuyed !=0 && sfItem.iOwen != 0}}" data-masterid="{{sfItem.masterid}}" bindtap="bindToPay" class="bottom_button">
+<view wx:if="{{sfItem.iBuyed !=0 && sfItem.iOwner != 0}}" data-masterid="{{sfItem.masterid}}" bindtap="bindToPay" class="bottom_button">
   查看师傅所有内容
 </view>
-<view wx:elif="{{sfItem.iBuyed ==0 && sfItem.iOwen != 0}}" data-masterid="{{sfItem.masterid}}" bindtap="bindToBigGroup" class="bottom_button">
+<view wx:elif="{{sfItem.iBuyed ==0 && sfItem.iOwner != 0}}" data-masterid="{{sfItem.masterid}}" bindtap="bindToBigGroup" class="bottom_button">
   咨询师傅
 </view>
-<block wx:elif="{{sfItem.iOwen ==0}}">
+<block wx:elif="{{sfItem.iOwner ==0}}">
   <view data-masterid="{{sfItem.masterid}}" bindtap="bindToEdit" class="bottom_button_left">
     编辑信息
   </view>

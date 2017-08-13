@@ -24,3 +24,11 @@
 .input-error{
   border-bottom: 1rpx #f00 solid;
 }
+.input_havedroom{
+  color: blue;
+  padding-left: 40rpx;
+  font-size: 24rpx;
+}
+.input_picker{
+  width:200rpx;
+}

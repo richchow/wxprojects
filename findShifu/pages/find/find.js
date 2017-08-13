@@ -54,9 +54,13 @@ Page({
   },
   onReady: function () {
     new app.UnreadPannel()
-    this.unreadPannel.show({
+    this.unreadPannel.show({ unreadnum: 5 })
+    dataService.alertMessage(this.data.session,function(items){
+      if(item.RetCode == 0){
+        this.unreadPannel.show({ unreadnum: item.data })
+      }
     })
-    this.showUnread
+    
     var that = this
     app.getUserInfo(function (userInfo) {
       //更新数据

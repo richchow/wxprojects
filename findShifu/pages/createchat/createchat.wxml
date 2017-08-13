@@ -7,7 +7,10 @@
       <view class="input_name">房间名称：
       </view>
       <view class="input_conent">
-        <input class="{{nameVail}}" focus="true" name="name" value="{{name}}" placeholder="房间名称" />
+        <input class="{{nameVail}}" bindinput="bindKeyInput" focus="true" name="name" value="{{name}}" placeholder="房间名称" />
+        <picker class="input_picker" bindchange="bindRoomChange" value="{{roomindex}}" range="{{roomarray}}">
+          <label class="input_havedroom">已有房间</label>
+        </picker>
       </view>
     </view>
     <view wx:if="{{userid != ''}}" class="section">

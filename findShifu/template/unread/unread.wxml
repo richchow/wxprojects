@@ -1,3 +1,3 @@
-loginPannelloginPannelloginPannelunreadPannelunreadPannelunreadPannelunreadPannelunreadPannelunreadPannelunreadPannels<template name="unreadPannel">
-<view animation="{{animationData}}" wx:if="{{showUnread}}" bindtap="__urpanel__hideUnread" class="unreadnum_view">您有{{unreadnum}}条未读信息</view>
+<template name="unreadPannel">
+<view animation="{{animationData}}" wx:if="{{showUnread}}" bindtap="__urpanel__Tolist" class="unreadnum_view">您有{{unreadnum}}条未读信息</view>
 </template>

@@ -1,5 +1,6 @@
 var app = getApp()
 var subRoomService = require('../../providers/subRoomService.js')
+var payService = require('../../providers/payService.js')
 var inttime
 Page({
   data: {
@@ -29,7 +30,13 @@ Page({
     this.setData({ istalk: false })
   },
   bindPayChat: function () {
-    this.setData({ ischatpayed: true })
+    var that = this
+    payService.PayforSRoom(this.data.session, this.data.chatid, this.data.price, function (item) {
+      if (item.RetCode == 0) {
+        that.onShow
+      }
+    })
+
   },
   playVoice: function (e) {
     wx.playVoice({
@@ -58,7 +65,7 @@ Page({
             tempFilePath: temp,
             success: function (res) {
               that.setCurrData(res.savedFilePath, 3, that.data.userInfo.avatarUrl, true, time, function (item) {
-                subRoomService.SRPushContent(that.data.session, that.data.chatid, '', Number('3'+time), res.savedFilePath, function (items) {
+                subRoomService.SRPushContent(that.data.session, that.data.chatid, '', Number('3' + time), res.savedFilePath, function (items) {
                   if (items.RetCode != 0) {
                     that.syncError(item)
                   }
@@ -144,12 +151,9 @@ Page({
       intoView: 'message' + this.data.messageID
     })
   },
-  onLoad: function (options) {
-    console.log('chat:', options.id)
+  onShow: function () {
     var that = this
-    var id = options.id
-    if (id != undefined) {
-      that.setData({ chatid: id })
+    if (that.data.chatid != undefined) {
       app.getSession(function (session) {
         that.setData({
           session: session
@@ -171,7 +175,7 @@ Page({
             if (items.RetCode == -14 || items.RetCode == -15) {
               wx.showModal({
                 title: '提示',
-                content: 'items.ErrorMsg',
+                content: items.ErrorMsg,
                 showCancel: false,
                 success: function (res) {
                   if (res.confirm) {
@@ -184,9 +188,10 @@ Page({
                 }
               })
 
-            } else if (items.RetCode == -12) { 
+            } else if (items.RetCode == -12) {
               that.setData({
-                price: items.data[0].payamount
+                price: Number(items.data[0].payamount) / 100,
+                title: items.data[0].title,
               })
             }
             else if (items.RetCode == 0) {
@@ -213,7 +218,7 @@ Page({
                     }
                   })
                 }
-                setTimeout(function(){
+                setTimeout(function () {
                   subRoomService.SRContent(that.data.session, that.data.chatid, function (sitems) {
                     if (sitems.RetCode == 0) {
                       that.setSyncData(sitems)
@@ -234,6 +239,12 @@ Page({
 
       })
     }
+  },
+  onLoad: function (options) {
+    console.log('chat:', options.id)
+    var that = this
+    var id = options.id
+    that.setData({ chatid: id })
   },
   onShareAppMessage: function () {
     return {
@@ -277,7 +288,7 @@ Page({
         srcidArray = data
       })
       for (let i = 0; i < sitems.data.length; i++) {
-        let ctype = sitems.data[i].ctype.substr(0,1)
+        let ctype = sitems.data[i].ctype.substr(0, 1)
         switch (ctype) {
           case 4:
             that.setCurrData(sitems.data[i].mrcontent, sitems.data[i].ctype, sitems.data[i].uPicUrl == null ? that.data.defpic : sitems.data[i].uPicUrl, sitems.data[i].iOwner === 0, 0)

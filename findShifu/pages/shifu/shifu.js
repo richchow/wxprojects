@@ -74,6 +74,18 @@ Page({
 
 
   },
+  showPhoto: function (e) {
+    var that = this
+    let imglist = e.currentTarget.dataset.id
+    let list = []
+    for (let i = 0; i < imglist.length; i++) {
+      list.push(that.data.appurl + imglist[i].fileurl)
+    }
+    wx.previewImage({
+      current: e.currentTarget.dataset.src,
+      urls: list
+    })
+  },
   bindShowvideo:function(e){
     this.setData({showVideo:true})
   },

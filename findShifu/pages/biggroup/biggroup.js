@@ -19,27 +19,11 @@ Page({
     cardurl: '',
     isPlayVoice: false,
     voicelist: [],
-    isCreate: true,
   },
   bindToQCode: function (e) {
-    var that = this
-    if (that.data.isCreate) {
-      that.setData({ isCreate: false })
-      dataService.getMasterCard(that.data.session, function (item) {
-        if (item.RetCode == 0) {
-          wx.downloadFile({
-            url: that.data.cardurl + item.data[0],
-            success: function (res) {
-              wx.previewImage({
-                current: res.tempFilePath,
-                urls: [res.tempFilePath]
-              })
-            }
-          })
-          that.setData({ isCreate: true })
-        }
-      })
-    }
+   wx.navigateTo({
+     url: '/pages/brshare/brshare',
+   })
   },
   playVoice: function (e) {
     var that = this

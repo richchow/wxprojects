@@ -17,7 +17,9 @@
     "pages/wallet/wallet",
     "pages/index/index",
     "pages/route/route",
-    "pages/edit/edit"
+    "pages/edit/edit",
+    "pages/brshare/brshare",
+    "pages/unreadlist/unreadlist"
   ],
   "window": {
     "backgroundTextStyle": "light",
