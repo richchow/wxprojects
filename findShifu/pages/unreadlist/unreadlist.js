@@ -4,9 +4,16 @@ Page({
   data: {
     session: '',
     userInfo: {},
-    newmessage: {},
+    message: {},
+    appurl:'',
+    cardurl:'',
   },
-  onLoad: function (options) { },
+  onLoad: function (options) {
+    this.setData({
+      appurl: app.getRequestUrl() + 'UploadedData/' + options.masterid + '/',
+      cardurl: app.getRequestUrl() + 'UploadedData/',
+    })
+   },
 
   onShow: function () {
     var that = this
@@ -28,7 +35,7 @@ Page({
       dataService.displayAlertMessage(that.data.session, function (items) {
         if (items.RetCode == 0) {
           that.setData({
-            newmessage: items.data,
+            message: items.data,
           })
         } else if (items.RetCode == 99) {
           app.tokenError()
@@ -43,6 +50,6 @@ Page({
     })
   },
   onReady:function(){
-    dataService.PushUserPic(that.data.session, that.data.userInfo.nickName, that.data.userInfo.avatarUrl)
+    dataService.PushUserPic(this.data.session, this.data.userInfo.nickName, this.data.userInfo.avatarUrl)
   },
 })

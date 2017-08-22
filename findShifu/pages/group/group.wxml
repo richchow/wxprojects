@@ -1,54 +1,16 @@
 <view class="page">
   <view class="page__bd">
-    <view class="weui-cells weui-cells_after-title">
-      
-      <view wx:for="{{groupitems}}" wx:for-item="item" bindtap="bindToChat" data-id="{{item.sid}}" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
-      <view class="weui-cell__hd">
-          <image src="{{item.masterPic}}"></image>
-        </view>
-        <view  class="weui-media-box__bd weui-media-box__bd_in-appmsg">
-          <view class="weui-media-box__title">{{item.title}}<label class="sf_name">(师傅:{{item.masterName}})</label></view>
-          <view wx:if="{{item.iFinished == 0}}" class="weui-media-box__desc">已完成</view>
-          <view wx:elif="{{item.iBuyed != 0 }}" class="weui-media-box__desc">未购买</view>
-          <view wx:else class="weui-media-box__desc">{{item.iUnreadCount}}</view>
-        </view>
-        <view wx:if="{{item.iFinished == 0}}" class="weui-cell__ft weui-cell__ft_in-access cell_ft_new"></view>
-       <!--<view wx:else class="weui-media-box__desc">
-          <button size="mini" loading="{{qrbtnstatus}}" data-chatid="{{item.sid}}" data-title="{{item.title}}" bindtap="btnQRCode">推广二维码</button>
-        </view>--> 
+    <view wx:for="{{groupitems}}" wx:for-item="item" bindtap="bindToChat" data-id="{{item.sid}}" class="weui-media-box weui-media-box_appmsg">
+      <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
+        <image class="weui-media-box__thumb" src="{{item.masterPic}}" />
+      </view>
+      <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+        <view class="weui-media-box__title">{{item.title}}<label class="sf_name">(师傅:{{item.masterName}})</label></view>
+        <view wx:if="{{item.iFinished == 0}}" class="weui-media-box__desc">已完成</view>
+        <view wx:elif="{{item.iBuyed != 0 && item.iOwner != 0 }}" class="weui-media-box__desc">未购买</view>
+        <view wx:else class="weui-media-box__desc">未读:{{item.iUnreadCount}}</view>
       </view>
     </view>
   </view>
 </view>
-  <view class="gi_msg" wx:if="{{groupitems == null || groupitems.length <=0}}">你还没有可以学习的房间，赶紧联系师傅进行学习吧</view>
-<!--<view wx:if="{{isShifu}}" bindtap="bindToCreateChat" class="button_bottom_add">
-  <image src="/images/add-w.svg" />
-</view>
-<view class="sharebox" wx:if="{{showModalStatus}}"></view>
-<view animation="{{animationData}}" class="inputcontent" wx:if="{{showModalStatus}}">
-  <label class="payedtitle">生成推广二维码</label>
-  <view class="info-content">
-    <form bindsubmit="formSubmit">
-      <view class="section">
-        <view class="input_name">房间名称：
-        </view>
-        <view class="input_conent">
-          <input class="inputClass" focus="true" name="name" value="{{inputTitle}}" disabled="true" />
-        </view>
-      </view>
-      <view class="section">
-        <view class="input_name">收费金额：
-        </view>
-        <view class="input_conent">
-          <input type="number" name="num" value="{{num}}" class="{{numVail}}" value="1" />元
-        </view>
-      </view>
-      <view class="btn-area">
-        <button size="mini" loading="{{loading}}" formType="submit">提交</button>
-      </view>
-    </form>
-  </view>
-  <view class="input-info-bottom" wx:if="{{showModalStatus}}">
-    <icon bindtap="hideModal" class="input-info-icon" type="clear" size="20" color="#00adc2" />
-  </view>
-</view>-->
+<view class="gi_msg" wx:if="{{groupitems == null || groupitems.length <=0}}">你还没有可以学习的房间，赶紧联系师傅进行学习吧</view>

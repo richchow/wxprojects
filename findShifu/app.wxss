@@ -4,6 +4,7 @@ page {
   background-color: #f8f8f8;
   font-size: 16px;
   font-family: -apple-system-font, Helvetica Neue, Helvetica, sans-serif;
+  height: 100%;
 }
 
 .page__hd {

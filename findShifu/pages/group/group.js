@@ -1,6 +1,7 @@
 var app = getApp()
 var dataService = require('../../providers/dataService')
 var subRoomService = require('../../providers/subRoomService.js')
+var requesttime
 Page({
   data: {
     groupitems: [],
@@ -10,7 +11,8 @@ Page({
     inputTitle: '',
     animationData: {},
     numVail: 'inputClass',
-    chatid:0,
+    chatid: 0,
+
   },
   formSubmit: function (e) {
     console.log('form发生了submit事件，携带数据为：', e.detail.value)
@@ -97,7 +99,7 @@ Page({
       })
     }.bind(this), 200)
   },
-  bindToChat:function(e){
+  bindToChat: function (e) {
     wx.navigateTo({
       url: '/pages/chat/chat?id=' + e.currentTarget.dataset.id,
     })
@@ -113,23 +115,24 @@ Page({
       showModalStatus: true,
       inputTitle: e.currentTarget.dataset.title,
       chatid: e.currentTarget.dataset.chatid,
-      isShifu:false,
+      isShifu: false,
     })
   },
   onShow: function () {
     var that = this
     this.setData({
-      showLoading: true
+      showLoading: true,
+
     })
     //获得session
     app.getSession(function (session) {
       that.setData({
         session: session
       })
-      subRoomService.MasterCheck(that.data.session,function(items){
+      subRoomService.MasterCheck(that.data.session, function (items) {
         if (items.RetCode == 0) {
           that.setData({
-            isShifu: items.data == 0 ? true:false,
+            isShifu: items.data == 0 ? true : false,
           })
         } else if (items.RetCode == 99) {
           app.tokenError()
@@ -140,6 +143,11 @@ Page({
       })
       subRoomService.SRoomListAll(that.data.session, function (items) {
         if (items.RetCode == 0) {
+          for (let i in items.data) {
+            if (items.data[i].masterPic.indexOf('http') < 0) {
+              items.data[i].masterPic = app.getRequestUrl() + 'MpicData/' + items.data[i].masterid + '/' + items.data[i].masterPic
+            }
+          }
           that.setData({
             groupitems: items.data,
           })
@@ -154,9 +162,31 @@ Page({
         })
       })
     })
+    requesttime = setInterval(function () {
+      subRoomService.SRoomListAll(that.data.session, function (items) {
+        if (items.RetCode == 0) {
+          for (let i in items.data) {
+            if (items.data[i].masterPic.indexOf('http') < 0) {
+              items.data[i].masterPic = app.getRequestUrl() + 'MpicData/' + items.data[i].masterid + '/' + items.data[i].masterPic
+            }
+          }
+          that.setData({
+            groupitems: items.data,
+          })
+        } else if (items.RetCode == 99) {
+          app.tokenError()
+        }
+      })
+    }, 10000)
   },
   onLoad: function (options) {
 
+  },
+  onHide: function () {
+    clearInterval(requesttime)
+  },
+  onUnload: function () {
+    clearInterval(requesttime)
   },
   onReady: function () {
     var that = this

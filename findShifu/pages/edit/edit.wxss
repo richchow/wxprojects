@@ -119,6 +119,8 @@
 
 .input-error{
   border-bottom: 1rpx #f00 solid;
+  width: 300rpx;
+  float: left;
 }
 
 .input_content {
@@ -148,4 +150,24 @@
   background-color: #fff;
   margin: 10rpx 10rpx;
   display: inline-block;
+}
+.error{
+  color: red;
+}
+.top_button {
+  padding: 10rpx 20rpx;
+  background-color: #fff;
+  height: 60rpx;
+}
+
+.top_button_left {
+  width: 50%;
+  float: left;
+}
+
+.top_button_right {
+  width: 50%;
+  float: right;
+  text-align: right;
+  color: #14b3c7;
 }

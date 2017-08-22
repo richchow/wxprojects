@@ -1,14 +1,23 @@
 .share_view{
   width:100%;
   height:100%;
+  display: flex;
   flex-direction:column;
+  align-items: center;
 }
 .share_remark{
   text-align: center;
 }
 .share_img{
   width:100%;
+   display: flex;
+  flex-direction:column;
+  align-items: center;
+  padding: 20rpx 0;
 }
 .share_img image{
-  width:100%;
+  width:90%;
+}
+.page{
+  background-color: #fff;
 }

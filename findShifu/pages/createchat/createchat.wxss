@@ -30,5 +30,12 @@
   font-size: 24rpx;
 }
 .input_picker{
-  width:200rpx;
+  width:260rpx;
+}
+.picker{
+color: blue;
+}
+.input_img{
+  width: 40rpx;
+  height:40rpx;
 }

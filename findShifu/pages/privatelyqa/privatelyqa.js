@@ -22,6 +22,8 @@ Page({
     mid: 0,
     sfItem: {},
     isShifu: false,
+    isExpire: true,
+    appurl:'',
   },
   bindToQA: function (e) {
     this.setData({
@@ -209,9 +211,11 @@ Page({
   },
   bindToCreateChat: function () {
     var that = this
-    wx.navigateTo({
-      url: '/pages/createchat/createchat?userid=' + that.data.sfItem.sender,
-    })
+    if (!that.data.isExpire) {
+      wx.navigateTo({
+        url: '/pages/createchat/createchat?userid=' + that.data.sfItem.sender,
+      })
+    }
   },
   onLoad: function (options) {
     this.setData({
@@ -238,6 +242,7 @@ Page({
         if (items.RetCode == 0) {
           that.setData({
             sfItem: items.data[0],
+            isExpire: items.data[0].iExpire == 0,
             isShifu: items.data[0].iOwner == 0,
             appurl: app.getRequestUrl() + 'MUploadedData/' + items.data[0].sender + '/',
           })

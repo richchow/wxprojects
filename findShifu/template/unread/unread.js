@@ -1,5 +1,5 @@
 let _compData = {
-  '__urpanel__.unreadnum': 0,
+  '__urpanel__.unreadnum': '',
   '__urpanel__.showUnread': false,
   '__urpanel__.animationData': {},
 }
@@ -59,7 +59,7 @@ let unreadPannel = {
     if (data) {
       Object.assign(this._configs, data)
     }
-    if(this._configs.unreadnum> 0){
+    if(this._configs.unreadnum.length> 0){
 
       this.__page.setData({ 
         '__urpanel__.showUnread': true,
@@ -72,7 +72,7 @@ let unreadPannel = {
 function UnreadPannel() {
   // 定义组件的一些回调
   this._configs = {
-    unreadnum: 0,
+    unreadnum: '',
   }
   // 拿到当前页面对象
   let pages = getCurrentPages()

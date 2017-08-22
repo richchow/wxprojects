@@ -2,11 +2,11 @@
   <view class="backWhite margin_bottom_20 padding_top_20  padding_bottom_20">
   <view class="sf_top">
       <view wx:if="{{isShifu == false}}" bindtap="bindPrivate" data-val="私信师傅"  class="sf_top_button">私信师傅</view>
-      <view bindtap="bindToQCode" wx:if="{{isShifu == false}}" class="sf_top_button">生成图片分享</view>
+      <view bindtap="bindToQCode" data-masterid="{{masterid}}" wx:if="{{isShifu == false}}" class="sf_top_button">生成图片分享</view>
       </view>
     <view class="sf_top">
       <view bindtap="bindToQA" wx:if="{{isShifu}}" class="sf_top_button">发表</view>
-      <view bindtap="bindToQCode" wx:if="{{isShifu}}" class="sf_top_button">生成图片分享</view>
+      <view bindtap="bindToQCode" data-masterid="1" wx:if="{{isShifu}}" class="sf_top_button">生成图片分享</view>
     </view>
   </view>
   <view class="backWhite margin_bottom_20 margin_top_20 padding_top_20  bg_panel_user ">

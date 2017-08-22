@@ -14,24 +14,6 @@ Page({
     roomindex: 0,
     roomarray: [],
     roomobjectArray: [],
-    objectArray: [
-      {
-        id: 0,
-        name: '美国'
-      },
-      {
-        id: 1,
-        name: '中国'
-      },
-      {
-        id: 2,
-        name: '巴西'
-      },
-      {
-        id: 3,
-        name: '日本'
-      }
-    ],
   },
   bindRoomChange: function (e) {
     var that = this
@@ -83,16 +65,18 @@ Page({
         loading: false
       })
     } else {
-      subRoomService.CreatSubRoom(that.data.session,that.data.sroomid, e.detail.value.name, Number(e.detail.value.num), that.data.today, that.data.date, that.data.userid, function (items) {
-
+      subRoomService.CreatSubRoom(that.data.session,that.data.sroomid, e.detail.value.name, Number(e.detail.value.num *100), that.data.today, that.data.date, that.data.userid, function (items) {
         if (items.RetCode == 0) {
-          that.setData({
-            loading: false
-          })
           wx.navigateBack({
             delta: 1
           })
         }
+        else{
+          app.showModal("创建房间失败，请重试！")
+        }
+        that.setData({
+          loading: false
+        })
       })
     }
   },

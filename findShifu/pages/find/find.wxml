@@ -11,12 +11,7 @@
       </view>
       <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
         <view class="weui-media-box__title">{{item.mastername}}</view>
-        <view class="weui-media-box__desc">
-          <block wx:for="{{item.serviceArry}}" wx:key="*this" wx:for-item="lab">
-            <label class="labtip">{{lab}}</label>
-          </block>
-        </view>
-        <view class="weui-media-box__desc">{{item.profiles}}</view>
+        <view class="weui-media-box__desc">{{item.profiles == null ? '正在等待师傅补充内容' : item.profiles}}</view>
       </view>
     </navigator>
   </view>

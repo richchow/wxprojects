@@ -152,8 +152,11 @@ Page({
       })
       dataService.getMasterListSignle(that.data.session,  that.data.id, function (items) {
           if (items.RetCode == 0) {
+            if (items.data[0].picurl.indexOf('http') < 0) {
+              items.data[0].picurl = app.getRequestUrl() + '/MpicData/' + items.data[0].masterid + '/' + items.data[0].picurl
+            }
             that.setData({
-              sfItem: items.data[0]
+              sfItem: items.data[0],
             })
           } else if (items.RetCode == 99) {
             app.tokenError()

@@ -6,26 +6,34 @@ Page({
     showLoading: false,
     session: '',
     sfItems: {},
-    isonLoad: true,
   },
   onShow: function () {
     var that = this
     this.setData({
-      showLoading: true
+      showLoading: true,
     })
-
+    new app.UnreadPannel()
+    // that.unreadPannel.show({ unreadnum: 5 })
+    dataService.alertMessage(this.data.session, function (items) {
+      if (items.RetCode == 0) {
+        that.unreadPannel.show({ unreadnum: items.data[0] })
+      }
+    })
     //获得session
     app.getSession(function (session) {
       that.setData({
         session: session
       })
 
-      if (that.data.isonLoad) {
         dataService.getMasterListAll(that.data.session, '', '', function (items) {
           if (items.RetCode == 0) {
+            for (let i in items.data) {
+              if (items.data[i].picurl.indexOf('http') < 0){
+              items.data[i].picurl = app.getRequestUrl() + 'MpicData/' + items.data[i].masterid + '/' + items.data[i].picurl
+              }
+            }
             that.setData({
               sfItems: items.data,
-              isonLoad: false
             })
           } else if (items.RetCode == 99) {
             app.tokenError()
@@ -34,7 +42,7 @@ Page({
             app.showModal("数据错误，请稍后重试");
           }
         })
-      }
+
       that.setData({
         showLoading: false
       })
@@ -43,24 +51,28 @@ Page({
   onLoad: function (options) {
     let scene = decodeURIComponent(options.scene)
     if (scene != null) {
-      let val = scene.split('_')
-      if (val.length == 2) {
-        wx.redirectTo({
-          url: '/pages/passkey/passkey?id=' + val[1],
-        })
+      let bval = scene.split(',')
+      if (bval.length == 2) {
+        let roomid = bval[0].split('_')
+        let uid = bval[1].split('_')
+        if (roomid.length == 2 && uid.length == 2) {
+          wx.redirectTo({
+            url: '/pages/shifu/shifu?id=' + roomid[1]+'&uid='+uid[1],
+          })
+        }
+      }
+      else {
+        let val = scene.split('_')
+        if (val.length == 2) {
+          wx.redirectTo({
+            url: '/pages/passkey/passkey?id=' + val[1],
+          })
+        }
       }
     }
 
   },
   onReady: function () {
-    new app.UnreadPannel()
-    this.unreadPannel.show({ unreadnum: 5 })
-    dataService.alertMessage(this.data.session,function(items){
-      if(item.RetCode == 0){
-        this.unreadPannel.show({ unreadnum: item.data })
-      }
-    })
-    
     var that = this
     app.getUserInfo(function (userInfo) {
       //更新数据
@@ -74,5 +86,5 @@ Page({
       })
     })
   },
- 
+
 })

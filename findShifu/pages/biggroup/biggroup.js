@@ -22,7 +22,7 @@ Page({
   },
   bindToQCode: function (e) {
    wx.navigateTo({
-     url: '/pages/brshare/brshare',
+     url: '/pages/brshare/brshare?masterid=' + e.currentTarget.dataset.masterid,
    })
   },
   playVoice: function (e) {
@@ -37,7 +37,7 @@ Page({
       that.setData({ voicelist: vA })
       console.log('downloadFile:', e.currentTarget.dataset.talk)
       const downloadTask = wx.downloadFile({
-        url: e.currentTarget.dataset.talk, //仅为示例，并非真实的资源
+        url: e.currentTarget.dataset.talk,
         success: function (res) {
           console.log('downloadFile', 'success')
           if (res.statusCode == 200) {
@@ -233,16 +233,23 @@ Page({
       dataService.getMasterRoom(that.data.session, that.data.masterid, function (items) {
         if (items.RetCode == 0) {
           if (items.data instanceof Array) {
+            if (items.data[0].userpic.indexOf('http') < 0) {
+              items.data[0].userpic = app.getRequestUrl() + '/MpicData/' + that.data.masterid + '/' + items.data[0].userpic
+            }
             that.setData({
               sfItem: items.data[0],
               isShifu: items.data[0].iOwner == 0,
             })
           } else {
+            if (items.data.userpic.indexOf('http') < 0) {
+              items.data.userpic = app.getRequestUrl() + '/MpicData/' + that.data.masterid + '/' + items.data.userpic
+            }
             that.setData({
               sfItem: items.data,
               isShifu: items.data.iOwner == 0,
             })
           }
+          
           let vArray = new Array()
           if (that.data.sfItem != null && that.data.sfItem.ltRoomInfos.length > 0) {
             for (let si in that.data.sfItem.ltRoomInfos) {

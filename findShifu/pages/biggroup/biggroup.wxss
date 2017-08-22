@@ -11,10 +11,10 @@
 }
 
 .bottom_qa_button_img {
-  width: 30rpx;
-  height: 30rpx;
+  width: 50rpx;
+  height: 50rpx;
   float: right;
-  margin-right: 30rpx;
+  margin-right: 55rpx;
 }
 
 .qa_content {

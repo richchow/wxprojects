@@ -41,6 +41,7 @@ Page({
 
       dataService.PushMessage(that.data.session, that.data.masterid, files, e.detail.value.content, function (items) {
         if (items.RetCode == 0) {
+          dataService.PushTemplateFormID(that.data.session,1,e.detail.formId)
           wx.navigateBack({
             delta: 1
           })
@@ -119,6 +120,11 @@ Page({
           talkmsg: '点击开始录音',
         })
       }
+    })
+  },
+  bindbtnBack: function (e) {
+    wx.navigateBack({
+      delta: 1
     })
   },
   onLoad: function (options) {

@@ -1,13 +1,13 @@
 <page>
-  <form bindsubmit="formSubmit">
+  <form bindsubmit="formSubmit" report-submit="true">
     <view class="top_button margin_bottom_20">
-      <view class="top_button_left">取消</view>
+      <view class="top_button_left" bindtap="bindbtnBack">取消</view>
       <view class="top_button_right">
         <button size="mini" loading="{{loading}}" disabled="{{loading}}" type="primary" formType="submit">发送</button>
       </view>
     </view>
     <view class="backWhite margin_bottom_20">
-      <textarea name="content" class="input_content" placeholder="私信师傅..." focus="true" />
+      <textarea name="content" class="input_content" placeholder="私信师傅..." />
     </view>
     <view class="backWhite margin_bottom_20">
       <view class="photo_button">
@@ -16,15 +16,15 @@
       <view class="talk_centent">
         <view>{{talkmsg}}</view>
         <view wx:if="{{hastalked == false}}">
-          <button wx:if="{{talkStatus == false}}" size="mini" type="default" bindtap="bindTalk">
+          <button class="btn_qa" wx:if="{{talkStatus == false}}" size="mini" type="default" bindtap="bindTalk">
             开始录音</button>
-            <button wx:if="{{talkStatus}}" size="mini" type="warn" bindtap="bindOverTalk">
+            <button class="btn_qa" wx:if="{{talkStatus}}" size="mini" type="warn" bindtap="bindOverTalk">
             停止录音</button>
         </view>
          <view wx:if="{{hastalked}}">
-          <button  size="mini" type="default" bindtap="playVoice" data-talk="{{temptalk}}">
+          <button class="btn_qa"  size="mini" type="default" bindtap="playVoice" data-talk="{{temptalk}}">
             播放</button>
-            <button size="mini" type="warn" bindtap="delVoice">
+            <button class="btn_qa" size="mini" data-url="{{succestalk}}" type="warn" bindtap="delVoice">
             删除</button>
         </view>
       </view>

@@ -1,5 +1,5 @@
 <page>
-  <form bindsubmit="formSubmit">
+  <form report-submit="true" bindsubmit="formSubmit">
     <view class="section">
       <view class="title">新建房间</view>
     </view>
@@ -27,6 +27,7 @@
         <picker mode="date" value="{{date}}" start="{{today}}" bindchange="bindDateChange">
           <view class="picker">
             {{date}}
+            <label class="input_havedroom"><image class="input_img" src="/images/date.svg"></image></label>
           </view>
         </picker>
       </view>

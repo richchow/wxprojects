@@ -2,12 +2,12 @@
   <view class="backWhite margin_bottom_20 padding_top_20  padding_bottom_20">
     <view class="sf_top">
       <view bindtap="bindToQA" wx:if="true" class="sf_top_button">回复</view>
-      <view bindtap="bindToCreateChat" wx:if="{{!sfItem.isShifu}}" class="sf_top_button">与他建立房间</view>
+      <view bindtap="bindToCreateChat" wx:if="{{!sfItem.isShifu}}" class="{{isExpire?'.sf_top_button_error':'sf_top_button'}}">与他建立房间</view>
     </view>
   </view>
+  <view class="backWhite margin_bottom_20 margin_top_20 padding_top_20 sf_view" wx:if="{{!sfItem.isShifu}}" >7日内可以与他创建小房间</view>
   <view class="backWhite margin_bottom_20 margin_top_20 padding_top_20  bg_panel_user ">
     <view class="weui-media-box_appmsg paddingleft20">
-      
       <view class="weui-media-box__bd weui-media-box__bd_in-appmsg bg_panel_usercontent ">
         <view>{{sfItem.sNickName}}</view>
         <view class="color_time">{{sfItem.cdate}}
@@ -19,7 +19,7 @@
         <image  class="bg_panel_filelist_file" src="/images/talk.svg" mode="aspectFit" />
       </view>
       <view wx:if="{{sfItem.ltFilesImg}}" class="bg_panel_imglist">
-        <image  wx:for="{{sfItem.ltFilesImg}}"  wx:for-item="lf" bindtap="showPhoto" data-src="{{appurl+lf.fileurl}}" data-id="{{sfItem.ltFilesImg}}" class="bg_panel_imglist_img" src="{{appurl+lf.fileurl}}" mode="aspectFit" />
+        <image  wx:for="{{sfItem.ltFilesImg}}"  wx:for-item="lf" bindtap="showPhoto" data-src="{{appurl+lf.fileurl}}" data-id="{{sfItem.ltFilesImg}}" class="bg_panel_imglist_img" src="{{appurl+lf.fileurl}}" mode="aspectFit"  />
       </view>
     </view>
   </view>
@@ -58,15 +58,15 @@
       <view class="talk_centent">
         <view>{{talkmsg}}</view>
         <view wx:if="{{hastalked == false}}">
-          <button wx:if="{{talkStatus == false}}" size="mini" type="default" bindtap="bindTalk">
+          <button  class="btn_qa" wx:if="{{talkStatus == false}}" size="mini" type="default" bindtap="bindTalk">
             开始录音</button>
-            <button wx:if="{{talkStatus}}" size="mini" type="warn" bindtap="bindOverTalk">
+            <button  class="btn_qa" wx:if="{{talkStatus}}" size="mini" type="warn" bindtap="bindOverTalk">
             停止录音</button>
         </view>
          <view wx:if="{{hastalked}}">
-          <button  size="mini" type="default" bindtap="playVoice" data-talk="{{temptalk}}">
+          <button  class="btn_qa" size="mini" type="default" bindtap="playVoice" data-talk="{{temptalk}}">
             播放</button>
-            <button size="mini" type="warn" bindtap="delVoice">
+            <button  class="btn_qa" size="mini" type="warn"  data-url="{{succestalk}}" bindtap="delVoice">
             删除</button>
         </view>
       </view>
