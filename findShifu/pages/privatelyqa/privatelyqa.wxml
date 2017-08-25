@@ -14,17 +14,18 @@
         </view>
       </view>
     </view>
-    <view class="page__bd_spacing2 size28">{{sfItem.content}}
-      <view wx:if="{{sfItem.ltFilesAudio}}" wx:for="{{sfItem.ltFilesAudio}}" wx:for-item="lf" bindtap="playVoice" data-talk="{{appurl+lf.fileurl}}" class="bg_panel_filelist">
-        <image  class="bg_panel_filelist_file" src="/images/talk.svg" mode="aspectFit" />
-      </view>
+    <view class="page__bd_spacing2 size28  margin_right_20">{{sfItem.content}}
+       <view wx:if="{{sfItem.ltFilesAudio != null && sfItem.ltFilesAudio.length >0}}" wx:for="{{sfItem.ltFilesAudio}}" wx:for-item="lf" class="bg_panel_filelist {{voicelist[0] == false ? '' :'white'}}" style="width:{{lf.second*20}}rpx;min-width:300rpx;max-width:700rpx;"
+          bindtap="playDataVoice" data-talk="{{appurl+lf.fileurl}}" data-time="{{lf.second}}">
+          <image class="bg_panel_filelist_file" src="/images/talk.svg" mode="aspectFit" /><label class="labtime">{{lf.second}}"</label>
+        </view>
       <view wx:if="{{sfItem.ltFilesImg}}" class="bg_panel_imglist">
         <image  wx:for="{{sfItem.ltFilesImg}}"  wx:for-item="lf" bindtap="showPhoto" data-src="{{appurl+lf.fileurl}}" data-id="{{sfItem.ltFilesImg}}" class="bg_panel_imglist_img" src="{{appurl+lf.fileurl}}" mode="aspectFit"  />
       </view>
     </view>
   </view>
   <view wx:if="{{isHuifu}}">
-  <form bindsubmit="formSubmit">
+  <form bindsubmit="formSubmit" report-submit="true">
     <view class="top_button margin_bottom_20">
       <view bindtap="bindCanelQA" class="top_button_left">取消</view>
       <view class="top_button_right">
@@ -32,7 +33,7 @@
       </view>
     </view>
     <view class="backWhite margin_bottom_20">
-      <textarea name="content" class="input_content" placeholder="回复{{sfItem.sNickName}}..." focus="true" />
+      <textarea maxlength="-1" name="content" class="input_content" placeholder="回复{{sfItem.sNickName}}..." />
     </view>
     <view class="backWhite margin_bottom_20">
       <view class="photo_button">

@@ -1,23 +1,42 @@
 <view class="page">
-<view class="userinfo">
-    <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" />
+  <view class="userinfo">
+    <image bindtap="authSetting" class="userinfo-avatar" src="{{userInfo == null ? '/images/robot1.png' : userInfo.avatarUrl}}" />
   </view>
   <view class="page__bd">
     <view class="weui-cells weui-cells_after-title">
-      <navigator url="/pages/wallet/wallet" class="weui-cell weui-cell_access" hover-class="weui-cell_active" >
+      <navigator url="/pages/wallet/wallet" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+      <view class="weui-cell__hd">
+          <image src="/images/wallet.svg" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+        </view>
         <view class="weui-cell__bd">钱包</view>
         <view class="weui-cell__ft weui-cell__ft_in-access cell_ft_new"></view>
       </navigator>
-      <navigator url="/pages/privately/privately" class="weui-cell weui-cell_access" hover-class="weui-cell_active" >
+      <navigator url="/pages/privately/privately" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+      <view class="weui-cell__hd">
+          <image src="/images/private.svg" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+        </view>
         <view class="weui-cell__bd">私信</view>
         <view class="weui-cell__ft weui-cell__ft_in-access cell_ft_new">{{newmessage}}</view>
       </navigator>
-       <navigator url="/pages/relate/relate" class="weui-cell weui-cell_access" hover-class="weui-cell_active" >
+      <navigator url="/pages/policy/policy" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+      <view class="weui-cell__hd">
+          <image src="/images/rule.svg" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+        </view>
         <view class="weui-cell__bd">平台规则</view>
         <view class="weui-cell__ft weui-cell__ft_in-access cell_ft_new"></view>
       </navigator>
-       <navigator url="/pages/relate/relate" class="weui-cell weui-cell_access" hover-class="weui-cell_active" >
+      <navigator url="/pages/relate/relate" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+        <view class="weui-cell__hd">
+          <image src="/images/use.svg" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+        </view>
         <view class="weui-cell__bd">使用指南</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access cell_ft_new"></view>
+      </navigator>
+      <navigator url="/pages/relate/relate" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+        <view class="weui-cell__hd">
+          <image src="/images/about.svg" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+        </view>
+        <view class="weui-cell__bd">关于BIM找师傅</view>
         <view class="weui-cell__ft weui-cell__ft_in-access cell_ft_new"></view>
       </navigator>
     </view>

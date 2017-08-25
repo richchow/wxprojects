@@ -1,39 +1,32 @@
 <view class="page">
-<view class="backWhite margin_bottom_20 margin_top_20 padding_top_20  bg_panel_user ">
-    <block wx:for="{{message.ltContent}}" wx:for-index="idx">
+  <view class="backWhite margin_bottom_20 margin_top_20 padding_top_20  bg_panel_user ">
+    <block wx:for="{{message.ltContent}}" wx:for-index="idx" wx:for-item="item">
       <view class="weui-media-box_appmsg paddingleft20">
         <view class="bg_panel_img">
-          <image class="bg_panel_userimg" src="{{message.ltContent.userpic}}"></image>
+          <image class="bg_panel_userimg" src="{{item.masterpic}}"></image>
         </view>
         <view class="weui-media-box__bd weui-media-box__bd_in-appmsg bg_panel_usercontent ">
-          <view>{{message.ltContent.username}}</view>
+          <view>{{item.mastername}}</view>
         </view>
       </view>
       <view class="page__bd_spacing2 size28">{{item.mrcontent}}
         <view wx:if="{{item.ltFilesAudio != null && item.ltFilesAudio.length >0}}" wx:for="{{item.ltFilesAudio}}" wx:for-item="lf" class="bg_panel_filelist {{voicelist[idx] == false ? '' :'white'}}" style="width:{{lf.second*20}}rpx;min-width:300rpx;max-width:700rpx;"
-          bindtap="playVoice" data-idx="{{idx}}" data-talk="{{appurl+lf.fileurl}}" data-time="{{lf.second}}">
+          bindtap="playVoice" data-idx="{{idx}}" data-talk="{{item.appurl+lf.fileurl}}" data-time="{{lf.second}}">
           <image class="bg_panel_filelist_file" src="/images/talk.svg" mode="aspectFit" /><label class="labtime">{{lf.second}}"</label>
         </view>
         <view wx:if="{{item.ltFilesImg != null && item.ltFilesImg.length >0}}" class="bg_panel_imglist">
-          <image wx:for="{{item.ltFilesImg}}" wx:for-item="lf" bindtap="showPhoto" data-src="{{appurl+lf.fileurl}}" data-id="{{item.ltFilesImg}}" class="bg_panel_imglist_img" src="{{appurl+lf.fileurl}}" mode="aspectFit" />
+          <image wx:for="{{item.ltFilesImg}}" wx:for-item="lf" bindtap="showPhoto" data-src="{{item.appurl+lf.fileurl}}" data-id="{{item.ltFilesImg}}" class="bg_panel_imglist_img" src="{{item.appurl+lf.fileurl}}" mode="aspectFit" />
         </view>
         <view wx:if="{{item.ltFilesVideo != null && item.ltFilesVideo.length > 0}}" class="bg_panel_imglist">
-          <video wx:for="{{item.ltFilesVideo}}" wx:for-item="lf" data-src="{{appurl+lf.fileurl}}" src="{{appurl+lf.fileurl}}" />
+          <video wx:for="{{item.ltFilesVideo}}" wx:for-item="lf" data-src="{{item.appurl+lf.fileurl}}" src="{{item.appurl+lf.fileurl}}" />
         </view>
       </view>
       <view class="page__bd_spacing2 bottom_qa">
-        <view class="color_time">{{item.cdate}}
-          <label class="deldata" bindtap="bindDelContent" data-mrcid="{{item.mrcid}}" data-index="{{index}}" wx:if="{{isShifu}}">删除</label>
-        </view>
-        <view>
-          <image class="bottom_qa_button_img" data-commentid='0' data-contentid='{{item.mrcid}}' data-val="评论" bindtap="bindComment" data-rusername="" data-ruserid="" src="/images/comment.svg" />
-        </view>
+        <view class="color_time">{{item.cdate}}</view>
       </view>
       <view wx:if="{{item.ltmrcrinfos.length > 0}}" class="qa_content">
-        <view wx:for="{{item.ltmrcrinfos}}" wx:for-item="sitem" bindtap="bindComment" data-commentid='{{sitem.mrcrid}}' data-contentid='{{item.mrcid}}' data-ruserid="{{sitem.suserid}}" data-rusername="{{sitem.susername}}" data-isme="{{sitem.IsMe}}" data-val="回复{{sitem.susername}}"
-          class="qa_content_q">
+        <view wx:for="{{item.ltmrcrinfos}}" wx:for-item="sitem" class="qa_content_q">
           <label>{{sitem.susername}}</label>{{sitem.ruserid != null ? '回复':''}}<label wx:if="{{sitem.ruserid != null}}">{{sitem.rusername}}</label>：{{sitem.mcontent}}
-          <label class="delcommend" wx:if="{{isShifu}}">删除</label>
         </view>
       </view>
       <view class="qa_content_no"></view>
@@ -41,11 +34,11 @@
   </view>
   <view class="page__bd">
     <view class="weui-cells weui-cells_after-title">
-      <navigator url="/pages/privatelyqa/privatelyqa?mid={{item.mid}}" wx:for="{{message.ltrmessage}}" wx:item="item" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+      <navigator url="/pages/privatelyqa/privatelyqa?mid={{item.mid}}" wx:for="{{message.ltMessage}}" wx:item="item" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
         <view class="weui-cell__bd">{{item.sNickName}}私信了我</view>
         <view class="weui-cell__ft weui-cell__ft_in-access cell_ft_new">{{item.cdate}}</view>
       </navigator>
-      <navigator url="/pages/chat/chat?id={{item.id}}" wx:for="{{message.ltrorder}}" wx:item="item" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+      <navigator url="/pages/chat/chat?id={{item.sid}}" wx:for="{{message.ltOrder}}" wx:item="item" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
         <view class="weui-cell__bd">师傅{{item.masterName}}创建了房间请进入</view>
         <view class="weui-cell__ft weui-cell__ft_in-access cell_ft_new"></view>
       </navigator>

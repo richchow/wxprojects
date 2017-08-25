@@ -65,7 +65,7 @@ Page({
         loading: false
       })
     } else {
-      subRoomService.CreatSubRoom(that.data.session,that.data.sroomid, e.detail.value.name, Number(e.detail.value.num *100), that.data.today, that.data.date, that.data.userid, function (items) {
+      subRoomService.CreatSubRoom(that.data.session,that.data.sroomid, e.detail.value.name, Number(e.detail.value.num), that.data.today, that.data.date, that.data.userid, function (items) {
         if (items.RetCode == 0) {
           wx.navigateBack({
             delta: 1

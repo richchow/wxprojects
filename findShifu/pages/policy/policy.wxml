@@ -1,0 +1,22 @@
+<view class="page">
+  <view class="page__hd">
+    <view class="page__title">《BIM找师傅使用条款与隐私策略》</view>
+    <view class="weui-article">
+      <view class="weui-article__section">
+        <view class="weui-article__p">BIM找师傅平台中的老师可以与学员建立付费房间（最低为1元），学员缴纳的房间费用为该指导老师劳动收入，由该老师所有，BIM找师傅平台不会与老师分成，出于对教学质量和资金安全等多方面因素考虑，我们对提现规则约束如下：</view>
+        <view class="weui-article__p">1. 每人每天可以提现1笔，单笔提现金额不少于10元，每笔最高上限为2000元；</view>
+        <view class="weui-article__p">2. 提现服务费5%（含微信支付手续费）；</view>
+        <view class="weui-article__p">3. 为了保障老师的教学质量和服务热情，我们的提现申请响应时间为5天；</view>
+        <view class="weui-article__p">4. BIM找师傅财务结算周期为7天，既学员缴纳房间的费用，师傅最短5天后可以提现。</view>
+        <view class="weui-article__p">需要等待结算周期的原因如下：</view>
+        <view class="weui-article__p">1. 财务结算需要。</view>
+        <view class="weui-article__p">2. 保障学员的利益，如果老师的服务与之前沟通的相差甚远，或者恶意对待学员，消极敷衍学员，BIM找师傅平台在财务上有所控制，可以保障在学员申诉后平衡双方利益（BIM找师傅作为搭建学员与老师连接的学习平台，真诚的为支持我们的用户服务，如果学员与老师脱离平台私下支付培训费用，发生的一切纠纷，BIM找师傅平台概不负责）。</view>
+        <view class="weui-article__p">具体的提现方法：</view>
+        <view class="weui-article__p">在BIM找师傅-我的-钱包-提现；</view>
+        <view class="weui-article__p">从BIM找师傅平台提现后的金额将转入您的微信钱包中，正常情况下为实时到账；</view>
+        <view class="weui-article__p">若您在提现过程中出现其他问题，请随时通过微信公众号：从零跟我学BIM（微信号:wangqihang8503）联系我们，我们会有专人为您跟进解决，感谢您对BIM找师傅团队的支持。</view>
+        <view class="weui-article__p">©2017 BIM找师傅使用前必读</view>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,5 +1,8 @@
-<form bindsubmit="formSubmit">
-  <view class="page">
+<view class="loading" wx:if="{{showLoading}}">
+  <image class="loadinggif" src="/images/loading.gif" />
+</view>
+  <view class="page" wx:if="{{!showLoading}}">
+  <form bindsubmit="formSubmit">
    <view class="top_button margin_bottom_20">
       <view class="top_button_left" bindtap="bindbtnBack">取消</view>
       <view class="top_button_right">
@@ -47,10 +50,9 @@
       <view class="weui-article">
         <view class="weui-article__h1 {{contentVail}}">师傅详情</view>
         <view >
-          <textarea name="content" class="input_content" value="{{content}}" placeholder="师傅详情..." />
+          <textarea name="content" maxlength="-1" class="input_content" value="{{content}}" placeholder="师傅详情..." />
         </view>
       </view>
     </view>
-    
+    </form>
   </view>
-</form>

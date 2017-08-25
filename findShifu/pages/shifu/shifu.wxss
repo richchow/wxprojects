@@ -2,7 +2,7 @@
   margin: 20rpx;
   border: 10rpx #fff solid;
   background-color: #fafafa;
-  height: 200px;
+  height: 280px;
 }
 
 .sf_card_item {
@@ -33,7 +33,7 @@
 
 .sf_card_lab {
   width: 36rpx;
-  height: 36rpx;
+  height: 10px;
   float: light;
   line-height: 60rpx;
   padding-right: 40rpx;
@@ -163,4 +163,30 @@
   background-color: #fff;
   border: 1px #e6e6e6 solid;
   border-radius: 5px;
+}
+.sf_img_show{
+  width:20px;
+  height:10px;
+  padding-top: 6rpx;
+  padding-right: 5rpx;
+}
+.relative_230{
+  top:230rpx;
+  position: relative;
+}
+.labtip_checked {
+  border: 1rpx solid #14b3c7;
+  border-radius: 5px;
+  padding: 6rpx 6rpx;
+  box-sizing: border-box;
+  color: #fff;
+  font-size: 12px;
+  background-color: #14b3c7;
+  margin: 6rpx 6rpx;
+  display: inline-block;
+}
+.sf_service_scroll{
+  height: 100rpx;
+  width: 100%;
+  white-space: nowrap;
 }

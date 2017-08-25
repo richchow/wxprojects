@@ -233,3 +233,6 @@ page {
   line-height: 60rpx;
   z-index: 9999999999;
 }
+.margin_right_20{
+  margin-right: 20rpx;
+}

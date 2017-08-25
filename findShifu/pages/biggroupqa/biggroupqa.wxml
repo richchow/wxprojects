@@ -7,7 +7,7 @@
       </view>
     </view>
     <view class="backWhite margin_bottom_20">
-      <textarea name="content" class="input_content" placeholder="分享自己的观点..." focus="true" />
+      <textarea name="content" maxlength="-1" class="input_content" placeholder="分享自己的观点..." focus="true" />
     </view>
     <view class="backWhite margin_bottom_20">
       <view class="photo_button">

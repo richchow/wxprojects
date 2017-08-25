@@ -9,6 +9,11 @@ Page({
   showModalStatus:false,
   animationData:{},
   },
+  bindToP:function(){
+    wx.navigateTo({
+      url: '/pages/policy/policy',
+    })
+  },
   showModal: function () {
     // 显示遮罩层
     var animation = wx.createAnimation({

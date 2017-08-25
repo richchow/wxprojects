@@ -2,11 +2,38 @@ var app = getApp()
 var dataService = require('../../providers/dataService')
 Page({
   data: {
-    session:'',
-    userInfo:{},
-    newmessage:'',
-  }, 
-  onLoad: function (options) {},
+    session: '',
+    userInfo: {},
+    newmessage: '',
+  },
+  authSetting: function () {
+    var that = this
+
+    wx.getSetting({
+      success(res) {
+        if (!res.authSetting['scope.userInfo']) {
+          wx.openSetting({
+            success: (res) => {
+              if (res.authSetting["scope.userInfo"]) {
+                app.getUserInfo(function (userInfo) {
+                  //更新数据
+                  that.setData({
+                    userInfo: userInfo
+                  })
+                })
+                dataService.PushUserPic(that.data.session, that.data.userInfo.nickName, that.data.userInfo.avatarUrl, function (items) {
+                  if (items.RetCode == 99) {
+                    app.tokenError()
+                  }
+                })
+              }
+            }
+          })
+        }
+      }
+    })
+  },
+  onLoad: function (options) { },
 
   onShow: function () {
     var that = this

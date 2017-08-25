@@ -1,8 +1,14 @@
-<view class="page">
+<view class="loading" wx:if="{{showLoading}}">
+  <image class="loadinggif" src="/images/loading.gif" />
+</view>
+<view class="page" wx:if="{{!showLoading}}">
   <view class="share_view">
     <view class="share_img">
       <image src="{{picurl}}" bindtap="bindShowPic" mode="widthFix"></image>
     </view>
-    <view class="share_remark">{{remark}}</view>
+    <view class="share_remark">
+    <view wx:if="{{remark != ''}}">点击图片保存到相册</view>
+    <view >{{remark}}</view>
+    </view>
   </view>
 </view>

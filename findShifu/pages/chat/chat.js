@@ -23,9 +23,10 @@ Page({
     appurl: app.getRequestUrl() + 'SUploadedData/',
     isLock: false,
     defpic: '/images/robot1.png',
-    price: 20000,
+    price: 200,
     downloadlist: [],
     isDownload: false,
+    isPay: false,
   },
   bindToTalkButton: function () {
     this.setData({ istalk: true })
@@ -35,24 +36,28 @@ Page({
   },
   bindPayChat: function () {
     var that = this
-    payService.PayforSRoom(this.data.session, this.data.chatid, this.data.price, function (item) {
-      if (item.RetCode == 0) {
-        that.onLoad(that.data.chatid)
-      } else {
-        wx.showModal({
-          title: '提示',
-          content: '支付失败，请重试',
-          showCancel: false,
-          success: function (res) {
-            if (res.confirm) {
-            } else if (res.cancel) {
-              console.log('用户点击取消')
+    
+    if (!that.data.isPay) {
+      that.setData({ isPay:true})
+      payService.PayforSRoom(this.data.session, this.data.chatid, this.data.price, function (item) {
+        if (item.RetCode == 0) {
+          that.onLoad({ id: that.data.chatid })
+        } else {
+          wx.showModal({
+            title: '提示',
+            content: '支付失败，请重试',
+            showCancel: false,
+            success: function (res) {
+              if (res.confirm) {
+              } else if (res.cancel) {
+                console.log('用户点击取消')
+              }
             }
-          }
-        })
-      }
-    })
-
+          })
+        }
+        that.setData({ isPay: false })
+      })
+    }
   },
   playVoice: function (e) {
     wx.playVoice({
@@ -259,13 +264,7 @@ Page({
                   let currdownloadlist = that.data.downloadlist
                   for (let i in item) {
                     if (item[i].download) {
-                      let data = {
-                        msgid: item[i].id,
-                        ctype: item[i].ctype,
-                        scontent: item[i].scontent,
-                        download: item[i].download,
-                      }
-                      currdownloadlist.push(data)
+                      currdownloadlist.push(item[i])
                     }
                   }
                   that.setData({
@@ -362,14 +361,8 @@ Page({
             break;
           case 1:
             that.setCurrData('/images/loading.gif', that.data.appurl + that.data.chatid + '/' + sitems.data[i].fileurl, sitems.data[i].ctype, sitems.data[i].uPicUrl == null ? that.data.defpic : sitems.data[i].uPicUrl, sitems.data[i].iOwner === 0, 0, function (item) {
-              let data = {
-                msgid: item.id,
-                ctype: item.ctype,
-                scontent: item.scontent,
-                download: item.download,
-              }
               let currdownloadlist = that.data.downloadlist
-              currdownloadlist.push(data)
+              currdownloadlist.push(item)
               that.setData({
                 downloadlist: currdownloadlist,
                 isDownload: true,
@@ -380,15 +373,10 @@ Page({
             break;
           case 3:
             let second = sitems.data[i].ctype.toString().substr(1)
-            that.setCurrData('/images/loading.gif', ctype, sitems.data[i].uPicUrl == null ? that.data.defpic : sitems.data[i].uPicUrl, sitems.data[i].iOwner === 0, Number(second), function (item) {
-              let data = {
-                msgid: item.id,
-                ctype: item.ctype,
-                scontent: item.scontent,
-                download: item.download,
-              }
+            that.setCurrData('/images/loading.gif', that.data.appurl + that.data.chatid + '/' + sitems.data[i].fileurl, ctype, sitems.data[i].uPicUrl == null ? that.data.defpic : sitems.data[i].uPicUrl, sitems.data[i].iOwner === 0, Number(second), function (item) {
+            
               let currdownloadlist = that.data.downloadlist
-              currdownloadlist.push(data)
+              currdownloadlist.push(item)
               that.setData({
                 downloadlist: currdownloadlist,
                 isDownload: true,
@@ -424,7 +412,7 @@ Page({
     let msgID = this.data.messageID + 1;
     let currentdata = this.data.message;
     let data = {}
-    switch (ctype) {
+    switch (Number(ctype)) {
       case 4:
         data = {
           id: 'message' + msgID,
@@ -476,7 +464,7 @@ Page({
     let currentdata = this.data.message;
     let olddata = {}
     let newdata = {}
-    switch (ctype) {
+    switch (Number(ctype)) {
       case 1:
         for (let i in currentdata) {
           if (currentdata[i].id === msgID) {
@@ -512,7 +500,7 @@ Page({
   },
   downloadFiles: function (filelist, cb) {
     var that = this
-    
+
     var items = { RetCode: -1, data: '数据获取错误，请稍后重试' }
     if (filelist.length > 0) {
       console.log('downloadFile start')
@@ -524,7 +512,7 @@ Page({
             tempFilePath: res.tempFilePath,
             success: function (res) {
               console.log('saveFile success:', res)
-              that.editCurrData(filelist[0].msgid, res.savedFilePath, filelist[0].ctype, function (item) {
+              that.editCurrData(filelist[0].id, res.savedFilePath, filelist[0].ctype, function (item) {
                 filelist.shift()
               })
               console.log('filelist length:', filelist.length)
@@ -534,7 +522,7 @@ Page({
             },
             complete: function () {
               console.log('saveFile complete')
-                 that.downloadFiles(filelist, cb)
+              that.downloadFiles(filelist, cb)
             }
           })
         },

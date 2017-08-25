@@ -24,6 +24,7 @@ Page({
     isShifu: false,
     isExpire: true,
     appurl:'',
+    voicelist: [],
   },
   bindToQA: function (e) {
     this.setData({
@@ -58,6 +59,7 @@ Page({
 
       dataService.PushMessage(that.data.session, that.data.sfItem.sender, files, e.detail.value.content, function (items) {
         if (items.RetCode == 0) {
+          dataService.PushTemplateFormID(that.data.session, 1, e.detail.formId)
           wx.navigateBack({
             delta: 1
           })
@@ -124,6 +126,62 @@ Page({
       complete: function () {
       }
     })
+  },
+  playDataVoice: function (e) {
+    var that = this
+    let vA = that.data.voicelist
+    if (vA[0]) {
+      wx.stopVoice()
+      vA[0] = false
+      that.setData({ voicelist: vA })
+    } else {
+      vA[0] = true
+      that.setData({ voicelist: vA })
+      console.log('downloadFile:', e.currentTarget.dataset.talk)
+      const downloadTask = wx.downloadFile({
+        url: e.currentTarget.dataset.talk,
+        success: function (res) {
+          console.log('downloadFile', 'success')
+          if (res.statusCode == 200) {
+            console.log('downloadFile ok:', res.tempFilePath)
+            wx.saveFile({
+              tempFilePath: res.tempFilePath,
+              success: function (res) {
+                var savedFilePath = res.savedFilePath
+                console.log('savedFilePath:', savedFilePath)
+                wx.playVoice({
+                  filePath: savedFilePath,
+                  success: function (res) {
+                    console.log('res success:', savedFilePath)
+                    let time = Number(e.currentTarget.dataset.time) * 1000
+                    setTimeout(function () {
+                      wx.stopVoice()
+                      vA[0] = false
+                      that.setData({ voicelist: vA })
+                    }, time)
+                  },
+                  fail: function () {
+                    console.log('res', 'fail')
+                  },
+                  complete: function () {
+                    console.log('res', 'complete')
+                  }
+                })
+              }
+            })
+
+          }
+          else {
+            app.showModal("语音文件下载错误，请稍后重试");
+          }
+        }
+      })
+      downloadTask.onProgressUpdate((res) => {
+        console.log('下载进度', res.progress)
+        console.log('已经下载的数据长度', res.totalBytesWritten)
+        console.log('预期需要下载的数据总长度', res.totalBytesExpectedToWrite)
+      })
+    }
   },
   delVoice: function (e) {
     var that = this
@@ -249,6 +307,17 @@ Page({
           if (that.data.sfItem.iHaveRead != 0) {
             dataService.ReadMessage(that.data.session, that.data.mid)
           }
+          let vArray = new Array()
+            if (that.data.sfItem.ltFilesAudio != null && that.data.sfItem.ltFilesAudio.length > 0) {
+              vArray.push(false)
+            } else {
+              vArray.push(true)
+            }
+         
+          that.setData({
+            voicelist: vArray,
+          })
+
         } else if (items.RetCode == 99) {
           app.tokenError()
         }

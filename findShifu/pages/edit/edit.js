@@ -203,50 +203,52 @@ Page({
         let currServiceArray = []
         let allServiceArray = []
         dataService.getServices(that.data.session, function (item) {
+          console.log(item)
           if (item.RetCode == 0) {
             allServiceArray = item.data
-          }
+            dataService.getMasterListSignle(that.data.session, that.data.masterid, function (items) {
+              if (items.RetCode == 0) {
+                //服务项
+                let checkedService = {}
+                let service = items.data[0].serviceArry
+                for (let i in allServiceArray) {
+                  if (service instanceof Array && service.findIndex(function (value, index, arr) { return value == allServiceArray[i].describe }) > -1) {
+                    checkedService = { checked: true }
+                  } else {
+                    checkedService = { checked: false }
+                  }
+                  Object.assign(allServiceArray[i], checkedService)
 
-        })
-        dataService.getMasterListSignle(that.data.session, that.data.masterid, function (items) {
-          if (items.RetCode == 0) {
-            //服务项
-            let checkedService = {}
-            let service = items.data[0].serviceArry
-            for (let i in allServiceArray) {
-              if (service instanceof Array && service.findIndex(function (value, index, arr) { return value == allServiceArray[i].describe }) > -1) {
-                checkedService = { checked: true }
-              } else {
-                checkedService = { checked: false }
+                }
+                //头像
+                if (items.data[0].picurl.indexOf('http') < 0) {
+                  that.setData({
+                    picurl: app.getRequestUrl() + '/MpicData/' + items.data[0].masterid + '/' + items.data[0].picurl
+                  })
+                }
+                else {
+                  that.setData({
+                    picurl: items.data[0].picurl
+                  })
+                }
+                that.setData({
+                  name: items.data[0].mastername,
+                  phone: items.data[0].mobile,
+                  wx: items.data[0].wxid,
+                  qq: items.data[0].mail,
+                  area: items.data[0].address,
+                  content: items.data[0].profiles,
+                  serviceArray: allServiceArray,
+                })
               }
-              Object.assign(allServiceArray[i], checkedService)
-
-            }
-            //头像
-            if (items.data[0].picurl.indexOf('http') < 0) {
               that.setData({
-                picurl: app.getRequestUrl() + '/MpicData/' + items.data[0].masterid + '/' + items.data[0].picurl
+                showLoading: false
               })
-            }
-            else {
-              that.setData({
-                picurl: items.data[0].picurl
-              })
-            }
-            that.setData({
-              name: items.data[0].mastername,
-              phone: items.data[0].mobile,
-              wx: items.data[0].wxid,
-              qq: items.data[0].mail,
-              area: items.data[0].address,
-              content: items.data[0].profiles,
-              serviceArray: allServiceArray,
             })
           }
-          that.setData({
-            showLoading: false
-          })
+
         })
+        
 
       })
     }

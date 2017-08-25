@@ -15,9 +15,8 @@ Page({
     contentid: 0,
     appurl: '',
     rusername: '',
-    ruserid: '',
+    ruserid: null,
     cardurl: '',
-    isPlayVoice: false,
     voicelist: [],
   },
   bindToQCode: function (e) {
@@ -80,8 +79,6 @@ Page({
         console.log('预期需要下载的数据总长度', res.totalBytesExpectedToWrite)
       })
     }
-
-
   },
   showPhoto: function (e) {
     var that = this
@@ -161,7 +158,7 @@ Page({
         commentid: e.currentTarget.dataset.commentid,
         contentid: e.currentTarget.dataset.contentid,
         rusername: e.currentTarget.dataset.rusername,
-        ruserid: e.currentTarget.dataset.ruserid,
+        ruserid: e.currentTarget.dataset.ruserid === '' ? null : e.currentTarget.dataset.ruserid,
       })
     } else {
       app.showModal("无法评论自己");
@@ -212,17 +209,51 @@ Page({
     })
 
   },
+  delcommend:function(e){
+    var that = this
+    wx.showModal({
+      title: '提示',
+      content: '确认删除这条信息？',
+      success: function (res) {
+        if (res.confirm) {
+          let index = Number(e.currentTarget.dataset.index)
+          let sindex = Number(e.currentTarget.dataset.sindex)
+          dataService.delComment(that.data.session, e.currentTarget.dataset.mrcrid, function (items) {
+            if (items.RetCode == 0) {
+              let sfItem = that.data.sfItem
+              sfItem.ltRoomInfos[index].ltmrcrinfos.splice(sindex, 1)
+              app.getBigRoomList(that.data.masterid, function (item) {
+                item.sfItems = sfItem
+                app.setBigRoomList(that.data.masterid, item)
+              })
+              that.setData({
+                sfItem: sfItem,
+              })
+            } else if (items.RetCode == 99) {
+              app.tokenError()
+            }
+            else {
+              app.showModal("数据错误，请稍后重试");
+            }
+          })
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
+  },
   onShow: function () {
     var that = this
     this.setData({
       showLoading: true
     })
+    
     //获得session
     app.getSession(function (session) {
       that.setData({
         session: session
       })
-
+      
       app.getUserInfo(function (userInfo) {
         //更新数据
         that.setData({
@@ -234,7 +265,7 @@ Page({
         if (items.RetCode == 0) {
           if (items.data instanceof Array) {
             if (items.data[0].userpic.indexOf('http') < 0) {
-              items.data[0].userpic = app.getRequestUrl() + '/MpicData/' + that.data.masterid + '/' + items.data[0].userpic
+              items.data[0].userpic = app.getRequestUrl() + 'MpicData/' + that.data.masterid + '/' + items.data[0].userpic
             }
             that.setData({
               sfItem: items.data[0],
@@ -242,7 +273,7 @@ Page({
             })
           } else {
             if (items.data.userpic.indexOf('http') < 0) {
-              items.data.userpic = app.getRequestUrl() + '/MpicData/' + that.data.masterid + '/' + items.data.userpic
+              items.data.userpic = app.getRequestUrl() + 'MpicData/' + that.data.masterid + '/' + items.data.userpic
             }
             that.setData({
               sfItem: items.data,

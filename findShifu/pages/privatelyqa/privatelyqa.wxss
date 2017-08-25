@@ -256,3 +256,20 @@
   font-size: 26rpx;
   color: #707070;
 }
+.bg_panel_filelist {
+  align-content: center;
+  text-align: center;
+  height: 40rpx;
+  background-color: #e6e6e6;
+  border: 1px #e6e6e6 solid;
+  border-radius: 5px;
+}
+ .white {
+  align-content: center;
+  text-align: center;
+  height: 40rpx;
+  background-color: #fff;
+  border: 1px #e6e6e6 solid;
+  border-radius: 5px;
+}
+

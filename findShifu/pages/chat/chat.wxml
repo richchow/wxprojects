@@ -6,27 +6,27 @@
   <view wx:for="{{message}}" id="{{i.id}}" wx:for-item="i">
     <view class="padding clearfix" wx:if="{{i.me}}">
       <image class="right-Avatar" src="{{userInfo.avatarUrl}}"></image>
-      <view class="right-Triangle"></view>
-      <view class="right-message padding_half">
+      <view class="right-Triangle" style="{{i.imgList ?'border-left:6px solid #fff':''}}"></view>
+      <view class="right-message padding_half" style="{{i.imgList ? 'background:#fff':''}}">
         <text wx:if="{{i.text}}">{{i.text}}</text>
         <image bindtap="showPhoto" data-src="{{i.imgList}}" wx:if="{{i.imgList}}" style="max-width:150px;" mode="widthFix" src="{{i.imgList}}"></image>
         <view wx:if="{{i.talk}}" data-talk="{{i.talk}}" style="width:{{i.time*10}}px;min-width:80rpx;max-width:200px;" bindtap="playVoice" wx:if="{{i.talk}}">
-          <image src="/images/talk.svg" style="width:40rpx;height:40rpx;" />
+          <image src="/images/talk.svg" style="width:40rpx;height:40rpx;transform:scaleX(-1);float:right;padding-right:5px;" />
         </view>
       </view>
-      <label wx:if="{{i.talk}}" style="float:right;font-size:14px;padding-top:10px;">{{i.time}}"</label>
+      <label wx:if="{{i.talk}}" style="float:right;font-size:14px;padding-top:20px;padding-right:5px;">{{i.time}}"</label>
     </view>
     <view class="padding clearfix" id="{{i.id}}" wx:if="{{!i.me}}">
       <image class="left-Avatar" src="{{i.img}}"></image>
       <view class="left-Triangle"></view>
-      <label wx:if="{{i.talk}}" style="float:left;font-size:14px;padding-top:10px;">{{i.time}}"</label>
       <view class="left-message padding_half">
         <text wx:if="{{i.text}}">{{i.text}}</text>
         <image bindtap="showPhoto" data-src="{{i.imgList}}" wx:if="{{i.imgList}}" style="max-width:150px" mode="widthFix" src="{{i.imgList}}"></image>
-        <view wx:if="{{i.talk}}" data-talk="{{i.talk}}" bindtap="playVoice"><label style="width:{{i.time*10-20}}px;min-width:40rpx;max-width:180px;">{{i.time}}"</label>
+        <view wx:if="{{i.talk}}" style="width:{{i.time*10}}px;min-width:80rpx;max-width:200px;" data-talk="{{i.talk}}" bindtap="playVoice">
           <image src="/images/talk.svg" style="width:40rpx;height:40rpx;" />
         </view>
       </view>
+      <label wx:if="{{i.talk}}" style="float:left;font-size:14px;padding-top:20px;padding-left:5px;">{{i.time}}"</label>
     </view>
   </view>
   <view class="weui-icon_success"></view>
@@ -45,5 +45,5 @@
   </view>
 </view>
 <view class="nopayed" wx:if="{{ischatpayed == false}}">
-  <view class="nopayed_button" bindtap="bindPayChat">¥{{price /100}}进入{{title}}</view>
+  <view class="nopayed_button" bindtap="bindPayChat">¥{{price}}进入{{title}}</view>
 </view>

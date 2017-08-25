@@ -15,6 +15,31 @@
 }
 
 .weui-media-box__desc {
-  -webkit-line-clamp: 4;
+  -webkit-line-clamp: 2;
   line-height: 1.6;
+}
+.sf_item_lab_left {
+  font-size: 24rpx;
+  border-right: 4rpx #f8f8f8 solid;
+  vertical-align: middle;
+  padding-top: 10rpx;
+}
+.sf_item_lab {
+  font-size: 24rpx;
+  border-right: 4rpx #f8f8f8 solid;
+  text-align: center;
+  vertical-align: middle;
+  padding-top: 10rpx;
+}
+
+.sf_item_lab_right {
+  font-size: 26rpx;
+  text-align: center;
+  vertical-align: middle;
+  padding-top: 10rpx;
+}
+
+.sf_item_img {
+  width: 20rpx;
+  height: 20rpx;
 }

@@ -14,11 +14,13 @@
     "pages/privatelyqa/privatelyqa",
     "pages/privatelyhim/privatelyhim",
     "pages/wallet/wallet",
+    "pages/walletlist/walletlist",
     "pages/index/index",
     "pages/route/route",
     "pages/edit/edit",
     "pages/brshare/brshare",
-    "pages/unreadlist/unreadlist"
+    "pages/unreadlist/unreadlist",
+    "pages/policy/policy"
   ],
   "window": {
     "backgroundTextStyle": "light",

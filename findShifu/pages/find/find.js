@@ -14,15 +14,19 @@ Page({
     })
     new app.UnreadPannel()
     // that.unreadPannel.show({ unreadnum: 5 })
-    dataService.alertMessage(this.data.session, function (items) {
-      if (items.RetCode == 0) {
-        that.unreadPannel.show({ unreadnum: items.data[0] })
-      }
-    })
+   
     //获得session
     app.getSession(function (session) {
       that.setData({
         session: session
+      })
+      dataService.alertMessage(that.data.session, function (items) {
+        if (items.RetCode == 0) {
+          that.unreadPannel.show({ unreadnum: items.data[0] })
+        }
+        else if (items.RetCode == 99) {
+          app.tokenError()
+        }
       })
 
         dataService.getMasterListAll(that.data.session, '', '', function (items) {
@@ -37,6 +41,7 @@ Page({
             })
           } else if (items.RetCode == 99) {
             app.tokenError()
+            that.onShow()
           }
           else {
             app.showModal("数据错误，请稍后重试");

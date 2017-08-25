@@ -3,18 +3,18 @@ var dataService = require('../../providers/dataService')
 var payService = require('../../providers/payService')
 Page({
   data: {
-    id:'',
-    isMoreOpen:false,
-    sfItem:{},
-    appurl:'',
-    cardurl:'',
-    session:'',
-    userInfo:{},
-    showLoading:false,
-    isEdit:false,
-    showVideo:false,
+    id: '',
+    isMoreOpen: false,
+    sfItem: null,
+    appurl: '',
+    cardurl: '',
+    session: '',
+    userInfo: {},
+    showLoading: false,
+    isEdit: false,
+    showVideo: false,
     voicelist: [],
-    ispay:true,
+    ispay: true,
   },
   playVoice: function (e) {
     var that = this
@@ -86,101 +86,100 @@ Page({
       urls: list
     })
   },
-  bindShowvideo:function(e){
-    this.setData({showVideo:true})
+  bindShowvideo: function (e) {
+    this.setData({ showVideo: true })
   },
   bindNoshowvideo: function (e) {
     this.setData({ showVideo: false })
   },
-  bindToPay:function(e){
+  bindToPay: function (e) {
     var that = this
-    if(that.data.ispay){
-    that.setData({ispay:false})
-    payService.PayforRoom(that.data.session, that.data.sfItem.masterid,function(items){
-      if (items.RetCode == 0) {
-        console.log('pay success')
-      } else if (items.RetCode == 99) {
-        app.showModal("支付失败！请重试");
-      } else {
-        app.showModal("支付失败！请重试");
-      }
-      that.setData({ ispay: true })
-    })
+    if (that.data.ispay) {
+      that.setData({ ispay: false })
+      payService.PayforRoom(that.data.session, that.data.sfItem.masterid, function (items) {
+        if (items.RetCode == 0) {
+          console.log('pay success')
+        } else if (items.RetCode == 99) {
+          app.showModal("支付失败！请重试");
+        } else {
+          app.showModal("支付失败！请重试");
+        }
+        that.setData({ ispay: true })
+      })
     }
   },
-  bindOpenMore:function(e){
-    if (e.currentTarget.dataset.tab === '1'){
-      this.setData({isMoreOpen:false})
-    }else{
+  bindOpenMore: function (e) {
+    if (e.currentTarget.dataset.tab === '1') {
+      this.setData({ isMoreOpen: false })
+    } else {
       this.setData({ isMoreOpen: true })
     }
   },
-  bindToEdit:function(e){
+  bindToEdit: function (e) {
     wx.navigateTo({
       url: '/pages/edit/edit?masterid=' + e.currentTarget.dataset.masterid,
     })
   },
-  bindToBigGroup:function(e){
+  bindToBigGroup: function (e) {
     wx.navigateTo({
       url: '/pages/biggroup/biggroup?masterid=' + e.currentTarget.dataset.masterid,
     })
   },
-  onLoad:function(options){
+  onLoad: function (options) {
     var that = this
     this.setData({
       showLoading: true,
       appurl: app.getRequestUrl() + 'UploadedData/' + options.id + '/',
       cardurl: app.getRequestUrl() + 'UploadedData/',
-      id: options.id ,
+      id: options.id,
     })
-  
+
   },
   onShow: function () {
     var that = this
-   
     //获得session
     app.getSession(function (session) {
       that.setData({
         session: session
       })
-
+      
       app.getUserInfo(function (userInfo) {
         //更新数据
         that.setData({
           userInfo: userInfo
         })
       })
-      dataService.getMasterListSignle(that.data.session,  that.data.id, function (items) {
-          if (items.RetCode == 0) {
-            if (items.data[0].picurl.indexOf('http') < 0) {
-              items.data[0].picurl = app.getRequestUrl() + '/MpicData/' + items.data[0].masterid + '/' + items.data[0].picurl
-            }
-            that.setData({
-              sfItem: items.data[0],
-            })
-          } else if (items.RetCode == 99) {
-            app.tokenError()
-          }
-          else {
-            app.showModal("数据错误，请稍后重试");
-          }
-          let vArray = new Array()
-          if (that.data.sfItem != null && that.data.sfItem.lmroominfo != null && that.data.sfItem.lmroominfo.length > 0 ) {
-            for (let si in that.data.sfItem.lmroominfo) {
-              if (that.data.sfItem.lmroominfo.ltFilesAudio != null && that.data.sfItem.lmroominfo.ltFilesAudio.length > 0) {
-                vArray.push(false)
-              } else {
-                vArray.push(true)
-              }
-            }
-            that.setData({
-              voicelist: vArray,
-            })
+      dataService.getMasterListSignle(that.data.session, that.data.id, function (items) {
+        if (items.RetCode == 0) {
+          if (items.data[0].picurl.indexOf('http') < 0) {
+            items.data[0].picurl = app.getRequestUrl() + '/MpicData/' + items.data[0].masterid + '/' + items.data[0].picurl
           }
           that.setData({
-            showLoading: false
+            sfItem: items.data[0],
           })
+        } else if (items.RetCode == 99) {
+          app.tokenError()
+        }
+        else {
+          app.showModal("数据错误，请稍后重试");
+        }
+        let vArray = new Array()
+        if (that.data.sfItem != null && that.data.sfItem.lmroominfo != null && that.data.sfItem.lmroominfo.length > 0) {
+          for (let si in that.data.sfItem.lmroominfo) {
+            if (that.data.sfItem.lmroominfo.ltFilesAudio != null && that.data.sfItem.lmroominfo.ltFilesAudio.length > 0) {
+              vArray.push(false)
+            } else {
+              vArray.push(true)
+            }
+          }
+          that.setData({
+            voicelist: vArray,
+          })
+        }
+        that.setData({
+          showLoading: false
         })
+      })
     })
   },
 

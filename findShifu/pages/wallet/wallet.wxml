@@ -6,8 +6,12 @@
   <view class="w_amount">¥{{walletinfo.curAmount}}</view>
   <view class="w_btn_tixian"><button bindtap="showModal" disabled="{{disabled}}">提现</button></view>
   <view class="w_desc">
-    <view>可提现到微信钱包，单日提现总限额2000元</view>
-    <view>每日可以申请提现一次</view>
+    <view>温馨提示：</view>
+    <view>1.单笔提现金额不少于10元，最高2000元；</view>
+    <view>2.提现服务费5%（含微信支付手续费）；</view>
+    <view>3.提现金额将转入您的微信钱包中；</view>
+    <view>4.使用BIM找师傅则视为接受<label class="nav" bindtap="bindToP">《使用条款与隐私策略》</label></view>
+
   </view>
   <view class="w_nav">
     <navigator url="url">查看零钱明细</navigator>

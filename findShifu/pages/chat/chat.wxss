@@ -280,7 +280,7 @@ height: 1106rpx;
 }
 .right-message{
     float: right;
-    margin-top: 22rpx;
+    margin-top: 24rpx;
     background: #5bcd20;
     border-radius: 6rpx;
     font-size: 14px;

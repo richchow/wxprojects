@@ -9,6 +9,7 @@ Page({
     cardurl: '',
     remark: '',
     isSave: true,
+    showLoading:true,
   },
   bindShowPic: function (e) {
     var that = this
@@ -60,7 +61,7 @@ Page({
               success: function (res) {
                 that.setData({
                   picurl: res.tempFilePath,
-                  remark: '点击图片收藏，扫描此图片二维码进入房间不收取拜师费',
+                  remark: '扫描此图片进入房间不收取拜师费',
                 })
               }
             })
@@ -78,7 +79,7 @@ Page({
               success: function (res) {
                 that.setData({
                   picurl: res.tempFilePath,
-                  remark: '点击图片收藏，扫描此图片二维码进入房间获得推广费',
+                  remark: '扫描此图片进入房间获得推广费',
                 })
               }
             })
