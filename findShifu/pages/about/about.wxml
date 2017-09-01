@@ -1,0 +1,17 @@
+<view class="page">
+  <view class="userinfo">
+    <image bindtap="authSetting" class="userinfo-avatar" src="/images/logo.png" />
+    <view>BIM找师傅</view>
+    <view class='logo'>V3.3.22</view>
+  </view>
+   <view class="page__hd">
+    <view class="weui-article">
+      <view class="weui-article__section">
+        <view class="weui-article__p">我们调研了 3000 名建筑类相关院校学生，大部分同学认为 “BIM” 将是他们在校期间重点学习的技术，很多大三的同学已经提前起跑，以 “BIM” 辅助完成毕设。为了帮助初学者和在路上的同学更优雅的学习，我们开发了BIM找师傅这款应用，通过撮合 “BIM从业者和初学者” 完成交流与学习的平台；</view>
+        <view class="weui-article__p">不断向高手学习，不断吸取前人的精华，可以避过很多坑，逐步打怪升级，在实践的过程中提升技能，你也将成为老师，并指导下一届新人；</view>
+        <view class="weui-article__p">使用BIM找师傅你可以：</view>
+        <view class="weui-article__p">·节省时间·完成任务·结交朋友·创造收入</view>
+      </view>
+    </view>
+  </view>
+</view>

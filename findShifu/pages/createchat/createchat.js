@@ -1,5 +1,6 @@
 var app = getApp()
 var subRoomService = require('../../providers/subRoomService.js')
+var dataService = require('../../providers/dataService.js')
 var util = require('../../utils/util.js')
 Page({
   data: {
@@ -67,6 +68,9 @@ Page({
     } else {
       subRoomService.CreatSubRoom(that.data.session,that.data.sroomid, e.detail.value.name, Number(e.detail.value.num), that.data.today, that.data.date, that.data.userid, function (items) {
         if (items.RetCode == 0) {
+          if (e.detail.formId != undefined) {
+            dataService.PushTemplateFormID(that.data.session, 1, e.detail.formId)
+          }
           wx.navigateBack({
             delta: 1
           })

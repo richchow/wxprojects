@@ -10,11 +10,15 @@ Page({
     cardurl: '',
     session: '',
     userInfo: {},
-    showLoading: false,
+    showLoading: true,
     isEdit: false,
-    showVideo: false,
     voicelist: [],
     ispay: true,
+  },
+  playVideo:function(e){
+    wx.navigateTo({
+      url: '/pages/playvideo/playvideo?src=' + e.currentTarget.dataset.src +'&id='+this.data.id,
+    })
   },
   playVoice: function (e) {
     var that = this
@@ -85,12 +89,6 @@ Page({
       current: e.currentTarget.dataset.src,
       urls: list
     })
-  },
-  bindShowvideo: function (e) {
-    this.setData({ showVideo: true })
-  },
-  bindNoshowvideo: function (e) {
-    this.setData({ showVideo: false })
   },
   bindToPay: function (e) {
     var that = this

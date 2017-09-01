@@ -6,6 +6,12 @@ Page({
     userInfo: {},
     message: {},
     voicelist: [],
+    showLoading:true,
+  },
+  playVideo: function (e) {
+    wx.navigateTo({
+      url: '/pages/playvideo/playvideo?src=' + e.currentTarget.dataset.src + '&id=' + e.currentTarget.dataset.id,
+    })
   },
   playVoice: function (e) {
     var that = this

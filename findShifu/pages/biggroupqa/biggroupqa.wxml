@@ -1,9 +1,9 @@
 <page>
-  <form bindsubmit="formSubmit">
+  <form report-submit="true"  bindsubmit="formSubmit">
     <view class="top_button margin_bottom_20">
       <view class="top_button_left" bindtap="bindbtnBack">取消</view>
       <view class="top_button_right">
-        <button size="mini" loading="{{loading}}" disabled="{{loading}}" type="primary" formType="submit">发送</button>
+        <button size="mini" loading="{{loading}}" disabled="{{loading}}" style='background-color: #1196db;' type="primary" formType="submit">发送</button>
       </view>
     </view>
     <view class="backWhite margin_bottom_20">

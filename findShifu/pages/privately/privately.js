@@ -2,7 +2,8 @@ var app = getApp()
 var dataService = require('../../providers/dataService')
 Page({
   data: {
-    groupitems: []
+    groupitems: [],
+    showLoading:true,
   },
   onShow:function(){
     var that = this

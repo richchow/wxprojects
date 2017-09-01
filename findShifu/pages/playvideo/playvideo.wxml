@@ -1,0 +1,10 @@
+<view class="page">
+    <block wx:if="{{src.length >0}}">
+        <video class="video" autoplay="true" src="{{src}}"></video>
+    </block>
+    <block wx:else>
+       <image src='/images/rolling.svg'></image>
+       
+
+    </block>
+</view>

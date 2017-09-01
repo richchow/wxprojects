@@ -41,7 +41,9 @@ Page({
 
       dataService.PushMessage(that.data.session, that.data.masterid, files, e.detail.value.content, function (items) {
         if (items.RetCode == 0) {
-          dataService.PushTemplateFormID(that.data.session,1,e.detail.formId)
+          if (e.detail.formId != undefined) {
+            dataService.PushTemplateFormID(that.data.session, 1, e.detail.formId)
+          }
           wx.navigateBack({
             delta: 1
           })
@@ -73,7 +75,7 @@ Page({
     wx.startRecord({
       success: function (res) {
         let temp = res.tempFilePath
-        dataService.MessagePushFiles(that.data.session, 3, that.data.succestalk, new Array(res.tempFilePath), 0, 1, function (item) {
+        dataService.MessagePushFiles(that.data.session, Number('3' + time), that.data.succestalk, new Array(res.tempFilePath), 0, 1, function (item) {
           if (item.RetCode == 0) {
             that.setData({
               succestalk: item.data,

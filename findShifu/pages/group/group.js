@@ -12,7 +12,12 @@ Page({
     animationData: {},
     numVail: 'inputClass',
     chatid: 0,
-
+    showLoading:true,
+  },
+  bindToFind:function(e){
+    wx.switchTab({
+      url: '/pages/find/find',
+    })
   },
   formSubmit: function (e) {
     console.log('form发生了submit事件，携带数据为：', e.detail.value)
@@ -132,7 +137,7 @@ Page({
       subRoomService.MasterCheck(that.data.session, function (items) {
         if (items.RetCode == 0) {
           that.setData({
-            isShifu: items.data == 0 ? true : false,
+            isShifu: (items.data != null && items.data[0].length >0) ? true : false,
           })
         } else if (items.RetCode == 99) {
           app.tokenError()
@@ -144,7 +149,7 @@ Page({
       subRoomService.SRoomListAll(that.data.session, function (items) {
         if (items.RetCode == 0) {
           for (let i in items.data) {
-            if (items.data[i].masterPic.indexOf('http') < 0) {
+            if (items.data[i].masterPic != null && items.data[i].masterPic.indexOf('http') < 0) {
               items.data[i].masterPic = app.getRequestUrl() + 'MpicData/' + items.data[i].masterid + '/' + items.data[i].masterPic
             }
           }
@@ -166,7 +171,7 @@ Page({
       subRoomService.SRoomListAll(that.data.session, function (items) {
         if (items.RetCode == 0) {
           for (let i in items.data) {
-            if (items.data[i].masterPic.indexOf('http') < 0) {
+            if (items.data[i].masterPic && items.data[i].masterPic.indexOf('http') < 0) {
               items.data[i].masterPic = app.getRequestUrl() + 'MpicData/' + items.data[i].masterid + '/' + items.data[i].masterPic
             }
           }

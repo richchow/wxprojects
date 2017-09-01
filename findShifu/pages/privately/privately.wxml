@@ -1,4 +1,7 @@
-<view class="page">
+<view class="loading" wx:if="{{showLoading}}">
+  <image class="loadinggif" src="/images/loading.gif" />
+</view>
+<view wx:else class="page">
   <view class="page__bd">
     <view class="weui-cells weui-cells_after-title">
       <navigator url="/pages/privatelyqa/privatelyqa?mid={{item.mid}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active" wx:for="{{groupitems}}" wx:for-item="item">

@@ -8,6 +8,42 @@ Page({
   disabled:false,
   showModalStatus:false,
   animationData:{},
+  showLoading:true,
+  loading:false,
+  },
+  bindWalletGet:function(e){
+  /*  wx.navigateTo({
+      url: '/pages/walletlist/walletlist',
+    })
+    */
+  },
+  formSubmit:function(e){
+    console.log('form发生了submit事件，携带数据为：', e.detail.value)
+    this.setData({
+      loading: true
+    })
+    var that = this
+    if (e.detail.value.amount === '' || (e.detail.value.amount > walletinfo.applyAmount)) {
+      app.showModal("填写金额有误！请确认后再试！")
+      that.setData({
+        loading: false
+      })
+    } else {
+    /*  subRoomService.CreatSubRoom(that.data.session, that.data.sroomid, e.detail.value.name, Number(e.detail.value.num), that.data.today, that.data.date, that.data.userid, function (items) {
+        if (items.RetCode == 0) {
+          if (e.detail.formId != undefined) {
+            dataService.PushTemplateFormID(that.data.session, 1, e.detail.formId)
+          }
+          that.hideModal()
+        }
+        else {
+          app.showModal("提现申请失败，请重试！")
+        }
+        that.setData({
+          loading: false
+        })
+      })*/
+    }
   },
   bindToP:function(){
     wx.navigateTo({

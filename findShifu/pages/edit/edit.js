@@ -157,6 +157,9 @@ Page({
     } else {
       dataService.ModiMasterInfo(false, that.data.session, that.data.masterid, e.detail.value.name, e.detail.value.phone, e.detail.value.wx, e.detail.value.qq, e.detail.value.content, checkedservice, e.detail.value.area, that.data.picurl, function (items) {
         if (items.RetCode == 0) {
+          if (e.detail.formId != undefined) {
+            dataService.PushTemplateFormID(that.data.session, 1, e.detail.formId)
+          }
           wx.navigateBack({
 
           })

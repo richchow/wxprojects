@@ -25,6 +25,7 @@ Page({
     isExpire: true,
     appurl:'',
     voicelist: [],
+    showLoading:true,
   },
   bindToQA: function (e) {
     this.setData({
@@ -59,7 +60,9 @@ Page({
 
       dataService.PushMessage(that.data.session, that.data.sfItem.sender, files, e.detail.value.content, function (items) {
         if (items.RetCode == 0) {
-          dataService.PushTemplateFormID(that.data.session, 1, e.detail.formId)
+          if (e.detail.formId != undefined) {
+            dataService.PushTemplateFormID(that.data.session, 1, e.detail.formId)
+          }
           wx.navigateBack({
             delta: 1
           })

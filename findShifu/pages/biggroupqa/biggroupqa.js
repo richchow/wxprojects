@@ -45,6 +45,9 @@ Page({
 
       dataService.MasterPushContent(that.data.session, that.data.masterid, files, e.detail.value.content, function (items) {
         if (items.RetCode == 0) {
+          if (e.detail.formId != undefined) {
+            dataService.PushTemplateFormID(that.data.session, 1, e.detail.formId)
+          }
           app.getBigRoomList(that.data.masterid, function (item) {
             if (item.sfItems instanceof Array) {
               item.sfItems[0].ltRoomInfos.unshift(items.data[0])

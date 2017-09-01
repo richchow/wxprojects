@@ -1,3 +1,4 @@
+@import "/css/sroom.wxss";
 .button_bottom_add{
   border-radius: 50%;
   float: right;

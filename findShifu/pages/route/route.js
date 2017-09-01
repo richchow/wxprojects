@@ -14,12 +14,15 @@ Page({
         if (roomid.length == 2 && uid.length == 2) {
           app.getSession(function (session) {
             dataService.binAgent(session, uid[1], roomid[1], function (items) {
+              if (item.RetCode == 0) {
+                wx.redirectTo({
+                  url: '/pages/shifu/shifu?id=' + item.data[0],
+                })
+              }
 
             })
           })
-          wx.redirectTo({
-            url: '/pages/shifu/shifu?id=' + roomid[1] + '&uid=' + uid[1],
-          })
+          
         }
       }
       else {

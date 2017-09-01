@@ -1,0 +1,21 @@
+<view class="page">
+  <view class="page__hd">
+    <view class="page__title">《BIM找师傅平台规则》</view>
+    <view class="weui-article">
+      <view class="weui-article__section">
+        <view class="weui-article__p">1.	BIM找师傅是我们开发的付费服务平台，用户支付“拜师费”后可以查阅该老师的联系方式：QQ/微信/电话，进而与老师建立联系；</view>
+        <view class="weui-article__p">2.	我们本来是想免费查阅，但是想到可能会有很多不相干的人，最终还是选择收费，增加一些门槛，给真正刚需的同学提供精准化服务，从而帮助同学“节省时间，完成任务”目前设置￥20 元，后续根据运营情况会逐步调整“拜师费”金额；</view>
+        <view class="weui-article__p">3.	用户支付拜师费后，不光可以与老师建立联系，还可以浏览该老师发的所有状态，并通过“私信”方式与老师建立私人房间，从而开启教学，不支付“拜师费”的用户仅可以查看老师最新一条动态，不能私信老师；</view>
+        <view class="weui-article__p">4.	用户与老师私信和交流方式，可以是 “文字” “图片” “语音” “视频”；</view>
+        <view class="weui-article__p">5.	BIM找师傅平台每位老师都有一个特权渠道即： 老师分享自己的二维码，用户扫码后可以免费进入“圈子”围观老师动态，每次“免费”围观重新扫码即可；</view>
+        <view class="weui-article__p">6.	BIM找师傅平台的商业模式：用户支付的“拜师费”作为平台的运营费用，老师不予分账，老师与学员建立付费房间的费用，平台不予分账；</view>
+        <view class="weui-article__p">7.	三人行，必有我师焉，学习路上，有一位亦师亦友的朋友陪伴，成长之路必不孤单，我们就是要打造一个“成长性学习互助平台”，“尊重” “包容” “开放” 是我们运营平台最基本的三个规则，也请各位使用者能够:予人玫瑰，口吐芬芳；</view>
+        <view class="weui-article__p">8.	为了更精准的推广 “BIM找师傅” 平台，我们给所有分享者/推广者，提供一定的鼓励佣金即：</view>
+        <view class="weui-article__p">·通过分享师傅的二维码（图片）给其他用户，若该用户扫描二维码并最终支付“拜师费”该分享者可以得到 10% 的奖励佣金；</view>
+        <view class="weui-article__p">·若该用户扫描二维码但并未从当前页支付，并不能获得鼓励佣金；</view>
+        
+        <view class="weui-article__p">©2017 BIM找师傅使用前必读</view>
+      </view>
+    </view>
+  </view>
+</view>

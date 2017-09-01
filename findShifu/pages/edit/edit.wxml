@@ -2,11 +2,11 @@
   <image class="loadinggif" src="/images/loading.gif" />
 </view>
   <view class="page" wx:if="{{!showLoading}}">
-  <form bindsubmit="formSubmit">
+  <form report-submit="true" bindsubmit="formSubmit">
    <view class="top_button margin_bottom_20">
       <view class="top_button_left" bindtap="bindbtnBack">取消</view>
       <view class="top_button_right">
-        <button size="mini" loading="{{loading}}" disabled="{{loading}}" type="primary" formType="submit">保存</button>
+        <button size="mini" style='background-color: #1196db;' loading="{{loading}}" disabled="{{loading}}" type="primary" formType="submit">保存</button>
       </view>
     </view>
     <view class="sf_card">

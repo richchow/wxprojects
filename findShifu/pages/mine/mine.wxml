@@ -4,6 +4,13 @@
   </view>
   <view class="page__bd">
     <view class="weui-cells weui-cells_after-title">
+      <navigator wx:if="{{masterid.length > 0}}" url="/pages/shifu/shifu?id={{masterid}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+      <view class="weui-cell__hd">
+          <image src="/images/wo.svg" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+        </view>
+        <view class="weui-cell__bd">我的房间</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access cell_ft_new"></view>
+      </navigator>
       <navigator url="/pages/wallet/wallet" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
       <view class="weui-cell__hd">
           <image src="/images/wallet.svg" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
@@ -18,7 +25,7 @@
         <view class="weui-cell__bd">私信</view>
         <view class="weui-cell__ft weui-cell__ft_in-access cell_ft_new">{{newmessage}}</view>
       </navigator>
-      <navigator url="/pages/policy/policy" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+      <navigator url="/pages/policy/policy2" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
       <view class="weui-cell__hd">
           <image src="/images/rule.svg" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
         </view>
@@ -32,7 +39,7 @@
         <view class="weui-cell__bd">使用指南</view>
         <view class="weui-cell__ft weui-cell__ft_in-access cell_ft_new"></view>
       </navigator>
-      <navigator url="/pages/relate/relate" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+      <navigator url="/pages/about/about" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
         <view class="weui-cell__hd">
           <image src="/images/about.svg" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
         </view>
@@ -42,3 +49,4 @@
     </view>
   </view>
 </view>
+<contact-button class='bottomBtn' type="default-light"  size="20" session-from="BIM找资料"></contact-button>

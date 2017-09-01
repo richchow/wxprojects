@@ -19,10 +19,15 @@ Page({
     cardurl: '',
     voicelist: [],
   },
+  playVideo: function (e) {
+    wx.navigateTo({
+      url: '/pages/playvideo/playvideo?src=' + e.currentTarget.dataset.src + '&id=' + this.data.masterid,
+    })
+  },
   bindToQCode: function (e) {
-   wx.navigateTo({
-     url: '/pages/brshare/brshare?masterid=' + e.currentTarget.dataset.masterid,
-   })
+    wx.navigateTo({
+      url: '/pages/brshare/brshare?masterid=' + e.currentTarget.dataset.masterid,
+    })
   },
   playVoice: function (e) {
     var that = this
@@ -112,6 +117,9 @@ Page({
     if (this.data.inputValue != null && this.data.inputValue.trim() !== '') {
       dataService.PushComment(that.data.session, that.data.commentid, that.data.contentid, that.data.inputValue, function (items) {
         if (items.RetCode == 0) {
+          if (e.detail.formId != undefined) {
+            dataService.PushTemplateFormID(that.data.session, 1, e.detail.formId)
+          }
           let sf = that.data.sfItem
           for (let i = 0; i < sf.ltRoomInfos.length; i++) {
             if (sf.ltRoomInfos[i].mrcid == that.data.contentid) {
@@ -209,7 +217,7 @@ Page({
     })
 
   },
-  delcommend:function(e){
+  delcommend: function (e) {
     var that = this
     wx.showModal({
       title: '提示',
@@ -243,17 +251,18 @@ Page({
     })
   },
   onShow: function () {
+
     var that = this
     this.setData({
       showLoading: true
     })
-    
+
     //获得session
     app.getSession(function (session) {
       that.setData({
         session: session
       })
-      
+
       app.getUserInfo(function (userInfo) {
         //更新数据
         that.setData({
@@ -280,7 +289,7 @@ Page({
               isShifu: items.data.iOwner == 0,
             })
           }
-          
+
           let vArray = new Array()
           if (that.data.sfItem != null && that.data.sfItem.ltRoomInfos.length > 0) {
             for (let si in that.data.sfItem.ltRoomInfos) {
@@ -314,6 +323,5 @@ Page({
       appurl: app.getRequestUrl() + 'UploadedData/' + options.masterid + '/',
       cardurl: app.getRequestUrl() + 'UploadedData/',
     })
-
   },
 })

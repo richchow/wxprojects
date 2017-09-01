@@ -157,3 +157,16 @@
   height:32rpx;
   padding-left: 28rpx;
 }
+.sf_rolling{
+  width: 80rpx;
+  height: 80rpx;
+}
+.sf_rolling_view {
+  position:relative;
+  top:-150rpx;
+  left: 60rpx;
+  width:100%;
+  height: 80rpx;
+  overflow: hidden;
+  z-index:999;
+}

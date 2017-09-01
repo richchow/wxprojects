@@ -2,7 +2,7 @@
   margin: 20rpx;
   border: 10rpx #fff solid;
   background-color: #fafafa;
-  height: 280px;
+  height: 200px;
 }
 
 .sf_card_item {
@@ -187,6 +187,48 @@
 }
 .sf_service_scroll{
   height: 100rpx;
-  width: 100%;
+  width: 88%;
   white-space: nowrap;
+  float:left;
 }
+.sf_service{
+  margin-bottom:20rpx;
+  padding:0 20rpx;
+  height: 140rpx;
+
+}
+.sf_item_display{
+  display: table;
+  width: 100%;
+}
+.sf_service_left{
+  float: left;
+  line-height: 60rpx;
+  padding-right: 10rpx;
+}
+.sf_service_right{
+  float: right;
+  line-height: 60rpx;
+}
+.sf_service_title{
+  padding: 10rpx 0;
+  font-size: 24rpx;
+}
+.weui-flex2{
+  display: block;
+}
+
+.sf_rolling{
+  width: 80rpx;
+  height: 80rpx;
+}
+.sf_rolling_view {
+  position:relative;
+  top:-150rpx;
+  left: 60rpx;
+  width:100%;
+  height: 80rpx;
+  overflow: hidden;
+  z-index:999;
+}
+

@@ -1,2 +1,13 @@
-<!--pages/walletlist/walletlist.wxml-->
-<text>pages/walletlist/walletlist.wxml</text>
+<view class="loading" wx:if="{{showLoading}}">
+  <image class="loadinggif" src="/images/loading.gif" />
+</view>
+<view wx:else class="page">
+  <view class="page__bd">
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell weui-cell_access"  wx:for="{{groupitems}}" wx:for-item="item">
+        <view class="weui-cell__bd">{{item.sNickName}}私信了我</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access cell_ft_new">{{item.cdate}}</view>
+      </view>
+    </view>
+  </view>
+</view>

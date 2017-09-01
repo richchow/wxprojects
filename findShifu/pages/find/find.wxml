@@ -12,14 +12,14 @@
       <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
         <view class="weui-media-box__title">{{item.mastername}}</view>
         <view class="weui-media-box__desc">{{item.profiles == null ? '正在等待师傅补充内容' : item.profiles}}</view>
-        <view class="weui-flex backWhite">
-          <view class="weui-flex__item sf_item_lab_left">
+        <view class="backWhite">
+          <view class="sf_item_lab_left">
             <image class="sf_item_img" src="/images/hot.svg"></image>人气：{{item.iReadCount}}
           </view>
-          <view class="weui-flex__item sf_item_lab">
+          <view class="sf_item_lab">
             <image class="sf_item_img" src="/images/order.svg"></image>服务：{{item.iServiceCount}}次
           </view>
-          <view class="weui-flex__item sf_item_lab_right">
+          <view class="sf_item_lab_right">
             <image class="sf_item_img" src="/images/feedback.svg"></image>评价：{{item.iRete}}%
           </view>
         </view>

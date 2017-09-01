@@ -1,6 +1,7 @@
 var app = getApp()
 var subRoomService = require('../../providers/subRoomService.js')
 var payService = require('../../providers/payService.js')
+var dataService = require('../../providers/dataService')
 var inttime
 var requesttime
 Page({
@@ -329,12 +330,14 @@ Page({
       inputValue: e.detail.value
     })
   },
-  btnSearch: function () {
+  btnSearch: function (e) {
     var that = this
     if (this.data.inputValue != null && this.data.inputValue.trim() !== '') {
       this.setCurrData(this.data.inputValue, '', 4, this.data.userInfo.avatarUrl, true, 0, function (item) {
         subRoomService.SRPushContent(that.data.session, that.data.chatid, that.data.inputValue, 4, '', function (items) {
-          console.log('items.RetCode:', items.RetCode)
+          if (e.detail.formId != undefined) {
+            dataService.PushTemplateFormID(that.data.session, 1, e.detail.formId)
+          }
           if (items.RetCode != 0) {
             that.syncError(item)
           }

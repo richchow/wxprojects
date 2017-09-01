@@ -1,11 +1,14 @@
-<view class="page">
+<view class="loading" wx:if="{{showLoading}}">
+  <image class="loadinggif" src="/images/loading.gif" />
+</view>
+<view wx:if="{{showLoading==false}}" class="page">
   <view class="backWhite margin_bottom_20 padding_top_20  padding_bottom_20">
     <view class="sf_top">
       <view bindtap="bindToQA" wx:if="true" class="sf_top_button">回复</view>
-      <view bindtap="bindToCreateChat" wx:if="{{!sfItem.isShifu}}" class="{{isExpire?'.sf_top_button_error':'sf_top_button'}}">与他建立房间</view>
+      <view bindtap="bindToCreateChat" wx:if="{{isShifu}}" class="{{isExpire?'.sf_top_button_error':'sf_top_button'}}">与他建立房间</view>
     </view>
   </view>
-  <view class="backWhite margin_bottom_20 margin_top_20 padding_top_20 sf_view" wx:if="{{!sfItem.isShifu}}" >7日内可以与他创建小房间</view>
+  <view class="backWhite margin_bottom_20 margin_top_20 padding_top_20 sf_view" wx:if="{{isShifu}}" >7日内可以与他创建小房间</view>
   <view class="backWhite margin_bottom_20 margin_top_20 padding_top_20  bg_panel_user ">
     <view class="weui-media-box_appmsg paddingleft20">
       <view class="weui-media-box__bd weui-media-box__bd_in-appmsg bg_panel_usercontent ">
@@ -29,7 +32,7 @@
     <view class="top_button margin_bottom_20">
       <view bindtap="bindCanelQA" class="top_button_left">取消</view>
       <view class="top_button_right">
-        <button size="mini" loading="{{loading}}" disabled="{{loading}}" type="primary" formType="submit">发送</button>
+        <button size="mini" loading="{{loading}}" disabled="{{loading}}" style='background-color: #1196db;' type="primary" formType="submit">发送</button>
       </view>
     </view>
     <view class="backWhite margin_bottom_20">

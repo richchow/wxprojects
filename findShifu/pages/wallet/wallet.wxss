@@ -94,7 +94,7 @@
   z-index: 2000;
   background: #fffffe;
   padding-top: 20rpx;
-  height: 30%;
+  height: 40%;
   text-align: center;
   left: 0;
   right: 0;

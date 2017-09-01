@@ -5,6 +5,7 @@ Page({
     session: '',
     userInfo: {},
     newmessage: '',
+    masterid:'',
   },
   authSetting: function () {
     var that = this
@@ -51,6 +52,13 @@ Page({
         that.setData({
           userInfo: userInfo
         })
+      })
+      dataService.MasterCheck(that.data.session,function(items){
+        if(items.RetCode == 0){
+          that.setData({
+            masterid: (items.data != null && items.data[0].length > 0) ? items.data : '',
+          })
+        }
       })
       dataService.PushUserPic(that.data.session, that.data.userInfo.nickName, that.data.userInfo.avatarUrl)
       dataService.HaveNewMessage(that.data.session, function (items) {

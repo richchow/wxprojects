@@ -1,0 +1,44 @@
+.userinfo{
+  width:100%;
+  height: 300rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 60rpx;
+  background-color: #fff;
+  border-bottom:1px #e6e6e6 solid;
+  padding-bottom: 20px;
+}
+.userinfo-avatar {
+  width: 180rpx;
+  height: 180rpx;
+  margin: 10rpx;
+  border-radius: 50%;
+  border:1px #e6e6e6 solid;
+  
+}
+.logo{
+  color: #8a8a8a;
+}
+.weui-cell{
+  margin: 20rpx 0;
+  background-color: #fff;
+  font-size: 16px;
+}
+.page{
+  height: 100%;
+  padding: 0 10px;
+  background-color: #fff;
+}
+.page__title{
+  font-size: 18px;
+}
+.weui-article__p{
+  font-size: 14px;
+}
+.page__hd{
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: #fff;
+  padding-top: 10px;
+}

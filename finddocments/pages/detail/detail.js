@@ -1,5 +1,6 @@
 var app = getApp()
 var dataService = require('../../providers/dataService')
+var payService = require('../../providers/payService')
 Page({
   data: {
     showLoading: false,
@@ -31,6 +32,46 @@ Page({
     wx.previewImage({
       urls: [app.getRequestUrl() + '/datapic/zzl/tuli.png'] // 需要预览的图片http链接列表
     })
+  },
+  pay: function (e) {
+    if (this.data.isStarCat) {
+      if (this.data.isQuestioned) {
+        this.setData({
+          showModalUrlStatus: true
+        })
+      } else {
+        this.setData({
+          showModalInputStatus: true
+        })
+      }
+    } else {
+      var that = this
+      if(that.data.isPayed){
+        that.setData({
+          showModalUrlStatus: true
+        })
+      }else if (that.data.isPaying === false) {
+        that.setData({
+          isPaying: true
+        })
+        payService.pay(this.data.datainfo.dataid, this.data.session, function (item) {
+          if (item.RetCode == 0) {
+            that.setData({
+              isPayed: true,
+              showModalUrlStatus: true
+            })
+            
+          } else if (item.RetCode == 99) {
+            app.tokenError()
+          } else {
+            app.showModal("支付失败！请重试");
+          }
+          that.setData({
+            isPaying: false
+          })
+        })
+      }
+    }
   },
   formSubmit: function (e_detail_2) {
     this.setData({
@@ -334,7 +375,7 @@ Page({
       // 如果希望用户在最新版本的客户端上体验您的小程序，可以这样子提示
       wx.showModal({
         title: '提示',
-        content: '当前微信版本过低，无法使用该功能，请升级到最新微信版本后重试。'
+        content: '当前微信版本过低，为了更好的享受服务，请升级到最新微信版本后重试。'
       })
     }
 

@@ -5,16 +5,17 @@
   <image class='bannerimg' model='aspectFit' src="/images/480.png" />
   <view class="amountview">
     <label class="pTitle">{{datainfo.title}}</label>
-    <block class="floatright" wx:if="{{datainfo.IconFlag != null && datainfo.IconFlag != ''}}">
+    <label class="amount">¥ {{datainfo.amount}}</label>
+   <!-- <block class="floatright" wx:if="{{datainfo.IconFlag != null && datainfo.IconFlag != ''}}">
       <image wx:for="{{datainfo.IconFlag}}" bindtap="bindToTuli" wx:for-item="tab" class="svgImg" src="/images/iconflag-{{tab}}.svg" />
-      </block>
+      </block>-->
     <label class="payedMan">{{datainfo.BuyedCount}}人已阅读</label>
   </view>
   <view class="content">
     <label class="describetitle">- 资料详情 -</label>
     <label class="describecontent">{{datainfo.describe}}</label>
   </view>
-  <view bindtap="bindToPayed" class="bottomleftBtn">
+  <view bindtap="pay" class="bottomleftBtn">
     查看链接
   </view>
   <view bindtap="showModal" data-item="{{datainfo.amount}}" class="bottomrightBtn">
@@ -38,12 +39,13 @@
       <icon bindtap="hideModal" class="info-icon" type="clear" size="40" color="#00adc2" />
     </view>
   </view>
-  <view class="shareurlcontent" wx:if="{{showModalUrlStatus}}">
-    <view>
+  <view class="card shareurlcontent " wx:if="{{showModalUrlStatus}}">
+  <view class="classname">您的专属资料卡</view>
+    <view class="url_view">
       <label>地址:</label>
       <text class="docurl" selectable="true">{{datainfo.url}}</text>
     </view>
-    <view>
+    <view class="url_view">
       <label>提取码:</label>
       <text class="docurl" selectable="true">{{datainfo.signature}}</text>
     </view>

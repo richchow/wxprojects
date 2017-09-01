@@ -20,3 +20,20 @@
   background-color: #fff;
   font-size: 16px;
 }
+.bottomBtn {
+  position: fixed;
+  background-color: #14b3c7;
+  line-height: 95rpx;
+  align-items: center;
+  text-align: center;
+  font-size: 30rpx;
+  color: #fff;
+  bottom: 0px;
+  overflow: hidden;
+  z-index: 500;
+  width: 80rpx;
+  height: 80rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+  right: 0;
+}

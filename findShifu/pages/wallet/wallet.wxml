@@ -1,10 +1,13 @@
-<view class="page">
+<view class="loading" wx:if="{{showLoading}}">
+  <image class="loadinggif" src="/images/loading.gif" />
+</view>
+<view wx:if="{{showLoading == false}}" class="page">
   <view class="userinfo">
     <image class="userinfo-avatar" src="/images/lingqian.svg" />
   </view>
   <view class="w_title">我的零钱</view>
   <view class="w_amount">¥{{walletinfo.curAmount}}</view>
-  <view class="w_btn_tixian"><button bindtap="showModal" disabled="{{disabled}}">提现</button></view>
+  <view class="w_btn_tixian"><button disabled="true" bindtap="showModal" >提现</button></view>
   <view class="w_desc">
     <view>温馨提示：</view>
     <view>1.单笔提现金额不少于10元，最高2000元；</view>
@@ -14,17 +17,18 @@
 
   </view>
   <view class="w_nav">
-    <navigator url="url">查看零钱明细</navigator>
+    <view bindtap="bindWalletGet">查看零钱明细</view>
   </view>
 </view>
 <view class="sharebox" wx:if="{{showModalStatus}}"></view>
 <view animation="{{animationData}}" class="inputcontent" wx:if="{{showModalStatus}}">
   <label class="payedtitle">提现金额</label>
   <view class="info-content">
-    <form bindsubmit="formSubmit">
+    <form report-submit="true" bindsubmit="formSubmit">
       <view class="section">
         <input name="amount" class="{{nameVail}}" type="number" placeholder="金额" placeholder-class="phInput" />
       </view>
+      <view class="section">今日可提现金额：{{walletinfo.applyAmount}}</view>
       <view class="btn-area">
         <button size="mini" loading="{{loading}}" formType="submit">提交</button>
       </view>

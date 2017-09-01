@@ -6,7 +6,6 @@
     "pages/shifu/shifu",
     "pages/biggroup/biggroup",
     "pages/biggroupqa/biggroupqa",
-    "pages/comment/comment",
     "pages/chat/chat",
     "pages/createchat/createchat",
     "pages/passkey/passkey",
@@ -20,7 +19,10 @@
     "pages/edit/edit",
     "pages/brshare/brshare",
     "pages/unreadlist/unreadlist",
-    "pages/policy/policy"
+    "pages/policy/policy",
+    "pages/policy/policy2",
+    "pages/about/about",
+    "pages/playvideo/playvideo"
   ],
   "window": {
     "backgroundTextStyle": "light",
