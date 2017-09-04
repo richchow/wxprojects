@@ -18,12 +18,12 @@
       </view>
     </view>
     <view class="page__bd_spacing2 size28  margin_right_20">{{sfItem.content}}
-       <view wx:if="{{sfItem.ltFilesAudio != null && sfItem.ltFilesAudio.length >0}}" wx:for="{{sfItem.ltFilesAudio}}" wx:for-item="lf" class="bg_panel_filelist {{voicelist[0] == false ? '' :'white'}}" style="width:{{lf.second*20}}rpx;min-width:300rpx;max-width:700rpx;"
+       <view wx:if="{{sfItem.ltFilesAudio != null && sfItem.ltFilesAudio.length >0}}" wx:for="{{sfItem.ltFilesAudio}}" wx:for-item="lf" class="bg_panel_filelist {{voicelist[0] == false ? '' :'white'}}" style="width:{{lf.second*20}}rpx;min-width:300rpx;max-width:600rpx;"
           bindtap="playDataVoice" data-talk="{{appurl+lf.fileurl}}" data-time="{{lf.second}}">
           <image class="bg_panel_filelist_file" src="/images/talk.svg" mode="aspectFit" /><label class="labtime">{{lf.second}}"</label>
         </view>
       <view wx:if="{{sfItem.ltFilesImg}}" class="bg_panel_imglist">
-        <image  wx:for="{{sfItem.ltFilesImg}}"  wx:for-item="lf" bindtap="showPhoto" data-src="{{appurl+lf.fileurl}}" data-id="{{sfItem.ltFilesImg}}" class="bg_panel_imglist_img" src="{{appurl+lf.fileurl}}" mode="aspectFit"  />
+        <image  wx:for="{{sfItem.ltFilesImg}}"  wx:for-item="lf" bindtap="showPhoto2" data-src="{{appurl+lf.fileurl}}" data-id="{{sfItem.ltFilesImg}}" class="bg_panel_imglist_img" src="{{appurl+lf.fileurl}}" mode="aspectFit"  />
       </view>
     </view>
   </view>

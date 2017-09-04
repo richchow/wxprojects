@@ -38,7 +38,6 @@ Page({
     })
   },
   formSubmit: function (e) {
-    console.log('form发生了submit事件，携带数据为：', e.detail.value)
     this.setData({
       loading: true
     })
@@ -140,22 +139,17 @@ Page({
     } else {
       vA[0] = true
       that.setData({ voicelist: vA })
-      console.log('downloadFile:', e.currentTarget.dataset.talk)
       const downloadTask = wx.downloadFile({
         url: e.currentTarget.dataset.talk,
         success: function (res) {
-          console.log('downloadFile', 'success')
           if (res.statusCode == 200) {
-            console.log('downloadFile ok:', res.tempFilePath)
             wx.saveFile({
               tempFilePath: res.tempFilePath,
               success: function (res) {
                 var savedFilePath = res.savedFilePath
-                console.log('savedFilePath:', savedFilePath)
                 wx.playVoice({
                   filePath: savedFilePath,
                   success: function (res) {
-                    console.log('res success:', savedFilePath)
                     let time = Number(e.currentTarget.dataset.time) * 1000
                     setTimeout(function () {
                       wx.stopVoice()
@@ -164,10 +158,8 @@ Page({
                     }, time)
                   },
                   fail: function () {
-                    console.log('res', 'fail')
                   },
                   complete: function () {
-                    console.log('res', 'complete')
                   }
                 })
               }
@@ -178,11 +170,6 @@ Page({
             app.showModal("语音文件下载错误，请稍后重试");
           }
         }
-      })
-      downloadTask.onProgressUpdate((res) => {
-        console.log('下载进度', res.progress)
-        console.log('已经下载的数据长度', res.totalBytesWritten)
-        console.log('预期需要下载的数据总长度', res.totalBytesExpectedToWrite)
       })
     }
   },
@@ -204,6 +191,17 @@ Page({
     let temp = []
     for (let i = 0; i < that.data.tempimg.length; i++) {
       temp.push(that.data.tempimg[i].url)
+    }
+    wx.previewImage({
+      current: e.currentTarget.dataset.src,
+      urls: temp
+    })
+  },
+  showPhoto2: function (e) {
+    var that = this
+    let temp = []
+    for (let i = 0; i < that.data.sfItem.ltFilesImg.length; i++) {
+      temp.push(that.data.appurl + that.data.sfItem.ltFilesImg[i].fileurl)
     }
     wx.previewImage({
       current: e.currentTarget.dataset.src,

@@ -3,7 +3,7 @@ var dataService = require('../../providers/dataService')
 Page({
   data: {
     picurl: '',
-    showLoading: false,
+    showLoading: true,
     userInfo: {},
     session: '',
     cardurl: '',

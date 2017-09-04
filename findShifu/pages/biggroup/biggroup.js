@@ -2,7 +2,7 @@ var app = getApp()
 var dataService = require('../../providers/dataService')
 Page({
   data: {
-    showLoading: false,
+    showLoading: true,
     inputValue: '',
     session: '',
     userInfo: {},
@@ -39,22 +39,17 @@ Page({
     } else {
       vA[e.currentTarget.dataset.idx] = true
       that.setData({ voicelist: vA })
-      console.log('downloadFile:', e.currentTarget.dataset.talk)
       const downloadTask = wx.downloadFile({
         url: e.currentTarget.dataset.talk,
         success: function (res) {
-          console.log('downloadFile', 'success')
           if (res.statusCode == 200) {
-            console.log('downloadFile ok:', res.tempFilePath)
             wx.saveFile({
               tempFilePath: res.tempFilePath,
               success: function (res) {
                 var savedFilePath = res.savedFilePath
-                console.log('savedFilePath:', savedFilePath)
                 wx.playVoice({
                   filePath: savedFilePath,
                   success: function (res) {
-                    console.log('res success:', savedFilePath)
                     let time = Number(e.currentTarget.dataset.time) * 1000
                     setTimeout(function () {
                       wx.stopVoice()
@@ -63,10 +58,8 @@ Page({
                     }, time)
                   },
                   fail: function () {
-                    console.log('res', 'fail')
                   },
                   complete: function () {
-                    console.log('res', 'complete')
                   }
                 })
               }
@@ -77,11 +70,6 @@ Page({
             app.showModal("语音文件下载错误，请稍后重试");
           }
         }
-      })
-      downloadTask.onProgressUpdate((res) => {
-        console.log('下载进度', res.progress)
-        console.log('已经下载的数据长度', res.totalBytesWritten)
-        console.log('预期需要下载的数据总长度', res.totalBytesExpectedToWrite)
       })
     }
   },
@@ -211,7 +199,6 @@ Page({
             }
           })
         } else if (res.cancel) {
-          console.log('用户点击取消')
         }
       }
     })
@@ -245,76 +232,81 @@ Page({
             }
           })
         } else if (res.cancel) {
-          console.log('用户点击取消')
         }
       }
     })
   },
   onShow: function () {
-
     var that = this
-    this.setData({
-      showLoading: true
-    })
-
-    //获得session
-    app.getSession(function (session) {
-      that.setData({
-        session: session
-      })
-
-      app.getUserInfo(function (userInfo) {
-        //更新数据
+    let flush = false
+    app.getBBflush(function(status){
+      flush = status
+      if (flush) {
         that.setData({
-          userInfo: userInfo
+          showLoading: true
         })
-      })
-      dataService.PushUserPic(that.data.session, that.data.userInfo.nickName, that.data.userInfo.avatarUrl)
-      dataService.getMasterRoom(that.data.session, that.data.masterid, function (items) {
-        if (items.RetCode == 0) {
-          if (items.data instanceof Array) {
-            if (items.data[0].userpic.indexOf('http') < 0) {
-              items.data[0].userpic = app.getRequestUrl() + 'MpicData/' + that.data.masterid + '/' + items.data[0].userpic
-            }
-            that.setData({
-              sfItem: items.data[0],
-              isShifu: items.data[0].iOwner == 0,
-            })
-          } else {
-            if (items.data.userpic.indexOf('http') < 0) {
-              items.data.userpic = app.getRequestUrl() + 'MpicData/' + that.data.masterid + '/' + items.data.userpic
-            }
-            that.setData({
-              sfItem: items.data,
-              isShifu: items.data.iOwner == 0,
-            })
-          }
+        //获得session
+        app.getSession(function (session) {
+          that.setData({
+            session: session
+          })
 
-          let vArray = new Array()
-          if (that.data.sfItem != null && that.data.sfItem.ltRoomInfos.length > 0) {
-            for (let si in that.data.sfItem.ltRoomInfos) {
-              if (that.data.sfItem.ltRoomInfos[si].ltFilesAudio != null && that.data.sfItem.ltRoomInfos[si].ltFilesAudio.length > 0) {
-                vArray.push(false)
+          app.getUserInfo(function (userInfo) {
+            //更新数据
+            that.setData({
+              userInfo: userInfo
+            })
+          })
+          dataService.PushUserPic(that.data.session, that.data.userInfo.nickName, that.data.userInfo.avatarUrl)
+
+          dataService.getMasterRoom(that.data.session, that.data.masterid, function (items) {
+            if (items.RetCode == 0) {
+              if (items.data instanceof Array) {
+                if (items.data[0].userpic.indexOf('http') < 0) {
+                  items.data[0].userpic = app.getRequestUrl() + 'MpicData/' + that.data.masterid + '/' + items.data[0].userpic
+                }
+                that.setData({
+                  sfItem: items.data[0],
+                  isShifu: items.data[0].iOwner == 0,
+                })
               } else {
-                vArray.push(true)
+                if (items.data.userpic.indexOf('http') < 0) {
+                  items.data.userpic = app.getRequestUrl() + 'MpicData/' + that.data.masterid + '/' + items.data.userpic
+                }
+                that.setData({
+                  sfItem: items.data,
+                  isShifu: items.data.iOwner == 0,
+                })
               }
+
+              let vArray = new Array()
+              if (that.data.sfItem != null && that.data.sfItem.ltRoomInfos.length > 0) {
+                for (let si in that.data.sfItem.ltRoomInfos) {
+                  if (that.data.sfItem.ltRoomInfos[si].ltFilesAudio != null && that.data.sfItem.ltRoomInfos[si].ltFilesAudio.length > 0) {
+                    vArray.push(false)
+                  } else {
+                    vArray.push(true)
+                  }
+                }
+                that.setData({
+                  voicelist: vArray,
+                })
+              }
+
+
+            } else if (items.RetCode == 99) {
+              app.tokenError()
+            }
+            else {
+              app.showModal("数据错误，请稍后重试");
             }
             that.setData({
-              voicelist: vArray,
+              showLoading: false
             })
-          }
-
-
-        } else if (items.RetCode == 99) {
-          app.tokenError()
-        }
-        else {
-          app.showModal("数据错误，请稍后重试");
-        }
-        that.setData({
-          showLoading: false
+          })
+          app.setBBflush(false)
         })
-      })
+      }
     })
   },
   onLoad: function (options) {

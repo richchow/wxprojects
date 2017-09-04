@@ -12,22 +12,22 @@
     <view class="sf_card_item_col">
       <view>
         <image class="sf_card_lab" src="/images/phone.svg"></image>
-        <label wx:if="{{sfItem.iBuyed !=0 && sfItem.iOwner != 0}}">购买咨询师傅可见</label>
+        <label wx:if="{{sfItem.iBuyed !=0 && sfItem.iOwner != 0}}">进入师傅空间后可见</label>
         <label wx:if="{{sfItem.iBuyed ==0 || sfItem.iOwner == 0}}">{{sfItem.mobile == null ? '正在等待师傅补充内容' : sfItem.mobile}}</label>
       </view>
       <view>
         <image class="sf_card_lab" src="/images/weixin.svg"></image>
-        <label wx:if="{{sfItem.iBuyed !=0 && sfItem.iOwner != 0}}">购买咨询师傅可见</label>
+        <label wx:if="{{sfItem.iBuyed !=0 && sfItem.iOwner != 0}}">进入师傅空间后可见</label>
         <label wx:if="{{sfItem.iBuyed ==0 || sfItem.iOwner == 0}}">{{sfItem.wxid == null ? '正在等待师傅补充内容' : sfItem.wxid}}</label>
       </view>
       <view>
         <image class="sf_card_lab" src="/images/qq.svg"></image>
-        <label wx:if="{{sfItem.iBuyed !=0 && sfItem.iOwner != 0}}">购买咨询师傅可见</label>
+        <label wx:if="{{sfItem.iBuyed !=0 && sfItem.iOwner != 0}}">进入师傅空间后可见</label>
         <label wx:if="{{sfItem.iBuyed ==0 || sfItem.iOwner == 0}}">{{sfItem.mail == null ? '正在等待师傅补充内容' : sfItem.mail}}</label>
       </view>
       <view>
         <image class="sf_card_lab" src="/images/area.svg"></image>
-        <label wx:if="{{sfItem.iBuyed !=0 && sfItem.iOwner != 0}}">购买咨询师傅可见</label>
+        <label wx:if="{{sfItem.iBuyed !=0 && sfItem.iOwner != 0}}">进入师傅空间后可见</label>
         <label wx:if="{{sfItem.iBuyed ==0 || sfItem.iOwner == 0}}">{{sfItem.address == null ? '正在等待师傅补充内容':sfItem.address}}</label>
       </view>
     </view>
@@ -83,7 +83,7 @@
         </view>
       </view>
       <view class="page__bd_spacing2 size28 margin_right_20">{{sfItem.lmroominfo[0].mrcontent}}
-        <view wx:if="{{sfItem.lmroominfo[0].ltFilesAudio != null && sfItem.lmroominfo[0].ltFilesAudio.length >0}}" wx:for="{{sfItem.lmroominfo[0].ltFilesAudio}}" wx:for-item="lf" class="bg_panel_filelist {{voicelist[idx] == false ? '' :'white'}}" style="width:{{lf.second*20}}rpx;min-width:300rpx;max-width:700rpx;"
+        <view wx:if="{{sfItem.lmroominfo[0].ltFilesAudio != null && sfItem.lmroominfo[0].ltFilesAudio.length >0}}" wx:for="{{sfItem.lmroominfo[0].ltFilesAudio}}" wx:for-item="lf" class="bg_panel_filelist {{voicelist[idx] == false ? '' :'white'}}" style="width:{{lf.second*20}}rpx;min-width:300rpx;max-width:600rpx;"
           bindtap="playVoice" data-idx="{{idx}}" data-talk="{{appurl+lf.fileurl}}" data-time="{{lf.second}}">
           <image class="bg_panel_filelist_file" src="/images/talk.svg" mode="aspectFit" /><label class="labtime">{{lf.second}}"</label>
         </view>
@@ -105,13 +105,13 @@
   查看师傅所有内容
 </view>
 <view wx:elif="{{showLoading == false && sfItem.iBuyed ==0 && sfItem.iOwner != 0}}" data-masterid="{{sfItem.masterid}}" bindtap="bindToBigGroup" class="bottom_button">
-  咨询师傅
+  进入师傅的空间
 </view>
 <block wx:elif="{{showLoading == false && sfItem.iOwner ==0}}">
   <view data-masterid="{{sfItem.masterid}}" bindtap="bindToEdit" class="bottom_button_left">
     编辑信息
   </view>
   <view data-masterid="{{sfItem.masterid}}" bindtap="bindToBigGroup" class="bottom_button_right">
-    进入房间
+    发表动态
   </view>
 </block>

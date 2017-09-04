@@ -17,6 +17,7 @@ Page({
 
     var that = this
     if (val.length == 4) {
+      console.log('passkey:', that.data.session, that.data.id, e.detail.value)
       dataService.EnterRoomCheck(that.data.session, that.data.id, e.detail.value, function (items) {
         if (items.RetCode == 0) {
           wx.redirectTo({

@@ -37,9 +37,9 @@ Page({
   },
   bindPayChat: function () {
     var that = this
-    
+
     if (!that.data.isPay) {
-      that.setData({ isPay:true})
+      that.setData({ isPay: true })
       payService.PayforSRoom(this.data.session, this.data.chatid, this.data.price, function (item) {
         if (item.RetCode == 0) {
           that.onLoad({ id: that.data.chatid })
@@ -51,7 +51,6 @@ Page({
             success: function (res) {
               if (res.confirm) {
               } else if (res.cancel) {
-                console.log('用户点击取消')
               }
             }
           })
@@ -61,11 +60,34 @@ Page({
     }
   },
   playVoice: function (e) {
-    wx.playVoice({
-      filePath: e.currentTarget.dataset.talk,
-      complete: function () {
+    var that = this
+    let idx = e.currentTarget.dataset.idx
+    let message = that.data.message
+    if (message[idx].isPlay) {
+      wx.stopVoice()
+      message[idx].isPlay = false
+      that.setData({ message: message })
+    } else {
+      wx.stopVoice()
+      for(let i in message){
+        message[i].isPlay = false
       }
-    })
+      message[idx].isPlay = true
+      that.setData({ message: message })
+      wx.playVoice({
+        filePath: e.currentTarget.dataset.talk,
+        success: function () {
+        },
+        complete: function () {
+          let time = Number(e.currentTarget.dataset.time) * 1000
+          setTimeout(function () {
+            wx.stopVoice()
+            message[idx].isPlay = false
+            that.setData({ message: message })
+          }, time)
+        }
+      })
+    }
   },
   bindTalk: function () {
     var that = this
@@ -149,9 +171,7 @@ Page({
             tempFilePath: temp,
             success: function (res) {
               that.setCurrData(res.savedFilePath, '', 1, that.data.userInfo.avatarUrl, true, 0, function (item) {
-                console.log('updatephoto:', res.savedFilePath)
                 subRoomService.SRPushContent(that.data.session, that.data.chatid, '', 1, res.savedFilePath, function (items) {
-                  console.log('SRPushContent:', items.RetCode)
                   if (items.RetCode != 0) {
                     that.syncError(item)
                   }
@@ -177,18 +197,15 @@ Page({
     app.setDataList(this.data.chatid, this.data.message)
   },
   onReady: function () {
-    console.log('onReady')
     this.setData({
       intoView: 'message' + this.data.messageID
     })
   },
   onShow: function () {
-    console.log('onShow')
     var that = this
 
   },
   onLoad: function (options) {
-    console.log('chat:', options.id)
     var that = this
     var id = options.id
     that.setData({ chatid: id })
@@ -204,6 +221,14 @@ Page({
           })
         })
         app.getDataList(that.data.chatid, function (item) {
+          if (item != null && item != []) {
+            let obj = {
+              isPlay: false
+            }
+            for (let i in item) {
+              Object.assign(item[i], obj)
+            }
+          }
           that.setData({
             message: item,
             messageID: item.length,
@@ -211,7 +236,10 @@ Page({
           })
 
           subRoomService.SRoomInfo(that.data.session, that.data.chatid, function (items) {
-            if (items.RetCode == -14) {
+            if (items.RetCode == -1) {
+              app.showModal('数据获取错误，请稍后重试')
+            }
+            else if (items.RetCode == -14) {
               wx.showModal({
                 title: '提示',
                 content: items.ErrorMsg,
@@ -222,7 +250,6 @@ Page({
                       url: '/pages/group/group',
                     })
                   } else if (res.cancel) {
-                    console.log('用户点击取消')
                   }
                 }
               })
@@ -239,7 +266,6 @@ Page({
                         url: '/pages/group/group',
                       })
                     } else if (res.cancel) {
-                      console.log('用户点击取消')
                     }
                   }
                 })
@@ -252,6 +278,7 @@ Page({
 
             }
             else if (items.RetCode == 0) {
+              that.setData({ endday:items.data[0].enddate})
               if (items.data[0].iFinished != 0) {
                 that.setData({
                   iFinished: false
@@ -273,13 +300,15 @@ Page({
                     isDownload: true,
                   })
                   if (that.data.isDownload) {
-                    console.log('downloadFiles begin')
                     that.downloadFiles(that.data.downloadlist, function (item) { })
                   }
 
                   subRoomService.SRContent(that.data.session, that.data.chatid, function (sitems) {
                     if (sitems.RetCode == 0) {
                       that.setSyncData(sitems)
+                    }
+                    else if (sitems.RetCode == -1) {
+                      app.showModal('数据获取错误，请稍后重试')
                     }
                   })
                 }
@@ -288,12 +317,18 @@ Page({
                     if (sitems.RetCode == 0) {
                       that.setSyncData(sitems)
                     }
+                    else if (sitems.RetCode == -1) {
+                      app.showModal('数据获取错误，请稍后重试')
+                    }
                   })
                 }
                 requesttime = setInterval(function () {
                   subRoomService.SRContent(that.data.session, that.data.chatid, function (sitems) {
                     if (sitems.RetCode == 0) {
                       that.setSyncData(sitems)
+                    }
+                    else if (sitems.RetCode == -1) {
+                      app.showModal('数据获取错误，请稍后重试')
                     }
                   })
                 }, 10000)
@@ -370,21 +405,19 @@ Page({
                 downloadlist: currdownloadlist,
                 isDownload: true,
               })
-              console.log('downloadlist1:', that.data.downloadlist)
             })
 
             break;
           case 3:
             let second = sitems.data[i].ctype.toString().substr(1)
             that.setCurrData('/images/loading.gif', that.data.appurl + that.data.chatid + '/' + sitems.data[i].fileurl, ctype, sitems.data[i].uPicUrl == null ? that.data.defpic : sitems.data[i].uPicUrl, sitems.data[i].iOwner === 0, Number(second), function (item) {
-            
+
               let currdownloadlist = that.data.downloadlist
               currdownloadlist.push(item)
               that.setData({
                 downloadlist: currdownloadlist,
                 isDownload: true,
               })
-              console.log('downloadlist3:', that.data.downloadlist)
             })
             break;
         }
@@ -395,7 +428,6 @@ Page({
       }
     }
     if (that.data.isDownload) {
-      console.log('downloadFiles1 begin')
       that.downloadFiles(that.data.downloadlist, function (item) { })
     }
 
@@ -406,6 +438,9 @@ Page({
       subRoomService.SRContentRead(that.data.session, srcidArray, function (item) {
         if (item.RetCode === 0) {
           app.setSRCRead(that.data.chatid, '')
+        }
+        else if (item.RetCode == -1) {
+          app.showModal('数据获取错误，请稍后重试')
         }
       })
     }
@@ -425,6 +460,7 @@ Page({
           sync: true,
           ctype: ctype,
           download: false,
+          isPlay: false,
         }
         break;
       case 1:
@@ -436,7 +472,8 @@ Page({
           scontent: scontent,
           sync: true,
           ctype: ctype,
-          download: scontent.length > 0
+          download: scontent.length > 0,
+          isPlay: false
         }
         break;
       case 3:
@@ -449,7 +486,8 @@ Page({
           time: time,
           sync: true,
           ctype: ctype,
-          download: scontent.length > 0
+          download: scontent.length > 0,
+          isPlay: false
         }
 
         break;
@@ -491,7 +529,6 @@ Page({
     typeof cb == "function" && cb('')
   },
   syncError: function (item) {
-    console.log('sync error')
     let data = this.data.message
     let sync = item
     sync.sync = false
@@ -506,34 +543,26 @@ Page({
 
     var items = { RetCode: -1, data: '数据获取错误，请稍后重试' }
     if (filelist.length > 0) {
-      console.log('downloadFile start')
       wx.downloadFile({
         url: filelist[0].scontent,
         success: function (res) {
-          console.log('downloadFile success')
           wx.saveFile({
             tempFilePath: res.tempFilePath,
             success: function (res) {
-              console.log('saveFile success:', res)
               that.editCurrData(filelist[0].id, res.savedFilePath, filelist[0].ctype, function (item) {
                 filelist.shift()
               })
-              console.log('filelist length:', filelist.length)
             },
             fail: function (res) {
-              console.log('saveFile fail:', res)
             },
             complete: function () {
-              console.log('saveFile complete')
               that.downloadFiles(filelist, cb)
             }
           })
         },
         fail: function (res) {
-          console.log('downloadFile fail:', res)
         },
         complete: function () {
-          console.log('downloadFile complete')
         }
       })
     } else {

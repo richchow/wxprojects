@@ -13,7 +13,7 @@
         </view>
       </view>
       <view class="page__bd_spacing2 size28">{{item.mrcontent}}
-        <view wx:if="{{item.ltFilesAudio != null && item.ltFilesAudio.length >0}}" wx:for="{{item.ltFilesAudio}}" wx:for-item="lf" class="bg_panel_filelist {{voicelist[idx] == false ? '' :'white'}}" style="width:{{lf.second*20}}rpx;min-width:300rpx;max-width:700rpx;"
+        <view wx:if="{{item.ltFilesAudio != null && item.ltFilesAudio.length >0}}" wx:for="{{item.ltFilesAudio}}" wx:for-item="lf" class="bg_panel_filelist {{voicelist[idx] == false ? '' :'white'}}" style="width:{{lf.second*20}}rpx;min-width:300rpx;max-width:600rpx;"
           bindtap="playVoice" data-idx="{{idx}}" data-talk="{{item.appurl+lf.fileurl}}" data-time="{{lf.second}}">
           <image class="bg_panel_filelist_file" src="/images/talk.svg" mode="aspectFit" /><label class="labtime">{{lf.second}}"</label>
         </view>

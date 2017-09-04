@@ -4,6 +4,7 @@ Page({
 
   data: {
     loading: false,
+    showLoading:true,
     masterid: '',
     userInfo: {},
     nameVail: 'inputClass',
@@ -55,7 +56,6 @@ Page({
     })
   },
   formSubmit: function (e) {
-    console.log('form发生了submit事件，携带数据为：', e.detail.value)
     this.setData({
       loading: true
     })
@@ -206,7 +206,6 @@ Page({
         let currServiceArray = []
         let allServiceArray = []
         dataService.getServices(that.data.session, function (item) {
-          console.log(item)
           if (item.RetCode == 0) {
             allServiceArray = item.data
             dataService.getMasterListSignle(that.data.session, that.data.masterid, function (items) {

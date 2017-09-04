@@ -30,22 +30,17 @@ Page({
     } else {
       vA[e.currentTarget.dataset.idx] = true
       that.setData({ voicelist: vA })
-      console.log('downloadFile:', e.currentTarget.dataset.talk)
       const downloadTask = wx.downloadFile({
         url: e.currentTarget.dataset.talk, //仅为示例，并非真实的资源
         success: function (res) {
-          console.log('downloadFile', 'success')
           if (res.statusCode == 200) {
-            console.log('downloadFile ok:', res.tempFilePath)
             wx.saveFile({
               tempFilePath: res.tempFilePath,
               success: function (res) {
                 var savedFilePath = res.savedFilePath
-                console.log('savedFilePath:', savedFilePath)
                 wx.playVoice({
                   filePath: savedFilePath,
                   success: function (res) {
-                    console.log('res success:', savedFilePath)
                     let time = Number(e.currentTarget.dataset.time) * 1000
                     setTimeout(function () {
                       wx.stopVoice()
@@ -54,10 +49,8 @@ Page({
                     }, time)
                   },
                   fail: function () {
-                    console.log('res', 'fail')
                   },
                   complete: function () {
-                    console.log('res', 'complete')
                   }
                 })
               }
@@ -68,11 +61,6 @@ Page({
             app.showModal("语音文件下载错误，请稍后重试");
           }
         }
-      })
-      downloadTask.onProgressUpdate((res) => {
-        console.log('下载进度', res.progress)
-        console.log('已经下载的数据长度', res.totalBytesWritten)
-        console.log('预期需要下载的数据总长度', res.totalBytesExpectedToWrite)
       })
     }
 
@@ -96,7 +84,6 @@ Page({
       that.setData({ ispay: false })
       payService.PayforRoom(that.data.session, that.data.sfItem.masterid, function (items) {
         if (items.RetCode == 0) {
-          console.log('pay success')
         } else if (items.RetCode == 99) {
           app.showModal("支付失败！请重试");
         } else {
@@ -119,6 +106,7 @@ Page({
     })
   },
   bindToBigGroup: function (e) {
+    app.setBBflush(true)
     wx.navigateTo({
       url: '/pages/biggroup/biggroup?masterid=' + e.currentTarget.dataset.masterid,
     })

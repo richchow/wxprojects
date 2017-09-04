@@ -347,3 +347,15 @@ height: 1106rpx;
   height:60rpx;
   line-height: 60rpx;
 }
+ .white-left {
+  background: #ccc;
+}
+ .white-right {
+  background: #2aa515;
+}
+.white-left-Triangle{
+  border-right:  6px solid #ccc;
+}
+.white-right-Triangle{
+  border-left:  6px solid #2aa515;
+}

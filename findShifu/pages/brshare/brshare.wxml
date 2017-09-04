@@ -1,7 +1,7 @@
 <view class="loading" wx:if="{{showLoading}}">
   <image class="loadinggif" src="/images/loading.gif" />
 </view>
-<view class="page" wx:if="{{!showLoading}}">
+<view class="page" wx:else>
   <view class="share_view">
     <view class="share_img">
       <image src="{{picurl}}" bindtap="bindShowPic" mode="widthFix"></image>

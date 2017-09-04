@@ -21,7 +21,6 @@ Page({
     masterid: '',
   },
   formSubmit: function (e) {
-    console.log('form发生了submit事件，携带数据为：', e.detail.value)
     this.setData({
       loading: true
     })
@@ -60,6 +59,7 @@ Page({
             }
             app.setBigRoomList(that.data.masterid, item)
           })
+          app.setBBflush(true)
           wx.navigateBack({
             delta: 1
           })
@@ -76,6 +76,7 @@ Page({
     }
   },
   bindbtnBack: function (e) {
+    app.setBBflush(true)
     wx.navigateBack({
       delta: 1
     })

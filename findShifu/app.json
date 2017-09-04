@@ -14,7 +14,6 @@
     "pages/privatelyhim/privatelyhim",
     "pages/wallet/wallet",
     "pages/walletlist/walletlist",
-    "pages/index/index",
     "pages/route/route",
     "pages/edit/edit",
     "pages/brshare/brshare",
@@ -39,7 +38,7 @@
         "pagePath": "pages/group/group",
         "iconPath": "images/group-2.png",
         "selectedIconPath": "images/group.png",
-        "text": "学习"
+        "text": "房间"
       },
       {
         "pagePath": "pages/find/find",

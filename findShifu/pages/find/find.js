@@ -14,7 +14,7 @@ Page({
     })
     new app.UnreadPannel()
     // that.unreadPannel.show({ unreadnum: 5 })
-   
+
     //获得session
     app.getSession(function (session) {
       that.setData({
@@ -29,24 +29,24 @@ Page({
         }
       })
 
-        dataService.getMasterListAll(that.data.session, '', '', function (items) {
-          if (items.RetCode == 0) {
-            for (let i in items.data) {
-              if (items.data[i].picurl.indexOf('http') < 0){
+      dataService.getMasterListAll(that.data.session, '', '', function (items) {
+        if (items.RetCode == 0) {
+          for (let i in items.data) {
+            if (items.data[i].picurl.indexOf('http') < 0) {
               items.data[i].picurl = app.getRequestUrl() + 'MpicData/' + items.data[i].masterid + '/' + items.data[i].picurl
-              }
             }
-            that.setData({
-              sfItems: items.data,
-            })
-          } else if (items.RetCode == 99) {
-            app.tokenError()
-            that.onShow()
           }
-          else {
-            app.showModal("数据错误，请稍后重试");
-          }
-        })
+          that.setData({
+            sfItems: items.data,
+          })
+        } else if (items.RetCode == 99) {
+          app.tokenError()
+          that.onShow()
+        }
+        else {
+          app.showModal("数据错误，请稍后重试");
+        }
+      })
 
       that.setData({
         showLoading: false
@@ -54,7 +54,10 @@ Page({
     })
   },
   onLoad: function (options) {
+  //  let scene = 'br_11,uid_49'
+
     let scene = decodeURIComponent(options.scene)
+    console.log('find scene:', scene)
     if (scene != null) {
       let bval = scene.split(',')
       if (bval.length == 2) {
@@ -62,13 +65,15 @@ Page({
         let uid = bval[1].split('_')
         if (roomid.length == 2 && uid.length == 2) {
           app.getSession(function (session) {
+            console.log('session:', scene, ',uid[1]:', uid[1], ',roomid[1]:', roomid[1])
             dataService.binAgent(session, uid[1], roomid[1], function (items) {
-              if(item.RetCode == 0){
+              console.log('binAgent:', items)
+              if (items.RetCode == 0) {
                 wx.redirectTo({
-                  url: '/pages/shifu/shifu?id=' + item.data[0] ,
+                  url: '/pages/shifu/shifu?id=' + items.data[0],
                 })
               }
-             
+
             })
           })
         }

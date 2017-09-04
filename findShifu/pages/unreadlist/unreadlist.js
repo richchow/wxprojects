@@ -23,22 +23,17 @@ Page({
     } else {
       vA[e.currentTarget.dataset.idx] = true
       that.setData({ voicelist: vA })
-      console.log('downloadFile:', e.currentTarget.dataset.talk)
       const downloadTask = wx.downloadFile({
         url: e.currentTarget.dataset.talk,
         success: function (res) {
-          console.log('downloadFile', 'success')
           if (res.statusCode == 200) {
-            console.log('downloadFile ok:', res.tempFilePath)
             wx.saveFile({
               tempFilePath: res.tempFilePath,
               success: function (res) {
                 var savedFilePath = res.savedFilePath
-                console.log('savedFilePath:', savedFilePath)
                 wx.playVoice({
                   filePath: savedFilePath,
                   success: function (res) {
-                    console.log('res success:', savedFilePath)
                     let time = Number(e.currentTarget.dataset.time) * 1000
                     setTimeout(function () {
                       wx.stopVoice()
@@ -47,10 +42,8 @@ Page({
                     }, time)
                   },
                   fail: function () {
-                    console.log('res', 'fail')
                   },
                   complete: function () {
-                    console.log('res', 'complete')
                   }
                 })
               }
@@ -61,11 +54,6 @@ Page({
             app.showModal("语音文件下载错误，请稍后重试");
           }
         }
-      })
-      downloadTask.onProgressUpdate((res) => {
-        console.log('下载进度', res.progress)
-        console.log('已经下载的数据长度', res.totalBytesWritten)
-        console.log('预期需要下载的数据总长度', res.totalBytesExpectedToWrite)
       })
     }
 
@@ -151,7 +139,6 @@ Page({
   onUnload:function(){
     
     dataService.delAlertMessage(this.data.session,function(item){
-      console.log('unreadlist onUnload:',item)
     })
   }
 })

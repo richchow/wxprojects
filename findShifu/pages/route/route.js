@@ -6,6 +6,7 @@ Page({
   },
   onLoad: function (options) {
     let scene = decodeURIComponent(options.scene)
+    console.log('route scene:', scene)
     if (scene != null) {
       let bval = scene.split(',')
       if (bval.length == 2) {
@@ -14,9 +15,10 @@ Page({
         if (roomid.length == 2 && uid.length == 2) {
           app.getSession(function (session) {
             dataService.binAgent(session, uid[1], roomid[1], function (items) {
-              if (item.RetCode == 0) {
+              console.log('binAgent:', items)
+              if (items.RetCode == 0) {
                 wx.redirectTo({
-                  url: '/pages/shifu/shifu?id=' + item.data[0],
+                  url: '/pages/shifu/shifu?id=' + items.data[0],
                 })
               }
 
