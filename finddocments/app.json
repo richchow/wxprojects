@@ -5,7 +5,8 @@
     "pages/list/list",
     "pages/search/search",
     "pages/detail/detail",
-    "pages/ardent/ardent"
+    "pages/ardent/ardent",
+    "pages/vip/vip"
   ],
   "networkTimeout":{
    "request": 60000,

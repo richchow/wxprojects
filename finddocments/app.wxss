@@ -1,28 +1,102 @@
 /**app.wxss**/
+
 .container {
-  height: 100%;
-  width:100%;
-  /**display: flex;**/
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  box-sizing: border-box;
-  background-color: #f6f6f6;
-} 
-.loading{
-  width:100%;
-  height:64px;
-  display: flex;
-  align-items: center;
-  text-align: center;
-  
+    height: 100%;
+    width: 100%;
+    /**display: flex;**/
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    background-color: #f6f6f6;
 }
-.loadinggif{
-  width:32px;
-  height:32px;
-  margin: 0 auto;
-  line-height: 64px;
+
+.loading {
+    width: 100%;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    text-align: center;
 }
-.margin20{
-  margin-top:20rpx;
+
+.loadinggif {
+    width: 32px;
+    height: 32px;
+    margin: 0 auto;
+    line-height: 64px;
+}
+
+.margin20 {
+    margin-top: 20rpx;
+}
+
+.bottomBtn_more {
+    position: fixed;
+    background-color: #fff;
+    line-height: 95rpx;
+    align-items: center;
+    text-align: center;
+    font-size: 30rpx;
+    color: #fff;
+    bottom: 15px;
+    overflow: hidden;
+    z-index: 500;
+    width: 80rpx;
+    height: 80rpx;
+    margin: 20rpx;
+    right: 5px;
+}
+
+.bottomBtn_nomore {
+    background-color: #fff;
+    line-height: 95rpx;
+    font-size: 30rpx;
+    color: #fff;
+    overflow: hidden;
+    width: 80rpx;
+    height: 80rpx;
+    margin: 10rpx ;
+}
+
+.v_more {
+    position: fixed;
+    background-color: #fff;
+    opacity: 0.8;
+    border-radius: 20px;
+    line-height: 95rpx;
+    font-size: 30rpx;
+    color: #fff;
+    bottom: 20px;
+    overflow: hidden;
+    z-index: 500;
+    width: 100rpx;
+    height: auto;
+    right: 10px;
+    flex-direction: column;
+    border: #cdcdcd 1px solid;
+}
+
+.bottomContactBtn {
+    position: relative;
+    background-color: #14b3c7;
+    line-height: 95rpx;
+    text-align: center;
+    color: #fff;
+    overflow: hidden;
+    width: 80rpx;
+    height: 80rpx;
+    border-radius: 50%;
+    margin: 10rpx;
+}
+
+.bottomVIPBtn {
+    background-color: #14b3c7;
+    line-height: 95rpx;
+    text-align: center;
+    color: #fff;
+    overflow: hidden;
+    width: 80rpx;
+    height: 80rpx;
+    border-radius: 50%;
+     margin: 10rpx ;
 }

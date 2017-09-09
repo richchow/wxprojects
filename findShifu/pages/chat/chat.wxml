@@ -1,50 +1,52 @@
 <view class="loading" wx:if="{{showLoading}}">
-  <image class="loadinggif" src="/images/loading.gif" />
+    <image class="loadinggif" src="/images/loading.gif" />
 </view>
-<view class="top_msg" wx:if="{{ischatpayed}}">房间关闭时间：{{endday}}</view>
-<scroll-view wx:if="{{ischatpayed}}" scroll-y="true" style="height:1044rpx;background:#ebebeb;" scroll-into-view="{{intoView}}">
-  <view wx:for="{{message}}" id="{{i.id}}" wx:for-item="i" wx:for-index="idx" wx:key="id">
-    <view class="padding clearfix" wx:if="{{i.me}}">
-      <image class="right-Avatar" src="{{userInfo.avatarUrl}}"></image>
-      <view class="right-Triangle {{i.isPlay ? 'white-right-Triangle':''}}" style="{{i.imgList ?'border-left:6px solid #fff':''}}"></view>
-      <view class="right-message padding_half {{i.isPlay ? 'white-right' :''}}" style="{{i.imgList ? 'background:#fff;':''}}">
-        <text wx:if="{{i.text}}">{{i.text}}</text>
-        <image bindtap="showPhoto" data-src="{{i.imgList}}" wx:if="{{i.imgList}}" style="max-width:150px;" mode="widthFix" src="{{i.imgList}}"></image>
-        <view data-idx='{{idx}}' wx:if="{{i.talk}}" data-talk="{{i.talk}}" data-time='{{i.time}}' style="width:{{i.time*10}}px;min-width:80rpx;max-width:200px;height:26px;" bindtap="playVoice">
-          <image src="/images/talk.svg" style="width:40rpx;height:40rpx;transform:scaleX(-1);float:right;padding-right:5px;" />
+<view class='page' wx:if="{{!showLoading}}">
+    <view class="top_msg" wx:if="{{ischatpayed}}">房间关闭时间：{{endday}}</view>
+    <scroll-view wx:if="{{ischatpayed}}" scroll-y="true" style="height:1044rpx;background:#ebebeb;" scroll-into-view="{{intoView}}">
+        <view wx:for="{{message}}" id="{{i.id}}" wx:for-item="i" wx:for-index="idx" wx:key="id">
+            <view class="padding clearfix" wx:if="{{i.me}}">
+                <image class="right-Avatar" src="{{userInfo.avatarUrl}}"></image>
+                <view class="right-Triangle {{i.isPlay ? 'white-right-Triangle':''}}" style="{{i.imgList ?'border-left:6px solid #fff':''}}"></view>
+                <view class="right-message padding_half {{i.isPlay ? 'white-right' :''}}" style="{{i.imgList ? 'background:#fff;':''}}">
+                    <text wx:if="{{i.text}}">{{i.text}}</text>
+                    <image bindtap="showPhoto" data-src="{{i.imgList}}" wx:if="{{i.imgList}}" style="max-width:150px;" mode="widthFix" src="{{i.imgList}}"></image>
+                    <view data-idx='{{idx}}' wx:if="{{i.talk}}" data-talk="{{i.talk}}" data-time='{{i.time}}' style="width:{{i.time*10}}px;min-width:80rpx;max-width:200px;height:26px;" bindtap="playVoice">
+                        <image src="/images/talk.svg" style="width:40rpx;height:40rpx;transform:scaleX(-1);float:right;padding-right:5px;" />
+                    </view>
+                </view>
+                <label wx:if="{{i.talk}}" style="float:right;font-size:14px;padding-top:20px;padding-right:5px;">{{i.time}}"</label>
+            </view>
+            <view class="padding clearfix" id="{{i.id}}" wx:if="{{!i.me}}">
+                <image class="left-Avatar" src="{{i.img}}"></image>
+                <view class="left-Triangle {{i.isPlay ? 'white-left-Triangle':''}}"></view>
+                <view class="left-message padding_half {{i.isPlay ? 'white-left' :''}}">
+                    <text wx:if="{{i.text}}">{{i.text}}</text>
+                    <image bindtap="showPhoto" data-src="{{i.imgList}}" wx:if="{{i.imgList}}" style="max-width:150px" mode="widthFix" src="{{i.imgList}}"></image>
+                    <view data-time='{{i.time}}' data-idx='{{idx}}' wx:if="{{i.talk}}" style="width:{{i.time*10}}px;min-width:80rpx;max-width:200px;" data-talk="{{i.talk}}" bindtap="playVoice">
+                        <image src="/images/talk.svg" style="width:40rpx;height:40rpx;" />
+                    </view>
+                </view>
+                <label wx:if="{{i.talk}}" style="float:left;font-size:14px;padding-top:20px;padding-left:5px;">{{i.time}}"</label>
+            </view>
         </view>
-      </view>
-      <label wx:if="{{i.talk}}" style="float:right;font-size:14px;padding-top:20px;padding-right:5px;">{{i.time}}"</label>
-    </view>
-    <view class="padding clearfix" id="{{i.id}}" wx:if="{{!i.me}}">
-      <image class="left-Avatar" src="{{i.img}}"></image>
-      <view class="left-Triangle {{i.isPlay ? 'white-left-Triangle':''}}"></view>
-      <view class="left-message padding_half {{i.isPlay ? 'white-left' :''}}">
-        <text wx:if="{{i.text}}">{{i.text}}</text>
-        <image bindtap="showPhoto" data-src="{{i.imgList}}" wx:if="{{i.imgList}}" style="max-width:150px" mode="widthFix" src="{{i.imgList}}"></image>
-        <view data-time='{{i.time}}'  data-idx='{{idx}}' wx:if="{{i.talk}}" style="width:{{i.time*10}}px;min-width:80rpx;max-width:200px;" data-talk="{{i.talk}}" bindtap="playVoice">
-          <image src="/images/talk.svg" style="width:40rpx;height:40rpx;" />
+        <view class="weui-icon_success"></view>
+    </scroll-view>
+    <view wx:if="{{ischatpayed && iFinished}}" class="indexBottomSmall">
+        <view class="indexSearchSmall">
+            <image wx:if="{{istalk==false}}" bindtap="bindToTalkButton" src="/images/talk2.svg" />
+            <image wx:if="{{istalk}}" bindtap="bindToKWButton" src="/images/keyword.svg" />
+            <view class="viewInput" wx:if="{{istalk==false}}">
+                <form report-submit="true" bindsubmit="btnSearch">
+                    <input class="indexInput" confirm-type="send" bindinput="bindChange" value="{{inputValue}}" bindconfirm="btnSearch" />
+                </form>
+            </view>
+            <view class="input_talk" wx:if="{{istalk}}" bindtouchstart="bindTalk" bindtouchcancel="bindOverTalk" bindtouchmove="bindCanelTalk" bindtouchend="bindOverTalk">按住说话</view>
+            <image src="/images/add2.svg" bindtap="updatePhoto" />
         </view>
-      </view>
-      <label wx:if="{{i.talk}}" style="float:left;font-size:14px;padding-top:20px;padding-left:5px;">{{i.time}}"</label>
     </view>
-  </view>
-  <view class="weui-icon_success"></view>
-</scroll-view>
-<view wx:if="{{ischatpayed && iFinished}}" class="indexBottomSmall">
-  <view class="indexSearchSmall">
-    <image wx:if="{{istalk==false}}" bindtap="bindToTalkButton" src="/images/talk2.svg" />
-    <image wx:if="{{istalk}}" bindtap="bindToKWButton" src="/images/keyword.svg" />
-    <view class="viewInput" wx:if="{{istalk==false}}">
-      <form report-submit="true" bindsubmit="btnSearch">
-        <input class="indexInput" confirm-type="send" bindinput="bindChange" value="{{inputValue}}" bindconfirm="btnSearch" />
-      </form>
+    <view class="nopayed spay" bindtap="bindPayChat" wx:if="{{ischatpayed == false}}">
+        <view class="nopayed_button">¥{{price}}</view>
+        <view class="nopayed_button2">GO 进入{{title}} >></view>
     </view>
-    <view class="input_talk" wx:if="{{istalk}}" bindtouchstart="bindTalk" bindtouchcancel="bindOverTalk" bindtouchmove="bindCanelTalk" bindtouchend="bindOverTalk">按住说话</view>
-    <image src="/images/add2.svg" bindtap="updatePhoto" />
-  </view>
-</view>
-<view class="nopayed spay" bindtap="bindPayChat" wx:if="{{ischatpayed == false}}">
-  <view class="nopayed_button">¥{{price}}</view>
-  <view class="nopayed_button2">GO 进入{{title}} >></view>
 </view>

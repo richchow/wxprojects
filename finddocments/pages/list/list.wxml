@@ -1,4 +1,4 @@
-giftpicurlgiftpicurlgiftpicurl  <view class="loading" wx:if="{{showLoading}}">
+<view class="loading" wx:if="{{showLoading}}">
     <image class="loadinggif" src="/images/loading.gif" />
   </view>
 <view class="container">

@@ -21,7 +21,9 @@
     "pages/policy/policy",
     "pages/policy/policy2",
     "pages/about/about",
-    "pages/playvideo/playvideo"
+    "pages/playvideo/playvideo",
+    "pages/vip/vip",
+    "pages/help/help"
   ],
   "window": {
     "backgroundTextStyle": "light",

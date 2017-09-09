@@ -2,11 +2,12 @@
 <view class="loading" wx:if="{{showLoading}}">
   <image class="loadinggif" src="/images/loading.gif" />
 </view>
-<view class="container"  wx:if="{{showLoading===false}}">
+<view class="container" wx:if="{{showLoading===false}}">
   <view class="indexTop">
     <view class="totalDoc">
-      <image  bindtap="btnToArdent" class="crownImg" src="/images/crown.png" ></image>
-     <text  class="crownText">贡献榜</text>
+      <image bindtap="bindToVIP" class="crownImg-left" src="/images/crown.svg"></image>
+      <image bindtap="btnToArdent" class="crownImg" src="/images/crown.png"></image>
+      <text class="crownText">贡献榜</text>
     </view>
     <view class="indexSearch">
       <view class="viewInput">
@@ -18,7 +19,7 @@
   </view>
   <view class="hotview">
     <label class="labtitle">- 热门搜索 -</label>
-    <label class="labmore"  bindtap="btnToSearch">more</label>
+    <label class="labmore" bindtap="btnToSearch">more</label>
     <view class="section">
       <view wx:key="catalogid" wx:for="{{hotItems}}">
         <label bindtap="btnClick" data-item="{{item.catalogid}}" class="labtip">{{item.catainfo}}</label>
@@ -27,7 +28,7 @@
   </view>
   <view class="hotview margin20">
     <label class="labtitle">- 精选集 -</label>
-     <label class="labmore"  bindtap="btnToSearch">more</label>
+    <label class="labmore" bindtap="btnToSearch">more</label>
     <view class="section">
       <view wx:key="catalogid" wx:for="{{hotStarItems}}">
         <label bindtap="btnClick" data-item="{{item.catalogid}}" class="labstartip">{{item.catainfo}}</label>
@@ -35,16 +36,29 @@
     </view>
   </view>
   <view class="searchContent">
-    <label class="labtitle">- 值得一看 -<label class="labmore"  bindtap="bindToTuli"><image class="svgImg" src="/images/iconflag-2.svg" />徽章说明</label></label>
-     
+    <label class="labtitle">- 值得一看 -
+      <label class="labmore" bindtap="bindToTuli">
+        <image class="svgImg" src="/images/iconflag-2.svg" />徽章说明</label>
+    </label>
+
     <navigator class="indexDetail" wx:key="dataid" wx:for="{{docItems}}" wx:for-item="item" url="../detail/detail?id={{item.dataid}}" hover-class="navigator-hover">
       <image class="indexImg" mode="scaleToFill" src="/images/110.png" />
       <label class="indexName">{{item.title}}</label>
       <block wx:if="{{item.IconFlag != null && item.IconFlag != ''}}">
-      <image wx:for="{{item.IconFlag}}" wx:for-item="tab" class="svgImg" src="/images/iconflag-{{tab}}.svg" />
+        <image wx:for="{{item.IconFlag}}" wx:for-item="tab" class="svgImg" src="/images/iconflag-{{tab}}.svg" />
       </block>
       <label class="indexContent">{{item.describe}}</label>
     </navigator>
   </view>
-  <contact-button class="bottomBtn" type="default-light" size="20" session-from="weapp"> </contact-button>
+  <image class="bottomBtn_more" bindtap='bindShowMore' data-show='true' wx:if="{{!showMore}}" src='/images/more.svg'></image>
+  <view class='v_more' wx:if="{{showMore}}">
+    <image class="bottomVIPBtn" bindtap='bindShowAd' data-src='/images/ad/aib.png' data-adval="0" src='/images/logo/aib.png'></image>
+    <image class="bottomVIPBtn" bindtap='bindShowAd' data-src='/images/ad/findtrain.png' data-adval="1" src='/images/logo/findtrain.png'></image>
+    <image class="bottomVIPBtn" bindtap='bindShowAd' data-src='/images/ad/findshifu.png' data-adval="2" src='/images/logo/findshifu.png'></image>
+    <image class="bottomVIPBtn" bindtap='bindToVIP' src='/images/crown.svg'></image>
+    <contact-button class="bottomContactBtn" type="default-light" session-from="BIM找资料"> </contact-button>
+    <image class="bottomBtn_nomore" bindtap='bindShowMore' data-show='false' src='/images/toback.svg'></image>
+  </view>
 </view>
+<image class="ad_img" src="{{adimg}}" bindtap='bindToApp' animation="{{animationData}}" wx:if="{{showModalStatus}}" mode='widthFix'></image>
+<icon bindtap="hideModal" animation="{{animationData}}" wx:if="{{showModalStatus}}" class="close-icon" type="clear" size="40" color="#00adc2" />

@@ -1,0 +1,65 @@
+.page {
+    top: 0;
+}
+
+.h_qa {
+    width: 100%;
+}
+
+.h_title {
+    border-bottom: #dbdbdb 1px solid;
+    background-color: #e6e6e6;
+    font-size: 16px;
+    padding: 10px 10px;
+}
+
+.h_content {
+    padding: 5px 10px;
+    margin: 0 auto;
+    font-size: 14px;
+    border-bottom: #dbdbdb 1px solid;
+}
+
+.h_in-access {
+  padding-right: 13px;
+  position: relative;
+}
+.h_in-access:after {
+  content: " ";
+  display: inline-block;
+  height: 6px;
+  width: 6px;
+  border-width: 2px 0 0 2px;
+  border-color: #C8C8CD;
+  border-style: solid;
+  -webkit-transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0);
+          transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0);
+  position: relative;
+  top: -2px;
+  position: absolute;
+  top: 50%;
+  margin-top: -4px;
+  right: 12px;
+}
+
+.h_in-access2 {
+  padding-right: 13px;
+  position: relative;
+}
+.h_in-access2:after {
+  content: " ";
+  display: inline-block;
+  height: 6px;
+  width: 6px;
+  border-width: 0 2px 2px 0;
+  border-color: #C8C8CD;
+  border-style: solid;
+  -webkit-transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0);
+          transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0);
+  position: relative;
+  top: -2px;
+  position: absolute;
+  top: 50%;
+  margin-top: -4px;
+  right: 12px;
+}

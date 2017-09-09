@@ -173,24 +173,6 @@
   text-align: left;
 }
 
-.bottomBtn {
-  position: fixed;
-  background-color: #14b3c7;
-  line-height: 95rpx;
-  align-items: center;
-  text-align: center;
-  font-size: 30rpx;
-  color: #fff;
-  bottom: 0px;
-  overflow: hidden;
-  z-index: 500;
-  width: 80rpx;
-  height: 80rpx;
-  margin: 20rpx;
-  border-radius: 50%;
-  right: 0;
-}
-
 .totalDoc {
   font-size: 30rpx;
   color: #fff;
@@ -206,7 +188,11 @@
   height:28px;
   text-align: center;
 }
-
+.crownImg-left {
+  width: 32px;
+  height: 28px;
+  float: left;
+}
 .crownImg {
   width: 32px;
   height: 28px;
@@ -239,4 +225,30 @@
   top:36px;
   right:0px;
   position: absolute;
+}
+
+.ad_img{
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 80%;
+  overflow: hidden;
+  position: fixed;
+  z-index: 2000;
+  height: auto;
+  margin: auto;
+  border-radius: 5px;
+}
+.close-icon{
+  left: 0;
+  right: 0;
+  top: 42%;
+  bottom: 0;
+  width:40px;
+  height:40px;
+  overflow: hidden;
+  position: fixed;
+  z-index: 3000;
+  margin: auto;
 }

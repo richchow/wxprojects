@@ -69,7 +69,7 @@ Page({
       that.setData({ message: message })
     } else {
       wx.stopVoice()
-      for(let i in message){
+      for (let i in message) {
         message[i].isPlay = false
       }
       message[idx].isPlay = true
@@ -208,9 +208,11 @@ Page({
   onLoad: function (options) {
     var that = this
     var id = options.id
-    that.setData({ chatid: id })
+    that.setData({
+      chatid: id,
+      showLoading: true,
+    })
     if (that.data.chatid != undefined) {
-      that.setData({ showLoading: true })
       app.getSession(function (session) {
         that.setData({
           session: session
@@ -278,7 +280,7 @@ Page({
 
             }
             else if (items.RetCode == 0) {
-              that.setData({ endday:items.data[0].enddate})
+              that.setData({ endday: items.data[0].enddate })
               if (items.data[0].iFinished != 0) {
                 that.setData({
                   iFinished: false
@@ -339,13 +341,16 @@ Page({
                 })
               }
             }
+            that.setData({ showLoading: false })
           })
 
         })
 
 
       })
-      that.setData({ showLoading: false })
+      
+    }else{
+      app.showModal('数据错误，请返回重试')
     }
   },
   onShareAppMessage: function () {

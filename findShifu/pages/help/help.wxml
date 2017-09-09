@@ -1,0 +1,8 @@
+<view class="page">
+    <view class="h_qa" wx:for="{{helpdata[show].value}}" data-show='{{show}}' data-idx='{{idx}}' bindtap="bindShow" wx:for-index="idx" wx:for-item="item">
+        <view class="h_title {{item.showed ? 'h_in-access':'h_in-access2'}}">{{item.title}}</view>
+        <view class="h_content" wx:if="{{item.showed}}">
+            <text>{{item.content}}</text>
+        </view>
+    </view>
+</view>
