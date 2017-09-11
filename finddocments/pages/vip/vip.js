@@ -15,11 +15,11 @@ Page({
       loading: true
     })
     var that = this
-    payService.payVIP(that.data.session, that.data.vipdata[that.data.checkedVIP].price, function (items) {
+    payService.PayforVip(that.data.session, that.data.vipdata[that.data.checkedVIP].vipid, function (items) {
       if (items.RetCode == 0) {
-        if (e.detail.formId != undefined) {
-          dataService.PushTemplateFormID(that.data.session, 1, e.detail.formId)
-        }
+       // if (e.detail.formId != undefined) {
+       //   dataService.PushTemplateFormID(that.data.session, 1, e.detail.formId)
+       // }
         that.hideModal()
         app.showModal("感谢您购买VIP会员，您已可以享受VIP会员服务！")
       }

@@ -1,6 +1,6 @@
 <view class="page">
   <view class="userinfo">
-    <image bindtap="authSetting" class="userinfo-avatar" src="/images/logo.png" />
+    <image bindtap="authSetting" class="userinfo-avatar" src="/images/logo/findshifu.png" />
     <view>BIM找师傅</view>
     <view class='logo'>V3.3.22</view>
   </view>
