@@ -27,4 +27,15 @@
     </navigator>
 
   </view>
+  <image class="bottomBtn_more" bindtap='bindShowMore' data-show='true' wx:if="{{!showMore}}" src='/images/more.svg'></image>
+  <view class='v_more' wx:if="{{showMore}}">
+    <image class="bottomVIPBtn" bindtap='bindShowAd' data-src='/images/ad/aib.png' data-adval="0" src='/images/logo/aib.png'></image>
+    <image class="bottomVIPBtn" bindtap='bindShowAd' data-src='/images/ad/finddocument.png' data-adval="1" src='/images/logo/finddocument.png'></image>
+    <image class="bottomVIPBtn" bindtap='bindShowAd' data-src='/images/ad/findtrain.png' data-adval="2" src='/images/logo/findtrain.png'></image>
+    <image class="bottomVIPBtn" bindtap='bindToVIP' src='/images/crown.svg'></image>
+    <contact-button class="bottomContactBtn" type="default-light" session-from="BIM找师傅"> </contact-button>
+    <image class="bottomBtn_nomore" bindtap='bindShowMore' data-show='false' src='/images/toback.svg'></image>
+  </view>
 </view>
+<image class="ad_img" src="{{adimg}}" bindtap='bindToApp' animation="{{animationData}}" wx:if="{{showModalStatus}}" mode='widthFix'></image>
+<icon bindtap="hideModal" animation="{{animationData}}" wx:if="{{showModalStatus}}" class="close-icon" type="clear" size="40" color="#00adc2" />

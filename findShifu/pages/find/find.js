@@ -6,7 +6,89 @@ Page({
     showLoading: false,
     session: '',
     sfItems: {},
+    showModalStatus: false,
+    animationData: {},
+    adimg: '',
+    adval: 0,
+    adlist: ['','wx44dbe6d3e959af20', 'wx1db224ea2421cc64'],
+    showMore: false,
   },
+  showModal: function () {
+    // 显示遮罩层
+    var animation = wx.createAnimation({
+      duration: 200,
+      timingFunction: "linear",
+      delay: 0
+    })
+    this.animation = animation
+    animation.translateY(300).step()
+    this.setData({
+      animationData: animation.export(),
+      showModalStatus: true,
+    })
+    setTimeout(function () {
+      animation.translateY(0).step()
+      this.setData({
+        animationData: animation.export()
+      })
+    }.bind(this), 200)
+  },
+  hideModal: function () {
+    // 隐藏遮罩层
+    var animation = wx.createAnimation({
+      duration: 200,
+      timingFunction: "linear",
+      delay: 0
+    })
+    this.animation = animation
+    animation.translateY(300).step()
+    this.setData({
+      animationData: animation.export(),
+    })
+    setTimeout(function () {
+      animation.translateY(0).step()
+      this.setData({
+        animationData: animation.export(),
+        showModalStatus: false,
+      })
+    }.bind(this), 200)
+  },
+  bindToApp: function (e) {
+    let adval = this.data.adval
+    let list = this.data.adlist
+    console.log(list[adval])
+    if (adval == 1 || adval == 2) {
+      wx.navigateToMiniProgram({
+        appId: list[adval],
+        //  path: 'pages/index/index?id=123',
+        //  extraData: {foo: 'bar'},
+        //  envVersion: 'develop',
+        success(res) {
+        }
+      })
+    }
+  },
+  bindShowAd: function (e) {
+    let src = e.currentTarget.dataset.src
+    let adval = e.currentTarget.dataset.adval
+    this.setData({
+      adimg: src,
+      adval: adval,
+    })
+    this.showModal()
+  },
+  bindToVIP: function () {
+    wx.navigateTo({
+      url: '/pages/vip/vip',
+    })
+  },
+  bindShowMore: function (e) {
+    let show = e.currentTarget.dataset.show
+    this.setData({
+      showMore: show == 'true' ? true : false,
+    })
+  },
+
   onShow: function () {
     var that = this
     this.setData({

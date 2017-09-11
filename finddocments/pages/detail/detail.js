@@ -28,6 +28,11 @@ Page({
     isQuestioned: false,
     isStarCat: false
   },
+  bindToVIP: function () {
+    wx.navigateTo({
+      url: '/pages/vip/vip',
+    })
+  },
   bindToTuli: function (e_detail_1) {
     wx.previewImage({
       urls: [app.getRequestUrl() + '/datapic/zzl/tuli.png'] // 需要预览的图片http链接列表

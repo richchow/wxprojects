@@ -112,8 +112,20 @@
   color: #e69138;
   display: flex;
   padding-top: 10rpx;
-  width: 375rpx;
   float: left;
+}
+.amunt_member{
+  padding-left: 20px;
+  color: #ccc;
+  line-height: 30px;
+  font-size: 26rpx;
+  
+}
+.lj_member{
+  padding-left: 20px;
+  color: #e69138;
+  line-height: 30px;
+  font-size: 26rpx;
 }
 
 .sharebox {
