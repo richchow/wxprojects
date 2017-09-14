@@ -83,9 +83,9 @@
         </view>
       </view>
       <view class="page__bd_spacing2 size28 margin_right_20">{{sfItem.lmroominfo[0].mrcontent}}
-        <view wx:if="{{sfItem.lmroominfo[0].ltFilesAudio != null && sfItem.lmroominfo[0].ltFilesAudio.length >0}}" wx:for="{{sfItem.lmroominfo[0].ltFilesAudio}}" wx:for-item="lf" class="bg_panel_filelist {{voicelist[idx] == false ? '' :'white'}}" style="width:{{lf.second*20}}rpx;min-width:300rpx;max-width:600rpx;"
+        <view wx:if="{{sfItem.lmroominfo[0].ltFilesAudio != null && sfItem.lmroominfo[0].ltFilesAudio.length >0}}" wx:for="{{sfItem.lmroominfo[0].ltFilesAudio}}" wx:for-item="lf" class="bg_panel_filelist" style="width:{{lf.second*20}}rpx;min-width:300rpx;max-width:600rpx;"
           bindtap="playVoice" data-idx="{{idx}}" data-talk="{{appurl+lf.fileurl}}" data-time="{{lf.second}}">
-          <image class="bg_panel_filelist_file" src="/images/talk.svg" mode="aspectFit" /><label class="labtime">{{lf.second}}"</label>
+          <image class="bg_panel_filelist_file" src="{{voicelist[idx] ? '/images/talking.gif' :'/images/talk.svg'}}" mode="aspectFit" /><label class="labtime">{{lf.second}}"</label>
         </view>
         <view wx:if="{{sfItem.lmroominfo[0].ltFilesImg}}" class="bg_panel_imglist">
           <image wx:for="{{sfItem.lmroominfo[0].ltFilesImg}}" wx:for-item="lf" class="bg_panel_imglist_img" bindtap="showPhoto" data-id="{{sfItem.lmroominfo[0].ltFilesImg}}" data-src="{{appurl+lf.fileurl}}" src="{{appurl+lf.fileurl}}" mode="aspectFit" />

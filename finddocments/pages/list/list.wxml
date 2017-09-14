@@ -1,11 +1,11 @@
 <view class="loading" wx:if="{{showLoading}}">
-    <image class="loadinggif" src="/images/loading.gif" />
-  </view>
+  <image class="loadinggif" src="/images/loading.gif" />
+</view>
 <view class="container">
-<view class="indexTopSmall">
+  <view class="indexTopSmall">
     <view class="indexSearchSmall">
       <view class="viewInput">
-        <input class="indexInput" bindfocus="btnToSearch"  placeholder="请填写资料名称/关键字" placeholder-class="phInput" />
+        <input class="indexInput" bindfocus="btnToSearch" placeholder="请填写资料名称/关键字" placeholder-class="phInput" />
         <view bindtap="btnToSearch" class="btnSearch">搜 索</view>
       </view>
     </view>
@@ -14,11 +14,22 @@
     <navigator class="indexDetail" wx:key="dataid" wx:for="{{docItems}}" wx:for-item="item" url="../detail/detail?id={{item.dataid}}" hover-class="navigator-hover">
       <image class="indexImg" mode="scaleToFill" src='/images/110.png' />
       <label class="indexName">{{item.title}}</label>
-      <block  class="floatright" wx:if="{{item.IconFlag != null && item.IconFlag != ''}}">
-      <image wx:for="{{item.IconFlag}}" wx:for-item="tab" class="svgImg" src="/images/iconflag-{{tab}}.svg" />
+      <block class="floatright" wx:if="{{item.IconFlag != null && item.IconFlag != ''}}">
+        <image wx:for="{{item.IconFlag}}" wx:for-item="tab" class="svgImg" src="/images/iconflag-{{tab}}.svg" />
       </block>
       <label class="indexContent">{{item.describe}}</label>
     </navigator>
   </view>
-  <view class='noitem' wx:if="{{dataStatus}}">您需要的资料我们已记录，我们会尽快完善</view>
+  <view class='noitem' wx:if="{{dataStatus}}">
+    <view>您查询的资料系统已经记录，</view>
+    <view>新资料上架后，我们将第一时间推送给您，</view>
+    <view>请关注微信公众号“AIB平台”接收推送！</view>
+  </view>
+</view>
+<view bindtap='bindFollow' class="v_m_follow">关注公众号“AIB平台”</view>
+<view class="sharebox"  bindtap='hideFollowModal' wx:if="{{showFollowModalStatus}}"></view>
+<view class='v_m_modal'  wx:if="{{showFollowModalStatus}}">
+  <image src='/images/follow.jpg' mode='widthFix'></image>
+  <view class='v_m_describe'>已复制“AIB平台”，在微信搜索长按粘贴即可关注，并实时收到推送</view>
+  <view bindtap='hideFollowModal' class='v_m_bottom'>知道了</view>
 </view>

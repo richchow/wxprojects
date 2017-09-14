@@ -2,6 +2,7 @@ var app = getApp()
 var dataService = require('../../providers/dataService')
 Page({
   data: {
+    showFollowModalStatus:false,
     session: '',
     userInfo: {},
     newmessage: '',
@@ -12,6 +13,15 @@ Page({
     adval: 0,
     adlist: ['', 'wx44dbe6d3e959af20', 'wx1db224ea2421cc64'],
     showMore: false,
+  },
+  bindFollow:function(e){
+    var that = this
+    wx.setClipboardData({
+      data: 'AIB平台',
+      success: function (res) {
+        that.showFollowModal()
+      }
+    })
   },
    showModal: function () {
     // 显示遮罩层
@@ -52,6 +62,18 @@ Page({
         showModalStatus: false,
       })
     }.bind(this), 200)
+  },
+  showFollowModal: function () {
+   
+    this.setData({
+      showFollowModalStatus: true,
+    })
+
+  },
+  hideFollowModal: function () {
+    this.setData({
+        showFollowModalStatus: false,
+    })
   },
   bindToApp: function (e) {
     let adval = this.data.adval

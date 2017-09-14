@@ -238,7 +238,6 @@ page {
 }
 .bottomBtn_more {
     position: fixed;
-    background-color: #fff;
     line-height: 95rpx;
     align-items: center;
     text-align: center;

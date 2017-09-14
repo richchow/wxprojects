@@ -5,6 +5,7 @@ var requesttime
 Page({
   data: {
     groupitems: [],
+    finshitems:[],
     qrbtnstatus: false,
     loading: false,
     showModalStatus: false,
@@ -12,9 +13,22 @@ Page({
     animationData: {},
     numVail: 'inputClass',
     chatid: 0,
-    showLoading:true,
+    showLoading: true,
+    checked: [true, false]
   },
-  bindToFind:function(e){
+  bindStatus: function (e) {
+    let c = e.currentTarget.dataset.c
+    let checked = this.data.checked
+    if (!checked[c]) {
+      for (let i in checked) {
+        checked[i] = false
+      }
+      checked[c] = !checked[c]
+    }
+   
+    this.setData({ checked: checked })
+  },
+  bindToFind: function (e) {
     wx.switchTab({
       url: '/pages/find/find',
     })
@@ -136,7 +150,7 @@ Page({
       subRoomService.MasterCheck(that.data.session, function (items) {
         if (items.RetCode == 0) {
           that.setData({
-            isShifu: (items.data != null && items.data[0].length >0) ? true : false,
+            isShifu: (items.data != null && items.data[0].length > 0) ? true : false,
           })
         } else if (items.RetCode == 99) {
           app.tokenError()
@@ -147,13 +161,21 @@ Page({
       })
       subRoomService.SRoomListAll(that.data.session, function (items) {
         if (items.RetCode == 0) {
+          let group=[]
+          let finish=[]
           for (let i in items.data) {
             if (items.data[i].masterPic != null && items.data[i].masterPic.indexOf('http') < 0) {
               items.data[i].masterPic = app.getRequestUrl() + 'MpicData/' + items.data[i].masterid + '/' + items.data[i].masterPic
             }
+            if (items.data[i].iFinished == 0){
+              finish.push(items.data[i])
+            }else{
+              group.push(items.data[i])
+            }
           }
           that.setData({
-            groupitems: items.data,
+            groupitems: group,
+            finshitems: finish,
           })
         } else if (items.RetCode == 99) {
           app.tokenError()
@@ -169,13 +191,21 @@ Page({
     requesttime = setInterval(function () {
       subRoomService.SRoomListAll(that.data.session, function (items) {
         if (items.RetCode == 0) {
+          let group = []
+          let finish = []
           for (let i in items.data) {
             if (items.data[i].masterPic && items.data[i].masterPic.indexOf('http') < 0) {
               items.data[i].masterPic = app.getRequestUrl() + 'MpicData/' + items.data[i].masterid + '/' + items.data[i].masterPic
             }
+            if (items.data[i].iFinished == 0) {
+              finish.push(items.data[i])
+            } else {
+              group.push(items.data[i])
+            }
           }
           that.setData({
-            groupitems: items.data,
+            groupitems: group,
+            finshitems: finish,
           })
         } else if (items.RetCode == 99) {
           app.tokenError()

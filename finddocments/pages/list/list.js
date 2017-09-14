@@ -2,11 +2,33 @@ var app = getApp()
 var dataService = require('../../providers/dataService.js')
 Page({
   data: {
+    showFollowModalStatus: false,
     showLoading: false,
     session: '',
     isPayed: true,
     dataStatus: false,
     docItems: {}
+  },
+  bindFollow: function (e) {
+    var that = this
+    wx.setClipboardData({
+      data: 'AIB平台',
+      success: function (res) {
+        that.showFollowModal()
+      }
+    })
+  },
+  showFollowModal: function () {
+
+    this.setData({
+      showFollowModalStatus: true,
+    })
+
+  },
+  hideFollowModal: function () {
+    this.setData({
+      showFollowModalStatus: false,
+    })
   },
   btnToSearch: function (e) {
     wx.navigateBack({

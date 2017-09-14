@@ -23,3 +23,98 @@
   margin: 0 auto;
   line-height: 64px;
 }
+.bottomBtn_more {
+    position: fixed;
+    background-color: #fff;
+    line-height: 95rpx;
+    align-items: center;
+    text-align: center;
+    font-size: 30rpx;
+    color: #fff;
+    bottom: 15px;
+    overflow: hidden;
+    z-index: 500;
+    width: 80rpx;
+    height: 80rpx;
+    margin: 20rpx;
+    right: 5px;
+}
+
+.bottomBtn_nomore {
+    background-color: #fff;
+    line-height: 95rpx;
+    font-size: 30rpx;
+    color: #fff;
+    overflow: hidden;
+    width: 80rpx;
+    height: 80rpx;
+    margin: 10rpx ;
+}
+
+.v_more {
+    position: fixed;
+    background-color: #fff;
+    opacity: 0.8;
+    border-radius: 20px;
+    line-height: 95rpx;
+    font-size: 30rpx;
+    color: #fff;
+    bottom: 20px;
+    overflow: hidden;
+    z-index: 500;
+    width: 100rpx;
+    height: auto;
+    right: 10px;
+    flex-direction: column;
+    border: #cdcdcd 1px solid;
+}
+
+.bottomContactBtn {
+    position: relative;
+    background-color: #14b3c7;
+    line-height: 95rpx;
+    text-align: center;
+    color: #fff;
+    overflow: hidden;
+    width: 80rpx;
+    height: 80rpx;
+    border-radius: 50%;
+    margin: 10rpx;
+}
+
+.bottomVIPBtn {
+    background-color: #14b3c7;
+    line-height: 95rpx;
+    text-align: center;
+    color: #fff;
+    overflow: hidden;
+    width: 80rpx;
+    height: 80rpx;
+    border-radius: 50%;
+     margin: 10rpx ;
+}
+.ad_img{
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 80%;
+  overflow: hidden;
+  position: fixed;
+  z-index: 2000;
+  height: auto;
+  margin: auto;
+  border-radius: 5px;
+}
+.close-icon{
+  left: 0;
+  right: 0;
+  top: 42%;
+  bottom: 0;
+  width:40px;
+  height:40px;
+  overflow: hidden;
+  position: fixed;
+  z-index: 3000;
+  margin: auto;
+}

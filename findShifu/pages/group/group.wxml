@@ -2,20 +2,41 @@
   <image class="loadinggif" src="/images/loading.gif" />
 </view>
 <block wx:if="{{showLoading == false}}">
-<view class="page" wx:if="{{groupitems != null && groupitems.length > 0}}">
-  <view class="page__bd">
-    <view wx:for="{{groupitems}}" wx:for-item="item" bindtap="bindToChat" data-id="{{item.sid}}" class="weui-media-box weui-media-box_appmsg">
-      <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
-        <image class="weui-media-box__thumb" src="{{item.masterPic}}" />
+  <view class="page" wx:if="{{ groupitems.length > 0 || finshitems.length >0}}">
+    <view class="v_status">
+      <view bindtap='bindStatus' data-c='0' class="{{checked[0] ? 'checked':''}}">正在进行</view>
+      <view bindtap='bindStatus' data-c='1' class="{{checked[1] ? 'checked':''}}">已经结束</view>
+    </view>
+    <view  wx:if="{{checked[0]}}" class="page__bd">
+      <view wx:for="{{groupitems}}" wx:for-item="item" bindtap="bindToChat" data-id="{{item.sid}}" class="weui-media-box weui-media-box_appmsg">
+        <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
+          <image class="weui-media-box__thumb" src="{{item.masterPic}}" />
+        </view>
+        <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+          <view class="weui-media-box__title">{{item.title}}
+            <label class="sf_name">(师傅:{{item.masterName}})</label>
+          </view>
+          <view wx:if="{{item.iFinished == 0}}" class="weui-media-box__desc">已完成</view>
+          <view wx:elif="{{item.iBuyed != 0 && item.iOwner != 0 }}" class="weui-media-box__desc">未购买</view>
+          <view wx:else class="weui-media-box__desc">未读:{{item.iUnreadCount}}</view>
+        </view>
       </view>
-      <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
-        <view class="weui-media-box__title">{{item.title}}<label class="sf_name">(师傅:{{item.masterName}})</label></view>
-        <view wx:if="{{item.iFinished == 0}}" class="weui-media-box__desc">已完成</view>
-        <view wx:elif="{{item.iBuyed != 0 && item.iOwner != 0 }}" class="weui-media-box__desc">未购买</view>
-        <view wx:else class="weui-media-box__desc">未读:{{item.iUnreadCount}}</view>
+    </view>
+    <view wx:if="{{checked[1]}}" class="page__bd">
+      <view wx:for="{{finshitems}}" wx:for-item="item" bindtap="bindToChat" data-id="{{item.sid}}" class="weui-media-box weui-media-box_appmsg">
+        <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
+          <image class="weui-media-box__thumb" src="{{item.masterPic}}" />
+        </view>
+        <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+          <view class="weui-media-box__title">{{item.title}}
+            <label class="sf_name">(师傅:{{item.masterName}})</label>
+          </view>
+          <view wx:if="{{item.iFinished == 0}}" class="weui-media-box__desc">已完成</view>
+          <view wx:elif="{{item.iBuyed != 0 && item.iOwner != 0 }}" class="weui-media-box__desc">未购买</view>
+          <view wx:else class="weui-media-box__desc">未读:{{item.iUnreadCount}}</view>
+        </view>
       </view>
     </view>
   </view>
-</view>
-<view wx:else class="gi_msg sroom" bindtap='bindToFind' ></view>
+  <view wx:else class="gi_msg sroom" bindtap='bindToFind'></view>
 </block>

@@ -128,3 +128,66 @@
   height:16px;
   padding-left: 10rpx;
 }
+
+.v_m_follow {
+  text-align: center;
+  padding-top: 10px;
+  color:#3f81c1;
+  font-size: 14px;
+  position:fixed;
+  bottom: 10px;
+  width: 100%;
+}
+
+.v_m_modal {
+  width: 80%;
+  overflow: hidden;
+  position: fixed;
+  z-index: 5000;
+  background: #fffffe;
+  padding-top: 16px;
+  display:table;
+  text-align: center;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  border-radius: 5px;
+  border: #cdcdcd 1px solid;
+}
+
+.v_m_modal image {
+  width: 90%;
+  height: auto;
+  margin: 0 auto;
+  border: #cdcdcd 1px solid;
+}
+.v_m_describe{
+  font-size: 14px;
+  color: #707070;
+  width: 90%;
+  margin: auto;
+}
+.v_m_bottom{
+  border-top: #cdcdcd 1px solid;
+  font-size: 20px;
+  color: #14b3c7;
+  font-weight: 500;
+  margin-top: 10px;
+  height: 50px;
+  line-height: 50px;
+}
+.sharebox {
+  width: 100%;
+  overflow: hidden;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 5000;
+  background: #000;
+  padding-top: 20rpx;
+  height: 100%;
+  opacity: 0.7;
+  filter: alpha(opacity=70);
+}
