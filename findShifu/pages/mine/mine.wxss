@@ -23,7 +23,10 @@
 .weui-cell {
   background-color: #fff;
   font-size: 16px;
-  border-bottom: 1px #e6e6e6 solid;
+}
+
+.weui-cell-before::before {
+  border-top: 1rpx solid #d9d9d9;
 }
 
 .bottomBtn {
@@ -47,7 +50,7 @@
 .v_m_follow {
   text-align: center;
   padding-top: 10px;
-  color:#3f81c1;
+  color: #3f81c1;
 }
 
 .v_m_modal {
@@ -57,7 +60,7 @@
   z-index: 5000;
   background: #fffffe;
   padding-top: 16px;
-  display:table;
+  display: table;
   text-align: center;
   left: 0;
   right: 0;
@@ -74,13 +77,15 @@
   margin: 0 auto;
   border: #cdcdcd 1px solid;
 }
-.v_m_describe{
+
+.v_m_describe {
   font-size: 14px;
   color: #707070;
   width: 90%;
   margin: auto;
 }
-.v_m_bottom{
+
+.v_m_bottom {
   border-top: #cdcdcd 1px solid;
   font-size: 20px;
   color: #14b3c7;
@@ -89,6 +94,7 @@
   height: 50px;
   line-height: 50px;
 }
+
 .sharebox {
   width: 100%;
   overflow: hidden;

@@ -10,19 +10,32 @@ Page({
     vipdata: null,//[{ title: '12个月', price: 185, original: 0, checked: true }, { title: '36个月', price: 365, original: 555, checked: false }],
     checkedVIP: 0,
     loading: false,
+    iHaveUid:-1,
+    iVip: -1,
+    unionId:'',
   },
   formSubmit: function (e) {
     this.setData({
       loading: true
     })
     var that = this
-    payService.PayforVip(that.data.session, that.data.vipdata[that.data.checkedVIP].vipid, function (items) {
+    payService.PayforVip(that.data.session, that.data.unionId, that.data.vipdata[that.data.checkedVIP].vipid, function (items) {
       if (items.RetCode == 0) {
-        if (e.detail.formId != undefined) {
-          dataService.PushTemplateFormID(that.data.session, 1, e.detail.formId)
+        if (e.detail.formId != undefined && e.detail.formId != 'the formId is a mock one') {
+          dataService.PushTemplateFormID(that.data.session, 3, e.detail.formId)
         }
         that.hideModal()
-        app.showModal("感谢您购买VIP会员，您已可以享受VIP会员服务！")
+        wx.showModal({
+          title: '成功',
+          showCancel: false,
+          content: '感谢您购买VIP会员，您已可以享受VIP会员服务！请关注AIB平台公众号及时获得最新消息！',
+          success: function (res) {
+            if (res.confirm) {
+              that.setData({ isVip: 0, endDate: null })
+              app.setiVip({ isVip: 0, endDate: null })
+            }
+          }
+        })
       }
       else {
         app.showModal("支付失败，请重试！")
@@ -102,7 +115,32 @@ Page({
         that.setData({
           userInfo: userInfo
         })
+        app.getiHaveUid(function (iHaveUid) {
+          let haveUid = iHaveUid
+          let uid = ''
+          if (iHaveUid == 0) {
+            app.getUnionId(function (unionid) {
+              uid = unionid
+            })
+            that.setData({
+              iHaveUid: haveUid,
+              unionId: uid
+            })
+          }
+          else {
+            that.setData({
+              iHaveUid: haveUid,
+            })
+          }
+  
+        })
+        app.getiVip(function (iVip) {
+          that.setData({
+            iVip: iVip
+          })
+        })
       })
+      
       dataService.Vipdata(function (item) {
         if (item.RetCode == 0) {
           if (item.data != null && item.data.length > 0) {

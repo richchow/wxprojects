@@ -89,6 +89,19 @@ Page({
       })
     }.bind(this), 200)
   },
+  onHide: function () {
+    this.unreadPannel.hiden()
+  },
+  onShow:function(){
+    var that = this
+    app.getSession(function (session) {
+      that.setData({
+        session: session
+      })
+      new app.UnreadPannel()
+      that.unreadPannel.show({ token: that.data.session, requestUrl: app.getRequestUrl() })
+    })
+  },
   onLoad: function (options) {
     var that = this
     this.setData({
@@ -99,7 +112,6 @@ Page({
       that.setData({
         session: session
       })
-
       app.getUserInfo(function (userInfo) {
         //更新数据
         that.setData({

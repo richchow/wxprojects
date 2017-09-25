@@ -117,7 +117,7 @@ Page({
               voicelist: vArray,
             })
           }
-
+          
           that.setData({
             message: items.data[0],
           })

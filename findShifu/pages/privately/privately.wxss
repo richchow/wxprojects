@@ -1,1 +1,7 @@
-/* pages/privately/privately.wxss */
+.weui-media-box__desc{
+  -webkit-line-clamp:1;
+}
+.v_count{
+color: #999999;
+padding-left: 10px;
+}

@@ -10,8 +10,9 @@ Page({
     animationData: {},
     adimg: '',
     adval: 0,
-    adlist: ['','wx44dbe6d3e959af20', 'wx1db224ea2421cc64'],
+    adlist: ['', 'wx44dbe6d3e959af20', 'wx1db224ea2421cc64'],
     showMore: false,
+    ogid: 0,
   },
   showModal: function () {
     // 显示遮罩层
@@ -56,13 +57,15 @@ Page({
   bindToApp: function (e) {
     let adval = this.data.adval
     let list = this.data.adlist
+    let addog = this.data.ogid == 0 ? '' : '?ogid=' + this.data.ogid
+    let pathlist = ['','pages/index/index', 'pages/index/index']
     console.log(list[adval])
     if (adval == 1 || adval == 2) {
       wx.navigateToMiniProgram({
         appId: list[adval],
-        //  path: 'pages/index/index?id=123',
+        path: pathlist[adval] + addog,
         //  extraData: {foo: 'bar'},
-        //  envVersion: 'develop',
+          envVersion: 'trial',
         success(res) {
         }
       })
@@ -94,23 +97,14 @@ Page({
     this.setData({
       showLoading: true,
     })
-    new app.UnreadPannel()
-    // that.unreadPannel.show({ unreadnum: 5 })
 
     //获得session
     app.getSession(function (session) {
       that.setData({
         session: session
       })
-      dataService.alertMessage(that.data.session, function (items) {
-        if (items.RetCode == 0) {
-          that.unreadPannel.show({ unreadnum: items.data[0] })
-        }
-        else if (items.RetCode == 99) {
-          app.tokenError()
-        }
-      })
-
+      new app.UnreadPannel()
+      that.unreadPannel.show({ token: that.data.session, requestUrl: app.getRequestUrl() })
       dataService.getMasterListAll(that.data.session, '', '', function (items) {
         if (items.RetCode == 0) {
           for (let i in items.data) {
@@ -136,7 +130,7 @@ Page({
     })
   },
   onLoad: function (options) {
-  //  let scene = 'br_11,uid_49'
+    //  let scene = 'br_11,uid_49'
 
     let scene = decodeURIComponent(options.scene)
     console.log('find scene:', scene)
@@ -169,7 +163,14 @@ Page({
         }
       }
     }
-
+    if (options.ogid != null) {
+      console.log('index ogid:', options.ogid)
+      this.setData({ ogid: options.ogid})
+        app.bindOGId(options.ogid)
+    }
+  },
+  onHide: function () {
+    this.unreadPannel.hiden()
   },
   onReady: function () {
     var that = this

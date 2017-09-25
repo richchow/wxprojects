@@ -23,9 +23,9 @@ Page({
     sfItem: {},
     isShifu: false,
     isExpire: true,
-    appurl:'',
+    appurl: '',
     voicelist: [],
-    showLoading:true,
+    showLoading: true,
   },
   bindToQA: function (e) {
     this.setData({
@@ -57,9 +57,9 @@ Page({
       let files = that.data.succesimg + that.data.succestalk + that.data.succesvideo
       files = files.length > 0 ? files.substring(0, files.lastIndexOf('|')) : files
 
-      dataService.PushMessage(that.data.session, that.data.sfItem.sender, files, e.detail.value.content, function (items) {
+      dataService.PushMessage(that.data.session, that.data.mid, files, e.detail.value.content, function (items) {
         if (items.RetCode == 0) {
-          if (e.detail.formId != undefined) {
+          if (e.detail.formId != undefined && e.detail.formId != 'the formId is a mock one') {
             dataService.PushTemplateFormID(that.data.session, 1, e.detail.formId)
           }
           wx.navigateBack({
@@ -132,12 +132,13 @@ Page({
   playDataVoice: function (e) {
     var that = this
     let vA = that.data.voicelist
-    if (vA[0]) {
+    let idx = e.currentTarget.dataset.idx
+    if (vA[idx]) {
       wx.stopVoice()
-      vA[0] = false
+      vA[idx] = false
       that.setData({ voicelist: vA })
     } else {
-      vA[0] = true
+      vA[idx] = true
       that.setData({ voicelist: vA })
       const downloadTask = wx.downloadFile({
         url: e.currentTarget.dataset.talk,
@@ -153,7 +154,7 @@ Page({
                     let time = Number(e.currentTarget.dataset.time) * 1000
                     setTimeout(function () {
                       wx.stopVoice()
-                      vA[0] = false
+                      vA[idx] = false
                       that.setData({ voicelist: vA })
                     }, time)
                   },
@@ -199,9 +200,10 @@ Page({
   },
   showPhoto2: function (e) {
     var that = this
+    let idx = e.currentTarget.dataset.idx
     let temp = []
-    for (let i = 0; i < that.data.sfItem.ltFilesImg.length; i++) {
-      temp.push(that.data.appurl + that.data.sfItem.ltFilesImg[i].fileurl)
+    for (let i = 0; i < that.data.sfItem[idx].ltFilesImg.length; i++) {
+      temp.push(that.data.appurl + that.data.sfItem[idx].ltFilesImg[i].fileurl)
     }
     wx.previewImage({
       current: e.currentTarget.dataset.src,
@@ -272,7 +274,7 @@ Page({
     var that = this
     if (!that.data.isExpire) {
       wx.navigateTo({
-        url: '/pages/createchat/createchat?userid=' + that.data.sfItem.sender,
+        url: '/pages/createchat/createchat?userid=' + that.data.mid,
       })
     }
   },
@@ -289,7 +291,7 @@ Page({
       that.setData({
         session: session
       })
-
+      
       app.getUserInfo(function (userInfo) {
         //更新数据
         that.setData({
@@ -299,26 +301,28 @@ Page({
       dataService.PushUserPic(that.data.session, that.data.userInfo.nickName, that.data.userInfo.avatarUrl)
       dataService.MessageInfo(that.data.session, that.data.mid, function (items) {
         if (items.RetCode == 0) {
-          that.setData({
-            sfItem: items.data[0],
-            isExpire: items.data[0].iExpire == 0,
-            isShifu: items.data[0].iOwner == 0,
-            appurl: app.getRequestUrl() + 'MUploadedData/' + items.data[0].sender + '/',
-          })
-          if (that.data.sfItem.iHaveRead != 0) {
-            dataService.ReadMessage(that.data.session, that.data.mid)
-          }
-          let vArray = new Array()
-            if (that.data.sfItem.ltFilesAudio != null && that.data.sfItem.ltFilesAudio.length > 0) {
-              vArray.push(false)
-            } else {
-              vArray.push(true)
+          if (items.data != null && items.data.length > 0) {
+            let vArray = new Array()
+            for (let si in items.data) {
+              if (items.data[si].ltFilesAudio != null && items.data[si].ltFilesAudio.length > 0) {
+                vArray.push(false)
+              } else {
+                vArray.push(true)
+              }
+              let obj = { appurl: app.getRequestUrl() + 'MUploadedData/' + items.data[si].sender + '/'}
+              Object.assign(items.data[si],obj)
+              if (items.data[si].iHaveRead != 0) {
+                dataService.ReadMessage(that.data.session, items.data[si].mid)
+              }
             }
-         
-          that.setData({
-            voicelist: vArray,
-          })
-
+            that.setData({
+              sfItem: items.data,
+              isExpire: items.data[0].iExpire == 0,
+              isShifu: items.data[0].iOwner == 0,
+              voicelist: vArray,
+            })
+            
+          }
         } else if (items.RetCode == 99) {
           app.tokenError()
         }

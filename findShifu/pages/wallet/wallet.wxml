@@ -1,3 +1,5 @@
+<import src="/template/unread/unread.wxml" />
+<template is="unreadPannel" data="{{...__urpanel__}}" />
 <view class="loading" wx:if="{{showLoading}}">
   <image class="loadinggif" src="/images/loading.gif" />
 </view>
@@ -7,7 +9,7 @@
   </view>
   <view class="w_title">我的零钱</view>
   <view class="w_amount">¥{{walletinfo.curAmount}}</view>
-  <view class="w_btn_tixian"><button disabled="true" bindtap="showModal" >提现</button></view>
+  <view class="w_btn_tixian"><button disabled="true" bindtap="showModal" >提现(公测后即可提现)</button></view>
   <view class="w_desc">
     <view>温馨提示：</view>
     <view>1.单笔提现金额不少于10元，最高2000元；</view>
@@ -16,9 +18,9 @@
     <view>4.使用BIM找师傅则视为接受<label class="nav" bindtap="bindToP">《使用条款与隐私策略》</label></view>
 
   </view>
-  <view class="w_nav">
+  <!--<view class="w_nav">
     <view bindtap="bindWalletGet">查看零钱明细</view>
-  </view>
+  </view>-->
 </view>
 <view class="sharebox" wx:if="{{showModalStatus}}"></view>
 <view animation="{{animationData}}" class="inputcontent" wx:if="{{showModalStatus}}">

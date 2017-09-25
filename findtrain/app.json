@@ -7,7 +7,8 @@
     "pages/enrolldetail/enrolldetail",
     "pages/enroll/enroll",
     "pages/detail/detail",
-    "pages/vip/vip"
+    "pages/vip/vip",
+    "pages/use/use"
   ],
   "networkTimeout":{
    "request": 10000,

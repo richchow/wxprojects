@@ -5,8 +5,9 @@
   <image class='bannerimg' model='aspectFit' src="/images/480.png" />
   <view class="amountview">
     <label class="pTitle">{{datainfo.title}}</label>
-    <label class="amount">¥ {{datainfo.amount}}</label>
-    <label class="amunt_member">会员价：¥ 0</label>
+    <label wx:if="{{iVip == null || iVip.isVip !=0}}" class="amount">¥ {{datainfo.amount}}</label>
+    <label wx:if="{{iVip == null || iVip.isVip !=0}}" class="amunt_member">会员价：¥ 0</label>
+    <label wx:if="{{iVip != null && iVip.isVip ==0}}" class="amount">会员免费</label>
     <label bindtap='bindToVIP' class="lj_member">了解超级会员</label>
    <!-- <block class="floatright" wx:if="{{datainfo.IconFlag != null && datainfo.IconFlag != ''}}">
       <image wx:for="{{datainfo.IconFlag}}" bindtap="bindToTuli" wx:for-item="tab" class="svgImg" src="/images/iconflag-{{tab}}.svg" />

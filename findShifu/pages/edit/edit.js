@@ -157,7 +157,7 @@ Page({
     } else {
       dataService.ModiMasterInfo(false, that.data.session, that.data.masterid, e.detail.value.name, e.detail.value.phone, e.detail.value.wx, e.detail.value.qq, e.detail.value.content, checkedservice, e.detail.value.area, that.data.picurl, function (items) {
         if (items.RetCode == 0) {
-          if (e.detail.formId != undefined) {
+          if (e.detail.formId != undefined && e.detail.formId != 'the formId is a mock one') {
             dataService.PushTemplateFormID(that.data.session, 1, e.detail.formId)
           }
           wx.navigateBack({
@@ -195,7 +195,6 @@ Page({
         that.setData({
           session: session
         })
-
         app.getUserInfo(function (userInfo) {
           //更新数据
           that.setData({

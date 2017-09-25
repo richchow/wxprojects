@@ -147,6 +147,8 @@ Page({
       that.setData({
         session: session
       })
+      new app.UnreadPannel()
+      that.unreadPannel.show({ token: that.data.session, requestUrl: app.getRequestUrl() })
       subRoomService.MasterCheck(that.data.session, function (items) {
         if (items.RetCode == 0) {
           that.setData({
@@ -218,6 +220,7 @@ Page({
   },
   onHide: function () {
     clearInterval(requesttime)
+    this.unreadPannel.hiden()
   },
   onUnload: function () {
     clearInterval(requesttime)

@@ -1,3 +1,15 @@
 <template name="unreadPannel">
-<view animation="{{animationData}}" wx:if="{{showUnread}}" bindtap="__urpanel__Tolist" class="unreadnum_view">{{unreadnum}}</view>
+  <view animation="{{animationData}}" wx:if="{{showUnread == 0}}" bindtap="__urpanel__Tolist" class="unreadnum_view">
+    <view>
+      <image src='/images/unread.svg'></image>
+      <image class='unread_red' mode='widthFix' src='/images/red.svg'></image>
+    </view>
+    <view class='va_unreadnum'>{{unreadnum}}</view>
+  </view>
+  <view animation="{{animationData}}" wx:if="{{showUnread == 1}}" bindtap="__urpanel__flush" class="unreadnum_view2">
+    <view>
+      <image src='/images/unread.svg'></image>
+      <image class='unread_red' src='/images/red.svg'></image>
+    </view>
+  </view>
 </template>

@@ -13,6 +13,7 @@ Page({
     adval: 0,
     adlist: ['', 'wx44dbe6d3e959af20', 'wx1db224ea2421cc64'],
     showMore: false,
+    ogid: 0,
   },
   bindFollow:function(e){
     var that = this
@@ -78,17 +79,21 @@ Page({
   bindToApp: function (e) {
     let adval = this.data.adval
     let list = this.data.adlist
-    console.log(list[adval])
-    if (adval == 1 || adval == 2) {
-      wx.navigateToMiniProgram({
-        appId: list[adval],
-        //  path: 'pages/index/index?id=123',
-        //  extraData: {foo: 'bar'},
-        //  envVersion: 'develop',
-        success(res) {
-        }
-      })
-    }
+    app.getOgid(function(ogid){
+      let addog = ogid == 0 ? '' : '?ogid=' + ogid
+      console.log(list[adval])
+      if (adval == 1 || adval == 2) {
+        wx.navigateToMiniProgram({
+          appId: list[adval] + addog,
+          //  path: 'pages/index/index?id=123',
+          //  extraData: {foo: 'bar'},
+          //  envVersion: 'develop',
+          success(res) {
+          }
+        })
+      }
+    })
+    
   },
   bindShowAd: function (e) {
     let src = e.currentTarget.dataset.src
@@ -138,8 +143,11 @@ Page({
       }
     })
   },
-  onLoad: function (options) { },
-
+  onLoad: function (options) { 
+  },
+  onHide: function () {
+    this.unreadPannel.hiden()
+  },
   onShow: function () {
     var that = this
     this.setData({
@@ -150,7 +158,8 @@ Page({
       that.setData({
         session: session
       })
-
+      new app.UnreadPannel()
+      that.unreadPannel.show({ token: that.data.session, requestUrl: app.getRequestUrl() })
       app.getUserInfo(function (userInfo) {
         //更新数据
         that.setData({

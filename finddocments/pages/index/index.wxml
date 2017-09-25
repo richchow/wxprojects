@@ -15,7 +15,7 @@
         <view bindtap="btnToSearch" class="btnSearch">搜 索</view>
       </view>
     </view>
-    <view class="totalDoc2">已有资料2800G+，新增800+</view>
+    <view class="totalDoc2">已有资料3500G+，新增800+</view>
   </view>
   <view class="hotview">
     <label class="labtitle">- 热门搜索 -</label>

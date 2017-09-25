@@ -1,44 +1,83 @@
 <view class="container">
-  <view class="topSelect" bindtap="gotoEnrollDetail">
-    <view class="uview">
-        <image class="selectImg" mode="scaleToFill" src="/images/txh.png" />2017全国BIM技能等级考试（第10期）</view>
-      <view class="mview">
-        <image model="widthFix" src="/images/bim.png" ></image>
+  <view class="v_status">
+    <view bindtap='bindStatus' data-c='0' class="{{checked[0] ? 'checked':''}}">代金券</view>
+    <view bindtap='bindStatus' data-c='1' class="{{checked[1] ? 'checked':''}}">已领取</view>
+  </view>
+  <view class="v_use">
+    <label bindtap='bindToUse'>
+      使用说明
+    </label>
+  </view>
+  <block wx:if="{{checked[0]}}">
+    <view wx:for="{{list.courselist}}" wx:for-item="item" wx:for-index="idx" class="topSelect">
+      <view class="uview">
+        <image class="companyImg" src="/images/company.svg" />{{item.companyname}}
+        <label bindtap="bindCall" data-call="{{item.call}}">
+          <image class="phoneImg" mode="widthFix" src="/images/phone.svg" />咨询</label>
       </view>
-      <view class="dview"><view>我要报名</view></view>
-  </view>
-
-  <view class="searchContent">
-    <label class="labtitle">- 报名列表 -</label>
-    <view class="loading" wx:if="{{showLoading}}">
-  <image class="loadinggif" src="/images/loading.gif" />
-</view>
-    <view class="indexDetail" bindtap="pay" data-buyed="{{item.Buyed}}" data-id="{{item.qid}}" wx:key="qid" wx:for="{{enrollInfo}}" wx:for-item="item"  hover-class="navigator-hover">
-      <label class="indexName">2017全国BIM技能等级考试（第10期）</label>
-      <label class="indexLeft">报名人:{{item.name}}</label>
-      <label class="indexRight">{{item.Buyed === 0 ? '已付款':'待付款'}}</label>
+      <view class="mview">
+        <view class="mview_price">
+          <view wx:if="{{iVip.isVip !=0}}" class="mview_amount">¥<label>{{item.price}}</label></view>
+          <view wx:else class="mview_amount"><label>免费</label></view>
+          <view class="mview_amount_des">{{item.pricedes}}</view>
+        </view>
+        <view class="mview_content">
+          <view class="mview_title">{{item.title}}</view>
+          <view class="mview_des">{{item.des1}}</view>
+          <view class="mview_des">{{item.des2}}</view>
+          <view class="mview_des">{{item.des3}}</view>
+        </view>
+        <view bindtap="bindCheckedPay" data-idx="{{idx}}" class="mview_pay">立即购买</view>
+      </view>
+      <view class="dview">
+        <view>{{item.detail}}</view>
+      </view>
     </view>
-  </view>
-  <view bindtap="showModal" class="bottomleftBtn">
-    分享
-  </view>
-   <view class="shareimgbox" wx:if="{{showShareModalStatus}}">
-    <image src="/images/share.png" class="shareImg"></image>
-  </view>
+  </block>
+  <block wx:if="{{checked[1]}}">
+    <view wx:for="{{list.payedlist}}" wx:for-item="item" wx:for-index="idx" class="topSelect">
+      <view class="uview">
+        <image class="companyImg" src="/images/company.svg" />{{item.companyname}}
+        <label bindtap="bindCall" data-call="{{item.call}}">
+          <image class="phoneImg" mode="widthFix" src="/images/phone.svg" />咨询</label>
+      </view>
+      <view class="mview">
+        <view class="mview_price">
+          <view wx:if="{{iVip.isVip !=0}}" class="mview_amount">¥<label>{{item.price}}</label></view>
+          <view wx:else class="mview_amount"><label>免费</label></view>
+          <view class="mview_amount_des">{{item.pricedes}}</view>
+        </view>
+        <view class="mview_content">
+          <view class="mview_title">{{item.title}}</view>
+          <view class="mview_des">{{item.des1}}</view>
+          <view class="mview_des">{{item.des2}}</view>
+          <view class="mview_des">{{item.des3}}</view>
+        </view>
+        <view  class="mview_pay">已领取</view>
+      </view>
+      <view class="dview">
+        <view>{{item.detail}}</view>
+      </view>
+    </view>
+  </block>
   <contact-button class="bottomBtn" type="default-light" size="20" session-from="weapp"> </contact-button>
-  <view class="sharebox" wx:if="{{showModalStatus}}"></view>
-  <view animation="{{animationData}}" class="sharecontent" wx:if="{{showModalStatus}}">
-    <view class="userinfo">
-      <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
-      <text class="info-name">独乐乐不如众乐乐</text>
+</view>
+<view class="sharebox" wx:if="{{showModalStatus}}"></view>
+<view animation="{{animationData}}" class="sharecontent" wx:if="{{showModalStatus}}">
+  <view class="info-content">
+    <view class="info-name">购买须知</view>
+    <view class='info-title'>预约信息</view>
+    <view class="info-text">·请您提前1天预约</view>
+    <view class='info-title'>规则提醒</view>
+    <view class="info-text">·不再与其他优惠同享</view>
+    <view class='info-title'>温馨提示</view>
+    <view class="info-text">·如需发票，请您在消费是向机构咨询</view>
+    <view class="info-text">·学习过程中产生的纠纷，请与机构协商</view>
+    <view class="btn-area">
+      <button size="mini" loading="{{loading}}" bindtap="pay">确认并购买</button>
     </view>
-    <view class="info-content">
-      <label class='info-title'>BIM找机构</label>
-      <label class="info-text">全国范围的培训机构，我来帮你甄别。</label>
-    </view>
-    <view class="info-bottom" wx:if="{{showModalStatus}}">
-      <label class="info-bottom-lab">点右上角分享给朋友，来一起来参加培训吧</label>
-      <icon bindtap="hideModal" class="info-icon" type="clear" size="40" color="#2e2e30" />
-    </view>
+  </view>
+  <view class="info-bottom" wx:if="{{showModalStatus}}">
+    <icon bindtap="hideModal" class="info-icon" type="clear" size="40" color="#000000" />
   </view>
 </view>

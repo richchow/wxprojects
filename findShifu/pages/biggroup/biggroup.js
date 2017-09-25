@@ -105,7 +105,7 @@ Page({
     if (this.data.inputValue != null && this.data.inputValue.trim() !== '') {
       dataService.PushComment(that.data.session, that.data.commentid, that.data.contentid, that.data.inputValue, function (items) {
         if (items.RetCode == 0) {
-          if (e.detail.formId != undefined) {
+          if (e.detail.formId != undefined && e.detail.formId != 'the formId is a mock one') {
             dataService.PushTemplateFormID(that.data.session, 1, e.detail.formId)
           }
           let sf = that.data.sfItem
@@ -250,7 +250,8 @@ Page({
           that.setData({
             session: session
           })
-
+          new app.UnreadPannel()
+          that.unreadPannel.show({ token: that.data.session, requestUrl: app.getRequestUrl() })
           app.getUserInfo(function (userInfo) {
             //更新数据
             that.setData({
@@ -315,5 +316,8 @@ Page({
       appurl: app.getRequestUrl() + 'UploadedData/' + options.masterid + '/',
       cardurl: app.getRequestUrl() + 'UploadedData/',
     })
+  },
+  onHide: function () {
+    this.unreadPannel.hiden()
   },
 })

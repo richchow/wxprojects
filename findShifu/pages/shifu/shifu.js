@@ -14,6 +14,7 @@ Page({
     isEdit: false,
     voicelist: [],
     ispay: true,
+    isVip:false,
   },
   playVideo:function(e){
     wx.navigateTo({
@@ -128,7 +129,13 @@ Page({
       that.setData({
         session: session
       })
-      
+      app.getiVip(function(data){
+        that.setData({
+          isVip: data.isVip
+        })
+      })
+      new app.UnreadPannel()
+      that.unreadPannel.show({ token: that.data.session, requestUrl: app.getRequestUrl() })
       app.getUserInfo(function (userInfo) {
         //更新数据
         that.setData({
@@ -152,7 +159,7 @@ Page({
         let vArray = new Array()
         if (that.data.sfItem != null && that.data.sfItem.lmroominfo != null && that.data.sfItem.lmroominfo.length > 0) {
           for (let si in that.data.sfItem.lmroominfo) {
-            if (that.data.sfItem.lmroominfo.ltFilesAudio != null && that.data.sfItem.lmroominfo.ltFilesAudio.length > 0) {
+            if (that.data.sfItem.lmroominfo[si].ltFilesAudio != null && that.data.sfItem.lmroominfo[si].ltFilesAudio.length > 0) {
               vArray.push(false)
             } else {
               vArray.push(true)
@@ -168,5 +175,7 @@ Page({
       })
     })
   },
-
+  onHide: function () {
+    this.unreadPannel.hiden()
+  },
 })

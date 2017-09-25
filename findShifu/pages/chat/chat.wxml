@@ -1,3 +1,5 @@
+<import src="/template/unread/unread.wxml" />
+<template is="unreadPannel" data="{{...__urpanel__}}" />
 <view class="loading" wx:if="{{showLoading}}">
     <image class="loadinggif" src="/images/loading.gif" />
 </view>

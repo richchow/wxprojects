@@ -1,0 +1,18 @@
+.page{
+  height: 100%;
+}
+.page__title{
+  font-size: 18px;
+}
+.weui-article__t{
+  font-size: 16px;
+  font-weight: 700;
+  padding-top: 10px;
+}
+.weui-article__p{
+  font-size: 14px;
+}
+.page__hd{
+  padding-left: 10px;
+  padding-right: 10px;
+}

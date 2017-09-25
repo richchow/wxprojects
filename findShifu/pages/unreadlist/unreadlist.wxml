@@ -40,13 +40,26 @@
   </view>
   <view class="page__bd">
     <view class="weui-cells weui-cells_after-title">
-      <navigator url="/pages/privatelyqa/privatelyqa?mid={{item.mid}}" wx:for="{{message.ltMessage}}" wx:item="item" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-        <view class="weui-cell__bd">{{item.sNickName}}私信了我</view>
-        <view class="weui-cell__ft weui-cell__ft_in-access cell_ft_new">{{item.cdate}}</view>
-      </navigator>
-      <navigator url="/pages/chat/chat?id={{item.sid}}" wx:for="{{message.ltOrder}}" wx:item="item" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+      <navigator wx:for="{{message.ltMessage}}" wx:for-item="item" url="/pages/privatelyqa/privatelyqa?mid={{item.sUserId}}" class="weui-media-box weui-media-box_appmsg backWhite" hover-class="weui-cell_active">
+      <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
+        <image class="weui-media-box__thumb" src="{{item.uPicUrl}}" />
+      </view>
+      <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+        <view class="weui-media-box__title">{{item.sNickName}} 与您的私信<label class='v_count'>( 未读：{{item.iCountUnRead}} )</label></view>
+        <view class="weui-media-box__desc">{{item.sText}}</view>
+        <view class="weui-media-box__desc">
+          {{item.sPic == null ? '' :'[图片]'}}{{item.sAudio == null ? '' :'[语音]'}}{{item.sVideo == null ? '' :'[视频]'}}
+        </view>
+      </view>
+    </navigator>
+      <navigator url="/pages/chat/chat?id={{item.sroomId}}" wx:for="{{message.ltOrder}}" wx:item="item" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
         <view class="weui-cell__bd">师傅{{item.masterName}}创建了房间请进入</view>
         <view class="weui-cell__ft weui-cell__ft_in-access cell_ft_new"></view>
+      </navigator>
+      <navigator url="/pages/chat/chat?id={{item.sroomId}}" wx:for="{{message.ltSRoom}}" wx:item="item" class="weui-cell-margintop weui-cell weui-cell_access" hover-class="weui-cell_active">
+        
+        <view class="weui-cell__bd">{{item.sroomName}}</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access cell_ft_new">{{item.unReadCount}}</view>
       </navigator>
     </view>
   </view>

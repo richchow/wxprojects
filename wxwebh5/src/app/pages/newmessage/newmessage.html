@@ -1,0 +1,24 @@
+<div class="page" >
+    <div class="page__bd">
+      <a *ngFor="let item of items" href="/pages/shifu/shifu?id={{item.masterid}}" class="weui-media-box weui-media-box_appmsg backWhite" hover-class="weui-cell_active">
+        <div class="weui-media-box__hd weui-media-box__hd_in-appmsg">
+          <img class="weui-media-box__thumb" src="{{item.picurl}}" />
+        </div>
+        <div class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+          <div class="weui-media-box__title">{{item.mastername}}</div>
+          <div class="weui-media-box__desc">{{item.profiles == null ? '正在等待师傅补充内容' : item.profiles}}</div>
+          <div class="backWhite">
+            <div class="sf_item_lab_left">
+              <img class="sf_item_img" src="/images/hot.svg" />人气：{{item.iReadCount}}
+            </div>
+            <div class="sf_item_lab">
+              <img class="sf_item_img" src="/images/order.svg" />服务：{{item.iServiceCount}}次
+            </div>
+            <div class="sf_item_lab_right">
+              <img class="sf_item_img" src="/images/feedback.svg" />评价：{{item.iRete}}%
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>

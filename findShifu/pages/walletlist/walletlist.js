@@ -5,6 +5,9 @@ Page({
     walletitems: [],
     showLoading: true,
   },
+  onHide: function () {
+    this.unreadPannel.hiden()
+  },
   onShow: function () {
     var that = this
     this.setData({
@@ -15,7 +18,8 @@ Page({
       that.setData({
         session: session
       })
-
+      new app.UnreadPannel()
+      that.unreadPannel.show({ token: that.data.session, requestUrl: app.getRequestUrl() })
       app.getUserInfo(function (userInfo) {
         //更新数据
         that.setData({

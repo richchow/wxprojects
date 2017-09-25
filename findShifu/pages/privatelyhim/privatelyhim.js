@@ -40,7 +40,7 @@ Page({
 
       dataService.PushMessage(that.data.session, that.data.masterid, files, e.detail.value.content, function (items) {
         if (items.RetCode == 0) {
-          if (e.detail.formId != undefined) {
+          if (e.detail.formId != undefined && e.detail.formId != 'the formId is a mock one') {
             dataService.PushTemplateFormID(that.data.session, 1, e.detail.formId)
           }
           wx.navigateBack({

@@ -188,9 +188,6 @@ Page({
       }
     })
   },
-  onHide: function () {
-    //  app.setDataList(this.data.chatid, this.data.message)
-  },
   onUnload: function () {
     clearInterval(inttime)
     clearInterval(requesttime)
@@ -203,7 +200,16 @@ Page({
   },
   onShow: function () {
     var that = this
-
+    app.getSession(function (session) {
+      that.setData({
+        session: session
+      })
+      new app.UnreadPannel()
+      that.unreadPannel.show({ token: that.data.session, requestUrl: app.getRequestUrl() })
+    })
+  },
+  onHide: function () {
+    this.unreadPannel.hiden()
   },
   onLoad: function (options) {
     var that = this
@@ -348,8 +354,8 @@ Page({
 
 
       })
-      
-    }else{
+
+    } else {
       app.showModal('数据错误，请返回重试')
     }
   },
@@ -375,7 +381,7 @@ Page({
     if (this.data.inputValue != null && this.data.inputValue.trim() !== '') {
       this.setCurrData(this.data.inputValue, '', 4, this.data.userInfo.avatarUrl, true, 0, function (item) {
         subRoomService.SRPushContent(that.data.session, that.data.chatid, that.data.inputValue, 4, '', function (items) {
-          if (e.detail.formId != undefined) {
+          if (e.detail.formId != undefined && e.detail.formId != 'the formId is a mock one') {
             dataService.PushTemplateFormID(that.data.session, 1, e.detail.formId)
           }
           if (items.RetCode != 0) {

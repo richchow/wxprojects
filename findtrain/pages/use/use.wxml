@@ -1,0 +1,22 @@
+<view class="page">
+  <view class="page__hd">
+    <view class="page__title">《使用说明》</view>
+    <view class="weui-article">
+      <view class="weui-article__section">
+        <view class="weui-article__t">Q1：BIM找机构的使命？</view>
+        <view class="weui-article__p">·我们希望把BIM找机构打造成BIM圈的大众点评，通过我们的筛选和认证体系，将符合要求的商家聚合到平台上，既可以给机构增加曝光带来业务，亦可给用户提供服务保障和经济实惠！</view>
+        <view class="weui-article__t">Q2：如何领取代金卷？</view>
+        <view class="weui-article__p">·VIP会员用户，可免费领取BIM找机构平台全部类型代金卷；</view>
+        <view class="weui-article__p">·非VIP会员用户，点击代金卷进行购买，即可以抵扣相应服务费用；</view>
+        <view class="weui-article__t">Q3：如何使用代金卷？</view>
+        <view class="weui-article__p">·获得代金卷后，请联系相关机构，进行消费/使用；</view>
+        <view class="weui-article__t">Q4：代金卷的使用规则？</view>
+        <view class="weui-article__p">·购买/使用代金卷前，请认真核对相关信息，一经购买无法退换；</view>
+        <view class="weui-article__p">·客服支持请联系官方微信公众号: 『AIB平台』 联系我们；</view>
+        <view class="weui-article__p">·最终解释权归AIB平台所有；</view>
+        <view class="weui-article__t">Q5：商家如何加入BIM找机构？</view>
+        <view class="weui-article__p">·请在我们官方微信公众号: 『AIB平台』 留言咨询;</view>
+      </view>
+    </view>
+  </view>
+</view>

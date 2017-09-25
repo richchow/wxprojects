@@ -14,11 +14,11 @@
     <navigator class="rightSelect" url='/pages/enroll/enroll' hover-class="navigator-hover">
       <view class="lSview">
         <image class="selectImg" mode="scaleToFill" src="/images/baoming.png" />
-        <view>代报名</view>
+        <view>代金券</view>
       </view>
       <view class="rSview">
-        <view>BIM考试线上</view>
-        <view>报名入口</view>
+        <view>凭代金券</view>
+        <view>可抵扣学费</view>
       </view>
     </navigator>
   </view>

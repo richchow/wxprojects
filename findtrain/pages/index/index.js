@@ -7,6 +7,7 @@ var md5 = require('../../utils/md5.js')
 Page({
   data: {
     showModalStatus: false,
+    ogid:0,
     animationData: {},
     adimg: '',
     adval: 0,
@@ -72,13 +73,15 @@ Page({
   bindToApp: function (e) {
     let adval = this.data.adval
     let list = this.data.adlist
+    let pathlist = ['','pages/index/index','pages/find/find']
+    let addogid = this.data.ogid == 0 ? '' : '?ogid=' + this.data.ogid
     console.log(list[adval])
     if (adval == 1 || adval == 2) {
       wx.navigateToMiniProgram({
         appId: list[adval],
-        //  path: 'pages/index/index?id=123',
-        //  extraData: {foo: 'bar'},
-        //  envVersion: 'develop',
+        path: pathlist[adval]+addogid,
+    //    extraData: { ogid: this.data.ogid},
+        envVersion: 'trial',
         success(res) {
         }
       })
@@ -121,15 +124,8 @@ Page({
       path: '/pages/index/index'
     }
   },
-  onLoad: function () {
+  onLoad: function (options) {
     console.log('Index onLoad')
-    /* var secret = "75adbcdde224d2db13b6db4343199b3a"
-     var name = "zzl"
-     var hex = util.randomHEX()
-     var headerMD5 = util.headerMD5(name,hex,secret)
-                   var sign = md5.hex_md5(headerMD5).toUpperCase()
-     console.log("requestSource=\""+name+"|0x"+hex+"|"+sign+"\"")
-      */
     var that = this
     that.setData({
       showLoading: true
@@ -139,7 +135,13 @@ Page({
       that.setData({
         session: session
       })
-
+      if (options.ogid != null) {
+        console.log('index ogid:', options.ogid)
+        that.setData({
+          ogid: options.ogid
+        })
+        app.bindOGId(options.ogid)
+      }
       app.getUserInfo(function (userInfo) {
         //更新数据
         that.setData({

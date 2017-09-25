@@ -26,7 +26,8 @@ Page({
     emailVail: '',
     areaVail: '',
     isQuestioned: false,
-    isStarCat: false
+    isStarCat: false,
+    iVip:null,
   },
   bindToVIP: function () {
     wx.navigateTo({
@@ -39,6 +40,7 @@ Page({
     })
   },
   pay: function (e) {
+    var that = this
     if (this.data.isStarCat) {
       if (this.data.isQuestioned) {
         this.setData({
@@ -49,7 +51,12 @@ Page({
           showModalInputStatus: true
         })
       }
-    } else {
+    }else if(that.data.iVip != null && that.data.iVip.isVip ==0){
+      that.setData({
+        showModalUrlStatus: true
+      })
+    }
+     else {
       var that = this
       if(that.data.isPayed){
         that.setData({
@@ -331,7 +338,11 @@ Page({
           userInfo: userInfo
         })
       })
-
+      app.getiVip(function (iVip) {
+        that.setData({
+          iVip: iVip
+        })
+      })
       //获得内容详情
       dataService.getDataInfo(options.id, session, function (items) {
         if (items.RetCode == 0 || items.RetCode == -8) {

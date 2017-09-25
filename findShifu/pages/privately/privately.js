@@ -15,7 +15,8 @@ Page({
       that.setData({
         session: session
       })
-
+      new app.UnreadPannel()
+      that.unreadPannel.show({ token: that.data.session, requestUrl: app.getRequestUrl() })
       app.getUserInfo(function (userInfo) {
         //更新数据
         that.setData({
@@ -24,7 +25,7 @@ Page({
         dataService.PushUserPic(that.data.session, that.data.userInfo.nickName, that.data.userInfo.avatarUrl)
       })
       
-      dataService.MessageList(that.data.session, function (items) {
+      dataService.MessageTotal(that.data.session, function (items) {
         if (items.RetCode == 0) {
           that.setData({
             groupitems: items.data,
@@ -43,5 +44,8 @@ Page({
   },
   onLoad: function (options) {
    
-  }
+  },
+  onHide: function () {
+    this.unreadPannel.hiden()
+  },
 })

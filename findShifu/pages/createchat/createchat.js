@@ -67,7 +67,7 @@ Page({
     } else {
       subRoomService.CreatSubRoom(that.data.session,that.data.sroomid, e.detail.value.name, Number(e.detail.value.num), that.data.today, that.data.date, that.data.userid, function (items) {
         if (items.RetCode == 0) {
-          if (e.detail.formId != undefined) {
+          if (e.detail.formId != undefined && e.detail.formId != 'the formId is a mock one') {
             dataService.PushTemplateFormID(that.data.session, 1, e.detail.formId)
           }
           wx.navigateBack({

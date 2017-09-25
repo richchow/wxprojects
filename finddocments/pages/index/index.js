@@ -8,8 +8,8 @@ Page({
     showModalStatus: false,
     animationData: {},
     adimg: '',
-    adval:0,
-    adlist: ['', 'wx1db224ea2421cc64','wx13615b6f53349865'],
+    adval: 0,
+    adlist: ['', 'wx1db224ea2421cc64', 'wx13615b6f53349865'],
     message: "",
     showLoading: false,
     showMore: false,
@@ -49,7 +49,8 @@ Page({
       }
     ],
     docItems: [],
-    userInfo: {}
+    userInfo: {},
+    ogid: 0,
   },
   showModal: function () {
     // 显示遮罩层
@@ -91,16 +92,18 @@ Page({
       })
     }.bind(this), 200)
   },
-  bindToApp:function(e){
+  bindToApp: function (e) {
     let adval = this.data.adval
     let list = this.data.adlist
+    let addog = this.data.ogid == 0 ? '' : '?ogid=' + this.data.ogid
+    let pathlist = ['', 'pages/index/index', 'pages/find/find']
     console.log(list[adval])
-    if(adval == 1 || adval == 2){
+    if (adval == 1 || adval == 2) {
       wx.navigateToMiniProgram({
         appId: list[adval],
-      //  path: 'pages/index/index?id=123',
-      //  extraData: {foo: 'bar'},
-      //  envVersion: 'develop',
+        path: pathlist[adval] + addog,
+        // extraData: { ogid: this.data.ogid},
+        envVersion: 'trial',
         success(res) {
         }
       })
@@ -169,12 +172,25 @@ Page({
       }
     }
   },
-  onLoad: function () {
+  onLoad: function (options) {
     var that = this
+
+
     this.setData({
       showLoading: true
     })
-
+    app.getSession(function (session) {
+      that.setData({
+        session: session
+      })
+      if (options.ogid != null) {
+        console.log('index ogid:', options.ogid)
+        that.setData({
+          ogid: options.ogid
+        })
+        app.bindOGId(options.ogid)
+      }
+    })
 
     dataService.getsyDataCatalogList(function (items) {
       if (items.RetCode == 0) {
