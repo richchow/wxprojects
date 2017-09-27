@@ -14,23 +14,23 @@
     <view class="sf_card_item_col">
       <view>
         <image class="sf_card_lab" src="/images/phone.svg"></image>
-        <label wx:if="{{isVip.isVip !=0 && sfItem.iBuyed !=0 && sfItem.iOwner != 0}}">进入师傅空间后可见</label>
-        <label wx:if="{{isVip || sfItem.iBuyed ==0 || sfItem.iOwner == 0}}">{{sfItem.mobile == null ? '正在等待师傅补充内容' : sfItem.mobile}}</label>
+        <label wx:if="{{isVip!=0 && sfItem.iBuyed !=0 && sfItem.iOwner != 0}}">进入师傅空间后可见</label>
+        <label wx:if="{{isVip == 0 || sfItem.iBuyed ==0 || sfItem.iOwner == 0}}">{{sfItem.mobile == null ? '正在等待师傅补充内容' : sfItem.mobile}}</label>
       </view>
       <view>
         <image class="sf_card_lab" src="/images/weixin.svg"></image>
-        <label wx:if="{{isVip.isVip!=0 && sfItem.iBuyed !=0 && sfItem.iOwner != 0}}">进入师傅空间后可见</label>
-        <label wx:if="{{isVip || sfItem.iBuyed ==0 || sfItem.iOwner == 0}}">{{sfItem.wxid == null ? '正在等待师傅补充内容' : sfItem.wxid}}</label>
+        <label wx:if="{{isVip!=0 && sfItem.iBuyed !=0 && sfItem.iOwner != 0}}">进入师傅空间后可见</label>
+        <label wx:if="{{isVip == 0 || sfItem.iBuyed ==0 || sfItem.iOwner == 0}}">{{sfItem.wxid == null ? '正在等待师傅补充内容' : sfItem.wxid}}</label>
       </view>
       <view>
         <image class="sf_card_lab" src="/images/qq.svg"></image>
-        <label wx:if="{{isVip.isVip!=0 && sfItem.iBuyed !=0 && sfItem.iOwner != 0}}">进入师傅空间后可见</label>
-        <label wx:if="{{isVip || sfItem.iBuyed ==0 || sfItem.iOwner == 0}}">{{sfItem.mail == null ? '正在等待师傅补充内容' : sfItem.mail}}</label>
+        <label wx:if="{{isVip!=0 && sfItem.iBuyed !=0 && sfItem.iOwner != 0}}">进入师傅空间后可见</label>
+        <label wx:if="{{isVip == 0 || sfItem.iBuyed ==0 || sfItem.iOwner == 0}}">{{sfItem.mail == null ? '正在等待师傅补充内容' : sfItem.mail}}</label>
       </view>
       <view>
         <image class="sf_card_lab" src="/images/area.svg"></image>
-        <label wx:if="{{isVip.isVip!=0 && sfItem.iBuyed !=0 && sfItem.iOwner != 0}}">进入师傅空间后可见</label>
-        <label wx:if="{{isVip || sfItem.iBuyed ==0 || sfItem.iOwner == 0}}">{{sfItem.address == null ? '正在等待师傅补充内容':sfItem.address}}</label>
+        <label wx:if="{{isVip!=0 && sfItem.iBuyed !=0 && sfItem.iOwner != 0}}">进入师傅空间后可见</label>
+        <label wx:if="{{isVip == 0 || sfItem.iBuyed ==0 || sfItem.iOwner == 0}}">{{sfItem.address == null ? '正在等待师傅补充内容':sfItem.address}}</label>
       </view>
     </view>
     <view class="sf_card_item_more">

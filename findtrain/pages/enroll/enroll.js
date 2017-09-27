@@ -1,6 +1,7 @@
 //index.js
 //获取应用实例
 var app = getApp()
+var sessionService = require('../../providers/sessionService')
 var dataService = require('../../providers/dataService.js')
 var payService = require('../../providers/payService.js')
 Page({
@@ -13,7 +14,7 @@ Page({
     userInfo: {},
     checked: [true, false],
     coursechecked: {},
-    iVip: -1,
+    iVip: { isVip: -1, endDate: null },
     list: {},
     /*  list: {
         courselist: [
@@ -44,15 +45,23 @@ Page({
   },
   bindCheckedPay: function (e) {
     let that = this
+
     let idx = e.currentTarget.dataset.idx
     this.setData({
       coursechecked: that.data.list.courselist[idx]
     })
     this.showModal()
+
+
   },
   bindToUse: function () {
     wx.navigateTo({
       url: '/pages/use/use',
+    })
+  },
+  bindToVIP: function () {
+    wx.navigateTo({
+      url: '/pages/vip/vip',
     })
   },
   pay: function () {
@@ -60,8 +69,8 @@ Page({
     payService.pay(that.data.coursechecked.courseid, that.data.session, function (item) {
       if (item.RetCode == 0) {
         that.hideModal()
-        app.showModal("支付成功！")
-        onLoad()
+        app.showModalTitle('成功', "支付成功！")
+        that.onLoad()
 
       } else if (item.RetCode == 99) {
         app.tokenError()
@@ -117,8 +126,7 @@ Page({
       path: '/pages/enroll/enroll'
     }
   },
-  onLoad: function () {
-    console.log('Index onLoad')
+  onShow: function () {
 
     var that = this
     that.setData({
@@ -140,28 +148,29 @@ Page({
         that.setData({
           iVip: iVip
         })
-      })
-      dataService.ogCourseList(that.data.session, function (item) {
-        if (item.RetCode == 0) {
-          if (that.data.iVip.isVip == 0) {
-            for (let i in item.data[0].courselist) {
-              item.data[0].payedlist.push(item.data[0].courselist[i])
+        dataService.ogCourseList(that.data.session, function (item) {
+          if (item.RetCode == 0) {
+            if (that.data.iVip.isVip == 0) {
+              for (let i in item.data[0].courselist) {
+                item.data[0].payedlist.push(item.data[0].courselist[i])
+              }
+              item.data[0].courselist = []
+              that.setData({ checked: [false, true] })
             }
-            item.data[0].courselist = []
-            that.setData({ checked: [false, true]})
+            that.setData({
+              list: item.data[0]
+            })
+          } else if (item.RetCode == 99) {
+            app.tokenError()
+          } else {
+            app.showModal("数据错误，请稍后重试");
           }
           that.setData({
-            list: item.data[0]
+            showLoading: false
           })
-        } else if (item.RetCode == 99) {
-          app.tokenError()
-        } else {
-          app.showModal("数据错误，请稍后重试");
-        }
-        that.setData({
-          showLoading: false
         })
       })
+      
     })
 
   }

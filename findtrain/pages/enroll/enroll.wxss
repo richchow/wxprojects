@@ -17,7 +17,12 @@ page {
   box-shadow: 2px 2px 2px #dbdbdb;
   border-radius: 8px;
 }
-
+.viplist{
+  width: 100%;
+  text-align: center;
+  padding-top: 30px;
+  font-size: 12pt;
+}
 .uview {
   width: 97%;
   font-size: 32rpx;
@@ -261,6 +266,18 @@ height: 50px;
   display: table;
   width: 97%;
 
+}
+.v_use .v_use_left{
+  float: left;
+  padding-left: 5px;
+  font-size: 11pt;
+  height: 20px;
+  padding-top: 10px;
+  line-height: 18px;
+}
+.v_use .v_use_left image{
+  width:16px;
+  height: 16px;
 }
 .v_use label{
   float: right;

@@ -16,7 +16,6 @@
       var sname = GetQueryString("ogid");
       if (sname != null) {
         var sname_ = decodeURIComponent(sname);
-        alert(sname_);
         $('.qrdiv1>.qrimg').attr('src','./ogapic/'+sname_+'/1.jpg')
         $('.qrdiv2>.qrimg').attr('src','./ogapic/'+sname_+'/2.jpg')
         $('.qrdiv3>.qrimg').attr('src','./ogapic/'+sname_+'/3.jpg')
@@ -41,7 +40,7 @@
       width: 110px;
       display: table;
       position: relative;
-      top: 440px;
+      top: 35%;
       float: right;
       right: 30px;
     }
@@ -50,7 +49,7 @@
       width: 110px;
       display: table;
       position: relative;
-      top: 700px;
+      top: 55%;
       float: left;
       left: 30px;
     }
@@ -59,7 +58,7 @@
       width: 110px;
       display: table;
       position: relative;
-      top: 960px;
+      top: 76%;
       float: right;
       right: 30px;
     }

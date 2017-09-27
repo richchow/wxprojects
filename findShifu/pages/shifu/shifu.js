@@ -14,7 +14,7 @@ Page({
     isEdit: false,
     voicelist: [],
     ispay: true,
-    isVip:false,
+    isVip:-1,
   },
   playVideo:function(e){
     wx.navigateTo({
@@ -142,7 +142,7 @@ Page({
           userInfo: userInfo
         })
       })
-      dataService.getMasterListSignle(that.data.session, that.data.id, function (items) {
+      dataService.getMasterListSignle(that.data.session, that.data.id, that.data.isVip, function (items) {
         if (items.RetCode == 0) {
           if (items.data[0].picurl.indexOf('http') < 0) {
             items.data[0].picurl = app.getRequestUrl() + '/MpicData/' + items.data[0].masterid + '/' + items.data[0].picurl

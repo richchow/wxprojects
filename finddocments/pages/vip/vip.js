@@ -1,6 +1,7 @@
 var app = getApp()
 var payService = require('../../providers/payService.js')
 var dataService = require('../../providers/dataService.js')
+var sessionService = require('../../providers/sessionService')
 Page({
   data: {
     session: '',
@@ -24,18 +25,21 @@ Page({
         if (e.detail.formId != undefined && e.detail.formId != 'the formId is a mock one') {
           dataService.PushTemplateFormID(that.data.session, 1, e.detail.formId)
         }
-        that.hideModal()
-        wx.showModal({
-          title: '成功',
-          showCancel: false,
-          content: '感谢您购买VIP会员，您已可以享受VIP会员服务！请关注AIB平台公众号及时获得最新消息！',
-          success: function (res) {
-            if (res.confirm) {
-              that.setData({ isVip: 0, endDate: null })
-              app.setiVip({ isVip: 0, endDate: null })
-            }
-          }
-        })
+        setTimeout(function () {
+          sessionService.CheckVip(app.getRequestUrl(), app.getUnionId2(), function (vip) {
+            that.hideModal()
+            that.setData({ iVip: vip })
+            app.setiVip(vip)
+            wx.showModal({
+              title: '成功',
+              showCancel: false,
+              content: '感谢您购买VIP会员，您已可以享受VIP会员服务！请关注AIB平台公众号及时获得最新消息！',
+              success: function (res) {
+
+              }
+            })
+          })
+        }, 1 * 1000)
         
       }
       else {

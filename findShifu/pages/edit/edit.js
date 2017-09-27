@@ -207,7 +207,7 @@ Page({
         dataService.getServices(that.data.session, function (item) {
           if (item.RetCode == 0) {
             allServiceArray = item.data
-            dataService.getMasterListSignle(that.data.session, that.data.masterid, function (items) {
+            dataService.getMasterListSignle(that.data.session, that.data.masterid,-1, function (items) {
               if (items.RetCode == 0) {
                 //服务项
                 let checkedService = {}

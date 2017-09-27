@@ -1,6 +1,7 @@
 var app = getApp()
 var dataService = require('../../providers/dataService')
 var payService = require('../../providers/payService')
+var sessionService = require('../../providers/sessionService')
 Page({
   data: {
     showLoading: false,
@@ -29,6 +30,20 @@ Page({
     isStarCat: false,
     iVip:null,
   },
+  bindFollow: function (e) {
+    var that = this
+    let val = e.currentTarget.dataset.val
+    wx.setClipboardData({
+      data: val,
+      success: function (res) {
+        wx.showModal({
+          title: '提示',
+          content: '已把地址和提取码复制到剪切板',
+          showCancel:false,
+        })
+      }
+    })
+  },
   bindToVIP: function () {
     wx.navigateTo({
       url: '/pages/vip/vip',
@@ -41,49 +56,51 @@ Page({
   },
   pay: function (e) {
     var that = this
-    if (this.data.isStarCat) {
-      if (this.data.isQuestioned) {
-        this.setData({
+    sessionService.CheckVip(app.getRequestUrl(), app.getUnionId2(), function (vip) {
+      that.setData({iVip:vip})
+      if (that.data.isStarCat) {
+        if (that.data.isQuestioned) {
+          that.setData({
+            showModalUrlStatus: true
+          })
+        } else {
+          that.setData({
+            showModalInputStatus: true
+          })
+        }
+      } else if (that.data.iVip != null && that.data.iVip.isVip == 0) {
+        that.setData({
           showModalUrlStatus: true
         })
       } else {
-        this.setData({
-          showModalInputStatus: true
-        })
-      }
-    }else if(that.data.iVip != null && that.data.iVip.isVip ==0){
-      that.setData({
-        showModalUrlStatus: true
-      })
-    }
-     else {
-      var that = this
-      if(that.data.isPayed){
-        that.setData({
-          showModalUrlStatus: true
-        })
-      }else if (that.data.isPaying === false) {
-        that.setData({
-          isPaying: true
-        })
-        payService.pay(this.data.datainfo.dataid, this.data.session, function (item) {
-          if (item.RetCode == 0) {
-            that.setData({
-              isPayed: true,
-              showModalUrlStatus: true
-            })
-            
-          } else if (item.RetCode == 99) {
-            app.tokenError()
-          } else {
-            app.showModal("支付失败！请重试");
-          }
+        if (that.data.isPayed) {
           that.setData({
-            isPaying: false
+            showModalUrlStatus: true
           })
-        })
+        } else if (that.data.isPaying === false) {
+          that.setData({
+            isPaying: true
+          })
+          payService.pay(that.data.datainfo.dataid, that.data.session, function (item) {
+            if (item.RetCode == 0) {
+              that.setData({
+                isPayed: true,
+                showModalUrlStatus: true
+              })
+
+            } else if (item.RetCode == 99) {
+              app.tokenError()
+            } else {
+              app.showModal("支付失败！请重试");
+            }
+            that.setData({
+              isPaying: false
+            })
+          })
+        }
       }
-    }
+    })
+   
   },
   formSubmit: function (e_detail_2) {
     this.setData({

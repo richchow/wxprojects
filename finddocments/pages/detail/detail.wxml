@@ -7,8 +7,8 @@
     <label class="pTitle">{{datainfo.title}}</label>
     <label wx:if="{{iVip == null || iVip.isVip !=0}}" class="amount">¥ {{datainfo.amount}}</label>
     <label wx:if="{{iVip == null || iVip.isVip !=0}}" class="amunt_member">会员价：¥ 0</label>
-    <label wx:if="{{iVip != null && iVip.isVip ==0}}" class="amount">会员免费</label>
-    <label bindtap='bindToVIP' class="lj_member">了解超级会员</label>
+    <label wx:if="{{iVip != null && iVip.isVip ==0}}" class="amount">VIP会员免费</label>
+    <label bindtap='bindToVIP' class="lj_member">了解VIP会员</label>
    <!-- <block class="floatright" wx:if="{{datainfo.IconFlag != null && datainfo.IconFlag != ''}}">
       <image wx:for="{{datainfo.IconFlag}}" bindtap="bindToTuli" wx:for-item="tab" class="svgImg" src="/images/iconflag-{{tab}}.svg" />
       </block>-->
@@ -46,11 +46,11 @@
   <view class="classname">您的专属资料卡</view>
     <view class="url_view">
       <label>地址:</label>
-      <text class="docurl" selectable="true">{{datainfo.url}}</text>
+      <text class="docurl" bindtap="bindFollow" data-val="地址:{{datainfo.url}}\n提取码:{{datainfo.signature}}" selectable="true">{{datainfo.url}}</text>
     </view>
     <view class="url_view">
       <label>提取码:</label>
-      <text class="docurl" selectable="true">{{datainfo.signature}}</text>
+      <text class="docurl"  bindtap="bindFollow" data-val="地址:{{datainfo.url}}\n提取码:{{datainfo.signature}}" selectable="true">{{datainfo.signature}}</text>
     </view>
     <label class="payedtitle">长按橙色文字可复制地址和提取码</label>
     <view class="info-bottom" wx:if="{{showModalUrlStatus}}">

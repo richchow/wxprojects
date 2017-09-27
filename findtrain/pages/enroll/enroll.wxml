@@ -1,9 +1,15 @@
-<view class="container">
+<view class="loading" wx:if="{{showLoading}}">
+      <image class="loadinggif" src="/images/loading.gif" />
+    </view>
+<view wx:if="{{showLoading == false}}" class="container">
   <view class="v_status">
-    <view bindtap='bindStatus' data-c='0' class="{{checked[0] ? 'checked':''}}">代金券</view>
-    <view bindtap='bindStatus' data-c='1' class="{{checked[1] ? 'checked':''}}">已领取</view>
+    <view bindtap='bindStatus' data-c='0' class="{{checked[0] ? 'checked':''}}">代金券 <block wx:if="{{list.courselist.length >0}}">({{list.courselist.length}})</block></view>
+    <view bindtap='bindStatus' data-c='1' class="{{checked[1] ? 'checked':''}}">已领取 <block wx:if="{{list.payedlist.length >0}}">({{list.payedlist.length}})</block></view>
   </view>
   <view class="v_use">
+   <label wx:if="{{iVip.isVip !=0}}" class="v_use_left" bindtap='bindToVIP'>
+      <image src="/images/crown.svg" />VIP会员免费领取全部代金券
+    </label>
     <label bindtap='bindToUse'>
       使用说明
     </label>
@@ -33,6 +39,7 @@
         <view>{{item.detail}}</view>
       </view>
     </view>
+    <view wx:if="{{iVip.isVip == 0 }}" class="viplist"><image src="/images/cenroll.png" mode="widthFix" /></view>
   </block>
   <block wx:if="{{checked[1]}}">
     <view wx:for="{{list.payedlist}}" wx:for-item="item" wx:for-index="idx" class="topSelect">
