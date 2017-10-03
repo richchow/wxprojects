@@ -115,10 +115,11 @@ Page({
       })
 
       app.getUserInfo(function (userInfo) {
-        //更新数据
         that.setData({
           userInfo: userInfo
         })
+        dataService.PushUserPic(that.data.session, userInfo.nickName, userInfo.avatarUrl)
+
         app.getiHaveUid(function (iHaveUid) {
           let haveUid = iHaveUid
           let uid = ''

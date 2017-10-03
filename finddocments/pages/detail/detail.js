@@ -354,6 +354,7 @@ Page({
         that.setData({
           userInfo: userInfo
         })
+        dataService.PushUserPic(that.data.session, userInfo.nickName, userInfo.avatarUrl)
       })
       app.getiVip(function (iVip) {
         that.setData({

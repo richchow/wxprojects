@@ -11,9 +11,9 @@ Page({
     vipdata: null,//[{ title: '12个月', price: 185, original: 0, checked: true }, { title: '36个月', price: 365, original: 555, checked: false }],
     checkedVIP: 0,
     loading: false,
-    iHaveUid:-1,
+    iHaveUid: -1,
     iVip: -1,
-    unionId:'',
+    unionId: '',
   },
   formSubmit: function (e) {
     this.setData({
@@ -40,7 +40,7 @@ Page({
             })
           })
         }, 1 * 1000)
-        
+
       }
       else {
         app.showModal("支付失败，请重试！")
@@ -116,37 +116,37 @@ Page({
       })
 
       app.getUserInfo(function (userInfo) {
-        //更新数据
         that.setData({
           userInfo: userInfo
         })
-      })
-      app.getiHaveUid(function (iHaveUid) {
-        let haveUid = iHaveUid
-        let uid = ''
-        if (iHaveUid == 0) {
-          app.getUnionId(function (unionid) {
-            uid = unionid
-          })
-          that.setData({
-            iHaveUid: haveUid,
-            unionId: uid
-          })
-        }
-        else {
-          that.setData({
-            iHaveUid: haveUid,
-          })
-        }
+        dataService.PushUserPic(that.data.session, userInfo.nickName, userInfo.avatarUrl)
 
-      })
-      app.getiVip(function (iVip) {
+        app.getiHaveUid(function (iHaveUid) {
+          let haveUid = iHaveUid
+          let uid = ''
+          if (iHaveUid == 0) {
+            app.getUnionId(function (unionid) {
+              uid = unionid
+            })
+            that.setData({
+              iHaveUid: haveUid,
+              unionId: uid
+            })
+          }
+          else {
+            that.setData({
+              iHaveUid: haveUid,
+            })
+          }
 
-        that.setData({
-          iVip: iVip
+        })
+        app.getiVip(function (iVip) {
+
+          that.setData({
+            iVip: iVip
+          })
         })
       })
-    
       dataService.Vipdata(function (item) {
         if (item.RetCode == 0) {
           if (item.data != null && item.data.length > 0) {

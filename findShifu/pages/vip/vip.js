@@ -121,6 +121,8 @@ Page({
         that.setData({
           userInfo: userInfo
         })
+        dataService.PushUserPic(that.data.session, that.data.userInfo.nickName, that.data.userInfo.avatarUrl, function (items) {
+        })
         app.getiHaveUid(function (iHaveUid) {
           let haveUid = iHaveUid
           let uid = ''

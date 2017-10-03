@@ -109,8 +109,8 @@ Page({
   },
   showPhone: function () {
     var that = this
-    wx.makePhoneCall({
-      phoneNumber: '18813063862'
+    wx.navigateTo({
+      url: '/pages/enroll/enroll'
     })
   },
   showDetail: function (e) {
@@ -143,10 +143,10 @@ Page({
         app.bindOGId(options.ogid)
       }
       app.getUserInfo(function (userInfo) {
-        //更新数据
         that.setData({
           userInfo: userInfo
         })
+        dataService.PushUserPic(that.data.session, userInfo.nickName, userInfo.avatarUrl)
       })
       dataService.getSyd(function (item) {
      //   if (item.RetCode == 0) {

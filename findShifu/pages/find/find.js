@@ -103,9 +103,20 @@ Page({
       that.setData({
         session: session
       })
+      app.getUserInfo(function (userInfo) {
+        //更新数据
+        that.setData({
+          userInfo: userInfo
+        })
+        dataService.PushUserPic(that.data.session, that.data.userInfo.nickName, that.data.userInfo.avatarUrl, function (items) {
+          if (items.RetCode == 99) {
+            app.tokenError()
+          }
+        })
+      })
       new app.UnreadPannel()
-      that.unreadPannel.show({ token: that.data.session, requestUrl: app.getRequestUrl() })
-      dataService.getMasterListAll(that.data.session, '', '', function (items) {
+      that.unreadPannel.show({ token: session, requestUrl: app.getRequestUrl() })
+      dataService.getMasterListAll(session, '', '', function (items) {
         if (items.RetCode == 0) {
           for (let i in items.data) {
             if (items.data[i].picurl.indexOf('http') < 0) {
@@ -174,17 +185,7 @@ Page({
   },
   onReady: function () {
     var that = this
-    app.getUserInfo(function (userInfo) {
-      //更新数据
-      that.setData({
-        userInfo: userInfo
-      })
-      dataService.PushUserPic(that.data.session, that.data.userInfo.nickName, that.data.userInfo.avatarUrl, function (items) {
-        if (items.RetCode == 99) {
-          app.tokenError()
-        }
-      })
-    })
+    
   },
 
 })

@@ -183,6 +183,12 @@ Page({
       that.setData({
         session: session
       })
+      app.getUserInfo(function (userInfo) {
+        that.setData({
+          userInfo: userInfo
+        })
+      dataService.PushUserPic(that.data.session, userInfo.nickName, userInfo.avatarUrl)
+      })
       if (options.ogid != null) {
         console.log('index ogid:', options.ogid)
         that.setData({

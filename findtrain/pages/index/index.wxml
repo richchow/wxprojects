@@ -23,7 +23,7 @@
     </navigator>
   </view>
   <view class="searchContent2" bindtap="showPhone">
-    <image src="/images/join.png" style="width:750rpx;" mode="widthFix"></image>
+    <image src="/images/youhui.png" style="width:750rpx;" mode="widthFix"></image>
   </view>
   <view  class="searchContent">
     <label class="labtitle">- 推荐机构 -</label>
