@@ -55,12 +55,12 @@
         <view class="weui-cell__bd">关于BIM找师傅</view>
         <view class="weui-cell__ft weui-cell__ft_in-access cell_ft_new"></view>
       </navigator>
-      <view bindtap='bindFollow' class="v_m_follow">关注公众号“AIB平台”</view>
+      <view bindtap='showFollowModal' class="v_m_follow">关注公众号“AIB平台”</view>
     </view>
   </view>
   <image class="bottomBtn_more" bindtap='bindShowMore' data-show='true' wx:if="{{!showMore}}" src='/images/more.svg'></image>
   <view class='v_more' wx:if="{{showMore}}">
-    <image class="bottomVIPBtn" bindtap='bindShowAd' data-src='/images/ad/aib.png' data-adval="0" src='/images/logo/aib.png'></image>
+    <image class="bottomVIPBtn" bindtap='showFollowModal' data-src='/images/ad/aib.png' data-adval="0" src='/images/logo/aib.png'></image>
     <image class="bottomVIPBtn" bindtap='bindShowAd' data-src='/images/ad/finddocument.png' data-adval="1" src='/images/logo/finddocument.png'></image>
     <image class="bottomVIPBtn" bindtap='bindShowAd' data-src='/images/ad/findtrain.png' data-adval="2" src='/images/logo/findtrain.png'></image>
     <image class="bottomVIPBtn" bindtap='bindToVIP' src='/images/crown.svg'></image>

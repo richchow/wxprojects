@@ -6,6 +6,7 @@ var util = require('../../utils/util.js')
 var md5 = require('../../utils/md5.js')
 Page({
   data: {
+    showFollowModalStatus: false,
     showModalStatus: false,
     ogid:0,
     animationData: {},
@@ -29,6 +30,22 @@ Page({
       }
     ],
     userInfo: {}
+  },
+  showFollowModal: function () {
+    var that = this
+    wx.setClipboardData({
+      data: 'AIB平台',
+      success: function (res) {
+        that.setData({
+          showFollowModalStatus: true,
+        })
+      }
+    })
+  },
+  hideFollowModal: function () {
+    this.setData({
+      showFollowModalStatus: false,
+    })
   },
   showModal: function () {
     // 显示遮罩层

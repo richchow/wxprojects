@@ -3,6 +3,7 @@ var dataService = require('../../providers/dataService')
 var payService = require('../../providers/payService')
 Page({
   data: {
+    showFollowModalStatus: false,
     showLoading: false,
     session: '',
     sfItems: {},
@@ -13,6 +14,22 @@ Page({
     adlist: ['', 'wx44dbe6d3e959af20', 'wx1db224ea2421cc64'],
     showMore: false,
     ogid: 0,
+  },
+  showFollowModal: function () {
+    var that = this
+    wx.setClipboardData({
+      data: 'AIB平台',
+      success: function (res) {
+        that.setData({
+          showFollowModalStatus: true,
+        })
+      }
+    })
+  },
+  hideFollowModal: function () {
+    this.setData({
+      showFollowModalStatus: false,
+    })
   },
   showModal: function () {
     // 显示遮罩层
@@ -93,6 +110,47 @@ Page({
   },
 
   onShow: function () {
+    
+  },
+  onLoad: function (options) {
+    //  let scene = 'br_11,uid_49'
+
+    let scene = decodeURIComponent(options.scene)
+    console.log('find scene:', scene)
+    if (scene != null) {
+      let bval = scene.split(',')
+      if (bval.length == 2) {
+        let roomid = bval[0].split('_')
+        let uid = bval[1].split('_')
+        if (roomid.length == 2 && uid.length == 2) {
+          app.getSession(function (session) {
+            console.log('session:', scene, ',uid[1]:', uid[1], ',roomid[1]:', roomid[1])
+            dataService.binAgent(session, uid[1], roomid[1], function (items) {
+              console.log('binAgent:', items)
+              if (items.RetCode == 0) {
+                wx.redirectTo({
+                  url: '/pages/shifu/shifu?id=' + items.data[0],
+                })
+              }
+
+            })
+          })
+        }
+      }
+      else {
+        let val = scene.split('_')
+        if (val.length == 2) {
+          wx.redirectTo({
+            url: '/pages/passkey/passkey?id=' + val[1],
+          })
+        }
+      }
+    }
+    if (options.ogid != null) {
+      console.log('index ogid:', options.ogid)
+      this.setData({ ogid: options.ogid})
+        app.bindOGId(options.ogid)
+    }
     var that = this
     this.setData({
       showLoading: true,
@@ -139,46 +197,6 @@ Page({
         showLoading: false
       })
     })
-  },
-  onLoad: function (options) {
-    //  let scene = 'br_11,uid_49'
-
-    let scene = decodeURIComponent(options.scene)
-    console.log('find scene:', scene)
-    if (scene != null) {
-      let bval = scene.split(',')
-      if (bval.length == 2) {
-        let roomid = bval[0].split('_')
-        let uid = bval[1].split('_')
-        if (roomid.length == 2 && uid.length == 2) {
-          app.getSession(function (session) {
-            console.log('session:', scene, ',uid[1]:', uid[1], ',roomid[1]:', roomid[1])
-            dataService.binAgent(session, uid[1], roomid[1], function (items) {
-              console.log('binAgent:', items)
-              if (items.RetCode == 0) {
-                wx.redirectTo({
-                  url: '/pages/shifu/shifu?id=' + items.data[0],
-                })
-              }
-
-            })
-          })
-        }
-      }
-      else {
-        let val = scene.split('_')
-        if (val.length == 2) {
-          wx.redirectTo({
-            url: '/pages/passkey/passkey?id=' + val[1],
-          })
-        }
-      }
-    }
-    if (options.ogid != null) {
-      console.log('index ogid:', options.ogid)
-      this.setData({ ogid: options.ogid})
-        app.bindOGId(options.ogid)
-    }
   },
   onHide: function () {
     this.unreadPannel.hiden()

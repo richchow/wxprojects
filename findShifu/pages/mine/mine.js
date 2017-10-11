@@ -15,15 +15,6 @@ Page({
     showMore: false,
     ogid: 0,
   },
-  bindFollow:function(e){
-    var that = this
-    wx.setClipboardData({
-      data: 'AIB平台',
-      success: function (res) {
-        that.showFollowModal()
-      }
-    })
-  },
    showModal: function () {
     // 显示遮罩层
     var animation = wx.createAnimation({
@@ -65,11 +56,15 @@ Page({
     }.bind(this), 200)
   },
   showFollowModal: function () {
-   
-    this.setData({
-      showFollowModalStatus: true,
+    var that = this
+    wx.setClipboardData({
+      data: 'AIB平台',
+      success: function (res) {
+        that.setData({
+          showFollowModalStatus: true,
+        })
+      }
     })
-
   },
   hideFollowModal: function () {
     this.setData({

@@ -5,6 +5,7 @@ var dataService = require('../../providers/dataService')
 var message = ''
 Page({
   data: {
+    showFollowModalStatus: false,
     showModalStatus: false,
     animationData: {},
     adimg: '',
@@ -51,6 +52,22 @@ Page({
     docItems: [],
     userInfo: {},
     ogid: 0,
+  },
+  showFollowModal: function () {
+    var that = this
+    wx.setClipboardData({
+      data: 'AIB平台',
+      success: function (res) {
+        that.setData({
+          showFollowModalStatus: true,
+        })
+      }
+    })
+  },
+  hideFollowModal: function () {
+    this.setData({
+      showFollowModalStatus: false,
+    })
   },
   showModal: function () {
     // 显示遮罩层
@@ -187,7 +204,7 @@ Page({
         that.setData({
           userInfo: userInfo
         })
-      dataService.PushUserPic(that.data.session, userInfo.nickName, userInfo.avatarUrl)
+        dataService.PushUserPic(that.data.session, userInfo.nickName, userInfo.avatarUrl)
       })
       if (options.ogid != null) {
         console.log('index ogid:', options.ogid)

@@ -124,94 +124,7 @@ text-align: left;
   border-bottom-right-radius: 18px;
 }
 
-.sharebox {
-  width: 100%;
-  overflow: hidden;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  z-index: 1000;
-  background: #ccc;
-  padding-top: 20rpx;
-  height: 100%;
-  opacity: 0.7;
-  filter: alpha(opacity=70);
-}
 
-.sharecontent {
-  width: 80%;
-  overflow: hidden;
-  position: fixed;
-  z-index: 2000;
-  background: #fffffe;
-  padding-top: 20rpx;
-  height: 80%;
-  text-align: center;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  margin: auto;
-  border-radius: 5px;
-}
-
-.userinfo {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.userinfo-avatar {
-  width: 128rpx;
-  height: 128rpx;
-  margin: 20rpx;
-  border-radius: 50%;
-}
-
-.info-name {
-  margin-top: 10px;
-  font-size: 12px;
-}
-
-.info-content {
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.info-title {
-  font-size: 18px;
-  width: 100%;
-  text-align: center;
-}
-
-.info-text {
-  font-size: 14px;
-  color: #a0a0a0;
-  text-align: left;
-  line-height: 60rpx;
-  padding: 10px;
-}
-
-.info-bottom {
-  position: absolute;
-  width: 100%;
-  text-align: center;
-  line-height: 40px;
-  z-index: 2100;
-  bottom: 0;
-}
-
-.info-bottom-lab {
-  width: 100%;
-  font-size: 10px;
-}
-
-.info-icon {
-  display: block;
-  bottom: -50px;
-}
 
 .bottomBtn {
   position: fixed;
@@ -246,4 +159,56 @@ text-align: left;
   height: 150rpx;
   z-index: 4000;
   float: right;
+}
+.sharebox {
+  width: 100%;
+  overflow: hidden;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 5000;
+  background: #000;
+  padding-top: 20rpx;
+  height: 100%;
+  opacity: 0.7;
+  filter: alpha(opacity=70);
+}
+.v_m_modal {
+  width: 80%;
+  overflow: hidden;
+  position: fixed;
+  z-index: 5000;
+  background: #fffffe;
+  padding-top: 16px;
+  display:table;
+  text-align: center;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  border-radius: 5px;
+  border: #cdcdcd 1px solid;
+}
+
+.v_m_modal image {
+  width: 90%;
+  height: auto;
+  margin: 0 auto;
+  border: #cdcdcd 1px solid;
+}
+.v_m_describe{
+  font-size: 14px;
+  color: #707070;
+  width: 90%;
+  margin: auto;
+}
+.v_m_bottom{
+  border-top: #cdcdcd 1px solid;
+  font-size: 20px;
+  color: #14b3c7;
+  font-weight: 500;
+  margin-top: 10px;
+  height: 50px;
+  line-height: 50px;
 }
