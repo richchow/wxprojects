@@ -6,6 +6,12 @@ var dataService = require('../../providers/dataService.js')
 var payService = require('../../providers/payService.js')
 Page({
   data: {
+    showFollowModalStatus: false,
+    showModalStatus2: false,
+    adimg: '',
+    adval: 0,
+    adlist: ['', 'wx44dbe6d3e959af20', 'wx13615b6f53349865'],
+    showMore: false,
     loading: false,
     session: '',
     showLoading: false,
@@ -24,6 +30,98 @@ Page({
           { id: 3, companyname: '柏慕联创', call: '18612121474', price: '200', pricedes: '价值¥5000', title: 'revit课程代金券3', des1: '课程价格:¥10000', des2: '开课时间:每年8月', des3: '使用地址:北京', detail: '333' },
           { id: 4, companyname: '柏慕联创', call: '18612121474', price: '200', pricedes: '价值¥5000', title: 'revit课程代金券4', des1: '课程价格:¥10000', des2: '开课时间:每年8月', des3: '使用地址:北京', detail: '444' }],
       } */
+  },
+  bindShare:function(){
+    wx.showShareMenu({
+    })
+  },
+  showModal2: function () {
+    // 显示遮罩层
+    var animation = wx.createAnimation({
+      duration: 200,
+      timingFunction: "linear",
+      delay: 0
+    })
+    this.animation = animation
+    animation.translateY(300).step()
+    this.setData({
+      animationData: animation.export(),
+      showModalStatus2: true,
+    })
+    setTimeout(function () {
+      animation.translateY(0).step()
+      this.setData({
+        animationData: animation.export()
+      })
+    }.bind(this), 200)
+  },
+  hideModal2: function () {
+    // 隐藏遮罩层
+    var animation = wx.createAnimation({
+      duration: 200,
+      timingFunction: "linear",
+      delay: 0
+    })
+    this.animation = animation
+    animation.translateY(300).step()
+    this.setData({
+      animationData: animation.export(),
+    })
+    setTimeout(function () {
+      animation.translateY(0).step()
+      this.setData({
+        animationData: animation.export(),
+        showModalStatus2: false
+      })
+    }.bind(this), 200)
+  },
+  bindToApp: function (e) {
+    let adval = this.data.adval
+    let list = this.data.adlist
+    let pathlist = ['', 'pages/index/index', 'pages/find/find']
+    let addogid = this.data.ogid == 0 ? '' : '?ogid=' + this.data.ogid
+    console.log(list[adval])
+    if (adval == 1 || adval == 2) {
+      wx.navigateToMiniProgram({
+        appId: list[adval],
+        path: pathlist[adval] + addogid,
+        //    extraData: { ogid: this.data.ogid},
+        envVersion: 'trial',
+        success(res) {
+        }
+      })
+    }
+  },
+  bindShowAd: function (e) {
+    let src = e.currentTarget.dataset.src
+    let adval = e.currentTarget.dataset.adval
+    this.setData({
+      adimg: src,
+      adval: adval,
+    })
+    this.showModal2()
+  },
+  showFollowModal: function () {
+    var that = this
+    wx.setClipboardData({
+      data: 'AIB平台',
+      success: function (res) {
+        that.setData({
+          showFollowModalStatus: true,
+        })
+      }
+    })
+  },
+  hideFollowModal: function () {
+    this.setData({
+      showFollowModalStatus: false,
+    })
+  },
+  bindShowMore: function (e) {
+    let show = e.currentTarget.dataset.show
+    this.setData({
+      showMore: show == 'true' ? true : false,
+    })
   },
   bindStatus: function (e) {
     let c = e.currentTarget.dataset.c

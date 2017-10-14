@@ -42,12 +42,10 @@ Page({
                 wx.playVoice({
                   filePath: savedFilePath,
                   success: function (res) {
-                    let time = Number(e.currentTarget.dataset.time) * 1000
-                    setTimeout(function () {
-                      wx.stopVoice()
+                    
                       vA[e.currentTarget.dataset.idx] = false
                       that.setData({ voicelist: vA })
-                    }, time)
+                    
                   },
                   fail: function () {
                   },
@@ -177,5 +175,12 @@ Page({
   },
   onHide: function () {
     this.unreadPannel.hiden()
+  },
+  onShareAppMessage: function () {
+    var that = this
+    return {
+      title: 'BIM找师傅',
+      path: '/pages/shifu/shifu?id='+that.data.id
+    }
   },
 })

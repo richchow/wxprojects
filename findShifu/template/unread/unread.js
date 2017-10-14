@@ -2,7 +2,7 @@ var templateService = require('../../providers/templateService')
 var time
 let _compData = {
   '__urpanel__.unreadnum': '',
-  '__urpanel__.showUnread': 2,
+  '__urpanel__.showUnread': 2, //0:show;1:small;2:hidden;
   '__urpanel__.animationData': {},
   '__urpanel__.token': '',
   '__urpanel__.dataService': null,
@@ -104,6 +104,7 @@ let _compEvent = {
           that.setData({
             '__urpanel__.unreadnum': items.data != null && items.data.length > 0 ? items.data[0] : '',
           })
+          console.log('__urpanel__.unreadnum', that.data.__urpanel__.unreadnum)
           if (that.data.__urpanel__.unreadnum == '' && that.data.__urpanel__.showUnread != 2){
             that.__urpanel__hideUnread()
           }

@@ -20,6 +20,7 @@ Page({
       console.log('passkey:', that.data.session, that.data.id, e.detail.value)
       dataService.EnterRoomCheck(that.data.session, that.data.id, e.detail.value, function (items) {
         if (items.RetCode == 0) {
+          app.setBBflush(true)
           wx.redirectTo({
             url: '/pages/biggroup/biggroup?masterid=' + items.data[0],
           })

@@ -47,15 +47,14 @@ Page({
               tempFilePath: res.tempFilePath,
               success: function (res) {
                 var savedFilePath = res.savedFilePath
+                let testtie = 0
                 wx.playVoice({
                   filePath: savedFilePath,
                   success: function (res) {
-                    let time = Number(e.currentTarget.dataset.time) * 1000
-                    setTimeout(function () {
-                      wx.stopVoice()
-                      vA[e.currentTarget.dataset.idx] = false
-                      that.setData({ voicelist: vA })
-                    }, time)
+
+                    vA[e.currentTarget.dataset.idx] = false
+                    that.setData({ voicelist: vA })
+
                   },
                   fail: function () {
                   },
@@ -239,7 +238,7 @@ Page({
   onShow: function () {
     var that = this
     let flush = false
-    app.getBBflush(function(status){
+    app.getBBflush(function (status) {
       flush = status
       if (flush) {
         that.setData({

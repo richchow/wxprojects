@@ -26,6 +26,7 @@ Page({
     })
     var err = true
     var that = this
+    console.log('e.detail.value.content:', e.detail.value.content)
     if (e.detail.value.content != ''
       || this.data.succesimg != ''
       || this.data.succestalk != ''

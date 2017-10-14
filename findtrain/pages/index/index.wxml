@@ -42,7 +42,7 @@
     <image class="bottomVIPBtn" bindtap='bindShowAd' data-src='/images/ad/finddocument.png' data-adval="1" src='/images/logo/finddocument.png'></image>
     <image class="bottomVIPBtn" bindtap='bindShowAd' data-src='/images/ad/findshifu.png' data-adval="2" src='/images/logo/findshifu.png'></image>
     <image class="bottomVIPBtn" bindtap='bindToVIP' src='/images/crown.svg'></image>
-    <contact-button class="bottomContactBtn" type="default-light" session-from="BIM找资料"> </contact-button>
+    <contact-button class="bottomContactBtn" type="default-light" session-from="BIM找机构"> </contact-button>
     <image class="bottomBtn_nomore" bindtap='bindShowMore' data-show='false' src='/images/toback.svg'></image>
   </view>
 </view>

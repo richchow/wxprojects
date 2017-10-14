@@ -1,13 +1,17 @@
 <view class="loading" wx:if="{{showLoading}}">
-      <image class="loadinggif" src="/images/loading.gif" />
-    </view>
+  <image class="loadinggif" src="/images/loading.gif" />
+</view>
 <view wx:if="{{showLoading == false}}" class="container">
   <view class="v_status">
-    <view bindtap='bindStatus' data-c='0' class="{{checked[0] ? 'checked':''}}">代金券 <block wx:if="{{list.courselist.length >0}}">({{list.courselist.length}})</block></view>
-    <view bindtap='bindStatus' data-c='1' class="{{checked[1] ? 'checked':''}}">已领取 <block wx:if="{{list.payedlist.length >0}}">({{list.payedlist.length}})</block></view>
+    <view bindtap='bindStatus' data-c='0' class="{{checked[0] ? 'checked':''}}">代金券
+      <block wx:if="{{list.courselist.length >0}}">({{list.courselist.length}})</block>
+    </view>
+    <view bindtap='bindStatus' data-c='1' class="{{checked[1] ? 'checked':''}}">已领取
+      <block wx:if="{{list.payedlist.length >0}}">({{list.payedlist.length}})</block>
+    </view>
   </view>
   <view class="v_use">
-   <label wx:if="{{iVip.isVip !=0}}" class="v_use_left" bindtap='bindToVIP'>
+    <label wx:if="{{iVip.isVip !=0}}" class="v_use_left" bindtap='bindToVIP'>
       <image src="/images/crown.svg" />VIP会员免费领取全部代金券
     </label>
     <label bindtap='bindToUse'>
@@ -23,8 +27,12 @@
       </view>
       <view class="mview">
         <view class="mview_price">
-          <view wx:if="{{iVip.isVip !=0}}" class="mview_amount">¥<label>{{item.price}}</label></view>
-          <view wx:else class="mview_amount"><label>免费</label></view>
+          <view wx:if="{{iVip.isVip !=0}}" class="mview_amount">¥
+            <label>{{item.price}}</label>
+          </view>
+          <view wx:else class="mview_amount">
+            <label>免费</label>
+          </view>
           <view class="mview_amount_des">{{item.pricedes}}</view>
         </view>
         <view class="mview_content">
@@ -39,7 +47,9 @@
         <view>{{item.detail}}</view>
       </view>
     </view>
-    <view wx:if="{{iVip.isVip == 0 }}" class="viplist"><image src="/images/cenroll.png" mode="widthFix" /></view>
+    <view wx:if="{{iVip.isVip == 0 }}" class="viplist">
+      <image src="/images/cenroll.png" mode="widthFix" />
+    </view>
   </block>
   <block wx:if="{{checked[1]}}">
     <view wx:for="{{list.payedlist}}" wx:for-item="item" wx:for-index="idx" class="topSelect">
@@ -50,8 +60,12 @@
       </view>
       <view class="mview">
         <view class="mview_price">
-          <view wx:if="{{iVip.isVip !=0}}" class="mview_amount">¥<label>{{item.price}}</label></view>
-          <view wx:else class="mview_amount"><label>免费</label></view>
+          <view wx:if="{{iVip.isVip !=0}}" class="mview_amount">¥
+            <label>{{item.price}}</label>
+          </view>
+          <view wx:else class="mview_amount">
+            <label>免费</label>
+          </view>
           <view class="mview_amount_des">{{item.pricedes}}</view>
         </view>
         <view class="mview_content">
@@ -60,14 +74,22 @@
           <view class="mview_des">{{item.des2}}</view>
           <view class="mview_des">{{item.des3}}</view>
         </view>
-        <view  class="mview_pay">已领取</view>
+        <view class="mview_pay">已领取</view>
       </view>
       <view class="dview">
         <view>{{item.detail}}</view>
       </view>
     </view>
   </block>
-  <contact-button class="bottomBtn" type="default-light" size="20" session-from="weapp"> </contact-button>
+  <image class="bottomBtn_more" bindtap='bindShowMore' data-show='true' wx:if="{{!showMore}}" src='/images/more.svg'></image>
+  <view class='v_more' wx:if="{{showMore}}">
+    <image class="bottomVIPBtn" bindtap='showFollowModal' data-src='/images/ad/aib.png' data-adval="0" src='/images/logo/aib.png'></image>
+    <image class="bottomVIPBtn" bindtap='bindShowAd' data-src='/images/ad/finddocument.png' data-adval="1" src='/images/logo/finddocument.png'></image>
+    <image class="bottomVIPBtn" bindtap='bindShowAd' data-src='/images/ad/findshifu.png' data-adval="2" src='/images/logo/findshifu.png'></image>
+    <image class="bottomVIPBtn" bindtap='bindToVIP' src='/images/crown.svg'></image>
+    <contact-button class="bottomContactBtn" type="default-light" session-from="BIM找机构"> </contact-button>
+    <image class="bottomBtn_nomore" bindtap='bindShowMore' data-show='false' src='/images/toback.svg'></image>
+  </view>
 </view>
 <view class="sharebox" wx:if="{{showModalStatus}}"></view>
 <view animation="{{animationData}}" class="sharecontent" wx:if="{{showModalStatus}}">
@@ -87,4 +109,12 @@
   <view class="info-bottom" wx:if="{{showModalStatus}}">
     <icon bindtap="hideModal" class="info-icon" type="clear" size="40" color="#000000" />
   </view>
+</view>
+<image class="ad_img" src="{{adimg}}" bindtap='bindToApp' animation="{{animationData}}" wx:if="{{showModalStatus2}}" mode='widthFix'></image>
+<icon bindtap="hideModal2" animation="{{animationData}}" wx:if="{{showModalStatus2}}" class="close-icon" type="clear" size="40" color="#00adc2" />
+<view class="sharebox2" bindtap='hideFollowModal' wx:if="{{showFollowModalStatus}}"></view>
+<view class='v_m_modal' wx:if="{{showFollowModalStatus}}">
+  <image src='/images/follow.jpg' mode='widthFix'></image>
+  <view class='v_m_describe'>已复制“AIB平台”，在微信搜索长按粘贴即可关注，并实时收到推送</view>
+  <view bindtap='hideFollowModal' class='v_m_bottom'>知道了</view>
 </view>

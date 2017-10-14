@@ -74,17 +74,16 @@ Page({
       }
       message[idx].isPlay = true
       that.setData({ message: message })
+      let testtime = 0
       wx.playVoice({
         filePath: e.currentTarget.dataset.talk,
         success: function () {
         },
         complete: function () {
-          let time = Number(e.currentTarget.dataset.time) * 1000
-          setTimeout(function () {
-            wx.stopVoice()
-            message[idx].isPlay = false
-            that.setData({ message: message })
-          }, time)
+
+          message[idx].isPlay = false
+          that.setData({ message: message })
+
         }
       })
     }

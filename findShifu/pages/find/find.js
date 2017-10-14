@@ -110,6 +110,10 @@ Page({
   },
 
   onShow: function () {
+    if (this.data.session != ''){
+      new app.UnreadPannel()
+      this.unreadPannel.show({ token: this.data.session, requestUrl: app.getRequestUrl() })
+    }
     
   },
   onLoad: function (options) {
@@ -205,5 +209,10 @@ Page({
     var that = this
     
   },
-
+  onShareAppMessage: function () {
+    return {
+      title: 'BIM找师傅',
+      path: '/pages/find/find'
+    }
+  },
 })
