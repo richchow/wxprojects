@@ -61,7 +61,7 @@ Page({
               success: function (res) {
                 that.setData({
                   picurl: res.tempFilePath,
-                  remark: '扫描此图片进入房间不收取拜师费',
+                  remark: '点击图片保存到相册，分享到朋友圈邀请更多人围观',
                 })
               }
             })

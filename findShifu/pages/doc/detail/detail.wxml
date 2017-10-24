@@ -1,0 +1,33 @@
+<view class="loading" wx:if="{{showLoading}}">
+  <image class="loadinggif" src="/images/loading.gif" />
+</view>
+<view class="page" wx:if="{{showLoading===false}}">
+  <image class='bannerimg' model='widthFix' src="/images/doc.png" />
+  <view class="amountview">
+    <label class="pTitle">{{datainfo.title}}</label>
+    <label class="amount">¥ {{datainfo.amount}}</label>
+  </view>
+  <view class="content">
+    <label class="describetitle">- 资料详情 -</label>
+    <label class="describecontent">{{datainfo.describe}}</label>
+  </view>
+  <view bindtap="pay" class="bottomleftBtn">
+    查看链接
+  </view>
+  <view class="sharebox" wx:if="{{showModalUrlStatus}}"></view>
+  <view class="card shareurlcontent " wx:if="{{showModalUrlStatus}}">
+    <view class="classname">您的专属资料卡</view>
+    <view class="url_view">
+      <label>地址:</label>
+      <text class="docurl" bindtap="bindFollow" data-val="地址:{{datainfo.url}}\n提取码:{{datainfo.signature}}" selectable="true">{{datainfo.url}}</text>
+    </view>
+    <view class="url_view">
+      <label>提取码:</label>
+      <text class="docurl" bindtap="bindFollow" data-val="地址:{{datainfo.url}}\n提取码:{{datainfo.signature}}" selectable="true">{{datainfo.signature}}</text>
+    </view>
+    <label class="payedtitle">长按橙色文字可复制地址和提取码</label>
+    <view class="info-bottom" wx:if="{{showModalUrlStatus}}">
+      <icon bindtap="hideModal" class="info-icon" type="clear" size="30" color="#00adc2" />
+    </view>
+  </view>
+</view>

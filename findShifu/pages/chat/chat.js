@@ -6,6 +6,7 @@ var inttime
 var requesttime
 Page({
   data: {
+    PushingContent:true,
     showLoading: false,
     ischatpayed: false,
     iFinished: true,
@@ -108,7 +109,13 @@ Page({
             tempFilePath: temp,
             success: function (res) {
               that.setCurrData(res.savedFilePath, '', 3, that.data.userInfo.avatarUrl, true, time, function (item) {
+                that.setData({
+                  PushingContent:false
+                })
                 subRoomService.SRPushContent(that.data.session, that.data.chatid, '', Number('3' + time), res.savedFilePath, function (items) {
+                  that.setData({
+                    PushingContent: true
+                  })
                   if (items.RetCode != 0) {
                     that.syncError(item)
                   }
@@ -170,7 +177,13 @@ Page({
             tempFilePath: temp,
             success: function (res) {
               that.setCurrData(res.savedFilePath, '', 1, that.data.userInfo.avatarUrl, true, 0, function (item) {
+                that.setData({
+                  PushingContent: false
+                })
                 subRoomService.SRPushContent(that.data.session, that.data.chatid, '', 1, res.savedFilePath, function (items) {
+                  that.setData({
+                    PushingContent: true
+                  })
                   if (items.RetCode != 0) {
                     that.syncError(item)
                   }
@@ -330,14 +343,16 @@ Page({
                   })
                 }
                 requesttime = setInterval(function () {
-                  subRoomService.SRContent(that.data.session, that.data.chatid, function (sitems) {
-                    if (sitems.RetCode == 0) {
-                      that.setSyncData(sitems)
-                    }
-                    else if (sitems.RetCode == -1) {
-                      app.showModal('数据获取错误，请稍后重试')
-                    }
-                  })
+                  if (that.data.PushingContent){
+                    subRoomService.SRContent(that.data.session, that.data.chatid, function (sitems) {
+                      if (sitems.RetCode == 0) {
+                        that.setSyncData(sitems)
+                      }
+                      else if (sitems.RetCode == -1) {
+                        app.showModal('数据获取错误，请稍后重试')
+                      }
+                    })
+                  }
                 }, 10000)
               }
               else {
@@ -379,7 +394,13 @@ Page({
     var that = this
     if (this.data.inputValue != null && this.data.inputValue.trim() !== '') {
       this.setCurrData(this.data.inputValue, '', 4, this.data.userInfo.avatarUrl, true, 0, function (item) {
+        that.setData({
+          PushingContent: false
+        })
         subRoomService.SRPushContent(that.data.session, that.data.chatid, that.data.inputValue, 4, '', function (items) {
+          that.setData({
+            PushingContent: true
+          })
           if (e.detail.formId != undefined && e.detail.formId != 'the formId is a mock one') {
             dataService.PushTemplateFormID(that.data.session, 1, e.detail.formId)
           }

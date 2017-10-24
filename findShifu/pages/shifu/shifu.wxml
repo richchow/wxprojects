@@ -7,6 +7,9 @@
   <view class="sf_card">
     <view class="sf_card_item">
       <view class="floatleft mastername">{{sfItem.mastername}}</view>
+      <view class="floatleft">
+        <image bindtap="bindToQCode" data-masterid="{{id}}" class="sf_card_qr" src="/images/qrcode.svg"></image>
+      </view>
       <view class="floatright">
         <image class="sf_card_userimg" src="{{sfItem.picurl}}"></image>
       </view>
@@ -14,22 +17,22 @@
     <view class="sf_card_item_col">
       <view>
         <image class="sf_card_lab" src="/images/phone.svg"></image>
-        <label wx:if="{{isVip!=0 && sfItem.iBuyed !=0 && sfItem.iOwner != 0}}">进入师傅空间后可见</label>
+        <label wx:if="{{isVip!=0 && sfItem.iBuyed !=0 && sfItem.iOwner != 0}}">点击查看师傅名片后可见</label>
         <label wx:if="{{isVip == 0 || sfItem.iBuyed ==0 || sfItem.iOwner == 0}}">{{sfItem.mobile == null ? '正在等待师傅补充内容' : sfItem.mobile}}</label>
       </view>
       <view>
         <image class="sf_card_lab" src="/images/weixin.svg"></image>
-        <label wx:if="{{isVip!=0 && sfItem.iBuyed !=0 && sfItem.iOwner != 0}}">进入师傅空间后可见</label>
+        <label wx:if="{{isVip!=0 && sfItem.iBuyed !=0 && sfItem.iOwner != 0}}">点击查看师傅名片后可见</label>
         <label wx:if="{{isVip == 0 || sfItem.iBuyed ==0 || sfItem.iOwner == 0}}">{{sfItem.wxid == null ? '正在等待师傅补充内容' : sfItem.wxid}}</label>
       </view>
       <view>
         <image class="sf_card_lab" src="/images/qq.svg"></image>
-        <label wx:if="{{isVip!=0 && sfItem.iBuyed !=0 && sfItem.iOwner != 0}}">进入师傅空间后可见</label>
+        <label wx:if="{{isVip!=0 && sfItem.iBuyed !=0 && sfItem.iOwner != 0}}">点击查看师傅名片后可见</label>
         <label wx:if="{{isVip == 0 || sfItem.iBuyed ==0 || sfItem.iOwner == 0}}">{{sfItem.mail == null ? '正在等待师傅补充内容' : sfItem.mail}}</label>
       </view>
       <view>
         <image class="sf_card_lab" src="/images/area.svg"></image>
-        <label wx:if="{{isVip!=0 && sfItem.iBuyed !=0 && sfItem.iOwner != 0}}">进入师傅空间后可见</label>
+        <label wx:if="{{isVip!=0 && sfItem.iBuyed !=0 && sfItem.iOwner != 0}}">点击查看师傅名片后可见</label>
         <label wx:if="{{isVip == 0 || sfItem.iBuyed ==0 || sfItem.iOwner == 0}}">{{sfItem.address == null ? '正在等待师傅补充内容':sfItem.address}}</label>
       </view>
     </view>
@@ -55,13 +58,13 @@
   <view class="backWhite sf_item_display">
     <view class="weui-flex">
       <view class="weui-flex__item sf_item_lab">
-        <image class="sf_item_img" src="/images/hot.svg"></image>人气：{{sfItem.iReadCount}}
+        <image class="sf_item_img" src="/images/hot.svg"></image>人气：{{sfItem.iRete}}
       </view>
       <view class="weui-flex__item sf_item_lab">
         <image class="sf_item_img" src="/images/order.svg"></image>服务：{{sfItem.iServiceCount}}次
       </view>
       <view class="weui-flex__item sf_item_lab_right">
-        <image class="sf_item_img" src="/images/feedback.svg"></image>评价：{{sfItem.iRete}}%
+        <image class="sf_item_img" src="/images/feedback.svg"></image>订阅：{{sfItem.iReadCount}}
       </view>
     </view>
   </view>
@@ -73,6 +76,22 @@
       </view>
     </view>
   </view>
+  <block>
+    <view  class="backWhite sf_doc  margin_top_20">
+      <view class='sf_doc_title'>师傅资料(共{{docItems.length}}个)
+        <label bindtap='bindToDocList'  data-masterid="{{id}}">更多</label>
+      </view>
+      <view>
+        <navigator url="/pages/doc/detail/detail?id={{docItems[docItems.length - 1].dataid}}" class="weui-media-box weui-media-box_appmsg backWhite" hover-class="weui-cell_active">
+          <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+            <view class="weui-media-box__title">{{docItems[docItems.length - 1].title}}</view>
+            <view class="weui-media-box__desc">{{docItems[docItems.length - 1].describe}}</view>
+          </view>
+          <view class="weui-cell__ft weui-cell__ft_in-access cell_ft_new"></view>
+        </navigator>
+      </view>
+    </view>
+  </block>
   <block wx:if="{{sfItem.lmroominfo.length > 0}}">
     <view class="backWhite margin_top_20 padding_top_20  bg_panel_user ">
       <view class="weui-media-box_appmsg paddingleft20">
@@ -80,20 +99,23 @@
           <image class="bg_panel_userimg" src="{{sfItem.picurl}}"></image>
         </view>
         <view class="weui-media-box__bd weui-media-box__bd_in-appmsg bg_panel_usercontent ">
-          <view>{{sfItem.mastername}}<label class="color_time">（最新）</label></view>
+          <view>{{sfItem.mastername}}
+            <label class="color_time">（最新）</label>
+          </view>
           <view class="color_time">{{sfItem.lmroominfo[0].cdate}}</view>
         </view>
       </view>
       <view class="page__bd_spacing2 size28 margin_right_20">{{sfItem.lmroominfo[0].mrcontent}}
         <view wx:if="{{sfItem.lmroominfo[0].ltFilesAudio != null && sfItem.lmroominfo[0].ltFilesAudio.length >0}}" wx:for="{{sfItem.lmroominfo[0].ltFilesAudio}}" wx:for-index="idx" wx:for-item="lf" class="bg_panel_filelist" style="width:{{lf.second*20}}rpx;min-width:300rpx;max-width:600rpx;"
           bindtap="playVoice" data-idx="{{idx}}" data-talk="{{appurl+lf.fileurl}}" data-time="{{lf.second}}">
-          <image class="bg_panel_filelist_file" src="{{voicelist[idx] ? '/images/talking.gif' :'/images/talk.svg'}}" mode="aspectFit" /><label class="labtime">{{lf.second}}"</label>
+          <image class="bg_panel_filelist_file" src="{{voicelist[idx] ? '/images/talking.gif' :'/images/talk.svg'}}" mode="aspectFit" />
+          <label class="labtime">{{lf.second}}"</label>
         </view>
         <view wx:if="{{sfItem.lmroominfo[0].ltFilesImg}}" class="bg_panel_imglist">
           <image wx:for="{{sfItem.lmroominfo[0].ltFilesImg}}" wx:for-item="lf" class="bg_panel_imglist_img" bindtap="showPhoto" data-id="{{sfItem.lmroominfo[0].ltFilesImg}}" data-src="{{appurl+lf.fileurl}}" src="{{appurl+lf.fileurl}}" mode="aspectFit" />
         </view>
-        <view  bindtap="playVideo" wx:if="{{sfItem.lmroominfo[0].ltFilesVideo.length > 0}}" wx:for="{{sfItem.lmroominfo[0].ltFilesVideo}}" wx:for-item="lf" data-src="{{lf.fileurl}}" class="bg_panel_imglist">
-        <image class="bg_panel_imglist_img" controls="false"  src="{{appurl+lf.Thumbnailurl}}"   />
+        <view bindtap="playVideo" wx:if="{{sfItem.lmroominfo[0].ltFilesVideo.length > 0}}" wx:for="{{sfItem.lmroominfo[0].ltFilesVideo}}" wx:for-item="lf" data-src="{{lf.fileurl}}" class="bg_panel_imglist">
+          <image class="bg_panel_imglist_img" controls="false" src="{{appurl+lf.Thumbnailurl}}" />
           <view class="sf_rolling_view">
             <image class="sf_rolling" src="/images/play.svg"></image>
           </view>
@@ -103,15 +125,25 @@
     <view class="sf_bottom_h"></view>
   </block>
 </view>
+<!--
 <view wx:if="{{showLoading == false && sfItem != null && (sfItem.iBuyed !=0 && isVip != 0) && sfItem.iOwner != 0}}" data-masterid="{{sfItem.masterid}}" bindtap="bindToPay" class="bottom_button">
   查看师傅所有内容
 </view>
 <view wx:elif="{{showLoading == false && (sfItem.iBuyed ==0 || isVip == 0) && sfItem.iOwner != 0}}" data-masterid="{{sfItem.masterid}}" bindtap="bindToBigGroup" class="bottom_button">
   进入师傅的空间
 </view>
+-->
+<block wx:if="{{showLoading == false && sfItem.iOwner !=0}}">
+  <view hidden="{{sfItem.iBuyed ==0 || isVip == 0}}" data-masterid="{{sfItem.masterid}}" bindtap="bindToPay" class="bottom_button_left">
+    查看师傅名片
+  </view>
+  <view data-masterid="{{sfItem.masterid}}" bindtap="bindToBigGroup" class="bottom_button_right">
+    进入师傅空间
+  </view>
+</block>
 <block wx:elif="{{showLoading == false && sfItem.iOwner ==0}}">
   <view data-masterid="{{sfItem.masterid}}" bindtap="bindToEdit" class="bottom_button_left">
-    编辑信息
+    编辑名片
   </view>
   <view data-masterid="{{sfItem.masterid}}" bindtap="bindToBigGroup" class="bottom_button_right">
     发表动态

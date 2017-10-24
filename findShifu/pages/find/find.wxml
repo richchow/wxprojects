@@ -4,6 +4,9 @@
   <image class="loadinggif" src="/images/loading.gif" />
 </view>
 <view class="page" wx:if="{{showLoading == false}}">
+<view class="page_flush" wx:if="{{showFlush}}">
+  下滑刷新获得最新内容
+</view>
   <view class="page__bd">
     <navigator wx:for="{{sfItems}}" wx:for-item="item" wx:key="masterid" url="/pages/shifu/shifu?id={{item.masterid}}" class="weui-media-box weui-media-box_appmsg backWhite" hover-class="weui-cell_active">
       <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
@@ -14,13 +17,13 @@
         <view class="weui-media-box__desc">{{item.profiles == null ? '正在等待师傅补充内容' : item.profiles}}</view>
         <view class="backWhite">
           <view class="sf_item_lab_left">
-            <image class="sf_item_img" src="/images/hot.svg"></image>人气：{{item.iReadCount}}
+            <image class="sf_item_img" src="/images/hot.svg"></image>人气：{{item.iRete}}
           </view>
           <view class="sf_item_lab">
             <image class="sf_item_img" src="/images/order.svg"></image>服务：{{item.iServiceCount}}次
           </view>
           <view class="sf_item_lab_right">
-            <image class="sf_item_img" src="/images/feedback.svg"></image>评价：{{item.iRete}}%
+            <image class="sf_item_img" src="/images/feedback.svg"></image>订阅：{{item.iReadCount}}
           </view>
         </view>
       </view>

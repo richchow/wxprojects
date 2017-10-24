@@ -23,7 +23,9 @@
     "pages/about/about",
     "pages/playvideo/playvideo",
     "pages/vip/vip",
-    "pages/help/help"
+    "pages/help/help",
+    "pages/doc/list/list",
+    "pages/doc/detail/detail"
   ],
   "window": {
     "backgroundTextStyle": "light",

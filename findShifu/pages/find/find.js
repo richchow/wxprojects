@@ -4,6 +4,7 @@ var payService = require('../../providers/payService')
 Page({
   data: {
     showFollowModalStatus: false,
+    showFlush:false,
     showLoading: false,
     session: '',
     sfItems: {},
@@ -180,6 +181,9 @@ Page({
       that.unreadPannel.show({ token: session, requestUrl: app.getRequestUrl() })
       dataService.getMasterListAll(session, '', '', function (items) {
         if (items.RetCode == 0) {
+          that.setData({
+            showFlush:true
+          })
           for (let i in items.data) {
             if (items.data[i].picurl.indexOf('http') < 0) {
               items.data[i].picurl = app.getRequestUrl() + 'MpicData/' + items.data[i].masterid + '/' + items.data[i].picurl
@@ -188,9 +192,13 @@ Page({
           that.setData({
             sfItems: items.data,
           })
+          setTimeout(function(){
+            that.setData({
+              showFlush: false
+            })
+          }, 2 * 1000)
         } else if (items.RetCode == 99) {
           app.tokenError()
-          that.onShow()
         }
         else {
           app.showModal("数据错误，请稍后重试");
@@ -200,6 +208,28 @@ Page({
       that.setData({
         showLoading: false
       })
+    })
+  },
+  onPullDownRefresh:function() {
+    var that = this
+    console.log('onPullDownRefresh start')
+    dataService.getMasterListAll(that.data.session, '', '', function (items) {
+      if (items.RetCode == 0) {
+        for (let i in items.data) {
+          if (items.data[i].picurl.indexOf('http') < 0) {
+            items.data[i].picurl = app.getRequestUrl() + 'MpicData/' + items.data[i].masterid + '/' + items.data[i].picurl
+          }
+        }
+        that.setData({
+          sfItems: items.data,
+        })
+      } else if (items.RetCode == 99) {
+        app.tokenError()
+      }
+      else {
+        app.showModal("数据错误，请稍后重试");
+      } 
+      wx.stopPullDownRefresh()
     })
   },
   onHide: function () {

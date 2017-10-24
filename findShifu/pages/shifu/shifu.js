@@ -1,5 +1,6 @@
 var app = getApp()
 var dataService = require('../../providers/dataService')
+var docService = require('../../providers/docService')
 var payService = require('../../providers/payService')
 Page({
   data: {
@@ -15,6 +16,19 @@ Page({
     voicelist: [],
     ispay: true,
     isVip:-1,
+    docItems: [
+      { dataid: '1', title: '20G资料', describe: '20G资料20G资料' },
+    ],
+  },
+  bindToDocList:function(e){
+    wx.navigateTo({
+      url: '/pages/doc/list/list?id=' + e.currentTarget.dataset.masterid,
+    })
+  },
+  bindToQCode: function (e) {
+    wx.navigateTo({
+      url: '/pages/brshare/brshare?masterid=' + e.currentTarget.dataset.masterid,
+    })
   },
   playVideo:function(e){
     wx.navigateTo({
@@ -167,6 +181,13 @@ Page({
             voicelist: vArray,
           })
         }
+        docService.getMasterDatum(that.data.session, that.data.id,-1,function(ditems){
+          if (ditems.RetCode == 0){
+            that.setData({
+              docItems:ditems.data
+            })
+          }
+        })
         that.setData({
           showLoading: false
         })

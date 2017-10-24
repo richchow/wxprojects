@@ -1,7 +1,7 @@
 {
 	"description": "项目配置文件。",
 	"setting": {
-		"urlCheck": true,
+		"urlCheck": false,
 		"es6": true,
 		"postcss": true,
 		"minified": true
@@ -21,12 +21,6 @@
 					"query": "",
 					"scene": 1044,
 					"shareInfo": {}
-				},
-				{
-					"id": -1,
-					"name": "help",
-					"pathName": "pages/help/help",
-					"query": ""
 				},
 				{
 					"id": -1,
@@ -57,6 +51,18 @@
 					"name": "passkey",
 					"pathName": "pages/passkey/passkey",
 					"query": "id=5"
+				},
+				{
+					"id": 6,
+					"name": "shifu",
+					"pathName": "pages/shifu/shifu",
+					"query": "id=f5582cf5-4f50-4c93-87c2-113bd58f50f6"
+				},
+				{
+					"id": -1,
+					"name": "dclist",
+					"pathName": "pages/doc/list/list",
+					"query": ""
 				}
 			]
 		},

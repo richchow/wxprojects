@@ -90,6 +90,25 @@ Page({
     })
     
   },
+  bindToApp2: function (e) {
+    let adval = e.currentTarget.dataset.adval
+    let list = this.data.adlist
+    app.getOgid(function (ogid) {
+      let addog = ogid == 0 ? '' : '?ogid=' + ogid
+      console.log(list[adval])
+      if (adval == 1 || adval == 2) {
+        wx.navigateToMiniProgram({
+          appId: list[adval] + addog,
+          //  path: 'pages/index/index?id=123',
+          //  extraData: {foo: 'bar'},
+          //  envVersion: 'develop',
+          success(res) {
+          }
+        })
+      }
+    })
+
+  },
   bindShowAd: function (e) {
     let src = e.currentTarget.dataset.src
     let adval = e.currentTarget.dataset.adval

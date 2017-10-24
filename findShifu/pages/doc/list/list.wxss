@@ -1,0 +1,17 @@
+.bottom_button_right {
+  right: 0;
+  position: fixed;
+  background-color: #14b3c7;
+  height: 80rpx;
+  line-height: 80rpx;
+  align-items: center;
+  text-align: center;
+  font-size: 30rpx;
+  color: #fff;
+  bottom: 10px;
+  overflow: hidden;
+  z-index: 500;
+  width: 35%;
+  border-top-left-radius: 18px;
+  border-bottom-left-radius: 18px;
+}
