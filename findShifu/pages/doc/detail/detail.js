@@ -11,6 +11,20 @@ Page({
     userInfo: {},
     datainfo: {},
   },
+  bindFollow: function (e) {
+    var that = this
+    let val = e.currentTarget.dataset.val
+    wx.setClipboardData({
+      data: val,
+      success: function (res) {
+        wx.showModal({
+          title: '提示',
+          content: '已把地址和提取码复制到剪切板',
+          showCancel: false,
+        })
+      }
+    })
+  },
   pay: function (e) {
     var that = this
     if (that.data.isPayed) {

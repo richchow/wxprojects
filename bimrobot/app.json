@@ -1,5 +1,7 @@
 {
   "pages":[
+    "pages/map/map",
+    "pages/collect/collect",
     "pages/index/index"
   ],
   "networkTimeout": {
