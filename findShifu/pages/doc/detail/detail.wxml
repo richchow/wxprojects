@@ -4,17 +4,31 @@
 <view class="page" wx:if="{{showLoading===false}}">
   <image class='bannerimg' model='widthFix' src="/images/doc.png" />
   <view class="amountview">
-    <label class="pTitle">{{datainfo.title}}</label>
-    <label class="amount">¥ {{datainfo.amount}}</label>
+    <view class='amountview_left'>
+      <label class="pTitle">{{datainfo.title}}</label>
+      <label class="amount">¥ {{datainfo.amount}}</label>
+      <image src="/images/crown.svg" style="width:20px;height:20px;padding-left:20px;" />
+      <label bindtap='bindToVIP' class="lj_member">了解VIP会员</label>
+    </view>
+    <view class='amountview_right' bindtap='showModal2'>
+      <image src='/images/share.svg'></image>
+      <label>分享</label>
+    </view>
   </view>
   <view class="content">
     <label class="describetitle">- 资料详情 -</label>
     <label class="describecontent">{{datainfo.describe}}</label>
   </view>
-  <view bindtap="pay" class="bottomleftBtn">
+  <view bindtap="pay" data-item="{{datainfo.amount}}" class="bottomleftBtn">
     查看链接
   </view>
-  <view class="sharebox" wx:if="{{showModalUrlStatus}}"></view>
+  <view bindtap="bindToShifu" data-masterid="{{datainfo.masterID}}" class="bottomrightBtn">
+    了解师傅
+  </view>
+  <view class="shareimgbox" wx:if="{{showShareModalStatus}}">
+    <image src="/images/share.png" class="shareImg"></image>
+  </view>
+  <view class="sharebox" wx:if="{{showModalUrlStatus || showModalStatus}}"></view>
   <view class="card shareurlcontent " wx:if="{{showModalUrlStatus}}">
     <view class="classname">您的专属资料卡</view>
     <view class="url_view">
@@ -28,6 +42,20 @@
     <label class="payedtitle">长按橙色文字可复制地址和提取码</label>
     <view class="info-bottom" wx:if="{{showModalUrlStatus}}">
       <icon bindtap="hideModal" class="info-icon" type="clear" size="30" color="#00adc2" />
+    </view>
+  </view>
+  <view animation="{{animationData}}" class="sharecontent" wx:if="{{showModalStatus}}">
+    <view class="userinfo">
+      <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+      <text class="info-name">独乐乐不如众乐乐</text>
+    </view>
+    <view class="info-content">
+      <label class='info-title'>{{datainfo.title}}</label>
+      <label class="info-text">{{datainfo.describe}}</label>
+    </view>
+    <view class="info-bottom" wx:if="{{showModalStatus}}">
+      <label class="info-bottom-lab">点右上角分享给朋友，来一起来围观吧</label>
+      <icon bindtap="hideModal2" class="info-icon" type="clear" size="40" color="#00adc2" />
     </view>
   </view>
 </view>

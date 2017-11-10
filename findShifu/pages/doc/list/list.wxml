@@ -15,8 +15,3 @@
     </navigator>
   </view>
 </view>
-<block wx:if="{{showLoading == false && iOwner ==0}}">
-  <view bindtap="bindToDocEdit" class="bottom_button_right">
-    添加资料
-  </view>
-</block>

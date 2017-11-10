@@ -77,12 +77,12 @@
     </view>
   </view>
   <block>
-    <view  class="backWhite sf_doc  margin_top_20">
+    <view  class="backWhite sf_doc  margin_top_20" wx:if="{{docItems.length > 0}}">
       <view class='sf_doc_title'>师傅资料(共{{docItems.length}}个)
         <label bindtap='bindToDocList'  data-masterid="{{id}}">更多</label>
       </view>
       <view>
-        <navigator url="/pages/doc/detail/detail?id={{docItems[docItems.length - 1].dataid}}" class="weui-media-box weui-media-box_appmsg backWhite" hover-class="weui-cell_active">
+        <navigator url="/pages/doc/detail/detail?masterid={{id}}&id={{docItems[docItems.length - 1].dataid}}" class="weui-media-box weui-media-box_appmsg backWhite" hover-class="weui-cell_active">
           <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
             <view class="weui-media-box__title">{{docItems[docItems.length - 1].title}}</view>
             <view class="weui-media-box__desc">{{docItems[docItems.length - 1].describe}}</view>

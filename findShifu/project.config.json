@@ -4,15 +4,38 @@
 		"urlCheck": false,
 		"es6": true,
 		"postcss": true,
-		"minified": true
+		"minified": true,
+		"newFeature": true
 	},
-	"compileType": "weapp",
+	"compileType": "miniprogram",
 	"libVersion": "1.5.2",
 	"appid": "wx13615b6f53349865",
 	"projectname": "BIM%E6%89%BE%E5%B8%88%E5%82%85",
 	"condition": {
-		"weapp": {
-			"current": 6,
+		"search": {
+			"current": -1,
+			"list": [
+				{
+					"name": "test",
+					"pathName": "",
+					"title": "",
+					"cacheKey": ""
+				}
+			]
+		},
+		"conversation": {
+			"current": 0,
+			"list": [
+				{
+					"name": "test",
+					"query": "",
+					"boxQI": "",
+					"service": {}
+				}
+			]
+		},
+		"miniprogram": {
+			"current": 8,
 			"list": [
 				{
 					"id": -1,
@@ -63,28 +86,12 @@
 					"name": "dclist",
 					"pathName": "pages/doc/list/list",
 					"query": ""
-				}
-			]
-		},
-		"search": {
-			"current": -1,
-			"list": [
+				},
 				{
-					"name": "test",
-					"pathName": "",
-					"title": "",
-					"cacheKey": ""
-				}
-			]
-		},
-		"conversation": {
-			"current": 0,
-			"list": [
-				{
-					"name": "test",
-					"query": "",
-					"boxQI": "",
-					"service": {}
+					"id": 8,
+					"name": "师傅资料",
+					"pathName": "pages/doc/detail/detail",
+					"query": "id=326"
 				}
 			]
 		}

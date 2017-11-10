@@ -1,2 +1,1 @@
-<!--pages/collect/collect.wxml-->
-<text>pages/collect/collect.wxml</text>
+<web-view src="https://wx.jycloud.cc/wxPage/Index"></web-view>

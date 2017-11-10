@@ -1,6 +1,6 @@
 @import "/css/card.wxss";
 .bannerimg {
-  width: 750rpx;
+  width: 100%;
   align-items: center;
   text-align: center;
 }
@@ -38,26 +38,47 @@
 }
 
 .amountview {
-  margin-top: 20rpx;
   box-sizing: border-box;
   font-size: 32rpx;
-  width: 750rpx;
+  width: 100%;
   padding: 15rpx 40rpx;
   border-bottom: 1px #f0f0f0 solid;
   background-color: #fff;
-  height: 120rpx;
+  height:auto;
+  display: flex;
+  flex-direction: row;
 }
-
+.amountview_left{
+  display: inline-block;
+  box-sizing: border-box;
+  flex: 10;
+}
+.amountview_right{
+  flex: 1;
+  margin: 0 auto;
+  text-align:center;
+  vertical-align: middle;
+  border-left: 1px solid #f0f0f0;
+  padding-left: 10px;
+}
+.amountview_right label{
+  font-size: 12px;
+  display: table;
+  padding-left: 5px;
+}
+.amountview_right image{
+  width:20px;
+  height:20px;
+}
 .pTitle {
-  width: 750rpx;
-  float: left;
+  text-align: left;
+  display: table;
 }
 
 .amount {
   font-size: 32rpx;
   color: #e69138;
   display: flex;
-  padding-top: 10rpx;
   float: left;
 }
 
@@ -281,4 +302,10 @@
   padding-bottom: 20rpx;
   line-height: 40rpx;
   height: 40rpx;
+}
+.lj_member{
+  color: #e69138;
+  line-height: 20px;
+  font-size: 26rpx;
+margin: 0 auto;
 }
