@@ -1,25 +1,26 @@
 <template>
   <div class="weui-cell weui-cell_switch">
-        <div class="weui-cell__bd">{{name}}</div>
+        <div class="weui-cell__bd">{{item.targetname}}</div>
         <div class="weui-cell__ft">
-        <input class="weui-switch" type="checkbox" :checked="checked"  @change="updateValue($event.target.checked)">
+        <input class="weui-switch" type="checkbox"  @change="updateValue($event.target.checked)">
         </div>
   </div>
 </template>
 <script>
+import bus from "../assets/js/eventBus";
 export default {
   props: {
-    id: {
-      type: Number,
-      default: 0
-    },
-    name: "",
-    parent: 0,
-    checked: false
+    item: {
+      type: Object,
+      default: function() {
+        return {};
+      }
+    }
   },
   methods: {
     updateValue: function(value) {
-      this.$emit("updateValue", this.id, this.parent, value);
+      this.$emit("updateValue", value);
+      bus.$emit("updateValue",this.item.targetid, this.item.parentid,this.item.targetname, value)
     }
   }
 };

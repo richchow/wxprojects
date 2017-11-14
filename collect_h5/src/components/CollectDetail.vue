@@ -1,5 +1,5 @@
 <template>
-<div class="container">
+    <div class="container">
   <div class="web-top"><div @click="toBack"><label class="web-top-back"></label>返回</div></div>
     <div class="page">
         <div id="templatestr" class="pade__bd">
@@ -30,31 +30,17 @@
             <div v-for="item of jsonlist":key="item.classid">
               <div class="weui-cells__title" >{{item.classname}}</div>
               <div class="weui-cells weui-cells_form">
-                  <div v-for="titem in item.lts":key="titem.targetid">
-                      <c-textarea v-if="titem.targettype === 3" :id="titem.targetid" :name="titem.targetname" @updateValue="updateValue" :remark="titem.remark" :parent="titem.parentid"></c-textarea>
-                      <c-select :name="titem.targetname" v-if="titem.targettype === 2" :id="titem.targetid" :options="titem.targetvalue" @updateSelectedValue="updateSelectedValue" :parent="titem.parentid"></c-select>
-                      <c-switch :name="titem.targetname" v-if="titem.targettype === 0" :id="titem.targetid" :checked="false" @updateValue="updateValue" :parent="titem.parentid"></c-switch>
-                      <c-input v-if="titem.targettype === 1" :id="titem.targetid" :name="titem.targetname" :remark="titem.remark" @updateValue="updateValue" :parent="titem.parentid"></c-input>
-                      <c-image v-if="titem.havepic === 1" :id="titem.targetid" :imgtotal.sync="imgtotal" :name="titem.targetname" @showImage="showImage" @updateImageValue="updateImageValue"  :parent="titem.parentid"></c-image>
-                      <div v-for="sitem in titem.lts":key="sitem.targetid">
-                        <c-textarea v-if="sitem.targettype === 3" :id="stem.targetid" :name="sitem.targetname" @updateValue="updateValue" :remark="sitem.remark" :parent="sitem.parentid"></c-textarea>
-                        <c-select :name="sitem.targetname" v-if="sitem.targettype === 2" :id="sitem.targetid" :options="sitem.targetvalue" @updateSelectedValue="updateSelectedValue" :parent="sitem.parentid"></c-select>
-                        <c-switch :name="sitem.targetname" v-if="sitem.targettype === 0" :id="sitem.targetid" :checked="false" @updateValue="updateValue" :parent="sitem.parentid"></c-switch>
-                        <c-input v-if="sitem.targettype === 1" :id="sitem.targetid" :name="sitem.targetname" :remark="sitem.remark" @updateValue="updateValue" :parent="sitem.parentid"></c-input>
-                        <c-image v-if="sitem.havepic === 1" :id="sitem.targetid" :imgtotal.sync="imgtotal" :name="sitem.targetname" @showImage="showImage" :parent="sitem.parentid" @updateImageValue="updateImageValue"></c-image>
-                  </div>
-                </div>
+                <parentTarget :msg='item.lts' :imgtotal="imgtotal" ></parentTarget>
               </div>
             </div>
         </div>
         <a href="javascript:;" @click="submit()" class="weui-btn weui-btn_primary" :class="{'weui-btn_loading':!submitStatus}"><i v-show="!submitStatus" class="weui-loading"></i>提交</a>
 
     </div>
-    <c-showimage :showimage="showimage" :imgsrc="imgsrc" :imgid="imgid" @hiddenShowImage="hiddenShowImage" @delImage="delImage" ></c-showimage>
-    <c-iosDialog :showDialog="dialog.showDialog" :handletype="dialog.handletype" :noDefault="dialog.noDefault" :dialogTitle="dialog.dialogTitle" :dialogContent="dialog.dialogContent" :btnPrimary="dialog.btnPrimary" :btnDefault="dialog.btnDefault" @clDefault="clDefault" @clPrimary="clPrimary" ></c-iosDialog>
-</div>
-</template>
-
+    <c-showimage ></c-showimage>
+    <c-iosDialog @clPrimary="clPrimary"></c-iosDialog>
+  </div>
+  </template>
 <script>
 import bus from "../assets/js/eventBus";
 import cshowimage from "./ShowImage.vue";
@@ -66,19 +52,17 @@ import cselect from "./Select.vue";
 import cimage from "./Image.vue";
 
 import dataService from "../services/DataService";
-
 export default {
   name: "CollectDetail",
   data() {
     return {
       submitStatus: true,
       classlist: [],
-      imgtotal: 0,
       piontname: "",
       piontaddress: "",
       piontcategory: "",
       piontlatLng: {},
-      showimage: false,
+      inputval: [],
       dialog: {
         showDialog: false,
         noDefault: false,
@@ -88,57 +72,210 @@ export default {
         btnPrimary: "",
         btnDefault: ""
       },
-      imgsrc: {},
-      imgid: 0,
+      imgtotal: 0,
       jsonlist: [
         {
-          id: 1,
-          title: "酒店外部", //区域
-          target: [
+          Typename: null,
+          lts: [
             {
-              id: 11,
-              name: "无障碍车位",
-              type: 0, //开关
-              havepic: 0
+              Typename: null,
+              lts: null,
+              targetid: 11,
+              targetname: "无障碍客房数量",
+              remark: "间",
+              targettype: 1,
+              parentid: 10,
+              targetvalue: null,
+              havepic: 0,
+              picremark: null,
+              classid: null
             },
             {
-              id: 12,
-              name: "无障碍车位数量",
-              remark: "请输入无障碍车位数量",
-              type: 1, //输入框
-              value: "",
-              havepic: 1
+              Typename: null,
+              lts: null,
+              targetid: 12,
+              targetname: "无障碍客房大门宽度",
+              remark: "毫米",
+              targettype: 1,
+              parentid: 10,
+              targetvalue: null,
+              havepic: 0,
+              picremark: null,
+              classid: null
             },
             {
-              id: 13,
-              name: "酒店餐厅无障碍",
-              type: 2, //选择框
-              options: ["能进入", "有台阶"],
-              havepic: 0
+              Typename: null,
+              lts: null,
+              targetid: 13,
+              targetname: "无障碍房间床高",
+              remark: "毫米",
+              targettype: 1,
+              parentid: 10,
+              targetvalue: null,
+              havepic: 1,
+              picremark: null,
+              classid: null
             },
             {
-              id: 14,
-              name: "是否有贴心服务",
-              remark: "提供延长杆儿 提供转移用的凳子等",
-              type: 3, //多行输入框
-              havepic: 1
+              Typename: null,
+              lts: null,
+              targetid: 14,
+              targetname: "无障碍客房卫生间门宽度",
+              remark: "毫米",
+              targettype: 1,
+              parentid: 10,
+              targetvalue: null,
+              havepic: 0,
+              picremark: null,
+              classid: null
+            },
+            {
+              Typename: null,
+              remark: [],
+              targetid: 15,
+              targetname: "无障碍客房卫生间马桶是否有扶手",
+              lts: [
+                {
+                  Typename: null,
+                  lts: null,
+                  targetid: 111,
+                  targetname: "无障碍客房数量",
+                  remark: "间",
+                  targettype: 1,
+                  parentid: 15,
+                  targetvalue: null,
+                  havepic: 0,
+                  picremark: null,
+                  classid: null
+                },
+                {
+                  Typename: null,
+                  lts: null,
+                  targetid: 112,
+                  targetname: "无障碍客房数量",
+                  remark: "间",
+                  targettype: 1,
+                  parentid: 15,
+                  targetvalue: null,
+                  havepic: 0,
+                  picremark: null,
+                  classid: null
+                }
+              ],
+              targettype: 0,
+              parentid: 10,
+              targetvalue: "有|无",
+              havepic: 0,
+              picremark: null,
+              classid: null
+            },
+            {
+              Typename: null,
+              lts: null,
+              targetid: 16,
+              targetname: "无障碍卫生间转角距离",
+              remark: "毫米",
+              targettype: 1,
+              parentid: 10,
+              targetvalue: null,
+              havepic: 0,
+              picremark: null,
+              classid: null
+            },
+            {
+              Typename: null,
+              lts: null,
+              targetid: 17,
+              targetname: "无障碍卫生间淋浴情况",
+              remark: null,
+              targettype: 2,
+              parentid: 10,
+              targetvalue: "干湿分离|浴箱|浴缸",
+              havepic: 0,
+              picremark: null,
+              classid: null
+            },
+            {
+              Typename: null,
+              lts: null,
+              targetid: 18,
+              targetname: "无障碍卫生间淋浴花洒距马桶距离",
+              remark: "毫米",
+              targettype: 1,
+              parentid: 10,
+              targetvalue: null,
+              havepic: 0,
+              picremark: null,
+              classid: null
+            },
+            {
+              Typename: null,
+              lts: null,
+              targetid: 19,
+              targetname: "无障碍卫生间洗手池膝下空间",
+              remark: "毫米",
+              targettype: 1,
+              parentid: 10,
+              targetvalue: null,
+              havepic: 1,
+              picremark: null,
+              classid: null
             }
-          ]
+          ],
+          targetid: 10,
+          targetname: "是否有无障碍客房",
+          remark: null,
+          targettype: 0,
+          parentid: 0,
+          targetvalue: "有|无",
+          havepic: 0,
+          picremark: null,
+          classid: 4
         }
       ],
-      inputval: []
+      imgtotal: 0
     };
   },
   components: {
+    parentTarget: {
+      name: "childTarget",
+      template: `
+      <div>
+      <div v-for="item in msg":key="item.targetid">
+        <c-textarea v-if="item.targettype === 3" :item="item"></c-textarea>
+        <c-select v-if="item.targettype === 2" :item="item"></c-select>
+        <c-switch v-if="item.targettype === 0" :item="item" @updateValue="updateValue"></c-switch>
+        <c-input v-if="item.targettype === 1" :item="item" ></c-input>
+        <c-image v-if="item.havepic === 1" :item="item" :imgtotal="imgtotal"></c-image>
+        <childTarget :msg='item.lts' :imgtotal="imgtotal" v-if='show' ></childTarget>
+      </div>
+      </div>`,
+      components: {
+        "c-image": cimage,
+        "c-textarea": ctextarea,
+        "c-select": cselect,
+        "c-switch": cswitch,
+        "c-input": cinput
+      },
+      props: ["msg", "imgtotal"],
+      data() {
+        return {
+          show: false,
+          inputval: []
+        };
+      },
+      methods: {
+        updateValue: function(value) {
+          if (typeof value == "boolean") {
+            this.show = value;
+          }
+        }
+      }
+    },
     "c-iosDialog": ciosDialog,
-    "c-showimage": cshowimage,
-    "c-image": cimage,
-    "c-textarea": ctextarea,
-    "c-select": cselect,
-    "c-switch": cswitch,
-    "c-input": cinput
+    "c-showimage": cshowimage
   },
-  mounted() {
+  created() {
     let that = this;
     this.piontname = this.$route.params.name;
     this.piontaddress = this.$route.params.address;
@@ -157,11 +294,22 @@ export default {
       });
     }
   },
+  mounted: function() {
+    let that = this;
+    bus.$on("updateValue", function(id, parent,name, value) {
+      that.updateValue(id, parent,name, value);
+    });
+    bus.$on("updateImgtotal", function(value) {
+      that.imgtotal = value;
+    });
+    bus.$on("updateImageValue", function(ctype, id, parent,name, value, src) {
+      that.updateImageValue(ctype, id, parent,name, value, src);
+    });
+  },
   methods: {
     submit: function() {
       var that = this;
-      console.log(this.inputval.toString());
-      if (this.inputval.length > 0 && submitStatus) {
+      if (this.inputval.length > 0 && this.submitStatus) {
         that.submitStatus = false;
         let target = {
           name: that.piontname,
@@ -173,7 +321,7 @@ export default {
         let datas = new dataService();
         datas.setCollectionPointInfo(target, function(item) {
           if (item.RetCode == 0) {
-            that.dialog = {
+            let dialog = {
               showDialog: true,
               noDefault: true,
               handletype: "submit",
@@ -182,8 +330,9 @@ export default {
               btnPrimary: "确定",
               btnDefault: "取消"
             };
+            bus.$emit("showDialog", dialog);
           } else {
-            that.dialog = {
+            let dialog = {
               showDialog: true,
               noDefault: true,
               handletype: "default",
@@ -192,11 +341,12 @@ export default {
               btnPrimary: "确定",
               btnDefault: "取消"
             };
+            bus.$emit("showDialog", dialog);
           }
           that.submitStatus = true;
         });
       } else {
-        that.dialog = {
+        let dialog = {
           showDialog: true,
           noDefault: true,
           handletype: "default",
@@ -205,31 +355,15 @@ export default {
           btnPrimary: "确定",
           btnDefault: "取消"
         };
+        bus.$emit("showDialog", dialog);
       }
     },
-    showImage: function(id, imgsrc) {
-      this.showimage = true;
-      this.imgsrc = imgsrc;
-      this.imgid = id;
+    toBack: function() {
+      window.history.back();
     },
-    hiddenShowImage: function() {
-      this.showimage = false;
-      this.imgsrc = {};
-      this.imgid = 0;
-    },
-    delImage: function() {
-      this.dialog = {
-        showDialog: true,
-        noDefault: false,
-        handletype: "delimg",
-        dialogTitle: "删除",
-        dialogContent: "是否删除此图片？",
-        btnPrimary: "删除",
-        btnDefault: "取消"
-      };
-    },
-    clDefault: function() {
-      this.dialog.showDialog = false;
+    selectClass(value) {
+      let curr = Number(value[value.selectedIndex].value);
+      this.jsonlist = this.classlist[curr].lvc;
     },
     clPrimary: function(handletype) {
       let that = this;
@@ -242,10 +376,21 @@ export default {
         window.history.back();
       }
     },
-    updateValue: function(id, parent, value) {
-      if (typeof value == "string" && value == "") {
+    updateValue: function(id, parent, name,value) {
+      if (typeof value == "string" && (value == "" || value == "请选择")) {
         for (let i in this.inputval) {
           if (this.inputval[i].id === id) {
+            if (this.inputval[i].pic.length > 0) {
+              this.inputval[i].value = "";
+            } else {
+              this.inputval.splice(i, 1);
+            }
+          }
+        }
+      } else if (typeof value == "boolean" && !value) {
+        var i = this.inputval.length;
+        while (i--) {
+          if (this.inputval[i].id === id || this.inputval[i].parentid === id) {
             this.inputval.splice(i, 1);
           }
         }
@@ -259,37 +404,18 @@ export default {
           }
         }
         if (!bo) {
-          this.inputval.push({ id: id, parentid: parent, value: value });
-        }
-      }
-    },
-    updateSelectedValue: function(id, parent, value) {
-      let bo = false;
-      let selectedvalue = value[value.selectedIndex].value;
-      if (selectedvalue != "请选择") {
-        for (let item of this.inputval) {
-          if (item.id === id) {
-            item.value = selectedvalue;
-            bo = true;
-          }
-        }
-        if (!bo) {
           this.inputval.push({
             id: id,
             parentid: parent,
-            value: value[value.selectedIndex].value,
+            name:name,
+            value: value,
             pic: []
           });
         }
-      } else {
-        for (let i in this.inputval) {
-          if (this.inputval[i].id === id) {
-            this.inputval.splice(i, 1);
-          }
-        }
       }
+      console.log("inputval", this.inputval);
     },
-    updateImageValue: function(ctype, id, parent, value, src) {
+    updateImageValue: function(ctype, id, parent,name, value, src) {
       if (ctype == "add") {
         let bo = false;
         for (let item of this.inputval) {
@@ -300,7 +426,13 @@ export default {
           }
         }
         if (!bo) {
-          this.inputval.push({ id: id, parentid: parent, pic: value });
+          this.inputval.push({
+            id: id,
+            parentid: parent,
+            name:name,
+            value: "",
+            pic: value
+          });
         }
       }
       if (ctype == "del") {
@@ -314,18 +446,11 @@ export default {
           }
         }
       }
-    },
-    toBack: function() {
-      window.history.back();
-    },
-    selectClass(value) {
-      let curr = Number(value[value.selectedIndex].value);
-      this.jsonlist = this.classlist[curr].lvc;
+      console.log("inputval", this.inputval);
     }
   }
 };
 </script>
-
 <style scoped>
 .page__ft {
   height: 100px;

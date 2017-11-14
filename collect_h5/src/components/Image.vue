@@ -3,12 +3,12 @@
                     <div class="weui-cell__bd">
                         <div class="weui-uploader">
                             <div class="weui-uploader__hd">
-                                <p class="weui-uploader__title">图片上传 {{name}}</p>
+                                <p class="weui-uploader__title">图片上传 {{item.targetname}}</p>
                                 <div class="weui-uploader__info">{{imgArr.length}}/4</div>
                             </div>
                             <div class="weui-uploader__bd">
                                 <ul class="weui-uploader__files" id="uploaderFiles">
-                                    <li class="weui-uploader__file" v-for="(imgitem, index) in backurl":key="imgitem.id" :style="imgitem.src" @click="showImage(index)"></li>
+                                    <li class="weui-uploader__file" v-for="(imgitem, index) in imgArr":key="imgitem.id" :style="{backgroundImage:'url(' + imgitem.src + ')'}" @click="showImage(index)"></li>
                                 </ul>
                                 <div class="weui-uploader__input-box" v-show="imgArr.length < imgNumLimit">
                                     <input id="uploaderInput" @change="uploadImg($event)" class="weui-uploader__input" type="file" accept="image/*" multiple="">
@@ -19,27 +19,22 @@
                 </div>
 </template>
 <script>
-import { EXIF } from "../assets/js/exif";
+import { EXIF } from "exif-js";
 import bus from "../assets/js/eventBus";
 export default {
   data() {
     return {
       imgNumLimit: 4,
-      imgArr: [],
-      backurl: []
+      imgArr: []
     };
   },
   props: {
-    id: {
-      type: Number,
-      default: 0
+    item: {
+      type: Object,
+      default: function() {
+        return {};
+      }
     },
-    parent: {
-      type: Number,
-      default: 0
-    },
-    name: "",
-
     imgtotal: {
       type: Number,
       default: 0
@@ -65,31 +60,44 @@ export default {
     delimg: function(id, src) {
       let _this = this;
       let bo = false;
-      for (let i in _this.backurl) {
-        if (_this.backurl[i].id == src.id) {
-          _this.backurl.splice(i, 1);
+      for (let i in _this.imgArr) {
+        if (_this.imgArr[i].id == src.id) {
           _this.imgArr.splice(i, 1);
           bo = true;
         }
       }
       if (bo) {
-        this.updateImageValue("del", id,0, "", src);
+        this.updateImageValue("del", id, 0,"", "", src);
       }
     },
     showImage: function(index) {
-      this.$emit("showImage", this.id, this.backurl[index]);
+      let that = this;
+      let item = {
+        imgsrc: that.imgArr[index],
+        id: that.item.targetid
+      };
+      bus.$emit("showImage", item);
     },
     uploadImg: function(e) {
       let tag = e.target;
       let fileList = tag.files;
       let imgNum = fileList.length;
       let _this = this;
-      let total = new Number();
+      var total = new Number();
       total = this.Imgtotal;
-      _this.$emit("update:imgtotal", total);
+      bus.$emit("updateImgtotal", total);
 
       if (this.imgArr.length + imgNum > this.imgNumLimit) {
-        alert("一次最多上传" + this.imgNumLimit + "张图片！");
+        let dialog = {
+          showDialog: true,
+          noDefault: true,
+          handletype: "default",
+          dialogTitle: "错误",
+          dialogContent: "一次最多上传" + this.imgNumLimit + "张图片！",
+          btnPrimary: "确认",
+          btnDefault: "取消"
+        };
+        bus.$emit("showDialog", dialog);
         return;
       }
       var Orientation;
@@ -145,14 +153,18 @@ export default {
               }
               base64 = canvas.toDataURL("image/jpeg", 0.8);
               if (fileList[i].size / 1024000 > 1) {
-                _this.imgScale(base64, 4);
+                _this.imgScale(base64, 4, total);
               } else {
                 _this.imgArr.push({ id: _this.imgtotal, src: base64 });
-                _this.backurl.push({
-                  id: _this.imgtotal,
-                  src: "background-image:url(" + base64 + ")"
-                });
-                _this.updateImageValue("add", _this.id,_this.parent, _this.imgArr, {});
+                console.log("total1:", total);
+                _this.updateImageValue(
+                  "add",
+                  _this.item.targetid,
+                  _this.item.parentid,
+                  _this.item.targetname,
+                  _this.imgArr,
+                  {}
+                );
               }
             };
           };
@@ -177,11 +189,15 @@ export default {
           id: _this.imgtotal,
           src: canvas.toDataURL("image/jpeg")
         });
-        _this.backurl.push({
-          id: _this.imgtotal,
-          src: "background-image:url(" + canvas.toDataURL("image/jpeg") + ")"
-        });
-        _this.updateImageValue("add", _this.id,_this.parent, _this.imgArr, {});
+        console.log("total2:", total);
+        _this.updateImageValue(
+          "add",
+          _this.item.targetid,
+          _this.item.parentid,
+          _this.item.targetname,
+          _this.imgArr,
+          {}
+        );
       };
     },
     rotateImg: function(img, direction, canvas) {
@@ -230,8 +246,8 @@ export default {
           break;
       }
     },
-    updateImageValue: function(ctype, id,parent, value, src) {
-      this.$emit("updateImageValue", ctype, id,parent, value, src);
+    updateImageValue: function(ctype, id, parent,name, value, src) {
+      bus.$emit("updateImageValue", ctype, id, parent,name, value, src);
     }
   }
 };

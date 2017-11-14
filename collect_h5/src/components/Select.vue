@@ -1,16 +1,17 @@
 <template>
   <div class="weui-cell weui-cell_select weui-cell_select-after">
         <div class="weui-cell__hd">
-        <label class="weui-label">{{name}}</label>
+        <label class="weui-label">{{item.targetname}}</label>
         </div>
         <div class="weui-cell__bd">
-        <select class="weui-select" @change="updateSelectedValue($event.target.options)">
+        <select class="weui-select" @change="updateValue($event.target.options)">
         <option v-for="option of opts":key="option" :value="option">{{option}}</option>
         </select>
         </div>
         </div>
 </template>
 <script>
+import bus from "../assets/js/eventBus";
 export default {
   data() {
     return {
@@ -18,22 +19,21 @@ export default {
     };
   },
   props: {
-    id: {
-      type: Number,
-      default: 0
-    },
-    parent: 0,
-    name: "",
-    selected: "",
-    options: ""
+    item: {
+      type: Object,
+      default: function() {
+        return {targetvalue:''};
+      }
+    }
   },
   methods: {
-    updateSelectedValue: function(value) {
-      this.$emit("updateSelectedValue", this.id, this.parent, value);
+    updateValue: function(value) {
+       let selectedvalue = value[value.selectedIndex].value;
+      bus.$emit("updateValue", this.item.targetid, this.item.parentid,this.item.targetname, selectedvalue);
     }
   },
   mounted: function() {
-      let opt = this.options.split('|');
+      let opt = this.item.targetvalue.split('|');
       for(let item of opt){
         this.opts.push(item)
       }

@@ -10,9 +10,12 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "exif-js": "^2.3.0",
     "vue": "^2.5.2",
     "vue-amap": "^0.4.1",
     "vue-router": "^3.0.1",
+    "vuex": "^3.0.1",
+    "vux": "^2.7.2",
     "weui": "^1.1.2"
   },
   "devDependencies": {

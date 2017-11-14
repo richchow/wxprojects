@@ -1,54 +1,51 @@
 <template>
-  <div class="js_dialog" v-if="showDialog">
+  <div class="js_dialog" v-if="item.showDialog">
             <div class="weui-mask"></div>
             <div class="weui-dialog">
-                <div class="weui-dialog__hd"><strong class="weui-dialog__title">{{dialogTitle}}</strong></div>
-                <div class="weui-dialog__bd">{{dialogContent}}</div>
+                <div class="weui-dialog__hd"><strong class="weui-dialog__title">{{item.dialogTitle}}</strong></div>
+                <div class="weui-dialog__bd">{{item.dialogContent}}</div>
                 <div class="weui-dialog__ft">
-                    <a @click="clDefault" v-if="!noDefault" class="weui-dialog__btn weui-dialog__btn_default">{{btnDefault}}</a>
-                    <a @click="clPrimary($event)" :handletype="handletype" class="weui-dialog__btn weui-dialog__btn_primary">{{btnPrimary}}</a>
+                    <a @click="clDefault" v-if="!item.noDefault" class="weui-dialog__btn weui-dialog__btn_default">{{item.btnDefault}}</a>
+                    <a @click="clPrimary($event)" class="weui-dialog__btn weui-dialog__btn_primary">{{item.btnPrimary}}</a>
                 </div>
             </div>
         </div>
 </template>
 <script>
+import bus from "../assets/js/eventBus";
 export default {
-  props: {
-    handletype:{
-      type:String,
-      default:""
-    },
-      showDialog:{
-          type:Boolean,
-          default:false
-      },
-    noDefault: {
-      type: Boolean,
-      default: false
-    },
-    dialogTitle: {
-      type: String,
-      default: ""
-    },
-    dialogContent: {
-      type: String,
-      default: ""
-    },
-    btnPrimary: {
-      type: String,
-      default: ""
-    },
-    btnDefault: {
-      type: String,
-      default: ""
-    }
+  data() {
+    return {
+      item: {
+        showDialog: false,
+        noDefault: false,
+        handletype: "",
+        dialogTitle: "",
+        dialogContent: "",
+        btnPrimary: "",
+        btnDefault: ""
+      }
+    };
+  },
+  mounted: function() {
+    let _this = this;
+    bus.$on("showDialog", function(item) {
+      _this.item = item;
+    });
   },
   methods: {
     clDefault: function() {
-      this.$emit("clDefault");
+      this.item.showDialog = false;
     },
     clPrimary: function(event) {
-      this.$emit("clPrimary",this.handletype);
+      this.item.showDialog = false;
+      if(this.item.handletype == 'delimg'){
+        bus.$emit("sureDelImg",this.item.item.id,this.item.item.imgsrc);
+        bus.$emit("hiddenShowImage");
+      }
+      else if(this.item.handletype == 'submit'){
+        window.history.back();
+      }
     }
   }
 };

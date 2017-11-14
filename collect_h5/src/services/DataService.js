@@ -51,7 +51,8 @@ class DataService {
       });
   }
 
-  setCollectionPointInfo(target) {
+  setCollectionPointInfo(target,cb) {
+    console.log('setCollectionPointInfo');
     let item = {
       RetCode: -1,
       data: {}
@@ -74,6 +75,9 @@ class DataService {
       axios.post(that.getRequestUrl()+'setCollectionPointInfo', params)
       .then(function (response) {
         console.log('response:', response);
+        if (response.status == 200) {
+          item = response.data;
+        }
         typeof cb == "function" && cb(item)
       })
       .catch(function (error) {
@@ -83,7 +87,7 @@ class DataService {
   }
 
   getRequestUrl() {
-    // return 'https://wx.jycoud.cc/';
+    // return 'https://wx.jycloud.cc/';
     return 'http://192.168.1.109:8089/';
   }
 };

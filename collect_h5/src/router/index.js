@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import Index from '@/components/Index'
 import CollectDetail from '@/components/CollectDetail'
 
-import Test from '@/components/Test'
+//import Test from '@/components/Test'
 
 Vue.use(Router)
 
@@ -14,12 +14,12 @@ export default new Router({
       name: 'Collect',
       component: CollectDetail
     },
-   {
+  {
       path: '/',
       name: 'Index',
       component: Index
     }
-  /*   {
+   /*   {
       path: '/',
       name: 'Test',
       component: Test

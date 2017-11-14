@@ -1,25 +1,25 @@
 <template>
  <div class="weui-cell">
-        <div class="weui-cell__hd"><label class="weui-label">{{name}}</label></div>
+        <div class="weui-cell__hd"><label class="weui-label">{{item.targetname}}</label></div>
         <div class="weui-cell__bd">
-        <input class="weui-input"  :placeholder="remark"  @blur="updateValue($event.target.value)" >
+        <input class="weui-input"  :placeholder="item.remark"  @input="updateValue($event.target.value)" >
         </div>
         </div>
 </template>
 <script>
+import bus from "../assets/js/eventBus";
 export default {
   props: {
-    id: {
-      type: Number,
-      default: 0
-    },
-    name: "",
-    parent: 0,
-    remark: ""
+    item: {
+      type: Object,
+      default: function() {
+        return {};
+      }
+    }
   },
   methods: {
     updateValue: function(value) {
-      this.$emit("updateValue", this.id, this.parent, value);
+      bus.$emit("updateValue", this.item.targetid, this.item.parentid,this.item.targetname, value);
     }
   }
 };
