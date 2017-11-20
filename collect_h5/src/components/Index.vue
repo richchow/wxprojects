@@ -11,7 +11,7 @@
         </div>
         
       </div>
-      <div class="goeitem_z"  v-on:click="clToCollect('', '', '', currLatLng)">
+      <div class="goeitem_z"  v-on:click="clToCollect(' ', ' ', ' ', currLatLng)">
         <div class="goeitem_index">&nbsp;</div>
         <div class="goeitem_name">
           <div>自定义采集点</div>
@@ -82,7 +82,8 @@ export default {
     },
     showErr: function() {},
     clToCollect:function(name, address,category,latLng ){
-      this.$router.push({name:'Collect',params:{name:name,address:address,category:category,latLng:latLng}})
+      let ll = latLng.lat + ',' + latLng.lng;
+      this.$router.push({name:'Collect',params:{name:name,address:address,category:category,latLng:ll}})
     }
   },
   created: function() {}

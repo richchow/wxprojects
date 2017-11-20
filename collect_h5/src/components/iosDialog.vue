@@ -46,6 +46,9 @@ export default {
       else if(this.item.handletype == 'submit'){
         window.history.back();
       }
+       else if(this.item.handletype == 'wxsubmit'){
+        wx.miniProgram.navigateTo({url: '/pages/amap/amap'})
+      }
     }
   }
 };

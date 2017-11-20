@@ -41,5 +41,7 @@ export default {
 };
 </script>
 <style scoped>
-
+.weui-cell{
+  font-size: 14px;
+}
 </style>

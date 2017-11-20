@@ -25,5 +25,11 @@ export default {
 };
 </script>
 <style scoped>
+.weui-cell{
+  font-size: 14px;
+}
+.weui-cell__hd,.weui-label{
+  width:150px;
+}
 </style>
 

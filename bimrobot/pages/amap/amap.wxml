@@ -1,0 +1,31 @@
+<view class="map_loac">
+  <view class='map_loac_img' bindtap='moveToLocation'>
+    <image class='loc_gray' src="/images/loc_gray.png"></image>
+  </view>
+  <view class='map_loac_val'>
+    当前位置：{{location.desc}}
+  </view>
+
+</view>
+<view class="map_container {{ clickPOIs ? 'map_container_click' :''}}">
+  <map class="map" id="map" longitude="{{longitude}}" latitude="{{latitude}}" scale="14" controls="{{controls}}" bindregionchange="regionchange" show-location="true" markers="{{markers}}"></map>
+</view>
+<view class="map_pois_title {{ clickPOIs ? 'map_pois_title_click' :''}}" bindtap='clickCollect'>选择采集点
+  <span class="ft {{clickPOIs ? 'ft_down' : ''}}"></span>
+</view>
+<scroll-view wx:if="{{clickPOIs}}" scroll-y class="map_pois">
+  <view class="goeitem" wx:for="{{location.pois}}" wx:key="id" wx:for-item="item" wx:for-index="idx" data-name="{{item.name}}" data-address="{{item.address}}" data-type="{{item.type}}" data-location="{{item.location}}" bindtap='toCollect'>
+    <view class="goeitem_index">{{idx + 1}}</view>
+    <view class="goeitem_name">
+      <view>{{item.name}}</view>
+      <view class="goeitem_cate">{{item.type}}</view>
+    </view>
+  </view>
+
+  <view wx:if="{{longitude != ''}}" class="goeitem_z" data-name=" " data-address=" " data-type=" " data-location="{{longitude + ',' +latitude}}" bindtap='toCollect'>
+    <view class="goeitem_index">-</view>
+    <view class="goeitem_name">
+      <view>自定义采集点</view>
+    </view>
+  </view>
+</scroll-view>

@@ -1,8 +1,10 @@
 {
   "pages":[
+    "pages/amap/amap",
     "pages/map/map",
-    "pages/collect/collect",
-    "pages/index/index"
+    "pages/web/web",
+    "pages/index/index",
+    "pages/collect/collect"
   ],
   "networkTimeout": {
     "request": 10000,

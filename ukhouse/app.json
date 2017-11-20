@@ -1,6 +1,10 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/detail/detail",
+    "pages/about/about",
+    "pages/tax/tax",
+    "pages/profit/profit",
     "pages/index-old/index"
   ],
   "window": {

@@ -10,7 +10,7 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/collect',
+      path: '/collect/:name/:address/:category/:latLng',
       name: 'Collect',
       component: CollectDetail
     },

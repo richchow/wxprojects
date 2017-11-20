@@ -1,0 +1,132 @@
+.map_loac {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: row;
+  height: 40px;
+  line-height: 40px;
+}
+
+.map_loac_img {
+  flex: 1;
+  text-align: center;
+}
+
+.map_loac_val {
+  flex: 9;
+  align-content: center;
+  vertical-align: middle;
+  font-size: 14px;
+}
+
+.loc_gray {
+  width: 23px;
+  height: 23px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  margin: 0 auto;
+  vertical-align: middle;
+}
+
+.map_container {
+  position: absolute;
+  top: 40px;
+  bottom: 40px;
+  left: 0;
+  right: 0;
+}
+.map_container_click{
+  bottom: 240px;
+}
+
+.map {
+  width: 100%;
+  height: 100%;
+}
+
+.map_pois {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0px;
+  height: 200px;
+  background-color: #fff;
+}
+
+.map_pois_title{
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0px;
+  height: 40px;
+  line-height: 40px;
+  background-color: #1296db;
+  font-size: 14px;
+  color: #fff;
+  padding-left: 10px;
+  text-align: left;
+  font-weight: 700;
+}
+.map_pois_title_click{
+  bottom: 200px;
+}
+.ft {
+  display: inline-block;
+  height: 6px;
+  width: 6px;
+  border-width: 2px 0 0 2px ;
+  border-color: #fff;
+  border-style: solid;
+  transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0);
+  top: -2px;
+  position: absolute;
+  top: 50%;
+  margin-top: -4px;
+  right: 12px;
+}
+
+.ft_down {
+  border-width: 0 2px 2px 0;
+}
+.goeitem {
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: row;
+  border-bottom: 1px solid #cdcdcd;
+  padding:5px 0;
+  height: 40px;
+  font-size: 12px;
+}
+.goeitem_z{
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: row;
+  border-bottom: 1px solid #cdcdcd;
+  padding:10px 0;
+  font-size: 14px;
+}
+.geoitem view {
+  flex: 1;
+}
+.goeitem_index {
+  width: 10%;
+  text-align: center;
+  margin:auto 0;
+}
+.goeitem_name {
+  width: 90%;
+  text-align: left;
+}
+.goe_title{
+  width: 100%;
+  height: 30px;
+  line-height: 30px;
+  background-color: #1296db;
+  font-size: 14px;
+  color: #fff;
+  padding-left: 10px;
+  text-align: left;
+  font-weight: 700;
+}

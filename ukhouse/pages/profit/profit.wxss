@@ -1,0 +1,56 @@
+@import '/styles/weui.wxss';
+.weui-label{
+  width:136px;
+  font-size: 14px;
+}
+.weui-cell__bd{
+  font-size: 14px;
+}
+.padding10{
+  padding: 10px 0;
+}
+.page__title{
+  text-align: center;
+  position: relative;
+}
+.ft-left {
+  display: inline-block;
+  height: 10px;
+  width: 10px;
+  border-width:  0 0 2px 2px ;
+  border-color: #000;
+  border-style: solid;
+  transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0);
+  top: -2px;
+  position: absolute;
+  top: 50%;
+  margin-top: -4px;
+  left: 20px;
+}
+.ft-right {
+  display: inline-block;
+  height: 10px;
+  width: 10px;
+  border-width: 2px 2px 0 0  ;
+  border-color: #000;
+  border-style: solid;
+  transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0);
+  top: -2px;
+  position: absolute;
+  top: 50%;
+  margin-top: -4px;
+  right: 20px;
+}
+.page_scroll{
+  height: 390px;
+}
+.panel_hd_lab{
+padding-left: 5px;
+margin-left:5px;
+  border-left: 3px solid #003399 ;
+  color: #003399;
+}
+.flex{
+  display: flex;
+  flex-direction: row;
+}

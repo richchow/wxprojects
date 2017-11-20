@@ -1,0 +1,82 @@
+<view class='page'>
+  <view><image src='/images/1002.png' mode='widthFix' style='width:100%'></image></view>
+  <view>
+    <view class="about_title">关于我们</view>
+    <view class='about_content'>
+      <p>英国津桥置业有限公司荣誉代理全英大型开发商在伦敦、曼城、伯明翰等地的优质楼盘，秉承“创造被动收入、持续净现金流”的专业投资理念，竭诚为中国投资者提供最佳不动产投资方案，并深受客户信赖。</p>
+      <p>在被投资者热烈追捧的伦敦，津桥置业所代理销售的楼盘达到50个以上，具备丰富的市场细分和特色化服务。在国际化世界的今天，跨国投资不动产已经不再困难。而津桥，通过我们在中英两国的团队，为您提供最专业的高质量服务。</p>
+    </view>
+  </view>
+  <view>
+    <view class="about_title">津桥团队</view>
+    <view class='about_content'>
+      <p>英国津桥置业有限公司的合伙人及高管，均有英国本地名校的硕士或MBA学历，财务总监有英国ACCA执照，在业内有10年以上经验，多数高管曾在世界500强任职，形成公司管理风格科学严谨而务实，流程清晰而高效，以保障客户服务水平为最核心KPI。</p>
+    </view>
+  </view>
+  <view>
+    <view class="about_title">津桥置业的四大优势</view>
+    <view class='about_content2'>
+      <view class='about_content_title'>经验丰富，资深专家</view>
+      <view>
+        <ul>
+          <li>业界10年以上投资及服务经验</li>
+          <li>专业理念 - “净现金流，高收益率”</li>
+          <li>投资专栏讲解投资心理学及技巧</li>
+        </ul>
+      </view>
+    </view>
+    <view class='about_content2'>
+      <view class="about_content_title">品质保障，值得信赖</view>
+      <view>
+        <ul>
+          <li>顶级英国开发商，品质卓越</li>
+          <li>10年NHBC建筑保险</li>
+          <li>金牌融资及法律服务</li>
+        </ul>
+      </view>
+    </view>
+    <view class='about_content2'>
+      <view class="about_content_title">全程服务，无忧置业</view>
+      <view>
+        <ul>
+          <li>一对一全程服务，海外置业无障碍</li>
+          <li>律师及贷款机构的中文支持</li>
+          <li>提供全透明政策法规资料</li>
+        </ul>
+      </view>
+    </view>
+    <view class='about_content'>
+      <view class="about_content_title">精益管理，优质流程</view>
+      <view>
+        <ul>
+          <li>公司管理层为英国硕士，MBA</li>
+          <li>多年世界500强从业经历</li>
+          <li>引进六西格玛优化服务及流程</li>
+        </ul>
+      </view>
+    </view>
+  </view>
+  <view>
+    <view class="about_title">联系方式</view>
+    <view class='about_content2'>
+      <view class="about_content_title">英国</view>
+      <view>
+        <view>英国津桥置业有限公司 Oxbridge Properties Service Ltd</view>
+        <view>地址：Knowledge Dock Business Center, London E16 2RD</view>
+        <view>Tel：+44(0) 20 71013368</view>
+      </view>
+    </view>
+    <view class='about_content'>
+      <view class="about_content_title">中国</view>
+      <view>
+        <view>上海奥丹商务咨询有限公司</view>
+        <view>地址：上海市静安区恒丰路568号恒汇国际大厦22楼</view>
+        <view>E-mail：info@chinaukhome.com</view>
+        <view>网站：http://www.chinaukhome.com</view>
+        <view>公众号：英国房产通</view>
+        <view>微信号：chinaukhome 或 UKFangChanTong</view>
+      </view>
+    </view>
+  </view>
+  <view><image src='/images/1012.png' mode='widthFix' style='width:100%'></image></view>
+</view>

@@ -1,1 +1,4 @@
-/* pages/map/map.wxss */
+.map-all{
+  width: 100%;
+  height:100%;
+}

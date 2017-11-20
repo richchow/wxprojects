@@ -13,6 +13,7 @@ class DataService {
         method: 'get',
         url: 'getClass',
         baseURL: that.getRequestUrl(),
+        withCredentials:true,
         params: {
         }
       })
@@ -72,7 +73,7 @@ class DataService {
   */    
       var params = new URLSearchParams();
       params.append('paraData', JSON.stringify(target));
-      axios.post(that.getRequestUrl()+'setCollectionPointInfo', params)
+      axios.post(that.getRequestUrl()+'setCollectionPointInfo', params,{withCredentials:true})
       .then(function (response) {
         console.log('response:', response);
         if (response.status == 200) {
@@ -87,7 +88,7 @@ class DataService {
   }
 
   getRequestUrl() {
-    // return 'https://wx.jycloud.cc/';
+   //  return 'https://wx.jycloud.cc/';
     return 'http://192.168.1.109:8089/';
   }
 };

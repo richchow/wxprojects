@@ -21,8 +21,33 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
-			"list": []
+			"current": 0,
+			"list": [
+				{
+					"id": -1,
+					"name": "detail",
+					"pathName": "pages/detail/detail",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "about",
+					"pathName": "pages/about/about",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "tax",
+					"pathName": "pages/tax/tax",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "profit",
+					"pathName": "pages/profit/profit",
+					"query": ""
+				}
+			]
 		}
 	}
 }

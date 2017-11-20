@@ -1,0 +1,93 @@
+<view class="page" xmlns:wx="http://www.w3.org/1999/xhtml">
+  <view class="page__hd">
+    <view class="page__title">购买税费计算器</view>
+  </view>
+  <view class="page__bd">
+    <view class="weui-cells__title">请输入相关信息</view>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+          <view class="weui-label">房产价格(英镑)</view>
+        </view>
+        <view class="weui-cell__bd">
+          <input class="weui-input" maxlength="10" type="number" bindinput="bindKeyInput" auto-focus placeholder="请输入房产价格" />
+        </view>
+      </view>
+      <view class="weui-cell weui-cell_select">
+        <view class="weui-cell__hd weui-cell__hd_in-select-after">
+          <view class="weui-label">房产性质</view>
+        </view>
+        <view class="weui-cell__bd">
+          <picker bindchange="bindPickerChange" value="{{houseIndex}}" range="{{house}}">
+            <view class="weui-select">{{house[houseIndex]}}</view>
+          </picker>
+        </view>
+      </view>
+      <view class="weui-cell weui-cell_switch">
+        <view class="weui-cell__bd">是否需要贷款？</view>
+        <view class="weui-cell__ft">
+          <switch bindchange="switch1Change" />
+        </view>
+      </view>
+    </view>
+    <view class="weui-cells__title">所需购买的税费</view>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd padding10">
+          <view class="weui-label">印花税</view>
+        </view>
+        <view class="weui-cell__bd">
+          <text>{{yhs}}英镑</text>
+        </view>
+      </view>
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd padding10">
+          <view class="weui-label">律师服务费及杂费</view>
+        </view>
+        <view class="weui-cell__bd">
+          <text>{{lsf}}英镑</text>
+        </view>
+      </view>
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd padding10">
+          <view class="weui-label">律师房产调查费</view>
+        </view>
+        <view class="weui-cell__bd">
+          <text>{{dcf}}英镑</text>
+        </view>
+      </view>
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd padding10">
+          <view class="weui-label">房产登记费</view>
+        </view>
+        <view class="weui-cell__bd">
+          <text>{{djf}}英镑</text>
+        </view>
+      </view>
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd padding10">
+          <view class="weui-label">贷款银行评估费</view>
+        </view>
+        <view class="weui-cell__bd">
+          <text>{{pgf}}英镑</text>
+        </view>
+      </view>
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd padding10">
+          <view class="weui-label">贷款银行产品费</view>
+        </view>
+        <view class="weui-cell__bd">
+          <text>{{cpf}}英镑</text>
+        </view>
+      </view>
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd padding10">
+          <view class="weui-label">贷款经纪人费用</view>
+        </view>
+        <view class="weui-cell__bd">
+          <text>{{jjr}}英镑</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

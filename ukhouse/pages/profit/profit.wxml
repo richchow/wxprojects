@@ -1,0 +1,190 @@
+<view class="page" xmlns:wx="http://www.w3.org/1999/xhtml">
+  <view class="page__hd">
+    <view class="page__title">房产投资回报计算器</view>
+    <view class="page__title flex">
+      <view style='flex:1;' bindtap="toleft">
+        <span class="ft-left"></span>
+      </view>
+      <view style='flex:1;'>{{year[yearIndex].name}}</view>
+      <view style='flex:1;' bindtap="toright">
+        <span class="ft-right"></span>
+      </view>
+    </view>
+  </view>
+  <view class="page__bd">
+    <scroll-view scroll-y class="page_scroll">
+      <view class="weui-cells__title">请输入相关信息</view>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">房产市场价格(英镑)</view>
+          </view>
+          <view class="weui-cell__bd">
+            <input class="weui-input" maxlength="10" type="number" bindinput="bindKeyInput" value='{{year[yearIndex].total.value}}' placeholder="请输入房产市场价格" />
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">首付比例(%)</view>
+          </view>
+          <view class="weui-cell__bd">
+            <input class="weui-input" maxlength="3" type="number" bindinput="bindSF" value="{{year[yearIndex].total.sf}}" placeholder="请输入首付比例" />
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_select">
+          <view class="weui-cell__hd weui-cell__hd_in-select-after">
+            <view class="weui-label">房产性质</view>
+          </view>
+          <view class="weui-cell__bd">
+            <picker bindchange="bindPickerChange" value="{{houseIndex}}" range="{{house}}">
+              <view class="weui-select">{{house[houseIndex]}}</view>
+            </picker>
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">面积（平方英尺）</view>
+          </view>
+          <view class="weui-cell__bd">
+            <input class="weui-input" maxlength="10" type="number" bindinput="bindMJ" value="{{year[yearIndex].total.mj}}" placeholder="请输入房产面积" />
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">月租金收益率（%）</view>
+          </view>
+          <view class="weui-cell__bd">
+            <input class="weui-input" maxlength="3" type="digit" bindinput="bindYSYL" value="{{year[yearIndex].total.ysyl}}" placeholder="请输入月租金收益率" />
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">贷款利率（%）</view>
+          </view>
+          <view class="weui-cell__bd">
+            <input class="weui-input" maxlength="5" type="digit" bindinput="bindDKLL" value="{{year[yearIndex].total.dkll}}" placeholder="请输入贷款利率" />
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">物业费（英镑/平尺）</view>
+          </view>
+          <view class="weui-cell__bd">
+            <input class="weui-input" maxlength="5" type="digit" bindinput="bindWYF" value="{{year[yearIndex].total.wyf}}" placeholder="请输入物业费" />
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">地租/年</view>
+          </view>
+          <view class="weui-cell__bd">
+            <input class="weui-input" maxlength="10" type="digit" bindinput="bindDZ" value="{{year[yearIndex].total.dz}}" placeholder="请输入地租" />
+          </view>
+        </view>
+
+      </view>
+      <view class="weui-cells__title">费用与收益</view>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd padding10">
+            <view class="weui-label">印花税</view>
+          </view>
+          <view class="weui-cell__bd">
+            <text>{{year[yearIndex].total.yhs}}英镑</text>
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd padding10">
+            <view class="weui-label">月租金收益</view>
+          </view>
+          <view class="weui-cell__bd">
+            <text>{{year[yearIndex].total.yzj}}英镑</text>
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd padding10">
+            <view class="weui-label">月还款利息</view>
+          </view>
+          <view class="weui-cell__bd">
+            <text>{{year[yearIndex].total.ylx}}英镑</text>
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd padding10">
+            <view class="weui-label">月物业费</view>
+          </view>
+          <view class="weui-cell__bd">
+            <text>{{year[yearIndex].total.ywy}}英镑</text>
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd padding10">
+            <view class="weui-label">出租代理费</view>
+          </view>
+          <view class="weui-cell__bd">
+            <text>{{year[yearIndex].total.czdlf}}英镑</text>
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd padding10">
+            <view class="weui-label">租房利润/月</view>
+          </view>
+          <view class="weui-cell__bd">
+            <text>{{year[yearIndex].total.ylr}}英镑</text>
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd padding10">
+            <view class="weui-label">租房利润/年</view>
+          </view>
+          <view class="weui-cell__bd">
+            <text>{{year[yearIndex].total.nlr}}英镑</text>
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd padding10">
+            <view class="weui-label">房价上涨（8%/年）</view>
+          </view>
+          <view class="weui-cell__bd">
+            <text>{{year[yearIndex].total.fsz}}英镑</text>
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd padding10">
+            <view class="weui-label">年收益</view>
+          </view>
+          <view class="weui-cell__bd">
+            <text>{{year[yearIndex].total.nsy}}英镑</text>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+    <view class="weui-cells__title panel_hd_lab">总收益</view>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd padding10">
+          <view class="weui-label">初始购买投资</view>
+        </view>
+        <view class="weui-cell__bd">
+          <text>{{initial}}英镑</text>
+        </view>
+      </view>
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd padding10">
+          <view class="weui-label">{{year[yearIndex].id}}年税前收益</view>
+        </view>
+        <view class="weui-cell__bd">
+          <text>{{pretax}}英镑</text>
+        </view>
+      </view>
+      <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd padding10">
+          <view class="weui-label">{{year[yearIndex].id}}年总投资收益率</view>
+        </view>
+        <view class="weui-cell__bd">
+          <text>{{total}}%</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

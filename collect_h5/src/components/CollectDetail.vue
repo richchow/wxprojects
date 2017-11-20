@@ -1,7 +1,6 @@
 <template>
     <div class="container">
-  <div class="web-top"><div @click="toBack"><label class="web-top-back"></label>返回</div></div>
-    <div class="page">
+    <div v-if="!isError" class="page">
         <div id="templatestr" class="pade__bd">
           <div class="weui-cells weui-cells_form">
                 <div class="weui-cell">
@@ -56,12 +55,15 @@ export default {
   name: "CollectDetail",
   data() {
     return {
+      isWX: false,
+      isError: false,
       submitStatus: true,
       classlist: [],
       piontname: "",
       piontaddress: "",
       piontcategory: "",
-      piontlatLng: {},
+      piontlatLng: "",
+      currcategory: "",
       inputval: [],
       dialog: {
         showDialog: false,
@@ -73,166 +75,7 @@ export default {
         btnDefault: ""
       },
       imgtotal: 0,
-      jsonlist: [
-        {
-          Typename: null,
-          lts: [
-            {
-              Typename: null,
-              lts: null,
-              targetid: 11,
-              targetname: "无障碍客房数量",
-              remark: "间",
-              targettype: 1,
-              parentid: 10,
-              targetvalue: null,
-              havepic: 0,
-              picremark: null,
-              classid: null
-            },
-            {
-              Typename: null,
-              lts: null,
-              targetid: 12,
-              targetname: "无障碍客房大门宽度",
-              remark: "毫米",
-              targettype: 1,
-              parentid: 10,
-              targetvalue: null,
-              havepic: 0,
-              picremark: null,
-              classid: null
-            },
-            {
-              Typename: null,
-              lts: null,
-              targetid: 13,
-              targetname: "无障碍房间床高",
-              remark: "毫米",
-              targettype: 1,
-              parentid: 10,
-              targetvalue: null,
-              havepic: 1,
-              picremark: null,
-              classid: null
-            },
-            {
-              Typename: null,
-              lts: null,
-              targetid: 14,
-              targetname: "无障碍客房卫生间门宽度",
-              remark: "毫米",
-              targettype: 1,
-              parentid: 10,
-              targetvalue: null,
-              havepic: 0,
-              picremark: null,
-              classid: null
-            },
-            {
-              Typename: null,
-              remark: [],
-              targetid: 15,
-              targetname: "无障碍客房卫生间马桶是否有扶手",
-              lts: [
-                {
-                  Typename: null,
-                  lts: null,
-                  targetid: 111,
-                  targetname: "无障碍客房数量",
-                  remark: "间",
-                  targettype: 1,
-                  parentid: 15,
-                  targetvalue: null,
-                  havepic: 0,
-                  picremark: null,
-                  classid: null
-                },
-                {
-                  Typename: null,
-                  lts: null,
-                  targetid: 112,
-                  targetname: "无障碍客房数量",
-                  remark: "间",
-                  targettype: 1,
-                  parentid: 15,
-                  targetvalue: null,
-                  havepic: 0,
-                  picremark: null,
-                  classid: null
-                }
-              ],
-              targettype: 0,
-              parentid: 10,
-              targetvalue: "有|无",
-              havepic: 0,
-              picremark: null,
-              classid: null
-            },
-            {
-              Typename: null,
-              lts: null,
-              targetid: 16,
-              targetname: "无障碍卫生间转角距离",
-              remark: "毫米",
-              targettype: 1,
-              parentid: 10,
-              targetvalue: null,
-              havepic: 0,
-              picremark: null,
-              classid: null
-            },
-            {
-              Typename: null,
-              lts: null,
-              targetid: 17,
-              targetname: "无障碍卫生间淋浴情况",
-              remark: null,
-              targettype: 2,
-              parentid: 10,
-              targetvalue: "干湿分离|浴箱|浴缸",
-              havepic: 0,
-              picremark: null,
-              classid: null
-            },
-            {
-              Typename: null,
-              lts: null,
-              targetid: 18,
-              targetname: "无障碍卫生间淋浴花洒距马桶距离",
-              remark: "毫米",
-              targettype: 1,
-              parentid: 10,
-              targetvalue: null,
-              havepic: 0,
-              picremark: null,
-              classid: null
-            },
-            {
-              Typename: null,
-              lts: null,
-              targetid: 19,
-              targetname: "无障碍卫生间洗手池膝下空间",
-              remark: "毫米",
-              targettype: 1,
-              parentid: 10,
-              targetvalue: null,
-              havepic: 1,
-              picremark: null,
-              classid: null
-            }
-          ],
-          targetid: 10,
-          targetname: "是否有无障碍客房",
-          remark: null,
-          targettype: 0,
-          parentid: 0,
-          targetvalue: "有|无",
-          havepic: 0,
-          picremark: null,
-          classid: 4
-        }
-      ],
+      jsonlist: [],
       imgtotal: 0
     };
   },
@@ -277,12 +120,34 @@ export default {
   },
   created() {
     let that = this;
-    this.piontname = this.$route.params.name;
-    this.piontaddress = this.$route.params.address;
-    this.piontcategory = this.$route.params.category;
+
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = "https://res.wx.qq.com/open/js/jweixin-1.3.0.js";
+    document.head.appendChild(script);
+    if (window.__wxjs_environment === "miniprogram") {
+      that.isWX = true;
+    }
+
+    this.piontname =
+      this.$route.params.name == " " ? "" : this.$route.params.name;
+    this.piontaddress =
+      this.$route.params.address == " " ? "" : this.$route.params.address;
+    this.piontcategory =
+      this.$route.params.category == " " ? "" : this.$route.params.category;
     this.piontlatLng = this.$route.params.latLng;
-    if (this.piontlatLng == undefined) {
-      window.history.back();
+    if (this.piontlatLng == undefined || this.piontlatLng == "") {
+      this.isError = true;
+      let dialog = {
+        showDialog: true,
+        noDefault: true,
+        handletype: "defalut",
+        dialogTitle: "错误",
+        dialogContent: "数据错误，请返回重试！",
+        btnPrimary: "确定",
+        btnDefault: "取消"
+      };
+      bus.$emit("showDialog", dialog);
     } else {
       let datas = new dataService();
       datas.getClass(function(item) {
@@ -296,35 +161,44 @@ export default {
   },
   mounted: function() {
     let that = this;
-    bus.$on("updateValue", function(id, parent,name, value) {
-      that.updateValue(id, parent,name, value);
+    bus.$on("updateValue", function(id, parent, name, value) {
+      that.updateValue(id, parent, name, value);
     });
     bus.$on("updateImgtotal", function(value) {
       that.imgtotal = value;
     });
-    bus.$on("updateImageValue", function(ctype, id, parent,name, value, src) {
-      that.updateImageValue(ctype, id, parent,name, value, src);
+    bus.$on("updateImageValue", function(ctype, id, parent, name, value, src) {
+      that.updateImageValue(ctype, id, parent, name, value, src);
     });
   },
   methods: {
     submit: function() {
       var that = this;
-      if (this.inputval.length > 0 && this.submitStatus) {
+
+      if (
+        this.inputval.length > 0 &&
+        this.submitStatus &&
+        that.piontname != "" &&
+        that.piontaddress != ""
+      ) {
         that.submitStatus = false;
+
         let target = {
           name: that.piontname,
           address: that.piontaddress,
-          category: that.piontcategory,
+          category:
+            that.piontcategory == "" ? that.currcategory : that.piontcategory,
           latLng: that.piontlatLng,
           target: that.inputval
         };
+        console.log(target);
         let datas = new dataService();
         datas.setCollectionPointInfo(target, function(item) {
           if (item.RetCode == 0) {
             let dialog = {
               showDialog: true,
               noDefault: true,
-              handletype: "submit",
+              handletype: that.isWX ? "wxsubmit":"submit",
               dialogTitle: "保存成功",
               dialogContent: "您提交的采集信息已保存成功！",
               btnPrimary: "确定",
@@ -358,12 +232,10 @@ export default {
         bus.$emit("showDialog", dialog);
       }
     },
-    toBack: function() {
-      window.history.back();
-    },
     selectClass(value) {
       let curr = Number(value[value.selectedIndex].value);
       this.jsonlist = this.classlist[curr].lvc;
+      this.currcategory = this.classlist[curr].vClassName;
     },
     clPrimary: function(handletype) {
       let that = this;
@@ -376,7 +248,7 @@ export default {
         window.history.back();
       }
     },
-    updateValue: function(id, parent, name,value) {
+    updateValue: function(id, parent, name, value) {
       if (typeof value == "string" && (value == "" || value == "请选择")) {
         for (let i in this.inputval) {
           if (this.inputval[i].id === id) {
@@ -407,7 +279,7 @@ export default {
           this.inputval.push({
             id: id,
             parentid: parent,
-            name:name,
+            name: name,
             value: value,
             pic: []
           });
@@ -415,7 +287,7 @@ export default {
       }
       console.log("inputval", this.inputval);
     },
-    updateImageValue: function(ctype, id, parent,name, value, src) {
+    updateImageValue: function(ctype, id, parent, name, value, src) {
       if (ctype == "add") {
         let bo = false;
         for (let item of this.inputval) {
@@ -429,7 +301,7 @@ export default {
           this.inputval.push({
             id: id,
             parentid: parent,
-            name:name,
+            name: name,
             value: "",
             pic: value
           });
@@ -452,6 +324,9 @@ export default {
 };
 </script>
 <style scoped>
+.weui-cell{
+  font-size: 14px;
+}
 .page__ft {
   height: 100px;
 }

@@ -1,0 +1,46 @@
+<view class="page">
+  <swiper class="slide-banner" indicator-dots="true" autoplay="true" current="{{currSwiper}}" bindchange="changeSwiper" interval="5000" duration="500" circular="true">
+    <block wx:for="{{imgUrls}}" wx:for-index="idx">
+      <swiper-item>
+        <view class="slide-view" bindtap='showImage' data-idx='{{idx}}'>
+          <label class="slide-lab">{{item.name}}</label>
+          <image src="{{item.src}}" class="slide-image" mode="scaleToFill" />
+        </view>
+      </swiper-item>
+    </block>
+  </swiper>
+  <view class="content-view">
+    <view class='content-panel_hd'>
+      <view class='content-panel_hd_img'>
+        <image src="/images/house.png" style='width:24px;height:24px;'></image>
+      </view>
+      <view class='content-panel_hd_title'>{{houselist.name}}</view>
+    </view>
+    <view class='content-view-box'>
+      <view class='content-view-box_bd'>
+        <view class='content-view-box_desc'>{{houselist.desc}}</view>
+      </view>
+    </view>
+  </view>
+  <view>
+    <view class="content-view" wx:for="{{houselist.content}}" wx:for-item="item" wx:for-index="idx">
+      <view class='content-panel_hd'>
+        <label class='content-panel_hd_lab'>{{item.name}}</label>
+      </view>
+      <view class='content-view-box'>
+        <view class='content-view-box_bd'>
+          <text class='content-view-box_desc'>{{item.value}}</text>
+        </view>
+      </view>
+      <view>
+
+      </view>
+    </view>
+  </view>
+   <view bindtap="tax" class="bottomleftBtn">
+    计算购买税费
+  </view>
+  <view bindtap="profit" class="bottomrightBtn">
+    计算投资回报
+  </view>
+</view>

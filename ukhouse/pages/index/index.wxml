@@ -1,9 +1,40 @@
-<view>
-  <swiper indicator-dots="true" autoplay="true" interval="5000" duration="500" circular="true">
+<view class="page">
+  <swiper class="slide-banner" indicator-dots="true" autoplay="true" current="{{currSwiper}}" bindchange="changeSwiper" interval="10000" duration="800" circular="true">
     <block wx:for="{{imgUrls}}">
       <swiper-item>
-        <image src="{{item}}" class="slide-image" width="355" height="150" />
+        <view class="slide-view">
+          <label class="slide-lab">{{item.name}}</label>
+          <image src="{{item.src}}" class="slide-image" mode="scaleToFill" />
+        </view>
       </swiper-item>
     </block>
   </swiper>
+  <view class='slide-tags'>
+    <block wx:for="{{imgUrls}}" wx:for-index="idx">
+      <view class="slide-tags_tag" data-idx='{{idx}}' bindtap='clChangeSwiper'>
+        <image class="slide-tags_img {{item.checked ? 'slide-tags_checked' : ''}}" src="{{item.src}}"></image>
+        <label class="slide-tags_lab">{{item.name}}</label>
+      </view>
+    </block>
+  </view>
+  <view class="content-view" wx:if="{{idx == currSwiper}}" wx:for="{{houselist}}" wx:for-item="item" wx:for-index="idx">
+    <view class='content-panel_hd'><label class='content-panel_hd_lab'>{{item.name}}房产信息</label></view>
+    <view class='content-view-box' wx:for="{{item.houses}}" wx:for-item="it" bindtap="clToDetail">
+      <view class='content-view-box_hd'>
+        <image class='content-view-box_thumb' mode='widthFix' src="{{it.src}}"></image>
+      </view>
+      <view class='content-view-box_bd'>
+        <view class='content-view-box_title'>{{it.name}}</view>
+        <view class='content-view-box_desc'>{{it.content}}</view>
+      </view>
+    </view>
+    <view>
+    </view>
+  </view>
+  <view class="content-view margin-bottom" bindtap='clToAbout'>
+    <view class='content-panel_hd'>
+      <label class='content-panel_hd_lab'>关于我们 About us</label>
+      <span class="ft"></span>
+    </view>
+  </view>
 </view>
